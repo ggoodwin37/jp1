@@ -2,6 +2,12 @@
 
 - one of the old test levels has a large number of crates that are essentially acting as inert blocks, i.e. packed in and unmovable. but perf seems to go down quite a bit, are we wasting work?
 
+- player gibs broken (invisible, but still in ER)
+- some levels crash (?? go through existing test levels)
+- trying to erase 2x2 blocks (instead of 4x4) seemed to not work in some cases.
+- autovariation not quite right, looks like it might be a simple edge flip type of problem.
+
+
 
 // old
 

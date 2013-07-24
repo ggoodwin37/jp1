@@ -147,7 +147,7 @@
 
 #define ERSTATS_REPORT_INTERVAL_S  (2.f)
 
-//#define LOG_ER_STATS
+#define LOG_ER_STATS
 
 @interface ERStats : NSObject
 {

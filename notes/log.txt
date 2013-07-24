@@ -191,7 +191,14 @@ Have some time to write a little code for the next 4 days. Rough plan of attack 
   - event system foundation
   - new monster?
 - plug in some new graphics.
-- bug pass (gibs, world bottom, some levels crash).
+- bug pass
 
 // perf pass
 initial state: level draw-stress-01  average world update (3rd iteration): 31.3ms
+
+so the core problem appears to be that we are making tons of ER calls. about two thirds go to abuttListUpdater and one third goes to propagateMovement. need to find a way to slim down abuttListUpdater. Can't really find any shortcuts for updating abuttLists, so maybe there's a way to do it less often. going to look into on-demand abutt list updating but I have a feeling they would just constantly be in demand so no gain.
+
+trying on-demand abutt list generation. ERStats pre:
+cnolist=0 tnolist=0 clist=2928 tlist=713 cdup=2928 tdup=0
+post:
+TODO

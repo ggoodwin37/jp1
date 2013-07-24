@@ -2,6 +2,16 @@
 
 // near term plan
 
+// things that call getAbuttListForDirection:
+- actor jump-reset check (self, down only)
+- gravity updater (self, down only, canMove/affectedByGravity)
+- gravFriction updater (self, down only, friction)
+- gapCheck (perpNode, any direction, canMove)
+- nodeRecurse (perpNode, any direction, canMove)
+- getVOffset (self, down, canMove)
+- exemptGroupCheck (self, down, canMove)
+- opposingMotiveUpdater (self, any direction the object has motive in).
+
 - experimental physics change: for blocks that are affected by gravity, only paraProp if they are standing on something. does this break collision detection?
   - I forget why this was originally interesting, is it intended to stop player from jump-up-pushing stuff? but there's a risk that core collision detection would stop working.
 

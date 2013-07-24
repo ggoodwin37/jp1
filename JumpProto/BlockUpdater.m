@@ -182,14 +182,9 @@
     {
         return;
     }
-    
-    
+
     static const ERDirection dirList[] = { ERDirUp, ERDirLeft, ERDirRight, ERDirDown };
     const int dirListCount = 4;
-    
-    // TODO: optimization here about remembering when we don't even need to check a direction.
-    //       this state needs to get cleared when we newly touch something, or when something newly touches us.
-    //       (and when we are newly not touching something)
     
     // TODO: can we make any improvements at the ER level to make "get abutter list" faster? we may be
     //       able to bail out of the core ER collision checker earlier if we only have to check for abutters.
