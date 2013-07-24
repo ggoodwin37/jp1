@@ -1,0 +1,254 @@
+1-1
+happy new year. added sprite support to edit, snazzy. trying to get a short-term plan in effect leading up to the next coding burst in two weeks.
+
+added "January 2012 plan" to track this.
+
+possible improvement for basic push scenario: can we propagate pusher's v to pushee in such a way that it will again propagate to the next pushee in a chain scenario? this propagation can be attenuated by a factor to simulate slowdown. If the last pushee in the chain has elbow room, the whole chain will move (even if not in the same frame...how bad is this jitter? relative update order is random). The trick is to have the "pusher-induced" velocity be persistent enough to propagate several frames without bouncing or dying down. how do we know when we truly need to bounce? what is the intended behavior here anyways? do a quick test level to investigate the scenario where I have a platform moving towards a series of blocks that can be pushed a short distance...what _should_ happen here?
+
+1-11
+I added Motive which solves pretty much all of the crate-pushing issues I had. there are a few new bugs introduced which I should tackle directly.
+
+1-13
+Added some silly pics of the kids and made crates out of em. Interesting to see photos alongside my crappy programmer art. maybe I can do more with that, at least for test art.
+
+x fix space jump firing issue
+x fix head bump issue
+x fix conveyor/grid issue
+- look into downblockV issues with crates, conveyors, etc.
+- some physics constants singleton that can select from several sets for testing or silly purposes?
+
+
+1-21
+3rd coding burst in effect. I have added birth and death, player can now die when touching spikes and skulls. many levels now unplayable :)
+
+up next:
+x die when fall past yBottom
+x win when touch flags
+x autoreset onDead?
+x first enemy
+x dirty flag in edit
+x level names in edit
+
+1-23
+
+note: when debugging "unrecognized selector" issues (dangling pointers), use "break on exception" which is hidden behind the + button on the breakpoint navigator tab.
+
+1-26
+3rd coding burst is complete. Was a moderate success but I feel like I wasted a lot of time on a few annoying bugs (such as the dangling pointer issue mentioned above).
+
+Main improvements over this burst:
+- added death and winning, including gibs on death, as well as being born, resetting on death, advancing on win, etc.
+- added support for monsters in general. Two specific monsters added: TestMeanieB and Facebone.
+- added a handful of new elements, including some plain block graphics, two varieties of mines, and a test spring object (just physics, no animation yet).
+- some tweaks to edit, including dirty flag and level naming.
+- bug fixes
+
+So now this thing is more like a game than ever before. When I added the ability to die, I realized most levels are quite a bit harder than I had anticipated. Also long difficult levels don't mesh well with the "instant death" scheme you have going on now.
+
+So for the first time I can sort of get a feel for what playing this game would be like, and to be honest it isn't blowing me away. There's only so much jumping over enemies that you can do. There isn't much use for crates. Perf issues start to appear just when levels start getting big enough to be interesting.
+
+It largely comes down to the issue I've expected for a while: there isn't yet enough variation for the user to be able to choose meaningful actions. Staying alive is interesting but there needs to be a whole lot more to create enough scope to fill out 400 levels with unique, interesting challenges. Some levels can definitely be about dodging Facebones, but there should also be a whole lot more stuff in my bag of tricks.
+
+So with that in mind, I think my next areas of focus should be around expanding the bag of tricks. Some initial ideas:
+- get started with the event system. Before writing any code, you should sketch out a handful of scenarios that you need to cover.
+- item system. I think this is really the heart of the game. Once you have items, a ton of gameplay scenarios open up.
+- level layers. This will really free up the level design aspect of the game. Need to think through how this works. Does Play mode know about layers? (it probably has to, at least for z-ordering). are layers dedicated to certain types of objects, or are they just multiple instances of the same block container?
+- some types of blocks pay off more in "bag of tricks" than others. I want to add a crumbling block next, should create some interesting scenarios. Blowers, air cannons, magnets?
+
+1-27
+Taking a few sessions to look at perf. Fixed some low-hanging memory leaks. Looked at cpu profiles but I don't see much gain to be had at that level. Basically, we have to do a lot of work when updating the world. I assume it's normal for objc_msgSend to take about 25% total time? anything we can do there? call fewer methods? maybe worth unrolling some inner-loop stuff, but I don't see any obvious candidates.
+
+but I think it's safe to say there are no huge silver bullet fixes for cpu time at this point. will need to consider algorithmic improvements to get real gain.
+
+still more work to do on memory leaks but I think it can wait for now.
+
+timed worldView drawing, as expected it scales with amount of stuff on screen, at worst about 11ms (which is most of a frame at 60fps). maybe some room for optimizations there (does it help to reduce texture switches?). in terms of polygons, this game is nothing compared to lots of other games, but total pixel fill area is not trivial. still, I might be doing something stupid somewhere. currently it's only possible to have one block in one spot for the most part, but when you add layers and backgrounds you'll need to be smart about overdraw.
+
+next I'll spend a little time thinking about better velocity propagation models, seems like there's a better way than what I have now. not really happy with the motive/velocity duality, why is that required? A lot of the corner cases come from the fact that if we bounce mid-frame, we want to preserve apparent velocity, maybe relaxing that requirement helps?
+
+I've had a few sparks of magic come out of the latest builds. I'm starting to see good puzzle potential. I'm hoping that the gameplay potential will explode at some point, when I hit critical mass of interesting things in the world.
+
+2-21
+After lots of hemming and hawing I finished a significant optimization for worldView drawing. Now at load time we'll smush all the textures into one big combined sheet so we never have to rebind textures midframe. On the drawing stress levels like oubliette, I went from 13ms draw time per frame to 7ms. In general things feel smoother. Also allows us to do nice things like build in padding and/or pretile blocks to fix blending issues (future).
+
+hmm, guess pretiling is more complicated than it sounds. just wrapping the current block is not correct. need to use something similar to an AV hint to allow us to choose the right source for each pretiled strip.
+
+Next up:
+- check memory leaks after optSheet change.
+- prep for velocityUpdater overhaul.
+
+2-25
+
+added "thoughts on velocity overhaul". I think this might work a little cleaner. would love to solve this once and for all.
+
+2-26
+
+lost all recent levels due to a bad password reset. that security policy sucks. this has prompted me to do the level manifest work so I can backup levels :P
+
+3-1
+
+manifest stuff mostly implemented but still need to do the most important part, actually zipping and email the packs :P
+
+starting to lay down some ground work for the updater overhaul. a little concerned about perf compared to how things are now.
+
+need to do some worldUpdate timing scenarios before digging in too deep.
+
+3-8
+
+...but of course I forgot to do the worldUpdate timing scenarios before digging in too deep. I wish I could just "pack dpk and revert", there must be a way to do this using bookmarks (or at worst, copying the working copy)
+
+been working on velocity overhaul. it's going kind of slowly but I think the design/api is coming together. just need to do the implementation. abuttUpdater should be ok. the updateStack stuff might more complicated.
+
+I keep worrying that I'll run into a bad velocity scenario. example: if I am riding a moving block, how do I keep from accumulating more velocity every frame? I think we'll be doing accumulate and take min a lot.e.g. motive is "upper bound" for pushed blocks.
+
+I'm excited about this idea I had about increasing level grid resolution. also need to support variable dimensions rectangles in edit to add more flexibility. implies a level and maybe art reset?
+
+3-13
+
+making slow but steady progress on overhaul. finally clarified most of the outstanding issues, but I'm sure some drastic bugs will pop up. most of the API is in place now, but barely any implementation yet. next up:
+x do frame reset updater and hook up.
+x implement getMotive for blocks, groups, and actors.
+x do propagate updateWorkers.
+- do move updateWorker (with simplification).
+- figure out what needs to happen for collisions. haven't touched that design yet. I think we currently have several mechanisms and uses for collisions, should try to consolidate.
+
+I'm optimistic about the chance to simplify velocityUpdater, but that's probably stupid.
+
+3-20
+
+No progress since last time, was up in Oregon for several days visiting great grandpa.
+
+I did contact blackmoondev.com to see about freelancing some art. Due to poor communication and/or language barrier and/or being shady, he seems to have hilariously misquoted me by a factor of about 4. Aside from that, he charges $25 per unique tile or character, plus $6 per variation or animation frame. I need to think of a systematic way to approach this if I want to go through with it, since there's no way I am going to afford him for all of the assets, or even a majority, or even a quarter. Perhaps I should get him to do the character animations in particular? Would help if I had a character design in mind. Also would help to enumerate all frames required. What can I do at this early stage to handle "player looks different for different items"? Mega-man approach?
+
+Assuming it's $25 for the core tile, plus $6 for variation, it definitely doesn't seem to be worth the money to get a full AV map up. I can probably hack the variations myself.
+
+How much would it cost to do all assets in the entire game, just out of curiousity?
+Should also price a few other freelancers to see what the going rate is, and if my blackmoon guy is high or low.
+
+Should not pay a penny until business entity set up so I can write it all off. Does it work like this? Is he an employee?
+
+Next steps on this front:
+x get more clarity from black moon. is there an order minimum? discount for bulk? an example of a past character/tileset/font design?
+- get business set up. also will alllow me to write off ipads, macbooks, dev fees, etc. is there a reliable source of info on this subject? stack overflow, gamasutra, gamedev.reddit.com?
+- look for other freelancers for comparison/complementary purposes. would like to find a starving art student or high schooler!
+
+3-22
+
+Scumbag Apple. Update iOS on iPad. Now you need to update xcode to build for that OS. Now you need to pay for the Mac OS update so you can update xcode. This is super ghetto. The reviews for Lion are terrible, I don't want to upgrade. I guess I'll revert my iPad back to the last version. Wonder if I can get all my content back from backup without updating iOS. pain in the ass.
+
+Other than that, I have a massive changelist open for the velocity overhaul, guess I should do something with that. I can't test it right now. Probably should go through and copy out all interesting/new TODOs so I can track em.
+
+3-23
+
+Paid $30 for the Lion upgrade. Upgrade went smoothly. Lion seems slower but basically the same once all the gesture crap was turned off. I'll hold judgement for a few days to see if there's some initial indexing going on or something. But it's not terribly promising.
+
+I can run the app now. Mysterious crashes right off the bat, as expected. Debugging hell for a few days (after Mom leaves).
+
+It would be cool if instead of core types having .x and .y, it was just Emu[2], then you always just loop for i = 0; i < 2. would save lots of duplication
+
+3-24
+
+Got past initial batch of crashes, asserts, and total nonsense. Now I have a gliding dude who can't push anything. But I'm making progress. Things that are broken at first glance:
+x gravity
+x jumping
+x friction
+x pushing
+x animation
+
+3-25
+
+To my surprise, things seem to be running a bit smoother than before. Still early days.
+
+next up: fix collision detection, friction, animations. Then go through other scenarios. Then TODOs. Also need to implement new one-hole-down logic.
+
+3-26
+
+Fixed animation and friction. Now looking at perpendicular propagation (formerly known as down block inherit).
+
+After this I should probably clean up a bit and check in.
+
+Then:
+- one hole
+- collision detection
+-TODOs
+
+3-31
+
+Brief hiatus (the reelsurfer offer). Back at it.
+
+The perpendicular propagation mechanism isn't working out. The problem is that we accumulate velocity each frame, when we should have a steady-state contribution (somehow). Also need to make sure that standing on two blocks going same speed doesn't contribute twice.
+
+It feels like what we really want to do is propagate "actually moved" on the perpendicular axis, but I think this is a different stack behavior than existing. Need to think about it some more.
+
+Also have a pos/neg bug where things aren't symmetrical going left vs. right.
+
+
+7-3-12
+Clearly, had to let this sit for a few months due to work. The last change list was huge and I totally lost the thread. Tomorrow morning I'm going to just check in, make a backup of the repo, and maybe sync back a label.
+
+7-4-12
+Checked in, backed up. Can't wait until I have time to fix this but it's gonna be a challenge :) I had another cool idea (herding) that should provide some motivation.
+
+8-30
+
+Recording this idea before I forget: robust solution to one-hole-down: use "edge triggers" and "l/r off-edge" flags to detect deterministically when a down-hole occurs. what does edge-trigger check look like?
+
+I want to get back to work on this. Need to renew my developer program. Robbery. Also need to try desperately to pick up thread of last change.
+
+Although sounds like the 3-31 entry mentioned some flaws with the model. Maybe can fix the flaws by treating perpendicular velocity propagation as a maximum value, "I think we'll be doing accumulate and take min a lot.e.g. motive is 'upper bound' for pushed blocks." as I said on 3-8. then next frame we won't add any more perpendicular velocity since we're already at that max (or potentially above). how does sign break out?
+
+Once finished with this change, might be interesting to sync back a bit and do some perf measurements. branch?
+
+9-2
+
+Renewed developer program. Bastards.
+
+Fixed a few bugs such as "can't run right" and "can't jump". There are tons of loose ends to fix up, dive in.
+
+By the way: finally got versions to ignore the user interface data file that I had been checking in with every change since r1. Woot. Think I needed some svn:ignore cli stuff to get it to work.
+
+Trying to flush out the most obvious bugs and write test levels for them.
+
+9-4
+wrote down some new thinking about some of the bigger remaining problems in the engine, I think I've got them fairly sorted but I'm sure issues will arise during impl.
+
+9-5
+I made a simplification to the updateGraph stuff, feels like a much stronger design overall. still a couple bugs:
+- double up propagation. I think I can fix this using frameCache (though I had hoped to move away from that)
+- blocks on my head make me unable to jump
+- I can "lift" crates if I jump while standing next to them…actually kinda cool, but unintended
+
+I'm proud of this change. the amount of deleting I get to do following this is pretty epic.
+
+next up: one hole, collision detection
+
+9-6
+thought on one-hole problem. what if we introduce a new "slowMove mode" when moving a block. slowMove mode is usually off. we peak into ER to see if a gap is coming up this frame, and if so, engage slowMove mode for this frame. When we're in slowMove mode, we move one pixel at a time and see if we can move into the gap, if so we forfeit the rest of the frame.
+the advantage is that we don't forfeit frames unnecessarily. the drawback is that we take a perf hit when slowMove mode is active. how many units do we tend to move for average velocities? if its 5 or less, the perf hit isn't too bad.
+
+evening
+fixed a few bugs and did the cleanup work enabled by yesterday's change. if a red change list is a good change list, this was one of my best ever. definitely some dubious design decisions and laziness. I think the time away did me good.
+
+9-8
+
+fixed a handful of annoying but minor bugs.
+
+one hole simplification: claim that the average movement offset during one frame is significantly less than the size of one block (even if we make block sizes half as big).
+
+if this is true, then the only frame we care about (for one hole) is when the solidObject has exactly one down abutter, and we want to move more than the overlap between our edges. if we can detect this condition precisely, we have an easy and sort of minimal way to tell when we need to forfeit a chunk of time.
+
+
+9-9
+
+three things:
+x notion of original propagator for limit tally
+x one hole check, verify assumption first
+- wasting propagate work even when v=0?
+
+I think I have finally solved the one-hole-down problem for good (although there are still possible problem cases, I'm hoping I won't ever hit them). woo. hoo. I have dreamed of this day since I was a boy in a small rural village.
+
+9-10
+collision detection doesn't look like it will be too hard to get going. want a nice event-based system. problems with firing collision events in the middle of an updater loop? All state changes must be asynchronously handled?
+do we still need both the me-touch-you and you-touch-me flavors of collision detection?
+
+also I should spend some time on groups, at least figure out how broken they are, ideally fix them. not quite sure how the new gap checker logic will work for groups. it's fine to be expensive for now.

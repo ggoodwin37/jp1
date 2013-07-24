@@ -1,0 +1,488 @@
+//
+//  WorldView.m
+//  JumpProto
+//
+//  Created by gideong on 7/25/11.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//
+
+#import "WorldView.h"
+#import "AspectController.h"
+#import "SpriteStateDrawUtil.h"
+
+
+@implementation FocalPointCamera
+
+-(id)initWithTolerance:(CGSize)tolerance
+{
+    if( self = [super init] )
+    {
+        m_tolerance = tolerance;
+    }
+    return self;
+}
+
+
+-(void)dealloc
+{
+    [super dealloc];
+}
+
+
+-(void)reset
+{
+    m_hadFirstUpdate = NO;
+}
+
+
+-(void)updateForPoint:(CGPoint)p minY:(Emu)minY
+{
+    if( !m_hadFirstUpdate )
+    {
+        m_focalPoint = p;
+        m_hadFirstUpdate = YES;
+    }
+    else
+    {
+        float x = m_focalPoint.x;
+        if( x > p.x + m_tolerance.width )
+        {
+            x = p.x + m_tolerance.width; 
+        }
+        else if( x < p.x - m_tolerance.width )
+        {
+            x = p.x - m_tolerance.width; 
+        }
+        float y = m_focalPoint.y;
+        if( y > p.y + m_tolerance.height )
+        {
+            y = p.y + m_tolerance.height; 
+        }
+        else if( y < p.y - m_tolerance.height )
+        {
+            y = p.y - m_tolerance.height; 
+        }
+        
+        if( y < minY )
+        {
+            y = minY;
+        }
+        
+        m_focalPoint = CGPointMake( x, y );
+    }
+}
+
+
+-(void)updateWithActorBlock:(ActorBlock *)playerBlock minY:(Emu)minY
+{
+    float px = EmuToFl( playerBlock.x + (playerBlock.w / 2.f) );
+    float py = EmuToFl( playerBlock.y + (playerBlock.h / 2.f) );
+    [self updateForPoint:CGPointMake( px, py ) minY:minY];
+}
+
+
+-(CGRect)getViewRectWithZoomOutFactor:(float)zoom
+{
+    // the zoom factor means smaller blocks (see more of level) as value goes higher. so values less than 1 will zoom in. TODO: backwards?
+    
+    float viewWidth = zoom * [AspectController instance].xPixel;
+    float viewHeight = zoom * [AspectController instance].yPixel;
+    
+    float xCenter = viewWidth / 2.f;
+    float yCenter = viewHeight / 2.f;
+
+    return CGRectMake( m_focalPoint.x - xCenter, m_focalPoint.y - yCenter,
+                       viewWidth, viewHeight );
+}
+
+
+@end
+
+
+@implementation WorldView
+
+@synthesize world = m_world;
+
+-(id)init
+{
+    if( self = [super init] )
+    {
+        m_world = nil;
+        
+        const float cameraToleranceFraction = 0.1f;
+        CGSize cameraTolerance = CGSizeMake( cameraToleranceFraction * [AspectController instance].xPixel,
+                                             cameraToleranceFraction * [AspectController instance].yPixel );
+        m_camera = [[FocalPointCamera alloc] initWithTolerance:cameraTolerance];
+        
+        m_genericPlayerSpriteState = nil;
+        
+#ifdef TIME_WORLDVIEW
+        m_timer_timeUntilNextReport = TIME_WORLDVIEW_REPORT_PERIOD;
+        m_timer_timesDidDraw = 0;
+        m_timer_millisecondsSpentDrawing = 0;
+#endif
+    }
+    return self;
+}
+
+
+-(void)dealloc
+{
+    [m_genericPlayerSpriteState release]; m_genericPlayerSpriteState = nil;
+    [m_camera release]; m_camera = nil;
+    m_world = nil;  // weak
+    [super dealloc];
+}
+
+
+-(void)setupForSpriteBlocks
+{
+    [SpriteStateDrawUtil setupForSpriteDrawing];
+}
+
+
+-(void)drawSpriteBlock:(SpriteBlock *)block
+{
+    // tile the sprite based on worldSize property. Note: doesn't handle non-integral tiles (yet).
+    // assume that the defaultSpriteState has same worldSize as all others in the map, since
+    //  otherwise implies an uneven grid which doesn't make sense.
+    CGSize worldSize = block.defaultSpriteState.worldSize;
+    Emu tileW = fmaxf( 1.f, worldSize.width ) * ONE_BLOCK_SIZE_Emu;
+    Emu tileH = fmaxf( 1.f, worldSize.height ) * ONE_BLOCK_SIZE_Emu;
+    float tileWFl = EmuToFl( tileW );
+    float tileHFl = EmuToFl( tileH );
+    int xCount = block.spriteStateMap.size.width;
+    int yCount = block.spriteStateMap.size.height;
+    for( int iy = 0; iy < yCount; ++iy)
+    {
+        float y = EmuToFl( block.y + (iy * tileH) );
+        for( int ix = 0; ix < xCount; ++ix)
+        {
+            float x = EmuToFl( block.x + (ix * tileW) );
+            SpriteState *spriteState = [block.spriteStateMap getSpriteStateAtX:ix y:iy];
+            [SpriteStateDrawUtil drawSpriteForState:spriteState x:x y:y w:tileWFl h:tileHFl];
+        }
+    }
+}
+
+
+-(BOOL)shouldDrawBlock:(Block *)block inViewRect:(CGRect)viewRect
+{
+    // TODO optimization: you can convert the viewRect to Emu and reuse it for entire frame, instead of
+    //                    converting these four to Fl for each block in the frame. this func runs once
+    //                    per frame for every block in the level, not just on screen.
+    float x = EmuToFl( block.x );
+    float w = EmuToFl( block.w );
+    float y = EmuToFl( block.y );
+    float h = EmuToFl( block.h );
+    
+    if( x > viewRect.origin.x + viewRect.size.width )
+        return NO;
+    if( x + w < viewRect.origin.x )
+        return NO;
+    if( y > viewRect.origin.y + viewRect.size.height )
+        return NO;
+    if( y + h < viewRect.origin.y )
+        return NO;
+    return YES;
+}
+
+
+float smoothRatio( float inputRatio )
+{
+    return sinf( inputRatio * M_PI_2 );
+}
+
+
+-(float)getZoomOutFactor
+{
+    // for now we just have a simple scheme where we start zoomed out, then quickly zoom in durin the "being born"
+    //  state. The naming, scale etc of this part kind of bug me. a zoom factor of 1.f means unzoomed, 2.f means
+    //  "twice as big" in each axis, etc.
+    
+    // future: could imagine this getting more interesting, zooming based on action, etc. could also have its own
+    //  state so it wouldn't have to be coupled directly to an actor's timing state.
+    float ratio;
+    PlayerActor *playerActor = [m_world getPlayerActor];
+    switch( playerActor.lifeState )
+    {
+        case ActorLifeState_NotBornYet:
+            return PLAYER_BEINGBORN_ZOOMOUT_MAX;
+            
+        case ActorLifeState_BeingBorn:
+            ratio = 1.f - (playerActor.lifeStateTimer / PLAYER_BEINGBORN_TIME);   // from 0 to 1
+            ratio = smoothRatio( ratio );  // from 0 to 1, smoothed
+            return PLAYER_BEINGBORN_ZOOMOUT_MAX + (ratio * (PLAYER_BEINGBORN_ZOOMOUT_MIN - PLAYER_BEINGBORN_ZOOMOUT_MAX));
+            
+        default:
+            return PLAYER_BEINGBORN_ZOOMOUT_MIN;
+    }
+}
+
+
+-(CGRect)setupCurrentView
+{
+    if( [m_world getPlayerActor].actorBlock != nil )
+    {
+        [m_camera updateWithActorBlock:[m_world getPlayerActor].actorBlock minY:m_world.yBottom];
+    }
+    else
+    {
+        if( [m_world getPlayerActor].lifeState == ActorLifeState_NotBornYet ||
+            [m_world getPlayerActor].lifeState == ActorLifeState_BeingBorn )
+        {
+            EmuPoint ep = [m_world getPlayerActor].startingPoint;
+            CGSize knownDims = CGSizeMake( EmuToFl( PLAYER_WIDTH ), EmuToFl( PLAYER_HEIGHT ) );  // TODO: using these constants here is cheating, should really get them from the actor.
+            [m_camera reset];  // ensure player start point is centered in camera.
+            [m_camera updateForPoint:CGPointMake( EmuToFl( ep.x ) + (knownDims.width / 2.f), EmuToFl( ep.y ) + (knownDims.height / 2.f) ) minY:m_world.yBottom];
+        }
+        
+        // else don't move camera
+    }
+    
+    float zoomOutFactor = [self getZoomOutFactor];
+    CGRect viewRect = [m_camera getViewRectWithZoomOutFactor:zoomOutFactor];
+    
+	glMatrixMode( GL_PROJECTION );
+	glLoadIdentity();
+	glOrthof( viewRect.origin.x, viewRect.origin.x + viewRect.size.width,
+              viewRect.origin.y, viewRect.origin.y + viewRect.size.height,
+              -0.01 /*zNear*/, 0.01 /*zFar*/ );
+	glMatrixMode( GL_MODELVIEW );
+
+    return viewRect;
+}
+
+
+-(void)tryDrawOneSpriteBlock:(SpriteBlock *)block withViewRect:(CGRect)viewRect
+{
+    if( [self shouldDrawBlock:block inViewRect:viewRect] )
+    {
+        [self drawSpriteBlock:block];
+    }
+}
+
+
+-(void)drawPlayerBeingBorn_cheezy1:(PlayerActor *)playerActor
+{
+    // just do a cheezy zoom-in thingie for now.
+    NSAssert( playerActor.lifeState == ActorLifeState_BeingBorn, @"drawPlayerBeingBorn_cheezy1: unexpected life state." );
+    
+    float ratio = 1.f - (playerActor.lifeStateTimer / PLAYER_BEINGBORN_TIME);
+    
+    float targetWEm = 1.f * PLAYER_WIDTH;
+    float targetHEm = ratio * PLAYER_HEIGHT;
+
+    float targetXEm = playerActor.startingPoint.x + ((PLAYER_WIDTH - targetWEm) / 2.f);
+    float targetYEm = playerActor.startingPoint.y + ((PLAYER_HEIGHT - targetHEm) / 2.f);
+    
+    if( m_genericPlayerSpriteState == nil )
+    {
+        m_genericPlayerSpriteState = [[StaticSpriteState alloc] initWithSpriteName:@"pr2_still"];
+        NSAssert( m_genericPlayerSpriteState != nil, @"failed to make cheezy spriteState thingie." );
+    }
+    
+    [SpriteStateDrawUtil drawSpriteForState:m_genericPlayerSpriteState x:EmuToFl( targetXEm ) y:EmuToFl( targetYEm ) w:EmuToFl( targetWEm ) h:EmuToFl( targetHEm )];
+}
+
+
+-(void)drawPlayerDying_cheezy1:(PlayerActor *)playerActor
+{
+    // just do a cheezy zoom-in thingie for now.
+    NSAssert( playerActor.lifeState == ActorLifeState_Dying, @"drawPlayerDying_cheezy1: unexpected life state." );
+    NSAssert( playerActor.actorBlock != nil, @"need player's actorBlock" );
+    
+    float ratio = 1.f - playerActor.lifeStateTimer / PLAYER_DYING_TIME;   // 0 to 1
+    ratio = 1.f - sinf( ratio * M_PI_2 );  // 1 to 0, smoothed
+    
+    float targetWEm = ratio * PLAYER_WIDTH;
+    float targetHEm = ratio * 2.9f * PLAYER_HEIGHT;  // so ugly
+    targetWEm = fmaxf( targetWEm, 1.f );
+    targetHEm = fmaxf( targetHEm, 1.f );
+    
+    float targetXEm = playerActor.actorBlock.x + ((PLAYER_WIDTH - targetWEm) / 2.f);
+    float targetYEm = playerActor.actorBlock.y + ((PLAYER_HEIGHT - targetHEm) / 2.f);
+    
+    [SpriteStateDrawUtil drawSpriteForState:playerActor.actorBlock.defaultSpriteState x:EmuToFl( targetXEm ) y:EmuToFl( targetYEm ) w:EmuToFl( targetWEm ) h:EmuToFl( targetHEm )];
+}
+
+
+-(void)drawPlayerWinning_cheezy1:(PlayerActor *)playerActor
+{
+    // just do a cheezy zoom-in thingie for now.
+    NSAssert( playerActor.lifeState == ActorLifeState_Winning, @"drawPlayerWinning_cheezy1: unexpected life state." );
+    NSAssert( playerActor.actorBlock != nil, @"need player's actorBlock" );
+    
+    float ratio = 1.f - playerActor.lifeStateTimer / PLAYER_WINNING_TIME;   // 0 to 1
+    ratio = 1.f - cosf( ratio * M_PI_2 );  // 1 to 0, smoothed
+    
+    const float boomZoom = 8.f;
+    float targetWEm = (boomZoom * ratio + 1.f ) * PLAYER_WIDTH;
+    float targetHEm = (boomZoom * ratio + 1.f ) * PLAYER_HEIGHT;
+    targetWEm = fmaxf( targetWEm, 1.f );
+    targetHEm = fmaxf( targetHEm, 1.f );
+    
+    float targetXEm = playerActor.actorBlock.x + ((PLAYER_WIDTH - targetWEm) / 2.f);
+    float targetYEm = playerActor.actorBlock.y + ((PLAYER_HEIGHT - targetHEm) / 2.f);
+    
+    [SpriteStateDrawUtil drawSpriteForState:playerActor.actorBlock.defaultSpriteState x:EmuToFl( targetXEm ) y:EmuToFl( targetYEm ) w:EmuToFl( targetWEm ) h:EmuToFl( targetHEm )];
+}
+
+
+#ifdef TIME_WORLDVIEW
+
+-(void)worldViewTimer_pre
+{
+    m_timer_start = getUpTimeMs();
+}
+
+
+-(void)worldViewTimer_post
+{
+    int delta = (int)( getUpTimeMs() - m_timer_start );
+    if( delta < 0 )
+    {
+        NSLog( @"worldViewTimer_post: wraparound case." );  // am I imagining this?
+        return;
+    }
+    
+    m_timer_millisecondsSpentDrawing += delta;
+    ++m_timer_timesDidDraw;
+    
+    if( m_timer_timeUntilNextReport <= 0.f )
+    {
+        if( m_timer_timesDidDraw > 0 && m_timer_millisecondsSpentDrawing > 0 )
+        {
+            float avgMs = ((float)m_timer_millisecondsSpentDrawing) / ((float)m_timer_timesDidDraw);
+            NSLog( @"worldView draw avg: %fms.", avgMs );
+        }
+        m_timer_timeUntilNextReport = TIME_WORLDVIEW_REPORT_PERIOD;
+        m_timer_timesDidDraw = 0;
+        m_timer_millisecondsSpentDrawing = 0;
+    }
+    
+}
+#endif
+
+
+// override
+-(void)buildScene
+{
+    if( /*hi*/ m_world == nil )
+        return;
+    
+#ifdef TIME_WORLDVIEW
+    [self worldViewTimer_pre];
+#endif
+    
+    [SpriteStateDrawUtil beginFrame];
+    
+    CGRect viewRect = [self setupCurrentView];
+    
+    [self setupForSpriteBlocks];
+    int count = [m_world worldSOCount];
+    for( int i = 0; i < count; ++i )
+    {
+        ASolidObject *thisSO = [m_world getWorldSO:i];
+
+        // TODO: need to validate that thisBlock really is a SpriteBlock? how to do that cheaply? can just trust myself not to put other stuff in there??
+        
+        if( [thisSO isGroup] )
+        {
+            BlockGroup *thisGroup = (BlockGroup *)thisSO;
+            for( int i = 0; i < [thisGroup.blocks count]; ++i )
+            {
+                SpriteBlock *thisBlock = (SpriteBlock *)[thisGroup.blocks objectAtIndex:i];
+                [self tryDrawOneSpriteBlock:thisBlock withViewRect:viewRect];
+            }
+        }
+        else
+        {
+            SpriteBlock *thisBlock = (SpriteBlock *)thisSO;
+            [self tryDrawOneSpriteBlock:thisBlock withViewRect:viewRect];
+        }
+    }
+    
+    for( int i = 0; i < [m_world.npcActors count]; ++i )
+    {
+        Actor *thisNpc = (Actor *)[m_world.npcActors objectAtIndex:i];
+        
+        switch( thisNpc.lifeState )
+        {
+            case ActorLifeState_Alive:
+                if( thisNpc.actorBlock != nil )
+                {
+                    SpriteBlock *thisBlock = (SpriteBlock *)thisNpc.actorBlock;
+                    [self tryDrawOneSpriteBlock:thisBlock withViewRect:viewRect];
+                }
+                break;
+                
+            case ActorLifeState_BeingBorn:
+                // TODO
+                break;
+            
+            case ActorLifeState_Dying:
+                // TODO
+                break;                
+                
+            default:
+                // don't draw anything for this state.
+                break;
+        }
+    }
+
+    ActorLifeState playerLifeState = [m_world getPlayerActor].lifeState;
+    switch( playerLifeState )
+    {
+        case ActorLifeState_Alive:
+            if( [m_world getPlayerActor].actorBlock != nil )
+            {
+                [self tryDrawOneSpriteBlock:[m_world getPlayerActor].actorBlock withViewRect:viewRect];
+            }
+            break;
+        
+        case ActorLifeState_BeingBorn:
+            [self drawPlayerBeingBorn_cheezy1:[m_world getPlayerActor]];
+            break;
+
+        case ActorLifeState_Dying:
+            if( ![m_world getPlayerActor].isGibbed )
+            {
+                [self drawPlayerDying_cheezy1:[m_world getPlayerActor]];
+            }
+            // else gibs are drawn as blocks
+            break;
+            
+        case ActorLifeState_Winning:
+            [self drawPlayerWinning_cheezy1:[m_world getPlayerActor]];
+            break;
+            
+        default:
+            break;
+    }
+    
+    [SpriteStateDrawUtil endFrame];
+    
+#ifdef TIME_WORLDVIEW
+    [self worldViewTimer_post];
+#endif
+
+}
+
+
+// override
+-(void)updateWithTimeDelta:(float)timeDelta
+{
+    if( m_world == nil )
+        return;
+    
+    [m_world updateWithTimeDelta:timeDelta];
+
+
+#ifdef TIME_WORLDVIEW
+    m_timer_timeUntilNextReport -= timeDelta;
+#endif
+}
+
+
+@end

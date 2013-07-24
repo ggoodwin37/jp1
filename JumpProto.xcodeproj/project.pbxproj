@@ -1,0 +1,1079 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		932DD07917974A3100375642 /* RectCoordBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 932DD07817974A3100375642 /* RectCoordBuffer.m */; };
+		93A736BC17580FEE0059C2C9 /* EBlockMRUList.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */; };
+		F305ECE91623E1FB00E153FB /* blAlgae.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE61623E1FB00E153FB /* blAlgae.png */; };
+		F305ECEA1623E1FB00E153FB /* blavQik.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE71623E1FB00E153FB /* blavQik.png */; };
+		F305ECEB1623E1FB00E153FB /* blHalfsize1.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE81623E1FB00E153FB /* blHalfsize1.png */; };
+		F30EFB71144233F6003054DC /* EDoc.m in Sources */ = {isa = PBXBuildFile; fileRef = F30EFB70144233F6003054DC /* EDoc.m */; };
+		F31EECB313DD3ED500A337EF /* World.m in Sources */ = {isa = PBXBuildFile; fileRef = F31EECB213DD3ED500A337EF /* World.m */; };
+		F31EECB713DD3EE800A337EF /* Block.m in Sources */ = {isa = PBXBuildFile; fileRef = F31EECB613DD3EE800A337EF /* Block.m */; };
+		F31EECBA13DD3EF900A337EF /* ElbowRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = F31EECB913DD3EF800A337EF /* ElbowRoom.m */; };
+		F31EECBD13DD3F3500A337EF /* BlockUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = F31EECBC13DD3F3500A337EF /* BlockUpdater.m */; };
+		F3259F6B13D6A5FC0018CC3D /* DpadInput.m in Sources */ = {isa = PBXBuildFile; fileRef = F3259F6A13D6A5FC0018CC3D /* DpadInput.m */; };
+		F3471E4A143D4CF9001AA4C8 /* SpriteStateDrawUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F3471E49143D4CF9001AA4C8 /* SpriteStateDrawUtil.m */; };
+		F3471E4D143D515F001AA4C8 /* icons 1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3471E4C143D515F001AA4C8 /* icons 1.png */; };
+		F3471E54143ED7C7001AA4C8 /* ArchiveFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = F3471E53143ED7C7001AA4C8 /* ArchiveFormat.m */; };
+		F3471E5A143FCF31001AA4C8 /* WorldArchiveUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F3471E59143FCF31001AA4C8 /* WorldArchiveUtil.m */; };
+		F347EAD313E1F69900F6EA15 /* HitZone.m in Sources */ = {isa = PBXBuildFile; fileRef = F347EAD213E1F69900F6EA15 /* HitZone.m */; };
+		F347EADD13E1FD7F00F6EA15 /* GlobalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = F347EADC13E1FD7E00F6EA15 /* GlobalCommand.m */; };
+		F347EAE013E1FD9200F6EA15 /* GlobalButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = F347EADF13E1FD9200F6EA15 /* GlobalButtonView.m */; };
+		F35204231500A2F100000CDC /* WorldFrameState.m in Sources */ = {isa = PBXBuildFile; fileRef = F35204221500A2F100000CDC /* WorldFrameState.m */; };
+		F35880281407FD32005A1FD3 /* pr1.png in Resources */ = {isa = PBXBuildFile; fileRef = F35880261407FD32005A1FD3 /* pr1.png */; };
+		F35880291407FD32005A1FD3 /* testblox1.png in Resources */ = {isa = PBXBuildFile; fileRef = F35880271407FD32005A1FD3 /* testblox1.png */; };
+		F36BC4E314CF8E5B0028CC80 /* EDocPropsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F36BC4E114CF8E5B0028CC80 /* EDocPropsViewController.m */; };
+		F36BC4E414CF8E5B0028CC80 /* EDocPropsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F36BC4E214CF8E5B0028CC80 /* EDocPropsViewController.xib */; };
+		F37EEF9A13CF3EE700AC418D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37EEF9913CF3EE700AC418D /* UIKit.framework */; };
+		F37EEF9C13CF3EE700AC418D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37EEF9B13CF3EE700AC418D /* Foundation.framework */; };
+		F37EEF9E13CF3EE700AC418D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37EEF9D13CF3EE700AC418D /* CoreGraphics.framework */; };
+		F37EEFA413CF3EE700AC418D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F37EEFA213CF3EE700AC418D /* InfoPlist.strings */; };
+		F37EEFA713CF3EE700AC418D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFA613CF3EE700AC418D /* main.m */; };
+		F37EEFAA13CF3EE700AC418D /* JumpProtoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFA913CF3EE700AC418D /* JumpProtoAppDelegate.m */; };
+		F37EEFAD13CF3EE700AC418D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F37EEFAB13CF3EE700AC418D /* MainWindow.xib */; };
+		F37EEFB013CF3EE700AC418D /* JumpProtoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFAF13CF3EE700AC418D /* JumpProtoViewController.m */; };
+		F37EEFB313CF3EE700AC418D /* JumpProtoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F37EEFB113CF3EE700AC418D /* JumpProtoViewController.xib */; };
+		F37EEFBA13CF3EE700AC418D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37EEF9913CF3EE700AC418D /* UIKit.framework */; };
+		F37EEFBB13CF3EE700AC418D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37EEF9B13CF3EE700AC418D /* Foundation.framework */; };
+		F37EEFBC13CF3EE700AC418D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37EEF9D13CF3EE700AC418D /* CoreGraphics.framework */; };
+		F37EEFC413CF3EE700AC418D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F37EEFC213CF3EE700AC418D /* InfoPlist.strings */; };
+		F37EEFC713CF3EE700AC418D /* JumpProtoTests.h in Resources */ = {isa = PBXBuildFile; fileRef = F37EEFC613CF3EE700AC418D /* JumpProtoTests.h */; };
+		F37EEFC913CF3EE700AC418D /* JumpProtoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFC813CF3EE700AC418D /* JumpProtoTests.m */; };
+		F37EEFF613CF411800AC418D /* AspectController.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFD313CF411800AC418D /* AspectController.m */; };
+		F37EEFF713CF411800AC418D /* BackgroundLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFD513CF411800AC418D /* BackgroundLayerView.m */; };
+		F37EEFF813CF411800AC418D /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFD813CF411800AC418D /* EAGLView.m */; };
+		F37EEFF913CF411800AC418D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F37EEFDA13CF411800AC418D /* InfoPlist.strings */; };
+		F37EEFFA13CF411800AC418D /* JumpProtoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F37EEFDC13CF411800AC418D /* JumpProtoViewController.xib */; };
+		F37EEFFB13CF411800AC418D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F37EEFDE13CF411800AC418D /* MainWindow.xib */; };
+		F37EEFFC13CF411800AC418D /* ES1Renderer.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFE213CF411800AC418D /* ES1Renderer.m */; };
+		F37EEFFD13CF411800AC418D /* gutil.c in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFE313CF411800AC418D /* gutil.c */; };
+		F37EEFFF13CF411800AC418D /* LayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFE813CF411800AC418D /* LayerView.m */; };
+		F37EF00013CF411800AC418D /* LogStopWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFEA13CF411800AC418D /* LogStopWatch.m */; };
+		F37EF00113CF411800AC418D /* MainDrawController.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFEC13CF411800AC418D /* MainDrawController.m */; };
+		F37EF00313CF411800AC418D /* oal.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFF013CF411800AC418D /* oal.m */; };
+		F37EF00413CF411800AC418D /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFF313CF411800AC418D /* SoundManager.m */; };
+		F37EF00513CF411800AC418D /* TestLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFF513CF411800AC418D /* TestLayerView.m */; };
+		F37EF00913CF61BF00AC418D /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37EF00613CF61BF00AC418D /* OpenAL.framework */; };
+		F37EF00A13CF61BF00AC418D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37EF00713CF61BF00AC418D /* OpenGLES.framework */; };
+		F37EF00B13CF61BF00AC418D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37EF00813CF61BF00AC418D /* QuartzCore.framework */; };
+		F37EF00D13CF61CC00AC418D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37EF00C13CF61CC00AC418D /* AudioToolbox.framework */; };
+		F37F1DF1144395F600790E55 /* EBlockPaletteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F37F1DEF144395F600790E55 /* EBlockPaletteViewController.m */; };
+		F37F1DF2144395F600790E55 /* EBlockPaletteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F37F1DF0144395F600790E55 /* EBlockPaletteViewController.xib */; };
+		F38A372514B1106900A6403B /* EBlockPresetSpriteNames.m in Sources */ = {isa = PBXBuildFile; fileRef = F38A372414B1106900A6403B /* EBlockPresetSpriteNames.m */; };
+		F38FA57713D92C410007B99D /* DpadFeedbackLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F38FA57613D92C410007B99D /* DpadFeedbackLayerView.m */; };
+		F39963081445F3680082822E /* blColumn0.png in Resources */ = {isa = PBXBuildFile; fileRef = F39963041445F3680082822E /* blColumn0.png */; };
+		F39963091445F3680082822E /* blOneWay0.png in Resources */ = {isa = PBXBuildFile; fileRef = F39963051445F3680082822E /* blOneWay0.png */; };
+		F399630A1445F3680082822E /* props0.png in Resources */ = {isa = PBXBuildFile; fileRef = F39963061445F3680082822E /* props0.png */; };
+		F399630B1445F3680082822E /* testblox2b.png in Resources */ = {isa = PBXBuildFile; fileRef = F39963071445F3680082822E /* testblox2b.png */; };
+		F3A8A6C113D3FA1300DAC166 /* DebugLogLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A8A6C013D3FA1300DAC166 /* DebugLogLayerView.m */; };
+		F3B180B114D0A8DA007DEA9E /* badGuys2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3B180AE14D0A8DA007DEA9E /* badGuys2.png */; };
+		F3B180B214D0A8DA007DEA9E /* blColl3.png in Resources */ = {isa = PBXBuildFile; fileRef = F3B180AF14D0A8DA007DEA9E /* blColl3.png */; };
+		F3B180B314D0A8DA007DEA9E /* playerGibs1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3B180B014D0A8DA007DEA9E /* playerGibs1.png */; };
+		F3B1C4561442B21600D09E36 /* EArchiveUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B1C4551442B21600D09E36 /* EArchiveUtil.m */; };
+		F3B34FEB14319E13007EE52C /* JumpProtoLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B34FE914319E13007EE52C /* JumpProtoLaunchViewController.m */; };
+		F3B34FEC14319E13007EE52C /* JumpProtoLaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B34FEA14319E13007EE52C /* JumpProtoLaunchViewController.xib */; };
+		F3B3E90314508E0100B5A579 /* conveyor1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3B3E90214508E0100B5A579 /* conveyor1.png */; };
+		F3BB50ED14C14A7D00D29D55 /* beinSilly_emCrop1_48.png in Resources */ = {isa = PBXBuildFile; fileRef = F3BB50EB14C14A7D00D29D55 /* beinSilly_emCrop1_48.png */; };
+		F3BB50EE14C14A7D00D29D55 /* beinSilly_maxCrop1_96.png in Resources */ = {isa = PBXBuildFile; fileRef = F3BB50EC14C14A7D00D29D55 /* beinSilly_maxCrop1_96.png */; };
+		F3BF63881405FB7E00431E18 /* Sprites0.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3BF63871405FB7E00431E18 /* Sprites0.xml */; };
+		F3BF638A1405FB9A00431E18 /* Anims0.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3BF63891405FB9A00431E18 /* Anims0.xml */; };
+		F3C04C5D140F60A8006AFAF7 /* SpriteState.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C04C5C140F60A8006AFAF7 /* SpriteState.m */; };
+		F3C444D814035C2E003B5C9C /* SpriteLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C444D714035C2E003B5C9C /* SpriteLoader.m */; };
+		F3C444E71403607C003B5C9C /* SpriteDef.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C444E61403607C003B5C9C /* SpriteDef.m */; };
+		F3C444ED14036858003B5C9C /* SpriteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C444EC14036858003B5C9C /* SpriteManager.m */; };
+		F3C79EF01499BCE20051ADAD /* Emu.c in Sources */ = {isa = PBXBuildFile; fileRef = F3C79EEF1499BCE20051ADAD /* Emu.c */; };
+		F3C8327A13DE8DAD007CF1CE /* WorldView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8327913DE8DAD007CF1CE /* WorldView.m */; };
+		F3CB7BDA14F37907005C7377 /* TestSpriteSheetLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CB7BD914F37907005C7377 /* TestSpriteSheetLayerView.m */; };
+		F3CCE2541440244E008773E8 /* QuartzView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE2531440244E008773E8 /* QuartzView.m */; };
+		F3CCE25814402482008773E8 /* EWorldView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE25714402482008773E8 /* EWorldView.m */; };
+		F3D4C6EF1469005300FC282A /* BlockGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D4C6EE1469005300FC282A /* BlockGroup.m */; };
+		F3D6C7E714CA1B30003FE5B4 /* Actor.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D6C7E614CA1B2F003FE5B4 /* Actor.m */; };
+		F3D6C7EB14CA2641003FE5B4 /* ActorUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D6C7EA14CA2640003FE5B4 /* ActorUpdater.m */; };
+		F3DABAEF1665F39B00471044 /* DrawSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DABAED1665F39B00471044 /* DrawSettingsViewController.m */; };
+		F3DABAF01665F39B00471044 /* DrawSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3DABAEE1665F39B00471044 /* DrawSettingsViewController.xib */; };
+		F3DE18F014FAA6E80090BDEB /* LevelManifest.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DE18EF14FAA6E80090BDEB /* LevelManifest.m */; };
+		F3DE18F514FBF9FC0090BDEB /* LauncherNewPackDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DE18F314FBF9FC0090BDEB /* LauncherNewPackDialog.m */; };
+		F3DE18F614FBF9FC0090BDEB /* LauncherNewPackDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3DE18F414FBF9FC0090BDEB /* LauncherNewPackDialog.xib */; };
+		F3DE18FA14FBFB040090BDEB /* LauncherDeletePackDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DE18F814FBFB040090BDEB /* LauncherDeletePackDialog.m */; };
+		F3DE18FB14FBFB040090BDEB /* LauncherDeletePackDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3DE18F914FBFB040090BDEB /* LauncherDeletePackDialog.xib */; };
+		F3DE18FF14FBFC340090BDEB /* LauncherExportPackDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DE18FD14FBFC340090BDEB /* LauncherExportPackDialog.m */; };
+		F3DE190014FBFC340090BDEB /* LauncherExportPackDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3DE18FE14FBFC340090BDEB /* LauncherExportPackDialog.xib */; };
+		F3DFED3A161E9C95004AD6B6 /* GroupPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DFED38161E9C95004AD6B6 /* GroupPickerViewController.m */; };
+		F3DFED3B161E9C95004AD6B6 /* GroupPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3DFED39161E9C95004AD6B6 /* GroupPickerViewController.xib */; };
+		F3E109A9143FD7A6005E3FE5 /* EditMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E109A7143FD7A6005E3FE5 /* EditMainViewController.m */; };
+		F3E109AA143FD7A6005E3FE5 /* EditMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3E109A8143FD7A6005E3FE5 /* EditMainViewController.xib */; };
+		F3E8E40B13DF1E5F00066200 /* WorldTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E8E40A13DF1E5F00066200 /* WorldTest.m */; };
+		F3EE061513CFFAA100C003B1 /* TouchFeedbackLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EE061413CFFAA100C003B1 /* TouchFeedbackLayerView.m */; };
+		F3EF39BA13D7F1220089466A /* CGPointW.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EF39B913D7F1220089466A /* CGPointW.m */; };
+		F3F306AC14153D11005ACA55 /* pr2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3F306AB14153D11005ACA55 /* pr2.png */; };
+		F3F75E3214A2E0C100F5A52F /* avblTurf2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3F75E3114A2E0C100F5A52F /* avblTurf2.png */; };
+		F3FB8F6E14D90CEE00C19FBF /* blCrumbles1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FB8F6D14D90CEE00C19FBF /* blCrumbles1.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F37EEFBD13CF3EE700AC418D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F37EEF8C13CF3EE600AC418D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F37EEF9413CF3EE600AC418D;
+			remoteInfo = JumpProto;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		932DD07717974A3100375642 /* RectCoordBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RectCoordBuffer.h; sourceTree = "<group>"; };
+		932DD07817974A3100375642 /* RectCoordBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RectCoordBuffer.m; sourceTree = "<group>"; };
+		93A736BA17580FEE0059C2C9 /* EBlockMRUList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBlockMRUList.h; sourceTree = "<group>"; };
+		93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBlockMRUList.m; sourceTree = "<group>"; };
+		F305ECE61623E1FB00E153FB /* blAlgae.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blAlgae.png; path = images/blAlgae.png; sourceTree = "<group>"; };
+		F305ECE71623E1FB00E153FB /* blavQik.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blavQik.png; path = images/blavQik.png; sourceTree = "<group>"; };
+		F305ECE81623E1FB00E153FB /* blHalfsize1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blHalfsize1.png; path = images/blHalfsize1.png; sourceTree = "<group>"; };
+		F30EFB6F144233F6003054DC /* EDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDoc.h; sourceTree = "<group>"; };
+		F30EFB70144233F6003054DC /* EDoc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDoc.m; sourceTree = "<group>"; };
+		F31EECB113DD3ED500A337EF /* World.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = World.h; sourceTree = "<group>"; };
+		F31EECB213DD3ED500A337EF /* World.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = World.m; sourceTree = "<group>"; };
+		F31EECB513DD3EE800A337EF /* Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Block.h; sourceTree = "<group>"; };
+		F31EECB613DD3EE800A337EF /* Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Block.m; sourceTree = "<group>"; };
+		F31EECB813DD3EF800A337EF /* ElbowRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElbowRoom.h; sourceTree = "<group>"; };
+		F31EECB913DD3EF800A337EF /* ElbowRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElbowRoom.m; sourceTree = "<group>"; };
+		F31EECBB13DD3F3500A337EF /* BlockUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockUpdater.h; sourceTree = "<group>"; };
+		F31EECBC13DD3F3500A337EF /* BlockUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockUpdater.m; sourceTree = "<group>"; };
+		F3259F6913D6A5FC0018CC3D /* DpadInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DpadInput.h; sourceTree = "<group>"; };
+		F3259F6A13D6A5FC0018CC3D /* DpadInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DpadInput.m; sourceTree = "<group>"; };
+		F3395AD41443DACA00C381AA /* SpriteAutoVariationDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteAutoVariationDefines.h; sourceTree = "<group>"; };
+		F3471E48143D4CF9001AA4C8 /* SpriteStateDrawUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteStateDrawUtil.h; sourceTree = "<group>"; };
+		F3471E49143D4CF9001AA4C8 /* SpriteStateDrawUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteStateDrawUtil.m; sourceTree = "<group>"; };
+		F3471E4C143D515F001AA4C8 /* icons 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons 1.png"; path = "images/icons 1.png"; sourceTree = "<group>"; };
+		F3471E52143ED7C7001AA4C8 /* ArchiveFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchiveFormat.h; sourceTree = "<group>"; };
+		F3471E53143ED7C7001AA4C8 /* ArchiveFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchiveFormat.m; sourceTree = "<group>"; };
+		F3471E58143FCF31001AA4C8 /* WorldArchiveUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldArchiveUtil.h; sourceTree = "<group>"; };
+		F3471E59143FCF31001AA4C8 /* WorldArchiveUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldArchiveUtil.m; sourceTree = "<group>"; };
+		F347EAD113E1F69900F6EA15 /* HitZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HitZone.h; sourceTree = "<group>"; };
+		F347EAD213E1F69900F6EA15 /* HitZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HitZone.m; sourceTree = "<group>"; };
+		F347EADB13E1FD7E00F6EA15 /* GlobalCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalCommand.h; sourceTree = "<group>"; };
+		F347EADC13E1FD7E00F6EA15 /* GlobalCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalCommand.m; sourceTree = "<group>"; };
+		F347EADE13E1FD9200F6EA15 /* GlobalButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalButtonView.h; sourceTree = "<group>"; };
+		F347EADF13E1FD9200F6EA15 /* GlobalButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalButtonView.m; sourceTree = "<group>"; };
+		F35204211500A2F100000CDC /* WorldFrameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldFrameState.h; sourceTree = "<group>"; };
+		F35204221500A2F100000CDC /* WorldFrameState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldFrameState.m; sourceTree = "<group>"; };
+		F35880261407FD32005A1FD3 /* pr1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pr1.png; path = images/pr1.png; sourceTree = "<group>"; };
+		F35880271407FD32005A1FD3 /* testblox1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = testblox1.png; path = images/testblox1.png; sourceTree = "<group>"; };
+		F35CFA4714A1AD9F00137887 /* sharedTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sharedTypes.h; sourceTree = "<group>"; };
+		F36BC4E014CF8E5A0028CC80 /* EDocPropsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDocPropsViewController.h; sourceTree = "<group>"; };
+		F36BC4E114CF8E5B0028CC80 /* EDocPropsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDocPropsViewController.m; sourceTree = "<group>"; };
+		F36BC4E214CF8E5B0028CC80 /* EDocPropsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDocPropsViewController.xib; sourceTree = "<group>"; };
+		F37EEF9513CF3EE700AC418D /* JumpProto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JumpProto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F37EEF9913CF3EE700AC418D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F37EEF9B13CF3EE700AC418D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F37EEF9D13CF3EE700AC418D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F37EEFA113CF3EE700AC418D /* JumpProto-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JumpProto-Info.plist"; sourceTree = "<group>"; };
+		F37EEFA313CF3EE700AC418D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F37EEFA513CF3EE700AC418D /* JumpProto-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JumpProto-Prefix.pch"; sourceTree = "<group>"; };
+		F37EEFA613CF3EE700AC418D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F37EEFA813CF3EE700AC418D /* JumpProtoAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JumpProtoAppDelegate.h; sourceTree = "<group>"; };
+		F37EEFA913CF3EE700AC418D /* JumpProtoAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JumpProtoAppDelegate.m; sourceTree = "<group>"; };
+		F37EEFAC13CF3EE700AC418D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		F37EEFAE13CF3EE700AC418D /* JumpProtoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JumpProtoViewController.h; sourceTree = "<group>"; };
+		F37EEFAF13CF3EE700AC418D /* JumpProtoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JumpProtoViewController.m; sourceTree = "<group>"; };
+		F37EEFB213CF3EE700AC418D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/JumpProtoViewController.xib; sourceTree = "<group>"; };
+		F37EEFB913CF3EE700AC418D /* JumpProtoTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JumpProtoTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F37EEFC113CF3EE700AC418D /* JumpProtoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JumpProtoTests-Info.plist"; sourceTree = "<group>"; };
+		F37EEFC313CF3EE700AC418D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F37EEFC513CF3EE700AC418D /* JumpProtoTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JumpProtoTests-Prefix.pch"; sourceTree = "<group>"; };
+		F37EEFC613CF3EE700AC418D /* JumpProtoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JumpProtoTests.h; sourceTree = "<group>"; };
+		F37EEFC813CF3EE700AC418D /* JumpProtoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JumpProtoTests.m; sourceTree = "<group>"; };
+		F37EEFD213CF411800AC418D /* AspectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AspectController.h; sourceTree = "<group>"; };
+		F37EEFD313CF411800AC418D /* AspectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AspectController.m; sourceTree = "<group>"; };
+		F37EEFD413CF411800AC418D /* BackgroundLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundLayerView.h; sourceTree = "<group>"; };
+		F37EEFD513CF411800AC418D /* BackgroundLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundLayerView.m; sourceTree = "<group>"; };
+		F37EEFD613CF411800AC418D /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		F37EEFD713CF411800AC418D /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
+		F37EEFD813CF411800AC418D /* EAGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAGLView.m; sourceTree = "<group>"; };
+		F37EEFDB13CF411800AC418D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		F37EEFDD13CF411800AC418D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = JumpProtoViewController.xib; sourceTree = "<group>"; };
+		F37EEFDF13CF411800AC418D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = MainWindow.xib; sourceTree = "<group>"; };
+		F37EEFE013CF411800AC418D /* ES1RenderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ES1RenderDelegate.h; sourceTree = "<group>"; };
+		F37EEFE113CF411800AC418D /* ES1Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ES1Renderer.h; sourceTree = "<group>"; };
+		F37EEFE213CF411800AC418D /* ES1Renderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ES1Renderer.m; sourceTree = "<group>"; };
+		F37EEFE313CF411800AC418D /* gutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gutil.c; sourceTree = "<group>"; };
+		F37EEFE413CF411800AC418D /* gutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gutil.h; sourceTree = "<group>"; };
+		F37EEFE713CF411800AC418D /* LayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerView.h; sourceTree = "<group>"; };
+		F37EEFE813CF411800AC418D /* LayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerView.m; sourceTree = "<group>"; };
+		F37EEFE913CF411800AC418D /* LogStopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogStopWatch.h; sourceTree = "<group>"; };
+		F37EEFEA13CF411800AC418D /* LogStopWatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogStopWatch.m; sourceTree = "<group>"; };
+		F37EEFEB13CF411800AC418D /* MainDrawController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainDrawController.h; sourceTree = "<group>"; };
+		F37EEFEC13CF411800AC418D /* MainDrawController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainDrawController.m; sourceTree = "<group>"; };
+		F37EEFEF13CF411800AC418D /* oal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oal.h; sourceTree = "<group>"; };
+		F37EEFF013CF411800AC418D /* oal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = oal.m; sourceTree = "<group>"; };
+		F37EEFF113CF411800AC418D /* OpenGLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLCommon.h; sourceTree = "<group>"; };
+		F37EEFF213CF411800AC418D /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
+		F37EEFF313CF411800AC418D /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
+		F37EEFF413CF411800AC418D /* TestLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLayerView.h; sourceTree = "<group>"; };
+		F37EEFF513CF411800AC418D /* TestLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestLayerView.m; sourceTree = "<group>"; };
+		F37EF00613CF61BF00AC418D /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		F37EF00713CF61BF00AC418D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		F37EF00813CF61BF00AC418D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F37EF00C13CF61CC00AC418D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		F37F1DEE144395F600790E55 /* EBlockPaletteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBlockPaletteViewController.h; sourceTree = "<group>"; };
+		F37F1DEF144395F600790E55 /* EBlockPaletteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBlockPaletteViewController.m; sourceTree = "<group>"; };
+		F37F1DF0144395F600790E55 /* EBlockPaletteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBlockPaletteViewController.xib; sourceTree = "<group>"; };
+		F38A372314B1106900A6403B /* EBlockPresetSpriteNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBlockPresetSpriteNames.h; sourceTree = "<group>"; };
+		F38A372414B1106900A6403B /* EBlockPresetSpriteNames.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBlockPresetSpriteNames.m; sourceTree = "<group>"; };
+		F38FA57513D92C410007B99D /* DpadFeedbackLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DpadFeedbackLayerView.h; sourceTree = "<group>"; };
+		F38FA57613D92C410007B99D /* DpadFeedbackLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DpadFeedbackLayerView.m; sourceTree = "<group>"; };
+		F39963041445F3680082822E /* blColumn0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blColumn0.png; path = images/blColumn0.png; sourceTree = "<group>"; };
+		F39963051445F3680082822E /* blOneWay0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blOneWay0.png; path = images/blOneWay0.png; sourceTree = "<group>"; };
+		F39963061445F3680082822E /* props0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = props0.png; path = images/props0.png; sourceTree = "<group>"; };
+		F39963071445F3680082822E /* testblox2b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = testblox2b.png; path = images/testblox2b.png; sourceTree = "<group>"; };
+		F39AC75A14FCA031009736D2 /* ILauncherUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILauncherUI.h; sourceTree = "<group>"; };
+		F3A8A6BF13D3FA1300DAC166 /* DebugLogLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLogLayerView.h; sourceTree = "<group>"; };
+		F3A8A6C013D3FA1300DAC166 /* DebugLogLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugLogLayerView.m; sourceTree = "<group>"; };
+		F3B180AE14D0A8DA007DEA9E /* badGuys2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = badGuys2.png; path = images/badGuys2.png; sourceTree = "<group>"; };
+		F3B180AF14D0A8DA007DEA9E /* blColl3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blColl3.png; path = images/blColl3.png; sourceTree = "<group>"; };
+		F3B180B014D0A8DA007DEA9E /* playerGibs1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = playerGibs1.png; path = images/playerGibs1.png; sourceTree = "<group>"; };
+		F3B1C45314429F4C00D09E36 /* EBlockPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBlockPreset.h; sourceTree = "<group>"; };
+		F3B1C4541442B21600D09E36 /* EArchiveUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EArchiveUtil.h; sourceTree = "<group>"; };
+		F3B1C4551442B21600D09E36 /* EArchiveUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EArchiveUtil.m; sourceTree = "<group>"; };
+		F3B34FE814319E13007EE52C /* JumpProtoLaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JumpProtoLaunchViewController.h; sourceTree = "<group>"; };
+		F3B34FE914319E13007EE52C /* JumpProtoLaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JumpProtoLaunchViewController.m; sourceTree = "<group>"; };
+		F3B34FEA14319E13007EE52C /* JumpProtoLaunchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JumpProtoLaunchViewController.xib; sourceTree = "<group>"; };
+		F3B3E90214508E0100B5A579 /* conveyor1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = conveyor1.png; path = images/conveyor1.png; sourceTree = "<group>"; };
+		F3BB50EB14C14A7D00D29D55 /* beinSilly_emCrop1_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = beinSilly_emCrop1_48.png; path = images/beinSilly_emCrop1_48.png; sourceTree = "<group>"; };
+		F3BB50EC14C14A7D00D29D55 /* beinSilly_maxCrop1_96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = beinSilly_maxCrop1_96.png; path = images/beinSilly_maxCrop1_96.png; sourceTree = "<group>"; };
+		F3BF63871405FB7E00431E18 /* Sprites0.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Sprites0.xml; sourceTree = "<group>"; };
+		F3BF63891405FB9A00431E18 /* Anims0.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Anims0.xml; sourceTree = "<group>"; };
+		F3C04C5B140F60A8006AFAF7 /* SpriteState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteState.h; sourceTree = "<group>"; };
+		F3C04C5C140F60A8006AFAF7 /* SpriteState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteState.m; sourceTree = "<group>"; };
+		F3C444D614035C2E003B5C9C /* SpriteLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteLoader.h; sourceTree = "<group>"; };
+		F3C444D714035C2E003B5C9C /* SpriteLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteLoader.m; sourceTree = "<group>"; };
+		F3C444E51403607C003B5C9C /* SpriteDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteDef.h; sourceTree = "<group>"; };
+		F3C444E61403607C003B5C9C /* SpriteDef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteDef.m; sourceTree = "<group>"; };
+		F3C444EB14036858003B5C9C /* SpriteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteManager.h; sourceTree = "<group>"; };
+		F3C444EC14036858003B5C9C /* SpriteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteManager.m; sourceTree = "<group>"; };
+		F3C79EEF1499BCE20051ADAD /* Emu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Emu.c; sourceTree = "<group>"; };
+		F3C79EF21499BCF40051ADAD /* Emu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emu.h; sourceTree = "<group>"; };
+		F3C8327813DE8DAD007CF1CE /* WorldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldView.h; sourceTree = "<group>"; };
+		F3C8327913DE8DAD007CF1CE /* WorldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldView.m; sourceTree = "<group>"; };
+		F3CB7BD814F37907005C7377 /* TestSpriteSheetLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSpriteSheetLayerView.h; sourceTree = "<group>"; };
+		F3CB7BD914F37907005C7377 /* TestSpriteSheetLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSpriteSheetLayerView.m; sourceTree = "<group>"; };
+		F3CCE2521440244E008773E8 /* QuartzView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuartzView.h; sourceTree = "<group>"; };
+		F3CCE2531440244E008773E8 /* QuartzView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuartzView.m; sourceTree = "<group>"; };
+		F3CCE25614402482008773E8 /* EWorldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWorldView.h; sourceTree = "<group>"; };
+		F3CCE25714402482008773E8 /* EWorldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWorldView.m; sourceTree = "<group>"; };
+		F3CF4EA915FF0B280040BBCF /* ERDirection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ERDirection.h; sourceTree = "<group>"; };
+		F3D4C6ED1469005300FC282A /* BlockGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockGroup.h; sourceTree = "<group>"; };
+		F3D4C6EE1469005300FC282A /* BlockGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockGroup.m; sourceTree = "<group>"; };
+		F3D4C6F1146918A900FC282A /* ISolidObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISolidObject.h; sourceTree = "<group>"; };
+		F3D6C7E514CA1B2F003FE5B4 /* Actor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Actor.h; sourceTree = "<group>"; };
+		F3D6C7E614CA1B2F003FE5B4 /* Actor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Actor.m; sourceTree = "<group>"; };
+		F3D6C7E914CA2640003FE5B4 /* ActorUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActorUpdater.h; sourceTree = "<group>"; };
+		F3D6C7EA14CA2640003FE5B4 /* ActorUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActorUpdater.m; sourceTree = "<group>"; };
+		F3DABAEC1665F39B00471044 /* DrawSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawSettingsViewController.h; sourceTree = "<group>"; };
+		F3DABAED1665F39B00471044 /* DrawSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawSettingsViewController.m; sourceTree = "<group>"; };
+		F3DABAEE1665F39B00471044 /* DrawSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawSettingsViewController.xib; sourceTree = "<group>"; };
+		F3DE18EE14FAA6E80090BDEB /* LevelManifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelManifest.h; sourceTree = "<group>"; };
+		F3DE18EF14FAA6E80090BDEB /* LevelManifest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelManifest.m; sourceTree = "<group>"; };
+		F3DE18F214FBF9FC0090BDEB /* LauncherNewPackDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherNewPackDialog.h; sourceTree = "<group>"; };
+		F3DE18F314FBF9FC0090BDEB /* LauncherNewPackDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherNewPackDialog.m; sourceTree = "<group>"; };
+		F3DE18F414FBF9FC0090BDEB /* LauncherNewPackDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LauncherNewPackDialog.xib; sourceTree = "<group>"; };
+		F3DE18F714FBFB030090BDEB /* LauncherDeletePackDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherDeletePackDialog.h; sourceTree = "<group>"; };
+		F3DE18F814FBFB040090BDEB /* LauncherDeletePackDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherDeletePackDialog.m; sourceTree = "<group>"; };
+		F3DE18F914FBFB040090BDEB /* LauncherDeletePackDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LauncherDeletePackDialog.xib; sourceTree = "<group>"; };
+		F3DE18FC14FBFC330090BDEB /* LauncherExportPackDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherExportPackDialog.h; sourceTree = "<group>"; };
+		F3DE18FD14FBFC340090BDEB /* LauncherExportPackDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherExportPackDialog.m; sourceTree = "<group>"; };
+		F3DE18FE14FBFC340090BDEB /* LauncherExportPackDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LauncherExportPackDialog.xib; sourceTree = "<group>"; };
+		F3DFED37161E9C95004AD6B6 /* GroupPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupPickerViewController.h; sourceTree = "<group>"; };
+		F3DFED38161E9C95004AD6B6 /* GroupPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupPickerViewController.m; sourceTree = "<group>"; };
+		F3DFED39161E9C95004AD6B6 /* GroupPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupPickerViewController.xib; sourceTree = "<group>"; };
+		F3E109A6143FD7A6005E3FE5 /* EditMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditMainViewController.h; sourceTree = "<group>"; };
+		F3E109A7143FD7A6005E3FE5 /* EditMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditMainViewController.m; sourceTree = "<group>"; };
+		F3E109A8143FD7A6005E3FE5 /* EditMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditMainViewController.xib; sourceTree = "<group>"; };
+		F3E8E40913DF1E5F00066200 /* WorldTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldTest.h; sourceTree = "<group>"; };
+		F3E8E40A13DF1E5F00066200 /* WorldTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldTest.m; sourceTree = "<group>"; };
+		F3EE061313CFFAA100C003B1 /* TouchFeedbackLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchFeedbackLayerView.h; sourceTree = "<group>"; };
+		F3EE061413CFFAA100C003B1 /* TouchFeedbackLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchFeedbackLayerView.m; sourceTree = "<group>"; };
+		F3EF39B813D7F1220089466A /* CGPointW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGPointW.h; sourceTree = "<group>"; };
+		F3EF39B913D7F1220089466A /* CGPointW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGPointW.m; sourceTree = "<group>"; };
+		F3F306AB14153D11005ACA55 /* pr2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pr2.png; path = images/pr2.png; sourceTree = "<group>"; };
+		F3F75E3114A2E0C100F5A52F /* avblTurf2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = avblTurf2.png; path = images/avblTurf2.png; sourceTree = "<group>"; };
+		F3FB8F6D14D90CEE00C19FBF /* blCrumbles1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blCrumbles1.png; path = images/blCrumbles1.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F37EEF9213CF3EE600AC418D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F37EF00D13CF61CC00AC418D /* AudioToolbox.framework in Frameworks */,
+				F37EF00913CF61BF00AC418D /* OpenAL.framework in Frameworks */,
+				F37EF00A13CF61BF00AC418D /* OpenGLES.framework in Frameworks */,
+				F37EF00B13CF61BF00AC418D /* QuartzCore.framework in Frameworks */,
+				F37EEF9A13CF3EE700AC418D /* UIKit.framework in Frameworks */,
+				F37EEF9C13CF3EE700AC418D /* Foundation.framework in Frameworks */,
+				F37EEF9E13CF3EE700AC418D /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F37EEFB513CF3EE700AC418D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F37EEFBA13CF3EE700AC418D /* UIKit.framework in Frameworks */,
+				F37EEFBB13CF3EE700AC418D /* Foundation.framework in Frameworks */,
+				F37EEFBC13CF3EE700AC418D /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F3471E4E143D6E08001AA4C8 /* ArchiveFormat */ = {
+			isa = PBXGroup;
+			children = (
+				F3471E52143ED7C7001AA4C8 /* ArchiveFormat.h */,
+				F3471E53143ED7C7001AA4C8 /* ArchiveFormat.m */,
+			);
+			name = ArchiveFormat;
+			sourceTree = "<group>";
+		};
+		F37EEF8A13CF3EE600AC418D = {
+			isa = PBXGroup;
+			children = (
+				F37EEF9F13CF3EE700AC418D /* JumpProto */,
+				F37EEFBF13CF3EE700AC418D /* JumpProtoTests */,
+				F37EEF9813CF3EE700AC418D /* Frameworks */,
+				F37EEF9613CF3EE700AC418D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F37EEF9613CF3EE700AC418D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F37EEF9513CF3EE700AC418D /* JumpProto.app */,
+				F37EEFB913CF3EE700AC418D /* JumpProtoTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F37EEF9813CF3EE700AC418D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F37EF00C13CF61CC00AC418D /* AudioToolbox.framework */,
+				F37EF00613CF61BF00AC418D /* OpenAL.framework */,
+				F37EF00713CF61BF00AC418D /* OpenGLES.framework */,
+				F37EF00813CF61BF00AC418D /* QuartzCore.framework */,
+				F37EEF9913CF3EE700AC418D /* UIKit.framework */,
+				F37EEF9B13CF3EE700AC418D /* Foundation.framework */,
+				F37EEF9D13CF3EE700AC418D /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F37EEF9F13CF3EE700AC418D /* JumpProto */ = {
+			isa = PBXGroup;
+			children = (
+				F3BF63851405FAFF00431E18 /* Game resources */,
+				F3C444D114035AC6003B5C9C /* util */,
+				F37EEFD913CF411800AC418D /* en.lproj */,
+				F37EEFA013CF3EE700AC418D /* Supporting Files */,
+				F3C444D014035A94003B5C9C /* XIBs */,
+				F3DE190114FBFCEC0090BDEB /* Launcher UI */,
+				F3C444D314035B22003B5C9C /* Core */,
+				F3C444D214035AE9003B5C9C /* Views */,
+				F3C444D514035BE5003B5C9C /* Sprite */,
+				F3C444D414035B50003B5C9C /* World logic */,
+				F3471E4E143D6E08001AA4C8 /* ArchiveFormat */,
+				F3E109AC143FD7AB005E3FE5 /* Edit */,
+			);
+			path = JumpProto;
+			sourceTree = "<group>";
+		};
+		F37EEFA013CF3EE700AC418D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F37EEFA113CF3EE700AC418D /* JumpProto-Info.plist */,
+				F37EEFA213CF3EE700AC418D /* InfoPlist.strings */,
+				F37EEFA513CF3EE700AC418D /* JumpProto-Prefix.pch */,
+				F37EEFA613CF3EE700AC418D /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F37EEFBF13CF3EE700AC418D /* JumpProtoTests */ = {
+			isa = PBXGroup;
+			children = (
+				F37EEFC613CF3EE700AC418D /* JumpProtoTests.h */,
+				F37EEFC813CF3EE700AC418D /* JumpProtoTests.m */,
+				F37EEFC013CF3EE700AC418D /* Supporting Files */,
+			);
+			path = JumpProtoTests;
+			sourceTree = "<group>";
+		};
+		F37EEFC013CF3EE700AC418D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F37EEFC113CF3EE700AC418D /* JumpProtoTests-Info.plist */,
+				F37EEFC213CF3EE700AC418D /* InfoPlist.strings */,
+				F37EEFC513CF3EE700AC418D /* JumpProtoTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F37EEFD913CF411800AC418D /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				F37EEFDA13CF411800AC418D /* InfoPlist.strings */,
+				F37EEFDC13CF411800AC418D /* JumpProtoViewController.xib */,
+				F37EEFDE13CF411800AC418D /* MainWindow.xib */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
+		F3BF63851405FAFF00431E18 /* Game resources */ = {
+			isa = PBXGroup;
+			children = (
+				F305ECE61623E1FB00E153FB /* blAlgae.png */,
+				F305ECE71623E1FB00E153FB /* blavQik.png */,
+				F305ECE81623E1FB00E153FB /* blHalfsize1.png */,
+				F3FB8F6D14D90CEE00C19FBF /* blCrumbles1.png */,
+				F3B180AE14D0A8DA007DEA9E /* badGuys2.png */,
+				F3B180AF14D0A8DA007DEA9E /* blColl3.png */,
+				F3B180B014D0A8DA007DEA9E /* playerGibs1.png */,
+				F3BB50EB14C14A7D00D29D55 /* beinSilly_emCrop1_48.png */,
+				F3BB50EC14C14A7D00D29D55 /* beinSilly_maxCrop1_96.png */,
+				F3F75E3114A2E0C100F5A52F /* avblTurf2.png */,
+				F3B3E90214508E0100B5A579 /* conveyor1.png */,
+				F39963041445F3680082822E /* blColumn0.png */,
+				F39963051445F3680082822E /* blOneWay0.png */,
+				F39963061445F3680082822E /* props0.png */,
+				F39963071445F3680082822E /* testblox2b.png */,
+				F3471E4C143D515F001AA4C8 /* icons 1.png */,
+				F3F306AB14153D11005ACA55 /* pr2.png */,
+				F35880261407FD32005A1FD3 /* pr1.png */,
+				F35880271407FD32005A1FD3 /* testblox1.png */,
+				F3BF63871405FB7E00431E18 /* Sprites0.xml */,
+				F3BF63891405FB9A00431E18 /* Anims0.xml */,
+			);
+			name = "Game resources";
+			sourceTree = "<group>";
+		};
+		F3C444D014035A94003B5C9C /* XIBs */ = {
+			isa = PBXGroup;
+			children = (
+				F37EEFAB13CF3EE700AC418D /* MainWindow.xib */,
+				F37EEFB113CF3EE700AC418D /* JumpProtoViewController.xib */,
+				F3B34FEA14319E13007EE52C /* JumpProtoLaunchViewController.xib */,
+				F3E109A8143FD7A6005E3FE5 /* EditMainViewController.xib */,
+				F37F1DF0144395F600790E55 /* EBlockPaletteViewController.xib */,
+				F36BC4E214CF8E5B0028CC80 /* EDocPropsViewController.xib */,
+				F3DE18F414FBF9FC0090BDEB /* LauncherNewPackDialog.xib */,
+				F3DE18F914FBFB040090BDEB /* LauncherDeletePackDialog.xib */,
+				F3DE18FE14FBFC340090BDEB /* LauncherExportPackDialog.xib */,
+				F3DFED39161E9C95004AD6B6 /* GroupPickerViewController.xib */,
+				F3DABAEE1665F39B00471044 /* DrawSettingsViewController.xib */,
+			);
+			name = XIBs;
+			sourceTree = "<group>";
+		};
+		F3C444D114035AC6003B5C9C /* util */ = {
+			isa = PBXGroup;
+			children = (
+				F3EF39B813D7F1220089466A /* CGPointW.h */,
+				F3EF39B913D7F1220089466A /* CGPointW.m */,
+				F37EEFE013CF411800AC418D /* ES1RenderDelegate.h */,
+				F37EEFE113CF411800AC418D /* ES1Renderer.h */,
+				F37EEFE213CF411800AC418D /* ES1Renderer.m */,
+				F37EEFE413CF411800AC418D /* gutil.h */,
+				F37EEFE313CF411800AC418D /* gutil.c */,
+				F37EEFE913CF411800AC418D /* LogStopWatch.h */,
+				F37EEFEA13CF411800AC418D /* LogStopWatch.m */,
+				F37EEFEF13CF411800AC418D /* oal.h */,
+				F37EEFF013CF411800AC418D /* oal.m */,
+				F37EEFF113CF411800AC418D /* OpenGLCommon.h */,
+			);
+			name = util;
+			sourceTree = "<group>";
+		};
+		F3C444D214035AE9003B5C9C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F37EEFD413CF411800AC418D /* BackgroundLayerView.h */,
+				F37EEFD513CF411800AC418D /* BackgroundLayerView.m */,
+				F37EEFD713CF411800AC418D /* EAGLView.h */,
+				F37EEFD813CF411800AC418D /* EAGLView.m */,
+				F37EEFE713CF411800AC418D /* LayerView.h */,
+				F37EEFE813CF411800AC418D /* LayerView.m */,
+				F37EEFF413CF411800AC418D /* TestLayerView.h */,
+				F37EEFF513CF411800AC418D /* TestLayerView.m */,
+				F3CB7BD814F37907005C7377 /* TestSpriteSheetLayerView.h */,
+				F3CB7BD914F37907005C7377 /* TestSpriteSheetLayerView.m */,
+				F3EE061313CFFAA100C003B1 /* TouchFeedbackLayerView.h */,
+				F3EE061413CFFAA100C003B1 /* TouchFeedbackLayerView.m */,
+				F3A8A6BF13D3FA1300DAC166 /* DebugLogLayerView.h */,
+				F3A8A6C013D3FA1300DAC166 /* DebugLogLayerView.m */,
+				F38FA57513D92C410007B99D /* DpadFeedbackLayerView.h */,
+				F38FA57613D92C410007B99D /* DpadFeedbackLayerView.m */,
+				F3C8327813DE8DAD007CF1CE /* WorldView.h */,
+				F3C8327913DE8DAD007CF1CE /* WorldView.m */,
+				F347EADE13E1FD9200F6EA15 /* GlobalButtonView.h */,
+				F347EADF13E1FD9200F6EA15 /* GlobalButtonView.m */,
+				F3471E48143D4CF9001AA4C8 /* SpriteStateDrawUtil.h */,
+				F3471E49143D4CF9001AA4C8 /* SpriteStateDrawUtil.m */,
+				932DD07717974A3100375642 /* RectCoordBuffer.h */,
+				932DD07817974A3100375642 /* RectCoordBuffer.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		F3C444D314035B22003B5C9C /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				F37EEFD613CF411800AC418D /* constants.h */,
+				F347EAD113E1F69900F6EA15 /* HitZone.h */,
+				F347EAD213E1F69900F6EA15 /* HitZone.m */,
+				F37EEFD213CF411800AC418D /* AspectController.h */,
+				F37EEFD313CF411800AC418D /* AspectController.m */,
+				F37EEFEB13CF411800AC418D /* MainDrawController.h */,
+				F37EEFEC13CF411800AC418D /* MainDrawController.m */,
+				F37EEFF213CF411800AC418D /* SoundManager.h */,
+				F37EEFF313CF411800AC418D /* SoundManager.m */,
+				F37EEFA813CF3EE700AC418D /* JumpProtoAppDelegate.h */,
+				F37EEFA913CF3EE700AC418D /* JumpProtoAppDelegate.m */,
+				F3B34FE814319E13007EE52C /* JumpProtoLaunchViewController.h */,
+				F3B34FE914319E13007EE52C /* JumpProtoLaunchViewController.m */,
+				F37EEFAE13CF3EE700AC418D /* JumpProtoViewController.h */,
+				F37EEFAF13CF3EE700AC418D /* JumpProtoViewController.m */,
+				F3259F6913D6A5FC0018CC3D /* DpadInput.h */,
+				F3259F6A13D6A5FC0018CC3D /* DpadInput.m */,
+				F347EADB13E1FD7E00F6EA15 /* GlobalCommand.h */,
+				F347EADC13E1FD7E00F6EA15 /* GlobalCommand.m */,
+				F35CFA4714A1AD9F00137887 /* sharedTypes.h */,
+				F3DE18EE14FAA6E80090BDEB /* LevelManifest.h */,
+				F3DE18EF14FAA6E80090BDEB /* LevelManifest.m */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		F3C444D414035B50003B5C9C /* World logic */ = {
+			isa = PBXGroup;
+			children = (
+				F3C79EF21499BCF40051ADAD /* Emu.h */,
+				F3C79EEF1499BCE20051ADAD /* Emu.c */,
+				F31EECB113DD3ED500A337EF /* World.h */,
+				F31EECB213DD3ED500A337EF /* World.m */,
+				F3471E58143FCF31001AA4C8 /* WorldArchiveUtil.h */,
+				F3471E59143FCF31001AA4C8 /* WorldArchiveUtil.m */,
+				F3E8E40913DF1E5F00066200 /* WorldTest.h */,
+				F3E8E40A13DF1E5F00066200 /* WorldTest.m */,
+				F3D4C6F1146918A900FC282A /* ISolidObject.h */,
+				F31EECB513DD3EE800A337EF /* Block.h */,
+				F31EECB613DD3EE800A337EF /* Block.m */,
+				F3D4C6ED1469005300FC282A /* BlockGroup.h */,
+				F3D4C6EE1469005300FC282A /* BlockGroup.m */,
+				F3CF4EA915FF0B280040BBCF /* ERDirection.h */,
+				F31EECB813DD3EF800A337EF /* ElbowRoom.h */,
+				F31EECB913DD3EF800A337EF /* ElbowRoom.m */,
+				F31EECBB13DD3F3500A337EF /* BlockUpdater.h */,
+				F31EECBC13DD3F3500A337EF /* BlockUpdater.m */,
+				F3D6C7E514CA1B2F003FE5B4 /* Actor.h */,
+				F3D6C7E614CA1B2F003FE5B4 /* Actor.m */,
+				F3D6C7E914CA2640003FE5B4 /* ActorUpdater.h */,
+				F3D6C7EA14CA2640003FE5B4 /* ActorUpdater.m */,
+				F35204211500A2F100000CDC /* WorldFrameState.h */,
+				F35204221500A2F100000CDC /* WorldFrameState.m */,
+			);
+			name = "World logic";
+			sourceTree = "<group>";
+		};
+		F3C444D514035BE5003B5C9C /* Sprite */ = {
+			isa = PBXGroup;
+			children = (
+				F3C444D614035C2E003B5C9C /* SpriteLoader.h */,
+				F3C444D714035C2E003B5C9C /* SpriteLoader.m */,
+				F3C444E51403607C003B5C9C /* SpriteDef.h */,
+				F3C444E61403607C003B5C9C /* SpriteDef.m */,
+				F3C444EB14036858003B5C9C /* SpriteManager.h */,
+				F3C444EC14036858003B5C9C /* SpriteManager.m */,
+				F3C04C5B140F60A8006AFAF7 /* SpriteState.h */,
+				F3C04C5C140F60A8006AFAF7 /* SpriteState.m */,
+				F3395AD41443DACA00C381AA /* SpriteAutoVariationDefines.h */,
+			);
+			name = Sprite;
+			sourceTree = "<group>";
+		};
+		F3DE190114FBFCEC0090BDEB /* Launcher UI */ = {
+			isa = PBXGroup;
+			children = (
+				F39AC75A14FCA031009736D2 /* ILauncherUI.h */,
+				F3DE18F214FBF9FC0090BDEB /* LauncherNewPackDialog.h */,
+				F3DE18F314FBF9FC0090BDEB /* LauncherNewPackDialog.m */,
+				F3DE18F714FBFB030090BDEB /* LauncherDeletePackDialog.h */,
+				F3DE18F814FBFB040090BDEB /* LauncherDeletePackDialog.m */,
+				F3DE18FC14FBFC330090BDEB /* LauncherExportPackDialog.h */,
+				F3DE18FD14FBFC340090BDEB /* LauncherExportPackDialog.m */,
+			);
+			name = "Launcher UI";
+			sourceTree = "<group>";
+		};
+		F3E109AC143FD7AB005E3FE5 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				F3B1C45314429F4C00D09E36 /* EBlockPreset.h */,
+				F37F1DEE144395F600790E55 /* EBlockPaletteViewController.h */,
+				F37F1DEF144395F600790E55 /* EBlockPaletteViewController.m */,
+				F3CCE2521440244E008773E8 /* QuartzView.h */,
+				F3CCE2531440244E008773E8 /* QuartzView.m */,
+				F3CCE25614402482008773E8 /* EWorldView.h */,
+				F3CCE25714402482008773E8 /* EWorldView.m */,
+				F3E109A6143FD7A6005E3FE5 /* EditMainViewController.h */,
+				F3E109A7143FD7A6005E3FE5 /* EditMainViewController.m */,
+				F30EFB6F144233F6003054DC /* EDoc.h */,
+				F30EFB70144233F6003054DC /* EDoc.m */,
+				F3B1C4541442B21600D09E36 /* EArchiveUtil.h */,
+				F3B1C4551442B21600D09E36 /* EArchiveUtil.m */,
+				F38A372314B1106900A6403B /* EBlockPresetSpriteNames.h */,
+				F38A372414B1106900A6403B /* EBlockPresetSpriteNames.m */,
+				F36BC4E014CF8E5A0028CC80 /* EDocPropsViewController.h */,
+				F36BC4E114CF8E5B0028CC80 /* EDocPropsViewController.m */,
+				F3DFED37161E9C95004AD6B6 /* GroupPickerViewController.h */,
+				F3DFED38161E9C95004AD6B6 /* GroupPickerViewController.m */,
+				F3DABAEC1665F39B00471044 /* DrawSettingsViewController.h */,
+				F3DABAED1665F39B00471044 /* DrawSettingsViewController.m */,
+				93A736BA17580FEE0059C2C9 /* EBlockMRUList.h */,
+				93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */,
+			);
+			name = Edit;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F37EEF9413CF3EE600AC418D /* JumpProto */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F37EEFCC13CF3EE700AC418D /* Build configuration list for PBXNativeTarget "JumpProto" */;
+			buildPhases = (
+				F37EEF9113CF3EE600AC418D /* Sources */,
+				F37EEF9213CF3EE600AC418D /* Frameworks */,
+				F37EEF9313CF3EE600AC418D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JumpProto;
+			productName = JumpProto;
+			productReference = F37EEF9513CF3EE700AC418D /* JumpProto.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F37EEFB813CF3EE700AC418D /* JumpProtoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F37EEFCF13CF3EE700AC418D /* Build configuration list for PBXNativeTarget "JumpProtoTests" */;
+			buildPhases = (
+				F37EEFB413CF3EE700AC418D /* Sources */,
+				F37EEFB513CF3EE700AC418D /* Frameworks */,
+				F37EEFB613CF3EE700AC418D /* Resources */,
+				F37EEFB713CF3EE700AC418D /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F37EEFBE13CF3EE700AC418D /* PBXTargetDependency */,
+			);
+			name = JumpProtoTests;
+			productName = JumpProtoTests;
+			productReference = F37EEFB913CF3EE700AC418D /* JumpProtoTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F37EEF8C13CF3EE600AC418D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = F37EEF8F13CF3EE600AC418D /* Build configuration list for PBXProject "JumpProto" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F37EEF8A13CF3EE600AC418D;
+			productRefGroup = F37EEF9613CF3EE700AC418D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F37EEF9413CF3EE600AC418D /* JumpProto */,
+				F37EEFB813CF3EE700AC418D /* JumpProtoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F37EEF9313CF3EE600AC418D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F37EEFA413CF3EE700AC418D /* InfoPlist.strings in Resources */,
+				F37EEFAD13CF3EE700AC418D /* MainWindow.xib in Resources */,
+				F37EEFB313CF3EE700AC418D /* JumpProtoViewController.xib in Resources */,
+				F37EEFF913CF411800AC418D /* InfoPlist.strings in Resources */,
+				F37EEFFA13CF411800AC418D /* JumpProtoViewController.xib in Resources */,
+				F37EEFFB13CF411800AC418D /* MainWindow.xib in Resources */,
+				F3BF63881405FB7E00431E18 /* Sprites0.xml in Resources */,
+				F3BF638A1405FB9A00431E18 /* Anims0.xml in Resources */,
+				F35880281407FD32005A1FD3 /* pr1.png in Resources */,
+				F35880291407FD32005A1FD3 /* testblox1.png in Resources */,
+				F3F306AC14153D11005ACA55 /* pr2.png in Resources */,
+				F3B34FEC14319E13007EE52C /* JumpProtoLaunchViewController.xib in Resources */,
+				F3471E4D143D515F001AA4C8 /* icons 1.png in Resources */,
+				F3E109AA143FD7A6005E3FE5 /* EditMainViewController.xib in Resources */,
+				F37F1DF2144395F600790E55 /* EBlockPaletteViewController.xib in Resources */,
+				F39963081445F3680082822E /* blColumn0.png in Resources */,
+				F39963091445F3680082822E /* blOneWay0.png in Resources */,
+				F399630A1445F3680082822E /* props0.png in Resources */,
+				F399630B1445F3680082822E /* testblox2b.png in Resources */,
+				F3B3E90314508E0100B5A579 /* conveyor1.png in Resources */,
+				F3F75E3214A2E0C100F5A52F /* avblTurf2.png in Resources */,
+				F3BB50ED14C14A7D00D29D55 /* beinSilly_emCrop1_48.png in Resources */,
+				F3BB50EE14C14A7D00D29D55 /* beinSilly_maxCrop1_96.png in Resources */,
+				F36BC4E414CF8E5B0028CC80 /* EDocPropsViewController.xib in Resources */,
+				F3B180B114D0A8DA007DEA9E /* badGuys2.png in Resources */,
+				F3B180B214D0A8DA007DEA9E /* blColl3.png in Resources */,
+				F3B180B314D0A8DA007DEA9E /* playerGibs1.png in Resources */,
+				F3FB8F6E14D90CEE00C19FBF /* blCrumbles1.png in Resources */,
+				F3DE18F614FBF9FC0090BDEB /* LauncherNewPackDialog.xib in Resources */,
+				F3DE18FB14FBFB040090BDEB /* LauncherDeletePackDialog.xib in Resources */,
+				F3DE190014FBFC340090BDEB /* LauncherExportPackDialog.xib in Resources */,
+				F3DFED3B161E9C95004AD6B6 /* GroupPickerViewController.xib in Resources */,
+				F305ECE91623E1FB00E153FB /* blAlgae.png in Resources */,
+				F305ECEA1623E1FB00E153FB /* blavQik.png in Resources */,
+				F305ECEB1623E1FB00E153FB /* blHalfsize1.png in Resources */,
+				F3DABAF01665F39B00471044 /* DrawSettingsViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F37EEFB613CF3EE700AC418D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F37EEFC413CF3EE700AC418D /* InfoPlist.strings in Resources */,
+				F37EEFC713CF3EE700AC418D /* JumpProtoTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F37EEFB713CF3EE700AC418D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F37EEF9113CF3EE600AC418D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F37EEFA713CF3EE700AC418D /* main.m in Sources */,
+				F37EEFAA13CF3EE700AC418D /* JumpProtoAppDelegate.m in Sources */,
+				F37EEFB013CF3EE700AC418D /* JumpProtoViewController.m in Sources */,
+				F37EEFF613CF411800AC418D /* AspectController.m in Sources */,
+				F37EEFF713CF411800AC418D /* BackgroundLayerView.m in Sources */,
+				F37EEFF813CF411800AC418D /* EAGLView.m in Sources */,
+				F37EEFFC13CF411800AC418D /* ES1Renderer.m in Sources */,
+				F37EEFFD13CF411800AC418D /* gutil.c in Sources */,
+				F37EEFFF13CF411800AC418D /* LayerView.m in Sources */,
+				F37EF00013CF411800AC418D /* LogStopWatch.m in Sources */,
+				F37EF00113CF411800AC418D /* MainDrawController.m in Sources */,
+				F37EF00313CF411800AC418D /* oal.m in Sources */,
+				F37EF00413CF411800AC418D /* SoundManager.m in Sources */,
+				F37EF00513CF411800AC418D /* TestLayerView.m in Sources */,
+				F3EE061513CFFAA100C003B1 /* TouchFeedbackLayerView.m in Sources */,
+				F3A8A6C113D3FA1300DAC166 /* DebugLogLayerView.m in Sources */,
+				F3259F6B13D6A5FC0018CC3D /* DpadInput.m in Sources */,
+				F3EF39BA13D7F1220089466A /* CGPointW.m in Sources */,
+				F38FA57713D92C410007B99D /* DpadFeedbackLayerView.m in Sources */,
+				F31EECB313DD3ED500A337EF /* World.m in Sources */,
+				F31EECB713DD3EE800A337EF /* Block.m in Sources */,
+				F31EECBA13DD3EF900A337EF /* ElbowRoom.m in Sources */,
+				F31EECBD13DD3F3500A337EF /* BlockUpdater.m in Sources */,
+				F3C8327A13DE8DAD007CF1CE /* WorldView.m in Sources */,
+				F3E8E40B13DF1E5F00066200 /* WorldTest.m in Sources */,
+				F347EAD313E1F69900F6EA15 /* HitZone.m in Sources */,
+				F347EADD13E1FD7F00F6EA15 /* GlobalCommand.m in Sources */,
+				F347EAE013E1FD9200F6EA15 /* GlobalButtonView.m in Sources */,
+				F3C444D814035C2E003B5C9C /* SpriteLoader.m in Sources */,
+				F3C444E71403607C003B5C9C /* SpriteDef.m in Sources */,
+				F3C444ED14036858003B5C9C /* SpriteManager.m in Sources */,
+				F3C04C5D140F60A8006AFAF7 /* SpriteState.m in Sources */,
+				F3B34FEB14319E13007EE52C /* JumpProtoLaunchViewController.m in Sources */,
+				F3471E4A143D4CF9001AA4C8 /* SpriteStateDrawUtil.m in Sources */,
+				F3471E54143ED7C7001AA4C8 /* ArchiveFormat.m in Sources */,
+				F3471E5A143FCF31001AA4C8 /* WorldArchiveUtil.m in Sources */,
+				F3E109A9143FD7A6005E3FE5 /* EditMainViewController.m in Sources */,
+				F3CCE2541440244E008773E8 /* QuartzView.m in Sources */,
+				F3CCE25814402482008773E8 /* EWorldView.m in Sources */,
+				F30EFB71144233F6003054DC /* EDoc.m in Sources */,
+				F3B1C4561442B21600D09E36 /* EArchiveUtil.m in Sources */,
+				F37F1DF1144395F600790E55 /* EBlockPaletteViewController.m in Sources */,
+				F3D4C6EF1469005300FC282A /* BlockGroup.m in Sources */,
+				F3C79EF01499BCE20051ADAD /* Emu.c in Sources */,
+				F38A372514B1106900A6403B /* EBlockPresetSpriteNames.m in Sources */,
+				F3D6C7E714CA1B30003FE5B4 /* Actor.m in Sources */,
+				F3D6C7EB14CA2641003FE5B4 /* ActorUpdater.m in Sources */,
+				F36BC4E314CF8E5B0028CC80 /* EDocPropsViewController.m in Sources */,
+				F3CB7BDA14F37907005C7377 /* TestSpriteSheetLayerView.m in Sources */,
+				F3DE18F014FAA6E80090BDEB /* LevelManifest.m in Sources */,
+				F3DE18F514FBF9FC0090BDEB /* LauncherNewPackDialog.m in Sources */,
+				F3DE18FA14FBFB040090BDEB /* LauncherDeletePackDialog.m in Sources */,
+				F3DE18FF14FBFC340090BDEB /* LauncherExportPackDialog.m in Sources */,
+				F35204231500A2F100000CDC /* WorldFrameState.m in Sources */,
+				F3DFED3A161E9C95004AD6B6 /* GroupPickerViewController.m in Sources */,
+				F3DABAEF1665F39B00471044 /* DrawSettingsViewController.m in Sources */,
+				93A736BC17580FEE0059C2C9 /* EBlockMRUList.m in Sources */,
+				932DD07917974A3100375642 /* RectCoordBuffer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F37EEFB413CF3EE700AC418D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F37EEFC913CF3EE700AC418D /* JumpProtoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F37EEFBE13CF3EE700AC418D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F37EEF9413CF3EE600AC418D /* JumpProto */;
+			targetProxy = F37EEFBD13CF3EE700AC418D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F37EEFA213CF3EE700AC418D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F37EEFA313CF3EE700AC418D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F37EEFAB13CF3EE700AC418D /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F37EEFAC13CF3EE700AC418D /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		F37EEFB113CF3EE700AC418D /* JumpProtoViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F37EEFB213CF3EE700AC418D /* en */,
+			);
+			name = JumpProtoViewController.xib;
+			sourceTree = "<group>";
+		};
+		F37EEFC213CF3EE700AC418D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F37EEFC313CF3EE700AC418D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F37EEFDA13CF411800AC418D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F37EEFDB13CF411800AC418D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F37EEFDC13CF411800AC418D /* JumpProtoViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F37EEFDD13CF411800AC418D /* en */,
+			);
+			name = JumpProtoViewController.xib;
+			sourceTree = "<group>";
+		};
+		F37EEFDE13CF411800AC418D /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F37EEFDF13CF411800AC418D /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F37EEFCA13CF3EE700AC418D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		F37EEFCB13CF3EE700AC418D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		F37EEFCD13CF3EE700AC418D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JumpProto/JumpProto-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "JumpProto/JumpProto-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F37EEFCE13CF3EE700AC418D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JumpProto/JumpProto-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "JumpProto/JumpProto-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		F37EEFD013CF3EE700AC418D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JumpProto.app/JumpProto";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JumpProtoTests/JumpProtoTests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "JumpProtoTests/JumpProtoTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		F37EEFD113CF3EE700AC418D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JumpProto.app/JumpProto";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JumpProtoTests/JumpProtoTests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "JumpProtoTests/JumpProtoTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F37EEF8F13CF3EE600AC418D /* Build configuration list for PBXProject "JumpProto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F37EEFCA13CF3EE700AC418D /* Debug */,
+				F37EEFCB13CF3EE700AC418D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F37EEFCC13CF3EE700AC418D /* Build configuration list for PBXNativeTarget "JumpProto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F37EEFCD13CF3EE700AC418D /* Debug */,
+				F37EEFCE13CF3EE700AC418D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F37EEFCF13CF3EE700AC418D /* Build configuration list for PBXNativeTarget "JumpProtoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F37EEFD013CF3EE700AC418D /* Debug */,
+				F37EEFD113CF3EE700AC418D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F37EEF8C13CF3EE600AC418D /* Project object */;
+}

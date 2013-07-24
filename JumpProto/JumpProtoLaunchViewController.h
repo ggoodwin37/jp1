@@ -1,0 +1,69 @@
+//
+//  JumpProtoLaunchViewController.h
+//  JumpProto
+//
+//  Created by gideong on 9/26/11.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+#import "JumpProtoAppDelegate.h"
+#import "ILauncherUI.h"
+#import "DpadInput.h"
+
+@protocol IParentVC <NSObject>
+
+-(void)onChildClosing:(id)child withOptionalLevelName:(NSString *)optLevelName;
+
+@end
+
+
+@protocol IChildVC <IAppStartStop>
+
+-(void)setParentDelegate:(id<IParentVC>)parent;
+-(void)setStartingLevel:(NSString *)levelName;
+
+@end
+
+
+@class LauncherDialogBase;
+
+@interface JumpProtoLaunchViewController : UIViewController <IAppStartStop, IParentVC, UIPickerViewDataSource, UIPickerViewDelegate, ILauncherUIParent> {
+    UIViewController<IChildVC> *m_childViewController;
+    
+    NSArray *m_levelPickerViewContents;
+    int m_lastPickedLevelRow;
+    
+    NSArray *m_packPickerViewContents;
+    int m_lastPickedPackRow;
+    
+    LauncherDialogBase *m_currentLauncherDialog;
+}
+
+@property (nonatomic, retain) IBOutlet UIPickerView *packPickerView;
+
+@property (nonatomic, retain) IBOutlet UIPickerView *levelPickerView;
+@property (nonatomic, retain) IBOutlet UISwitch *deleteArmedSwitch;
+
+@property (nonatomic, retain) IBOutlet UISwitch *loadFromDiskSwitch;
+
+@property (nonatomic, retain) NSString *exitedLevelName;
+
+@property (nonatomic, retain) DpadInput *dpadInput;
+
+@property (nonatomic, retain) NSString *currentManifestName;
+
+
+-(IBAction)onNewPackButtonTouched:(id)sender;
+-(IBAction)onDeletePackButtonTouched:(id)sender;
+-(IBAction)onExportPackButtonTouched:(id)sender;
+
+-(IBAction)onPlayButtonTouched:(id)sender;
+-(IBAction)onEditButtonTouched:(id)sender;
+-(IBAction)onDeleteButtonTouched:(id)sender;
+
+-(void)onAppStart;
+-(void)onAppStop;
+
+@end

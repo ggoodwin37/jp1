@@ -1,0 +1,9 @@
+// current
+
+- one of the old test levels has a large number of crates that are essentially acting as inert blocks, i.e. packed in and unmovable. but perf seems to go down quite a bit, are we wasting work?
+
+
+// old
+
+// punted
+

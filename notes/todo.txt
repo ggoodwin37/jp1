@@ -1,0 +1,45 @@
+// misc
+
+// near term plan
+
+- experimental physics change: for blocks that are affected by gravity, only paraProp if they are standing on something. does this break collision detection?
+  - I forget why this was originally interesting, is it intended to stop player from jump-up-pushing stuff? but there's a risk that core collision detection would stop working.
+
+- drawing spriteStateMaps: base case is done, need to do edit support (tiling?) and consider handling non-integral case in play.
+
+- button v1?
+
+- finish manifest import/export. export to zip+email. import from bundle+zip (to disk).
+  - is there a better way to do this? dropbox integration...
+  - who is the audience for this? is it for dev only, or is this something that end users need? I think it's dev only, then when shipp
+ing, import the files into the bundle. so dropbox or something ghetto would work, as long as you can backup/manage the levels.
+
+- need a physics constants pass once most stuff is working
+- tweak air friction to less
+
+- world layers
+
+- fix sprite tile edge artifacts (or decide to redo all art so we can be at native resolution during regular play)
+  - I think this just means blending has to stay off. then you have the jaggies, which can potentially be mitigated if our block size happens to be integral with the physical display. even if it is, do we have to worry about sub-pixel offsets messing with us?
+
+- z-index? can we use depth buffer? do layers cover this?
+
+
+// future
+
+- low-hanging perf pass. some levels perf seems worse than expected. e.g. lots of moving platforms only, lots of stationary crates only.
+
+- implement the restricted rect version of EWorldView drawToContext for better perf while drawing blocks. (still relevant?)
+
+
+// edit. claim: investing in edit makes play exponentially more awesome.
+
+- TODO: putting these way down here makes them lower priority but they are not so, should interleave.
+
+- a better drag, part 2: I miss being able to drag-and-draw lots of blocks (removed this functionality when broke the unit grid). can we bring it back somehow? it's nice to have draw-on-touchEnd with cursor so you know what you're placing. but maybe if they touch and drag on an existing block of same preset, we enter special mode where we continuously drop blocks of that size as soon as we can fit them. there's some subtlety here around where the block is anchored to the finger touch point and how this interacts with free space check, probably simplifyable. maybe this isn't worth it and you just need to get used to the existing behavior.
+
+- cut/copy/paste. for copy, you've been picturing this intelligent edge trimming algorithm, but we can probably do without that for now and just trust author to make convenient copies (which handles 95% of actual use cases). i.e. drop blocks not entirely in copy region.
+
+- would be cool to have like 3 to 4 draw slots so I can rapidly choose between several presets, can be pre-pop'd too.
+
+- undo stack

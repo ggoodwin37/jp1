@@ -1,0 +1,179 @@
+9-8
+fixed a handful of annoying but minor bugs.
+
+one hole simplification: claim that the average movement offset during one frame is significantly less than the size of one block (even if we make block sizes half as big).
+
+if this is true, then the only frame we care about (for one hole) is when the solidObject has exactly one down abutter, and we want to move more than the overlap between our edges. if we can detect this condition precisely, we have an easy and sort of minimal way to tell when we need to forfeit a chunk of time.
+
+9-9
+three things:
+x notion of original propagator for limit tally
+x one hole check, verify assumption first
+- wasting propagate work even when v=0?
+
+I think I have finally solved the one-hole-down problem for good (although there are still possible problem cases, I'm hoping I won't ever hit them). woo. hoo. I have dreamed of this day since I was a boy in a small rural village.
+
+9-10
+collision detection doesn't look like it will be too hard to get going. want a nice event-based system. problems with firing collision events in the middle of an updater loop? All state changes must be asynchronously handled?
+do we still need both the me-touch-you and you-touch-me flavors of collision detection?
+
+also I should spend some time on groups, at least figure out how broken they are, ideally fix them. not quite sure how the new gap checker logic will work for groups. it's fine to be expensive for now.
+
+9-10, pm
+trying something different by moving log, bugs, and todo text files from evernote into the repo.
+
+refresher question: are group SOs stored separately from their element SOs? are the elements in the world list, or only owned by the group? answer: groups are stored in the worldSO list, and they own their elements (elements not in world list).
+
+refresher on what exactly vIntrinsic is used for? it is used to provide motive for blocks whose initialVelocity is set. it is bounced when a bounce event happens.
+
+ending tonight in the middle of the collision detection update. basic functionality is working but have the following issues to fix directly:
+x meanieB spazzes out
+x gibs spaz out (maybe related to above)
+x crumbles don't work
+x moving platforms don't bounce correctly, maybe similar to meanies
+
+9-12
+got collision detection mostly back to where it was, wrapping up a few bugs.
+
+after this should spend some time getting groups back up and running.
+
+9-16
+fixed basic group movement and half of group gap check. the half I fixed is if a group is on top of regular blocks. I think we're still broken if a regular block is gap checking on top of a group.
+
+9-17
+x fix one-gap-on-top-of-group issue.
+x fix crash when group falls off level.
+- motive vs. motive no bounce
+- edit groups?
+
+9-24
+just been working on a few bugs. overall really stable.
+
+9-25
+trying to fix last two issues before finally moving on to new features:
+x jumps sometimes exaggerate when world is running slowly.
+- motive bounce issue (meanie vs. meanie)
+
+9-29
+fixed moving platform opposing motive, meanies still stick together though.
+
+been doing some art and thinking lots about what comes up next. editor needs some love.
+
+10-1
+trying to resolve the sticky issue still. mid-frame abutter updates so bounce detection works correctly.
+
+I think I finally fixed the sticky issues. I'm ready to call this a checkpoint.
+woohoo, finally get to work on some new stuff! starting tomorrow...
+
+10-4
+making quick progress on editing groups.
+...aaand done. seems pretty cool at first take. did notice an alarming phasing issue maybe unrelated, but it looked like a "didn't add edge at all" bug rather than some obscure updater/ER thing. couldn't repro at first glance.
+
+10-8
+skipped a few days. haven't seen phasing bug mentioned above, but didn't really test that hard after all.
+
+added some new art I was messing around with, including art for nonunit blocks, maybe some that can be background tiles, and the trig set for red/blue shenanigans (once I get around to coding it).
+
+next up: some decoupling of the block sprite drawer from the unit grid. need to support these scenarios:
+- all existing blocks. 1 unit block of a certain preset -> one unit sized sprite
+- big blocks: a 3x5 block of a certain preset -> a 3x5 tiling of a unit sized sprite
+- more general: the block size and sprite size are totally decoupled. we do need a common reference unit or scale factor to provide the translation.
+- perf: is there a measurable gain if we have optimized drawers for certain types of blocks? since we're gonna be doing a lot of "draw big static block" for the ground and walls, what savings can we get there, if any? maybe it's not that expensive to just do it the best way.
+- do we need to support an offset?
+
+10-23
+been slacking. now I dove in deep to the grid resize. everything is a factor of 4 bigger now. this will allow us to have smaller blocks mixed in (and bigger ones). after this I can work on drawing the non-1x1 blocks correctly.
+
+this will be a total level reset unless I add some fallback legacy code. can check the date on disk of a level and decide what to do? nah, the rescale touched too many places. can always just roll back to an older build if you need to check it for some reason. at least the levels still load and can be seen if not played successfully.
+
+loose ends:
+x edit mode should show a target location on touchstart and only draw block on touchend. this will encourage more economical block use as well.
+x actors are small
+x edit mode need a way to detect touches on blocks (other than their origin block). for erase and grab.
+- do a pass with freshly edited levels (to take advantage of the change where we write non-units for most things now).
+o editing is a pain in general now that we aren't snapping to grid. should add a snap setting. actually this may be less important now, need to try it for a while with cursor enabled.
+
+10-29
+still slacking. done with core work for grid size boost. need several refinements, as above.
+
+11-27
+waking up again. tackling editing issues.
+
+x edit initial zoom is bad
+x rescale everything correctly
+
+x edit: add snap mode. what visuals?
+x edit: add block size control during draw. this should go on same control as snap.
+- sprites: figure out how to map single sprites into non-unit blocks (including AV). see todo.txt
+- sprites: fix AV for all cases.
+
+5-14-2013
+been thinking about jumpproto again. I hit a road block with the pixel resolution thing. I was working on a new batch of sprites (this time at a different size, assuming we must go 1:1 zoom ratio). but I lost steam.
+
+now I'm trying to get development set up on my macbook. got a checkout of the source but I still need to attempt to install it on the device.
+
+btw, noticed some weirdness with the checkout on the iMac, looks like you somehow have two checkouts, one at the parent and another one level down.
+
+5-16
+All set up on macbook. been fleshing out the worldSize stuff for drawing tiled blocks, need to do some more on this but basic case works.
+
+5-17
+working on autoVariationMaps to enable av again on arbitrary sized blocks.
+
+x remove EBlockPreset_GroundTestAutoVariation1
+x trim 8-way to 4-way av hinting.
+x remove old level.playerStart cruft.
+- getting lots of overflow warnings, appears to be around apex of jump and looks nonharmful.
+- nuke all levels
+- edit mode should prompt for level name when starting a new level (including at launch). just show properties dialog initially.
+
+5-19
+finished off the avMap work by plumbing through to the worldView.
+
+need to figure out what to do next. nominate:
+- edit: 2 finger pan/zoom, remove tool.
+- edit: more improvements, whatever makes level editing easier and fun.
+  - cut/copy/paste
+  - drag&draw
+  - fast palette
+  - undo
+
+5-30
+working on toolless pan/zoom and block MRU list. haven't tested the code yet (at work). need to remove pan/zoom UI. need to write MRU UI. may be convenient to hook up sprites for the block palette while you're at it.
+
+5-31
+Finished toolless pan/zoom, 'snice. Wrote some code for MRU but no UI yet. Fixed edit large block culling issue.
+
+Next up: adding sprites to palette, MRU UI.
+
+Want to overhaul manifest system, in particular, kill them and replace with a tag system. This will be simpler and better.
+
+7-17
+Hello again. While I was brushing my teeth last night I randomly realized that I am probably using openGL very poorly, I should be buffering all vertices and drawing them at once. also can skip the color ptr, maybe that will give speedup.
+- create a heavy test level
+- time draw as is.
+- remove color ptr, retime
+- do buffer change, retime
+
+test level: draw-stress-01
+
+before any changes:
+2013-07-17 10:49:40.975 JumpProto[3190:707] updating world average duration is 31.430508 ms.
+2013-07-17 10:49:50.632 JumpProto[3190:707] worldView draw avg: 8.324895ms.
+
+(wtf, why is updateWorld taking so long? there's a lot of static blocks on this level, and several crates/moving platforms, but this is really high. I think I need a general profiling pass here too).
+
+removing glColorPoint call:
+2013-07-17 10:54:01.867 JumpProto[3207:707] updating world average duration is 30.829538 ms.
+2013-07-17 10:54:11.501 JumpProto[3207:707] worldView draw avg: 8.029288ms.
+
+a very slight improvement, but graphics are now all dark, so I need to figure out how to just apply a global flat light to the scene if I want to roll with this. Reverting for now, but could be interesting to return to. Should also explore using the color array for cool effects.
+
+after batching all vertices in a single call to glDrawArrays:
+
+2013-07-17 22:16:35.229 JumpProto[3588:707] worldView draw avg: 2.882353ms.
+2013-07-17 22:16:35.631 JumpProto[3588:707] updating world average duration is 31.475380 ms.
+
+less than half the time. had to switch to GL_TRIANGLES instead of GL_TRIANGLESTRIPS but clearly worthwhile. This is eating about 100k of system memory for the extra buffers though.
+
+next up: should do a pass for low-hanging fruit on the other 31 ms being spent on world update. this graphics stress test level should be relatively light on world logic, just around 15 crates and 5 moving platforms, plus a ton of static walls. perf this bad not expected for such a simple level.

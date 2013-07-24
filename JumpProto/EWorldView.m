@@ -1,0 +1,777 @@
+//
+//  EWorldView.m
+//  JumpProto
+//
+//  Created by gideong on 10/7/11.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//
+
+#import "EWorldView.h"
+#import "AspectController.h"
+#import "CGPointW.h"
+#import "gutil.h"
+#import "constants.h"
+#import "SpriteManager.h"
+#import "EBlockPresetSpriteNames.h"
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// EWorldView
+@interface EWorldView (private)
+-(void)initText;
+@end
+
+
+@implementation EWorldView
+
+@synthesize level;
+@synthesize worldRect;
+@synthesize currentToolMode;
+@synthesize document;
+@synthesize gridVisible;
+@synthesize worldViewEventCallback;
+@synthesize docDirty;
+@synthesize groupOverlayDrawer;
+@synthesize drawGroupOverlay;
+@synthesize activeGroupId;
+@synthesize cursorTouches;
+@synthesize currentSnap;
+@synthesize brushSizeGrid;
+@synthesize currentTouchEventPanZoomed;  // whether the current event ever caused a pan/zoom (cancelling other tools).
+@synthesize blockMRUList;
+
+// TODO: general: this class knows about drawing stuff and also about editing commands.
+//       need a better abstraction.
+
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+	if( self = [super initWithCoder:aDecoder] )
+	{
+        m_panZoomGestureProcessor = [[EPanZoomProcessor alloc] init];
+        [m_panZoomGestureProcessor registerConsumer:self];
+        self.worldViewEventCallback = nil;
+        
+        self.docDirty = NO;
+        
+        self.activeGroupId = GROUPID_NONE;
+        self.currentSnap = 2;
+        self.brushSizeGrid = [[EGridPoint alloc] initAtXGrid:4 yGrid:4];
+        
+        self.groupOverlayDrawer = [[UILabel alloc] init];
+        [self initText];
+        
+        self.cursorTouches = nil;
+        
+        self.currentTouchEventPanZoomed = NO;
+        
+        self.blockMRUList = [[EBlockMRUList alloc] initWithMaxSize:8];
+        // TODO: consider pre-populating this list with some stuff.
+	}
+	return self;
+}
+
+
+-(void)dealloc
+{
+    self.blockMRUList = nil;
+    self.brushSizeGrid = nil;
+    self.cursorTouches = nil;
+    self.groupOverlayDrawer = nil;
+    m_blockPresetStateHolder = nil;  // weak
+    self.level = nil;    // weak
+    self.document = nil; // weak
+    self.worldViewEventCallback = nil;  // weak
+    [m_panZoomGestureProcessor release]; m_panZoomGestureProcessor = nil;
+    
+    [super dealloc];
+}
+
+// could save one mult or divide each by prefactoring if needed.
+#define viewToWorld( input_viewcoord, worldorig, worldsize, viewsize ) ( (worldorig) + (((input_viewcoord)/(viewsize)) * (worldsize) ) )
+#define worldToView( input_worldcoord, worldorig, worldsize, viewsize )  ( ((input_worldcoord) - (worldorig)) * (viewsize) / (worldsize) )
+
+
+-(void)drawGridToContext:(CGContextRef)context
+{
+    if( self.worldRect.size.width <= 0.f || self.worldRect.size.height <= 0.f )
+    {
+        NSAssert( NO, @"bad worldRect." );
+        return;
+    }
+    if( self.frame.size.width <= 0.f || self.frame.size.height <= 0.f )
+    {
+        NSAssert( NO, @"bad frameRect." );
+        return;
+    }
+
+    const float gridSpaceWorldUnits = ONE_BLOCK_SIZE_Fl;
+
+    // support for drawing every nth line.
+    int lineSkipCounterMax;
+    int lineSkipCounter;
+
+    float oneBlockWidthInViewUnits = worldToView( gridSpaceWorldUnits, 0.f, self.worldRect.size.width, self.frame.size.width );
+    if( oneBlockWidthInViewUnits <= 12.f )
+    {
+        lineSkipCounterMax = 4;
+    }
+    else if( oneBlockWidthInViewUnits <= 36.f )
+    {
+        lineSkipCounterMax = 2;
+    }
+    else
+    {
+        lineSkipCounterMax = 1;
+    }
+    
+    const float grayIntensity = 0.6f;
+	CGContextSetRGBStrokeColor( context, grayIntensity, grayIntensity, grayIntensity, 1.0 );
+	CGContextSetLineWidth( context, 1.5 );
+
+    float phase;
+    const float dashPattern[] = { 3.f, 5.f };
+    
+    float u, umax, v;
+    float wo, ws, vs;  // worldOrigin, worldSize, viewSize
+    
+    // first draw the vertical grid (iterating x)
+    wo = self.worldRect.origin.x;
+    ws = self.worldRect.size.width;
+    vs = self.frame.size.width;
+    u = viewToWorld( 0.f, wo, ws, vs );
+    u = ceilf( u / gridSpaceWorldUnits ) * gridSpaceWorldUnits;
+    umax = viewToWorld( self.frame.size.width, wo, ws, vs );
+    lineSkipCounter = (int)(floorf( u / gridSpaceWorldUnits )) % lineSkipCounterMax;
+    for( ; u < umax; u += gridSpaceWorldUnits  )
+    {
+        if( lineSkipCounter == 0 )
+        {
+            v = worldToView( u, wo, ws, vs );
+            CGContextMoveToPoint( context, v, 0.f );
+            CGContextAddLineToPoint( context, v, self.frame.size.height );
+        }
+        ++lineSkipCounter;
+        if( lineSkipCounter >= lineSkipCounterMax )
+        {
+            lineSkipCounter = 0;
+        }
+    }
+    phase = worldToView( self.worldRect.origin.y, 0.f, ws, vs );
+    CGContextSetLineDash( context, phase, dashPattern, 2 );
+    CGContextStrokePath(context);
+
+    // then draw the horizontal grid (iterating y)
+    wo = self.worldRect.origin.y;
+    ws = self.worldRect.size.height;
+    vs = self.frame.size.height;
+    u = viewToWorld( 0.f, wo, ws, vs );
+    u = ceilf( u / gridSpaceWorldUnits ) * gridSpaceWorldUnits;
+    umax = viewToWorld( self.frame.size.height, wo, ws, vs );
+    lineSkipCounter =  (int)(floorf( u / gridSpaceWorldUnits )) % lineSkipCounterMax;
+    for( ; u < umax; u += gridSpaceWorldUnits  )
+    {
+        if( lineSkipCounter == 0 )
+        {
+            v = worldToView( u, wo, ws, vs );
+            CGContextMoveToPoint( context, 0.f, v );
+            CGContextAddLineToPoint( context, self.frame.size.width, v );
+        }
+        ++lineSkipCounter;
+        if( lineSkipCounter >= lineSkipCounterMax )
+        {
+            lineSkipCounter = 0;
+        }
+    }    
+    phase = worldToView( self.worldRect.origin.x, 0.f, ws, vs );
+    CGContextSetLineDash( context, phase, dashPattern, 2 );
+	CGContextStrokePath(context);
+}
+
+
+// TODO: the counts could be non-integral
+-(void)drawBlockPreset:(EBlockPreset)preset at:(CGRect)rectMaster toContext:(CGContextRef)context xCount:(int)xCount yCount:(int)yCount
+{
+    if( preset == EBlockPreset_None )
+    {
+        NSAssert( NO, @"Asked to draw a None preset, that's not supposed to happen." );
+        return;
+    }
+    
+    NSString *thisPresetSpriteName = [EBlockPresetSpriteNames getSpriteNameForPreset:preset];
+    UIImage *thisImage = [[SpriteManager instance] getImageForSpriteName:thisPresetSpriteName];
+    
+    float oneTileWidth = rectMaster.size.width / xCount;
+    float oneTileHeight = rectMaster.size.height / yCount;
+
+    for( int y = 0; y < yCount; ++y )
+    {
+        for( int x = 0; x < xCount; ++x )
+        {
+            CGRect rect = CGRectMake( rectMaster.origin.x + (x * oneTileWidth), rectMaster.origin.y + (y * oneTileHeight),
+                                      oneTileWidth, oneTileHeight );
+            [thisImage drawInRect:rect];
+        }
+    }
+}
+
+
+-(void)initText
+{
+    self.groupOverlayDrawer.textColor = [UIColor whiteColor];
+    self.groupOverlayDrawer.font = [UIFont fontWithName:@"Courier-Bold" size:(28.0)];
+    self.groupOverlayDrawer.textAlignment = UITextAlignmentCenter;
+}
+
+
+-(void)drawBlockGroupOverlayForMarker:(EGridBlockMarker *)marker at:(CGRect)rect toContext:(CGContextRef)context
+{
+    NSString *overlayText;
+    if( marker.props.groupId == GROUPID_NONE )
+    {
+        overlayText = @"==";
+    }
+    else
+    {
+        char c = '?';
+        if( (int)marker.props.groupId <= ('Z' - 'A') )
+        {
+            c = (char)(marker.props.groupId - GROUPID_FIRST + 'A');
+        }
+        overlayText = [NSString stringWithFormat:@"%c", c];
+    }
+    self.groupOverlayDrawer.text = overlayText;
+
+    [self.groupOverlayDrawer drawTextInRect:rect];
+}
+
+
+-(void)drawCursorWithBoundingBox:(CGRect)boundingBox toContext:(CGContextRef)context
+{
+	CGContextSetRGBStrokeColor( context, 1.f, 1.f, 0.f, 0.75f );
+	CGContextSetLineWidth( context, 4 );
+    CGContextAddRect( context, boundingBox );
+    CGContextStrokePath( context );
+}
+
+
+-(float)snapCoord:(float)u
+{
+    int snapFactor = 1;
+    switch( self.currentSnap )
+    {
+        case 0: default: snapFactor = 1; break;
+        case 1: snapFactor = 2; break;
+        case 2: snapFactor = 4; break;
+        case 3: snapFactor = 8; break;  // aka 2^n
+            
+    }
+    float f = GRID_SIZE_Fl * snapFactor;
+
+    return f * floorf( u / f );
+}
+
+
+-(void)drawGridDocumentToContext:(CGContextRef)context
+{
+    if( self.document == nil )
+    {
+        NSLog( @"EWorldView drawGridDocumentToContext: no document." );
+        return;
+    }
+    
+    float xWorldMin, xWorldMax;
+    xWorldMin = viewToWorld( 0.f, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width );
+    xWorldMin = floorf( xWorldMin / ONE_BLOCK_SIZE_Fl ) * ONE_BLOCK_SIZE_Fl;
+    xWorldMax = viewToWorld( self.frame.size.width, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width );
+    xWorldMax = ceilf( xWorldMax / ONE_BLOCK_SIZE_Fl ) * ONE_BLOCK_SIZE_Fl;
+
+    float yWorldMin, yWorldMax;
+    yWorldMin = viewToWorld( 0.f, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height );
+    yWorldMin = floorf( yWorldMin / ONE_BLOCK_SIZE_Fl ) * ONE_BLOCK_SIZE_Fl;
+    yWorldMax = viewToWorld( self.frame.size.height, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height );
+    yWorldMax = ceilf( yWorldMax / ONE_BLOCK_SIZE_Fl ) * ONE_BLOCK_SIZE_Fl;
+
+    float vx, vy, vw, vh, wx, wy;
+    
+    float xWorldCur, yWorldCur;
+
+    NSArray *gridMarkers = [self.document getValues];
+    for( int iMarker = 0; iMarker < [gridMarkers count]; ++iMarker )
+    {
+        EGridBlockMarker *thisMarker = (EGridBlockMarker *)[gridMarkers objectAtIndex:iMarker];
+        if( thisMarker.shadowParent != nil )
+        {
+            // don't draw shadows since we'll just draw the parent block exactly once.
+            continue;
+        }
+        xWorldCur = thisMarker.gridLocation.xGrid * ONE_BLOCK_SIZE_Fl;
+        yWorldCur = thisMarker.gridLocation.yGrid * ONE_BLOCK_SIZE_Fl;
+
+        // TODO: do I really have to handle culling?
+        //       seems like something that CoreGraphics would be good at. should profile this.
+        
+        // cull offscreen blocks
+        if( xWorldCur >= xWorldMax )
+        {
+            continue;
+        }
+        if( yWorldCur >= yWorldMax )
+        {
+            continue;
+        }
+        if( xWorldCur < xWorldMin - (thisMarker.gridSize.xGrid * ONE_BLOCK_SIZE_Fl) )
+        {
+            continue;
+        }
+        if( yWorldCur < yWorldMin - (thisMarker.gridSize.yGrid * ONE_BLOCK_SIZE_Fl) )
+        {
+            continue;
+        }
+        
+        // this block is (at least partially) onscreen, so draw it.
+        vx = worldToView( xWorldCur, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width);
+        vy = worldToView( yWorldCur, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height);
+        vw = worldToView( thisMarker.gridSize.xGrid * ONE_BLOCK_SIZE_Fl, 0.f, self.worldRect.size.width, self.frame.size.width);
+        vh = worldToView( thisMarker.gridSize.yGrid * ONE_BLOCK_SIZE_Fl, 0.f, self.worldRect.size.height, self.frame.size.height);
+        CGRect boundingBox = CGRectMake( vx, vy, vw, vh);
+        // TODO: support non-integral case?
+        NSString *thisPresetSpriteName = [EBlockPresetSpriteNames getSpriteNameForPreset:thisMarker.preset];
+        SpriteDef *spriteDef = [[SpriteManager instance] getSpriteDef:thisPresetSpriteName];
+        int xCount = MAX( 1, thisMarker.gridSize.xGrid / spriteDef.worldSize.width );
+        int yCount = MAX( 1, thisMarker.gridSize.yGrid / spriteDef.worldSize.height );
+        [self drawBlockPreset:thisMarker.preset at:boundingBox toContext:context xCount:xCount yCount:yCount];
+  
+        if( self.drawGroupOverlay )
+            [self drawBlockGroupOverlayForMarker:thisMarker at:boundingBox toContext:context];
+    }
+    
+    if( self.cursorTouches != nil )
+    {
+        int cursorGridW = self.brushSizeGrid.xGrid;
+        int cursorGridH = self.brushSizeGrid.yGrid;
+        vw = worldToView( cursorGridW * ONE_BLOCK_SIZE_Fl, 0.f, self.worldRect.size.width, self.frame.size.width);
+        vh = worldToView( cursorGridH * ONE_BLOCK_SIZE_Fl, 0.f, self.worldRect.size.height, self.frame.size.height);
+        
+        UITouch *touch;
+        NSEnumerator *enumerator = [self.cursorTouches objectEnumerator];
+        while( touch = (UITouch *)[enumerator nextObject] )
+        {
+            CGPoint touchPView = [touch locationInView:self];
+            wx = viewToWorld(touchPView.x, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width);
+            wy = viewToWorld(touchPView.y, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height);
+            
+            // round to nearest snap
+            wx = [self snapCoord:wx];
+            wy = [self snapCoord:wy];
+            
+            CGPoint touchPWorld = CGPointMake( wx, wy );
+            vx = worldToView( touchPWorld.x, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width);
+            vy = worldToView( touchPWorld.y, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height);
+            CGRect boundingBox = CGRectMake( vx, vy, vw, vh);
+            
+            [self drawCursorWithBoundingBox:boundingBox toContext:context];
+        }
+    }
+
+}
+
+
+-(void)drawInContext:(CGContextRef)context
+{
+    [super drawInContext:context];
+    
+    [self drawGridDocumentToContext:context];
+    if( self.gridVisible )
+    {
+        [self drawGridToContext:context];
+    }
+}
+
+
+-(void)setCenterPoint:(CGPoint)centerPoint
+{
+    // preserve existing w/h
+    float w = self.worldRect.size.width;
+    float h = self.worldRect.size.height;
+    float offsetW = w / 2.f;
+    float offsetH = h / 2.f;
+    self.worldRect = CGRectMake( centerPoint.x - offsetW, centerPoint.y - offsetH, w, h );
+}
+
+
+-(void)setBlock:(EBlockPreset)preset withTouches:(NSSet *)touches
+{
+    if( self.document == nil )
+    {
+        NSLog( @"EWorldView drawBlock: no document." );
+        return;
+    }
+    
+    UITouch *touch;
+    NSEnumerator *enumerator = [touches objectEnumerator];
+    while( touch = (UITouch *)[enumerator nextObject] )
+    {
+        CGPoint touchPView = [touch locationInView:self];
+        float wx = [self snapCoord: viewToWorld(touchPView.x, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width)];
+        float wy = [self snapCoord: viewToWorld(touchPView.y, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height)];
+        CGPoint touchPWorld = CGPointMake( wx, wy );
+        NSUInteger xGrid = (NSUInteger)floorf( touchPWorld.x / ONE_BLOCK_SIZE_Fl );
+        NSUInteger yGrid = (NSUInteger)floorf( touchPWorld.y / ONE_BLOCK_SIZE_Fl );
+        
+        BOOL fChangedState = [self.document setPreset: preset
+                                            atXGrid: xGrid yGrid: yGrid
+                                            w: self.brushSizeGrid.xGrid h: self.brushSizeGrid.yGrid
+                                            groupId: GROUPID_NONE];
+        if( fChangedState )
+        {
+            [self setNeedsDisplay];
+            self.docDirty = YES;
+            
+            // if this is other than an erase, store in MRU
+            if( preset != EBlockPreset_None )
+            {
+                EBlockMRUEntry *mruEntry = [[[EBlockMRUEntry alloc] initWithPreset:preset size:self.brushSizeGrid] autorelease];
+                [self.blockMRUList pushEntry:mruEntry];
+            }
+        }
+    }
+}
+
+
+// TODO: consume this from new MRU UI
+-(void)selectMRUEntryAtIndex:(int)index
+{
+    NSAssert( index >= 0 && index < [self.blockMRUList getCurrentSize], @"Don't be an ass." );
+    EBlockMRUEntry *entry = [self.blockMRUList getEntryAtOffset:index];
+    self.brushSizeGrid = entry.gridSize;
+    [m_blockPresetStateHolder currentBlockPresetUpdated:entry.preset];
+}
+
+
+-(void)handleGrabWithTouches:(NSSet *)touches
+{
+    if( self.document == nil )
+    {
+        NSLog( @"EWorldView handleGrabWithEvent: no document." );
+        return;
+    }
+    
+    UITouch *touch;
+    EBlockPreset grabbedPreset = EBlockPreset_None;
+    EGridPoint *grabbedSize = nil;
+    NSEnumerator *enumerator = [touches objectEnumerator];
+    while( touch = (UITouch *)[enumerator nextObject] )
+    {
+        CGPoint touchPView = [touch locationInView:self];
+        CGPoint touchPWorld = CGPointMake( viewToWorld(touchPView.x, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width),
+                                           viewToWorld(touchPView.y, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height) );
+        EGridBlockMarker *marker = [self.document getMarkerAt:touchPWorld];
+        if( marker != nil && marker.shadowParent != nil )
+        {
+            marker = marker.shadowParent;
+        }
+        if( marker != nil )
+        {
+            grabbedPreset = marker.preset;
+            grabbedSize = marker.gridSize;
+        }
+        else
+        {
+            grabbedPreset = EBlockPreset_None;
+        }
+    }
+    [m_blockPresetStateHolder currentBlockPresetUpdated:grabbedPreset];
+
+    // TODO: kind of strange that this doesn't go through the blockPresetStateHolder...
+    //       ultimately the presetHolder should also have this knowledge.
+    if( grabbedSize != nil )
+    {
+        self.brushSizeGrid = grabbedSize;
+    }
+}
+
+
+-(void)setGroup:(GroupId)groupId withTouches:(NSSet *)touches
+{
+    if( self.document == nil )
+    {
+        NSLog( @"EWorldView setGroup: no document." );
+        return;
+    }
+    
+    UITouch *touch;
+    NSEnumerator *enumerator = [touches objectEnumerator];
+    while( touch = (UITouch *)[enumerator nextObject] )
+    {
+        CGPoint touchPView = [touch locationInView:self];
+        CGPoint touchPWorld = CGPointMake( viewToWorld(touchPView.x, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width),
+                                           viewToWorld(touchPView.y, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height) );
+        
+        EGridBlockMarker *marker = [self.document getMarkerAt:touchPWorld];
+        if( marker.shadowParent != nil ) marker.shadowParent.props.groupId = self.activeGroupId;
+        else marker.props.groupId = self.activeGroupId;
+    }
+    [self setNeedsDisplay];
+}
+
+
+-(void)setCursorsWithTouches:(NSSet *)touches andEvent:(UIEvent *)event
+{
+    // FUTURE: cursor could be smarter and react appropriately depending on tool mode.
+    //         e.g. if drawing it would outline down right from touch. if erase it would
+    //         highlight the block that would be erased (not the same as draw mode).
+    self.cursorTouches = [event allTouches];
+    [self setNeedsDisplay];
+}
+
+
+-(void)clearCursors
+{
+    self.cursorTouches = nil;
+    [self setNeedsDisplay];
+}
+
+
+-(int)getEventTouchCount:(UIEvent *)event
+{
+    return [[event touchesForView:self] count];
+}
+
+
+-(void)tryResetCurrentTouchEventPanZoomedForEvent:(UIEvent *)event
+{
+    // if there are no remaining touches, reset pan/zoom flag.
+    // iterate over touches and check their phase, rather than just counting remaining touches.
+    //  this is because it's possible for more than one touch to have ended in the same event.
+    int touchCount = [self getEventTouchCount:event];
+    int numDone = 0;
+    NSSet *viewTouches = [event touchesForView:self];
+    NSEnumerator *enumerator = [viewTouches objectEnumerator];
+    UITouch *touch;
+    while( touch = (UITouch *)[enumerator nextObject] )
+    {
+        if( touch.phase == UITouchPhaseEnded || touch.phase == UITouchPhaseCancelled )
+        {
+            ++numDone;
+        }
+    }
+    if( numDone == touchCount )
+    {
+        self.currentTouchEventPanZoomed = NO;
+    }
+}
+
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    int touchCount = [self getEventTouchCount:event];
+    if( touchCount == 1 )
+    {
+        if( self.currentToolMode == ToolModeDrawBlock )
+        {
+            [self setCursorsWithTouches:touches andEvent:event];
+        }
+    }
+    else
+    {
+        [self clearCursors];
+        self.currentTouchEventPanZoomed = YES;  // this event caused a pan/zoom, no other tools can execute for this event.
+    }
+}
+
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    int touchCount = [self getEventTouchCount:event];
+    if( touchCount == 1 )
+    {
+        if( !self.currentTouchEventPanZoomed )
+        {
+            if( self.currentToolMode == ToolModeDrawBlock )
+            {
+                [self setCursorsWithTouches:touches andEvent:event];
+            }
+        }
+    }
+    else if( touchCount == 2 )
+    {
+        [m_panZoomGestureProcessor touchesMoved:touches withEvent:event inView:self];
+    }
+}
+
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if( !self.currentTouchEventPanZoomed )
+    {
+        if( self.currentToolMode == ToolModeDrawBlock )
+        {
+            [self setBlock:[m_blockPresetStateHolder getCurrentBlockPreset] withTouches:touches];
+        }
+        else if( self.currentToolMode == ToolModeErase )
+        {
+            [self setBlock:EBlockPreset_None withTouches:touches];
+        }
+        else if( self.currentToolMode == ToolModeGroup )
+        {
+            [self setGroup:self.activeGroupId withTouches:touches];
+        }
+        else if( self.currentToolMode == ToolModeGrab )
+        {
+            [self handleGrabWithTouches:touches];
+            
+            // inform event delegate that a block was grabbed (so that the tool mode can get switched back to Draw)
+            if( self.worldViewEventCallback != nil )
+            {
+                [self.worldViewEventCallback onGrabbedPreset];
+            }
+        }
+        [self clearCursors];
+    }
+    [self tryResetCurrentTouchEventPanZoomedForEvent:event];
+}
+
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self tryResetCurrentTouchEventPanZoomedForEvent:event];
+}
+
+
+-(void)onZoomByFactor:(float)factor centeredOnViewPoint:(CGPoint)centerPointView
+{
+    float wNew = self.worldRect.size.width * factor;
+    float hNew = self.worldRect.size.height * factor;
+
+    // translates to adjust for non-true center point, then zooms, then translates back.
+    
+    float xCenterDeltaView = centerPointView.x - ( self.frame.size.width / 2.f );
+    float yCenterDeltaView = centerPointView.y - ( self.frame.size.height / 2.f );
+    float xCenterDeltaWorld = viewToWorld( xCenterDeltaView, 0.f, self.worldRect.size.width, self.frame.size.width );
+    float yCenterDeltaWorld = viewToWorld( yCenterDeltaView, 0.f, self.worldRect.size.height, self.frame.size.height );
+    
+    float xCenterWorld = self.worldRect.origin.x + (self.worldRect.size.width / 2.f);
+    xCenterWorld -= xCenterDeltaWorld * factor;
+    float xNew = fmaxf( 0.f, xCenterWorld - (wNew / 2.f) );
+    xNew += xCenterDeltaWorld;
+    
+    float yCenterWorld = self.worldRect.origin.y + (self.worldRect.size.height / 2.f);
+    yCenterWorld -= yCenterDeltaWorld * factor;
+    float yNew = fmaxf( 0.f, yCenterWorld - (hNew / 2.f) );
+    yNew += yCenterDeltaWorld;
+
+    self.worldRect = CGRectMake( xNew, yNew, wNew, hNew );
+
+    [self setNeedsDisplay];
+}
+
+
+-(void)onPanByViewUnits:(CGPoint)vector
+{
+    // convert view units to world units first.
+    float deltaXWorld = self.worldRect.size.width  * (vector.x / self.frame.size.width );
+    float deltaYWorld = self.worldRect.size.height * (vector.y / self.frame.size.height );
+    
+    float xNew = fmaxf( 0.f, self.worldRect.origin.x - deltaXWorld );
+    float yNew = fmaxf( 0.f, self.worldRect.origin.y - deltaYWorld );
+    self.worldRect = CGRectMake( xNew, yNew, self.worldRect.size.width, self.worldRect.size.height );
+    
+    [self setNeedsDisplay];
+}
+
+
+-(void)setPresetStateHolder:(id<ICurrentBlockPresetStateHolder>)holder
+{
+    m_blockPresetStateHolder = holder;  // weak;
+}
+
+
+@end
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// EPanZoomProcessor
+
+@implementation EPanZoomProcessor
+
+-(id)init
+{
+    if( self = [super init] )
+    {
+    }
+    return self;
+}
+
+
+-(void)dealloc
+{
+    m_consumer = nil;  // weak
+    [super dealloc];
+}
+
+
+-(void)registerConsumer:(id<IPanZoomResultConsumer>)consumer
+{
+    m_consumer = consumer;  // weak
+}
+
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event inView:(UIView *)view
+{
+}
+
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event inView:(UIView *)view
+{
+    // every move event causes both a pan and a zoom (either of which may be a no-op).
+    NSSet *viewTouches = [event touchesForView:view];
+    UITouch *touch;
+    int touchCount = [viewTouches count];
+    if( touchCount != 2 )
+    {
+        NSAssert( NO, @"Assume panZoomProcessor only gets events with 2 active touches." );
+        return;
+    }
+
+    NSMutableArray *pPArray = [NSMutableArray array];  // array (of size 2) of previous points
+    NSMutableArray *pCArray = [NSMutableArray array];  // array (of size 2) of current points
+    
+    NSEnumerator *enumerator = [viewTouches objectEnumerator];
+    while( touch = (UITouch *)[enumerator nextObject] )
+    {
+        CGPointW *prevPositionForTouch = [CGPointW fromPoint:[touch previousLocationInView:view]];
+        CGPointW *curPositionForTouch = [CGPointW fromPoint:[touch locationInView:view]];
+        [pPArray addObject:prevPositionForTouch];
+        [pCArray addObject:curPositionForTouch];
+    }
+    
+    CGPointW *pws0 = (CGPointW *)[pPArray objectAtIndex:0];
+    CGPointW *pws1 = (CGPointW *)[pPArray objectAtIndex:1];
+    CGPointW *pwc0 = (CGPointW *)[pCArray objectAtIndex:0];
+    CGPointW *pwc1 = (CGPointW *)[pCArray objectAtIndex:1];
+    CGPoint psCenter = CGPointMake( (pws0.x + pws1.x) / 2.f, (pws0.y + pws1.y) / 2.f);
+    CGPoint pcCenter = CGPointMake( (pwc0.x + pwc1.x) / 2.f, (pwc0.y + pwc1.y) / 2.f);
+    
+    float sDistance = sqrtf( ((pws1.x - pws0.x) * (pws1.x - pws0.x)) + ((pws1.y - pws0.y) * (pws1.y - pws0.y)) );
+    float cDistance = sqrtf( ((pwc1.x - pwc0.x) * (pwc1.x - pwc0.x)) + ((pwc1.y - pwc0.y) * (pwc1.y - pwc0.y)) );
+    
+    float zoomFactor = 1.f;
+    if( cDistance != 0.f )
+    {
+        zoomFactor = sDistance / cDistance;
+    }
+    [m_consumer onZoomByFactor:zoomFactor centeredOnViewPoint:psCenter];
+    
+    CGPoint panVector = subtractVectors( pcCenter, psCenter );
+    [m_consumer onPanByViewUnits:panVector];
+}
+
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event inView:(UIView *)view
+{
+}
+
+
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event inView:(UIView *)view
+{
+}
+
+@end
+
