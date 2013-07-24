@@ -177,3 +177,18 @@ after batching all vertices in a single call to glDrawArrays:
 less than half the time. had to switch to GL_TRIANGLES instead of GL_TRIANGLESTRIPS but clearly worthwhile. This is eating about 100k of system memory for the extra buffers though.
 
 next up: should do a pass for low-hanging fruit on the other 31 ms being spent on world update. this graphics stress test level should be relatively light on world logic, just around 15 crates and 5 moving platforms, plus a ton of static walls. perf this bad not expected for such a simple level.
+
+7-24
+Migrated the repo to git on bitbucket.
+
+Have some time to write a little code for the next 4 days. Rough plan of attack (depending on how lazy I am):
+- do a pass on world update perf.
+- investigate manifest update (remove manifests, add tagging system).
+- stretch goal: level upload to dropbox.
+- gameplay improvements:
+  - walljump
+  - button actor
+  - event system foundation
+  - new monster?
+- plug in some new graphics.
+- bug pass (gibs, world bottom, some levels crash).
