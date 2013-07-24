@@ -192,3 +192,6 @@ Have some time to write a little code for the next 4 days. Rough plan of attack 
   - new monster?
 - plug in some new graphics.
 - bug pass (gibs, world bottom, some levels crash).
+
+// perf pass
+initial state: level draw-stress-01  average world update (3rd iteration): 31.3ms
