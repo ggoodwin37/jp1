@@ -7,6 +7,7 @@
 //
 
 #import "WorldFrameState.h"
+#import "BlockGroup.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// WorldFrameCacheEntry
 
@@ -22,6 +23,10 @@
         m_abuttListLeft  = [[NSMutableArray arrayWithCapacity:4] retain];
         m_abuttListRight = [[NSMutableArray arrayWithCapacity:4] retain];
         m_abuttListDown  = [[NSMutableArray arrayWithCapacity:4] retain];
+        m_hasCachedAbuttListUp = NO;
+        m_hasCachedAbuttListLeft = NO;
+        m_hasCachedAbuttListRight = NO;
+        m_hasCachedAbuttListDown = NO;
         
         self.gravityTallyForFrameSoFar = 0;
         self.gravityTallyOwningSO = nil;
@@ -59,11 +64,41 @@
 {
     switch( dir )
     {
-        case ERDirUp:    [m_abuttListUp    removeAllObjects]; break;
-        case ERDirLeft:  [m_abuttListLeft  removeAllObjects]; break;
-        case ERDirRight: [m_abuttListRight removeAllObjects]; break;
-        case ERDirDown:  [m_abuttListDown  removeAllObjects]; break;
-        default: NSAssert( NO, @"dir fail" );                 break;
+        case ERDirUp:
+            if( m_hasCachedAbuttListUp )
+            {
+                [m_abuttListUp removeAllObjects];
+                m_hasCachedAbuttListUp = NO;
+            }
+            break;
+        
+        case ERDirLeft:
+            if( m_hasCachedAbuttListLeft )
+            {
+                [m_abuttListLeft removeAllObjects];
+                m_hasCachedAbuttListLeft = NO;
+            }
+            break;
+        
+        case ERDirRight:
+            if( m_hasCachedAbuttListRight )
+            {
+                [m_abuttListRight removeAllObjects];
+                m_hasCachedAbuttListRight = NO;
+            }
+            break;
+        
+        case ERDirDown:
+            if( m_hasCachedAbuttListDown )
+            {
+                [m_abuttListDown removeAllObjects];
+                m_hasCachedAbuttListDown = NO;
+            }
+            break;
+
+        default:
+            NSAssert( NO, @"dir fail" );
+            break;
     }
 }
 
@@ -105,6 +140,32 @@
         NSSet *uniqueSet = [NSSet setWithArray:targetArray];
         [targetArray removeAllObjects];
         [targetArray addObjectsFromArray:[uniqueSet allObjects]];
+    }
+}
+
+
+-(void)markCacheAbuttListForDirection:(ERDirection)dir
+{
+    switch( dir )
+    {
+        case ERDirUp:    m_hasCachedAbuttListUp    = YES; break;
+        case ERDirLeft:  m_hasCachedAbuttListLeft  = YES; break;
+        case ERDirRight: m_hasCachedAbuttListRight = YES; break;
+        case ERDirDown:  m_hasCachedAbuttListDown  = YES; break;
+        default: NSAssert( NO, @"dir fail" );             break;
+    }
+}
+
+
+-(BOOL)hasCachedAbuttListForDirection:(ERDirection)dir
+{
+    switch( dir )
+    {
+        case ERDirUp:    return m_hasCachedAbuttListUp;
+        case ERDirLeft:  return m_hasCachedAbuttListLeft;
+        case ERDirRight: return m_hasCachedAbuttListRight;
+        case ERDirDown:  return m_hasCachedAbuttListDown;
+        default: NSAssert( NO, @"dir fail" ); return NO;
     }
 }
 
@@ -170,12 +231,73 @@
         return;
     }
     
-    // note: entry's abutt lists are actually cleared on demand when updating the lists. this is ok because
-    //  we always update every list every frame, and we sometimes have to update mid-frame.
+    static const ERDirection dirList[] = { ERDirUp, ERDirLeft, ERDirRight, ERDirDown };
+    const int dirListCount = 4;
+    for( int i = 0; i < dirListCount; ++i )
+    {
+        [thisEntry clearAbuttListForDirection:dirList[i]];
+    }
     
     thisEntry.gravityTallyForFrameSoFar = 0;
     thisEntry.gravityTallyOwningSO = nil;
     thisEntry.newAbuttersThisFrame = NO;
 }
+
+
+-(void)updateOneAbuttListForSolidObject:(ASolidObject *)solidObject inER:(ElbowRoom *)er direction:(ERDirection)dir
+{
+    WorldFrameCacheEntry *cacheEntry = [self ensureEntryForSO:solidObject];
+    
+    NSMutableArray *abuttEdgeList;
+    Emu thisElbowRoom = [er getElbowRoomForSO:solidObject inDirection:dir outCollidingEdgeList:&abuttEdgeList];
+    if( thisElbowRoom == 0 )
+    {
+        [cacheEntry copyAbuttingBlocksFromEdgeList:abuttEdgeList forDirection:dir];
+    }
+    
+    // also register abutters for each element of a group. This is needed for group gap check (specifically the case where
+    // the group may fall into a gap).
+    // TODO: seems like this n^2 block could potentially get SLOW. need better algorithm.
+    if( [solidObject isGroup] )
+    {
+        BlockGroup *thisGroup = (BlockGroup *)solidObject;
+        for( int i = 0; i < [thisGroup.blocks count]; ++i )
+        {
+            Block *thisElement = (Block *)[thisGroup.blocks objectAtIndex:i];
+            WorldFrameCacheEntry *thisElementCacheEntry = [self ensureEntryForSO:thisElement];
+            [thisElementCacheEntry clearAbuttListForDirection:dir];
+            thisElbowRoom = [er getElbowRoomForSO:thisElement inDirection:dir outCollidingEdgeList:&abuttEdgeList];
+            if( thisElbowRoom == 0 )
+            {
+                // when using the non-group flavor of getElbowRoomForSO, the return list can contain SOs that are
+                // in the same group as us. Ignore these.
+                for( int j = [abuttEdgeList count] - 1; j >= 0; --j )
+                {
+                    EREdge *thisTestEdge = (EREdge *)[abuttEdgeList objectAtIndex:j];
+                    if( thisTestEdge.block.owningGroup == thisGroup )
+                    {
+                        [abuttEdgeList removeObjectAtIndex:j];
+                    }
+                }
+                [thisElementCacheEntry copyAbuttingBlocksFromEdgeList:abuttEdgeList forDirection:dir];
+            }
+        }  // for
+    }  // if group
+}
+
+
+-(NSArray *)lazyGetAbuttListForSO:(ASolidObject *)solidObject inER:(ElbowRoom *)er direction:(ERDirection)dir
+{
+    NSAssert( [solidObject getProps].canMoveFreely, @"Only moving blocks need abutt lists." );
+    WorldFrameCacheEntry *cacheEntry = [self ensureEntryForSO:solidObject];
+
+    if( ![cacheEntry hasCachedAbuttListForDirection:dir] )
+    {
+        [self updateOneAbuttListForSolidObject:solidObject inER:er direction:dir];
+        [cacheEntry markCacheAbuttListForDirection:dir];
+    }
+    return [cacheEntry getAbuttListForDirection:dir];
+}
+
 
 @end

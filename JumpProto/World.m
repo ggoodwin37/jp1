@@ -203,10 +203,6 @@
     updater = [[FrameCacheClearerUpdater alloc] initWithElbowRoom:m_elbowRoom frameCache:m_worldFrameCache];
     [m_frameStateBlockUpdaters addObject:updater];
     [updater release];
-
-    // momentarily keep a ref to the abutt list updater. movement updater needs this.
-    AbuttListUpdater *alu = [[AbuttListUpdater alloc] initWithElbowRoom:m_elbowRoom frameCache:m_worldFrameCache];
-    [m_frameStateBlockUpdaters addObject:alu];
     
 
     // world state updaters
@@ -224,10 +220,9 @@
     [updater release];
     
     // at this point, velocity is set for all blocks. we use it to initiate move propagation.
-    updater = [[PropagateMovementUpdater alloc] initWithElbowRoom:m_elbowRoom frameCache:m_worldFrameCache abuttListUpdater:alu];
+    updater = [[PropagateMovementUpdater alloc] initWithElbowRoom:m_elbowRoom frameCache:m_worldFrameCache];
     [m_frameStateBlockUpdaters addObject:updater];
     [updater release];
-    [alu release];
     
     updater = [[GravFrictionUpdater alloc] initWithElbowRoom:m_elbowRoom frameCache:m_worldFrameCache];
     [m_worldStateBlockUpdaters addObject:updater];

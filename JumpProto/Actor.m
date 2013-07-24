@@ -239,7 +239,7 @@
     }
     
     // if they are standing on solid ground, reset the jump counter
-    NSArray *downEdgeList = [[m_world.frameCache ensureEntryForSO:m_actorBlock] getAbuttListForDirection:ERDirDown];
+    NSArray *downEdgeList = [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirDown];
     BOOL fOnGround = ( [downEdgeList count] > 0 );
     if( fOnGround )
     {

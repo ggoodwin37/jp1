@@ -194,11 +194,19 @@ Have some time to write a little code for the next 4 days. Rough plan of attack 
 - bug pass
 
 // perf pass
-initial state: level draw-stress-01  average world update (3rd iteration): 31.3ms
 
 so the core problem appears to be that we are making tons of ER calls. about two thirds go to abuttListUpdater and one third goes to propagateMovement. need to find a way to slim down abuttListUpdater. Can't really find any shortcuts for updating abuttLists, so maybe there's a way to do it less often. going to look into on-demand abutt list updating but I have a feeling they would just constantly be in demand so no gain.
 
-trying on-demand abutt list generation. ERStats pre:
+trying on-demand abutt list generation.
+pre:
+average world update (3rd iteration): 31.3ms
 cnolist=0 tnolist=0 clist=2928 tlist=713 cdup=2928 tdup=0
+
 post:
-TODO
+updating world average duration is 25.998981 ms.
+cnolist=0 tnolist=0 clist=2540 tlist=614 cdup=2540 tdup=0
+
+meh, a slight improvement, but it looks like the current algorithm really does require abutt lists in most directions for most (moving) SOs.
+
+think more about only updating lists if we have detected that they need to be updated. this seems like a hard problem to solve. er doesn't really organize data in a way that is conducive to that knowledge.
+

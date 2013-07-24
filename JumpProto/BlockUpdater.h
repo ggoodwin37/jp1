@@ -72,21 +72,6 @@
 @end
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////// AbuttListUpdater
-
-// checks each SO and build abutt list in each direction.
-@interface AbuttListUpdater : ERFrameCacheBlockUpdater {
-}
-
-// TODO: a possible optimization is to remember when we don't need to check a direction, then
-//       never check that direction at all until something changes. note that the other SO may
-//       have newly come into contact with us (rather than vice versa), so we can't just check
-//       this when we move, have to check other guy too.
-//      (this can be generalized for both abutt and non-abutt case).
-
-@end
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// ApplyMotiveUpdater
 
 // adjusts each SO to account for motive velocity.
@@ -122,10 +107,6 @@
 @interface PropagateMovementUpdater : ERFrameCacheBlockUpdater {
     NSMutableArray *m_groupPropStack;  // scratch array used to prevent group propagation loops.
 }
-@property (nonatomic, retain) AbuttListUpdater *abuttListUpdater;
-
-
--(id)initWithElbowRoom:(ElbowRoom *)elbowRoom frameCache:(WorldFrameCache *)frameCacheIn abuttListUpdater:(AbuttListUpdater *)abuttListUpdaterIn;
 
 @end
 

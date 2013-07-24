@@ -19,6 +19,11 @@
     NSMutableArray *m_abuttListLeft;
     NSMutableArray *m_abuttListRight;
     NSMutableArray *m_abuttListDown;
+    
+    BOOL m_hasCachedAbuttListUp;
+    BOOL m_hasCachedAbuttListLeft;
+    BOOL m_hasCachedAbuttListRight;
+    BOOL m_hasCachedAbuttListDown;
 }
 
 // used to prevent multiple movement propagation if a block rests on top of two moving blocks.
@@ -29,6 +34,8 @@
 -(void)copyAbuttingBlocksFromEdgeList:(NSArray *)edgeList forDirection:(ERDirection)dir;
 -(NSArray *)getAbuttListForDirection:(ERDirection)dir;
 -(void)clearAbuttListForDirection:(ERDirection)dir;
+-(void)markCacheAbuttListForDirection:(ERDirection)dir;
+-(BOOL)hasCachedAbuttListForDirection:(ERDirection)dir;
 
 @end
 
@@ -47,5 +54,7 @@
 
 -(void)hardReset;
 -(void)resetForSO:(ASolidObject *)solidObject;
+
+-(NSArray *)lazyGetAbuttListForSO:(ASolidObject *)solidObject inER:(ElbowRoom *)er direction:(ERDirection)dir;
 
 @end

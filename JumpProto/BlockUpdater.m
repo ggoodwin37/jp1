@@ -128,78 +128,6 @@
 @end
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////// AbuttListUpdater
-
-@implementation AbuttListUpdater
-
--(void)updateOneAbuttListForSolidObject:(ASolidObject *)solidObject inDir:(ERDirection)dir
-{
-    WorldFrameCacheEntry *cacheEntry = [m_worldFrameCache ensureEntryForSO:solidObject];
-    [cacheEntry clearAbuttListForDirection:dir];
-    
-    NSMutableArray *abuttEdgeList;
-    Emu thisElbowRoom = [m_elbowRoom getElbowRoomForSO:solidObject inDirection:dir outCollidingEdgeList:&abuttEdgeList];
-    if( thisElbowRoom == 0 )
-    {
-        [cacheEntry copyAbuttingBlocksFromEdgeList:abuttEdgeList forDirection:dir];
-    }
-    
-    // also register abutters for each element of a group. This is needed for group gap check (specifically the case where
-    // the group may fall into a gap).
-    // TODO: seems like this n^2 block could potentially get SLOW. need better algorithm.
-    if( [solidObject isGroup] )
-    {
-        BlockGroup *thisGroup = (BlockGroup *)solidObject;
-        for( int i = 0; i < [thisGroup.blocks count]; ++i )
-        {
-            Block *thisElement = (Block *)[thisGroup.blocks objectAtIndex:i];
-            WorldFrameCacheEntry *thisElementCacheEntry = [m_worldFrameCache ensureEntryForSO:thisElement];
-            [thisElementCacheEntry clearAbuttListForDirection:dir];
-            thisElbowRoom = [m_elbowRoom getElbowRoomForSO:thisElement inDirection:dir outCollidingEdgeList:&abuttEdgeList];
-            if( thisElbowRoom == 0 )
-            {
-                // when using the non-group flavor of getElbowRoomForSO, the return list can contain SOs that are
-                // in the same group as us. Ignore these.
-                for( int j = [abuttEdgeList count] - 1; j >= 0; --j )
-                {
-                    EREdge *thisTestEdge = (EREdge *)[abuttEdgeList objectAtIndex:j];
-                    if( thisTestEdge.block.owningGroup == thisGroup )
-                    {
-                        [abuttEdgeList removeObjectAtIndex:j];
-                    }
-                }
-                [thisElementCacheEntry copyAbuttingBlocksFromEdgeList:abuttEdgeList forDirection:dir];
-            }
-        }  // for
-    }  // if group
-}
-
-
-// override
--(void)updateSolidObject:(ASolidObject *)solidObject withTimeDelta:(float)delta
-{
-    if( ![solidObject getProps].canMoveFreely )
-    {
-        return;
-    }
-
-    static const ERDirection dirList[] = { ERDirUp, ERDirLeft, ERDirRight, ERDirDown };
-    const int dirListCount = 4;
-    
-    // TODO: can we make any improvements at the ER level to make "get abutter list" faster? we may be
-    //       able to bail out of the core ER collision checker earlier if we only have to check for abutters.
-    
-    for( int i = 0; i < dirListCount; ++i )
-    {
-        const ERDirection dir = dirList[i];
-        [self updateOneAbuttListForSolidObject:solidObject inDir:dir];
-    }
-
-}
-
-@end
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// ApplyMotiveUpdater
 
 @implementation ApplyMotiveUpdater
@@ -273,8 +201,7 @@
     }
     
     const EmuPoint vOrig = [solidObject getV];
-    NSArray *downAbutters = [[m_worldFrameCache ensureEntryForSO:solidObject] getAbuttListForDirection:ERDirDown];
-    
+    NSArray *downAbutters = [m_worldFrameCache lazyGetAbuttListForSO:solidObject inER:m_elbowRoom direction:ERDirDown];
     Emu maxVDueToGravity = ( [downAbutters count] == 0 ) ? TERMINAL_VELOCITY : -VELOCITY_MIN;  // actually "most negative"
 
     // this may change if we have flippable/offable gravity
@@ -311,7 +238,7 @@
 
     // select friction coefficient. Still apply friction in air (only less)
     float decel = GROUND_FRICTION_DECEL;  // could depend on downBlock props (e.g. ice)
-    NSArray *downBlockList = [[self.frameCache ensureEntryForSO:solidObject] getAbuttListForDirection:ERDirDown];
+    NSArray *downBlockList = [m_worldFrameCache lazyGetAbuttListForSO:solidObject inER:m_elbowRoom direction:ERDirDown];
     if( [downBlockList count] == 0 )
     {
         decel = AIR_FRICTION_DECEL;
@@ -333,13 +260,10 @@
 
 @implementation PropagateMovementUpdater
 
-@synthesize abuttListUpdater;
-
--(id)initWithElbowRoom:(ElbowRoom *)elbowRoom frameCache:(WorldFrameCache *)frameCacheIn abuttListUpdater:(AbuttListUpdater *)abuttListUpdaterIn
+-(id)initWithElbowRoom:(ElbowRoom *)elbowRoom frameCache:(WorldFrameCache *)frameCacheIn
 {
     if( self = [super initWithElbowRoom:elbowRoom frameCache:frameCacheIn] )
     {
-        self.abuttListUpdater = abuttListUpdaterIn;
         m_groupPropStack = [[NSMutableArray arrayWithCapacity:4] retain];
     }
     return self;
@@ -348,7 +272,6 @@
 
 -(void)dealloc
 {
-    self.abuttListUpdater = nil;
     [m_groupPropStack release]; m_groupPropStack = nil;
     [super dealloc];
 }
@@ -393,7 +316,7 @@
     ERDirection gapDirection;
     if( xAxis ) gapDirection = vOrig.y > 0 ? ERDirUp : ERDirDown;
     else        gapDirection = vOrig.x > 0 ? ERDirRight : ERDirLeft;
-    NSArray *gapAbutters = [[self.frameCache ensureEntryForSO:node] getAbuttListForDirection:gapDirection];
+    NSArray *gapAbutters = [m_worldFrameCache lazyGetAbuttListForSO:node inER:m_elbowRoom direction:gapDirection];
     if( [gapAbutters count] == 0 ) return targetOffset;
 
     // assumption: the common case for typical values of physics constants is that we only risk skipping over a gap
@@ -548,12 +471,12 @@
         if( targetOffset > 0 )
         {
             dir = xAxis ? ERDirRight : ERDirUp;
-            paraAbuttList = [[self.frameCache ensureEntryForSO:node] getAbuttListForDirection:dir];
+            paraAbuttList = [m_worldFrameCache lazyGetAbuttListForSO:node inER:m_elbowRoom direction:dir];
         }
         else
         {
             dir = xAxis ? ERDirLeft : ERDirDown;
-            paraAbuttList = [[self.frameCache ensureEntryForSO:node] getAbuttListForDirection:dir];
+            paraAbuttList = [m_worldFrameCache lazyGetAbuttListForSO:node inER:m_elbowRoom direction:dir];
         }
         Emu attTargetOffset = targetOffset * 1;  // future: some attenuation here?
         for( int i = 0; i < [paraAbuttList count]; ++i )
@@ -596,7 +519,7 @@
         return didMoveOffset;
     }
     Emu thisAbutterDidMove;
-    NSArray *upAbuttList = [[self.frameCache ensureEntryForSO:node] getAbuttListForDirection:ERDirUp];
+    NSArray *upAbuttList = [m_worldFrameCache lazyGetAbuttListForSO:node inER:m_elbowRoom direction:ERDirUp];
     for( int i = 0; i < [upAbuttList count]; ++i )
     {
         ASolidObject *thisAbutter = (ASolidObject *)[upAbuttList objectAtIndex:i];
@@ -649,11 +572,12 @@
 
 // handle fixed (non-accelerating, non-accumulating) velocity adjustments here.
 // main example is conveyors.
+// TODO: moving platforms currently are affected by conveyors, probably need a props.affectByGravity check in here.
 -(EmuPoint)getVOffsetForSO:(ASolidObject *)solidObject
 {
     // check for conveyor abutters.
     Emu xConveyorContribution = 0;
-    NSArray *downAbutters = [[m_worldFrameCache ensureEntryForSO:solidObject] getAbuttListForDirection:ERDirDown];
+    NSArray *downAbutters = [m_worldFrameCache lazyGetAbuttListForSO:solidObject inER:m_elbowRoom direction:ERDirDown];
     for( int i = 0; i < [downAbutters count]; ++i )
     {
         ASolidObject *thisAbutter = (ASolidObject *)[downAbutters objectAtIndex:i];
@@ -680,7 +604,7 @@
 // the overall effect is that we can't push groups we are standing on.
 -(void)checkExemptGroupsForNode:(ASolidObject *)node forStack:(NSMutableArray *)stack
 {
-    NSArray *downAbutters = [[m_worldFrameCache ensureEntryForSO:node] getAbuttListForDirection:ERDirDown];
+    NSArray *downAbutters = [m_worldFrameCache lazyGetAbuttListForSO:node inER:m_elbowRoom direction:ERDirDown];
     for( int i = 0; i < [downAbutters count]; ++i )
     {
         ASolidObject *thisAbutter = (ASolidObject *)[downAbutters objectAtIndex:i];
@@ -730,7 +654,7 @@
 
 -(void)checkSolidObject:(ASolidObject *)solidObject dir:(ERDirection)dir
 {
-    NSArray *abutters = [[m_worldFrameCache ensureEntryForSO:solidObject] getAbuttListForDirection:dir];
+    NSArray *abutters = [m_worldFrameCache lazyGetAbuttListForSO:solidObject inER:m_elbowRoom direction:dir];
     for( int i = 0; i < [abutters count]; ++i )
     {
         ASolidObject *thisAbutter = (ASolidObject *)[abutters objectAtIndex:i];
