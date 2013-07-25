@@ -208,5 +208,9 @@ cnolist=0 tnolist=0 clist=2540 tlist=614 cdup=2540 tdup=0
 
 meh, a slight improvement, but it looks like the current algorithm really does require abutt lists in most directions for most (moving) SOs.
 
+actually once I turned ER logging off the average update time went down to 19.5ms (the pre update time was taken with logging off). so this is actually a pretty decent improvement after all. a microoptimization in ER (reuse testEdge) saved another 3ms, now at 16.5ms.
+
 think more about only updating lists if we have detected that they need to be updated. this seems like a hard problem to solve. er doesn't really organize data in a way that is conducive to that knowledge.
+
+
 

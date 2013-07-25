@@ -66,6 +66,7 @@
 @interface ERCacheStrip : NSObject
 {
     ERSortedEdgeCache *m_edgeCache;
+    EREdge *m_testEdge;
     
 }
 

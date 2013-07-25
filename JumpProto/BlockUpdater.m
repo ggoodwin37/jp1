@@ -387,6 +387,9 @@
     Emu actualMoveThisFrame = MIN( ABS( targetOffset ), elbowRoomThisDir );              // unsigned
     Emu actualOffsetThisFrame = actualMoveThisFrame * ( (targetOffset < 0) ? -1 : 1 );   // signed
     
+    // TODO revisit this. as written this doesn't account for all cases where there could be new abutters.
+    //                    example: player walks horizontally onto a new block, they were moving in x only
+    //                    but now have a new down abutter. not sure if this matters or not.
     BOOL fNewAbutters = (actualMoveThisFrame == elbowRoomThisDir) && (actualMoveThisFrame != 0);
     if( fNewAbutters )
     {

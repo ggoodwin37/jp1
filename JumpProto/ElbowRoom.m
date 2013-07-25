@@ -575,6 +575,7 @@
         m_stripMaxVal = maxVal;
         m_dir = dir;
         m_edgeCache = [[ERSortedEdgeCache alloc] init];
+        m_testEdge = [[EREdge alloc] init];
     }
     return self;
 }
@@ -582,6 +583,7 @@
 
 -(void)dealloc
 {
+    [m_testEdge release]; m_testEdge = nil;
     [m_edgeCache release]; m_edgeCache = nil;
     [super dealloc];
 }
@@ -669,16 +671,13 @@
             break;
     }
     
-    EREdge *testEdge = [[EREdge alloc] init];
-    testEdge.majorVal = majorVal;
-    testEdge.minorLowVal = minorLowVal;
-    testEdge.minorHighVal = minorHighVal;
+    m_testEdge.majorVal = majorVal;
+    m_testEdge.minorLowVal = minorLowVal;
+    m_testEdge.minorHighVal = minorHighVal;
 
     BOOL fPos = (m_dir == ERDirLeft) || (m_dir == ERDirDown);
     
-    NSArray *collidingEdgeList = [m_edgeCache collidingEdgeListForEdge:testEdge positiveDirection:fPos sortHint:&sortHint];
-
-    [testEdge release];
+    NSArray *collidingEdgeList = [m_edgeCache collidingEdgeListForEdge:m_testEdge positiveDirection:fPos sortHint:&sortHint];
     
     // save the updated sortHint
     switch( m_dir )
