@@ -212,5 +212,6 @@ actually once I turned ER logging off the average update time went down to 19.5m
 
 think more about only updating lists if we have detected that they need to be updated. this seems like a hard problem to solve. er doesn't really organize data in a way that is conducive to that knowledge.
 
+I tried adding a streamlined version of the ER stack that just checks for abutters so we can fail fast, but the net result was no change in time. when we can't fail fast we had to do the regular work, and this was happening more than half the time, so it was a wash. reverted.
 
 
