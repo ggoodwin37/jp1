@@ -214,4 +214,9 @@ think more about only updating lists if we have detected that they need to be up
 
 I tried adding a streamlined version of the ER stack that just checks for abutters so we can fail fast, but the net result was no change in time. when we can't fail fast we had to do the regular work, and this was happening more than half the time, so it was a wash. reverted.
 
+scenario: a bunch of crates stacked up, not moving. how much work are we doing? suspect wasted propagate work or something.
+
+idle-crates-stress-01
+worldView draw avg: 1.025830ms.
+updating world average duration is 34.800255 ms.
 

@@ -133,10 +133,6 @@
 -(Emu)getElbowRoomForSO:(ASolidObject *)solidObject inDirection:(ERDirection)dir outCollidingEdgeList:(NSArray **)outCollidingEdgeList;
 -(void)reset;
 
-// TODO: move this to WorldFrameState
-//-(void)setDownEdgeList:(NSMutableArray *)edgeList forSO:(ASolidObject *)solidObject;
-//-(NSArray *)getDownEdgeListForSO:(ASolidObject *)solidObject;
-
 +(NSString *)getStringForDir:(ERDirection)dir;
 
 -(int)test_getCacheStripCount;
