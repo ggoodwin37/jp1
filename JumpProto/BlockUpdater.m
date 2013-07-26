@@ -202,19 +202,24 @@
     
     const EmuPoint vOrig = [solidObject getV];
     NSArray *downAbutters = [m_worldFrameCache lazyGetAbuttListForSO:solidObject inER:m_elbowRoom direction:ERDirDown];
-    Emu maxVDueToGravity = ( [downAbutters count] == 0 ) ? TERMINAL_VELOCITY : -VELOCITY_MIN;  // actually "most negative"
+    
+    Emu yComponent = 0;  // default to vy = 0 unless there's nothing stopping us from falling.
+    if( [downAbutters count] == 0 || vOrig.y > 0 )
+    {
+        Emu maxVDueToGravity = TERMINAL_VELOCITY;
 
-    // this may change if we have flippable/offable gravity
-    NSAssert( GRAVITY_CONSTANT <  0, @"for now I assume gravity goes downward" );
-    NSAssert( maxVDueToGravity <= 0, @"for now I assume gravity goes downward" );
-    Emu yComponent = vOrig.y;
-    if( vOrig.y > maxVDueToGravity )
-    {
-        yComponent = delta * GRAVITY_CONSTANT + vOrig.y;
-    }
-    else
-    {
-        yComponent = maxVDueToGravity; 
+        // this may change if we have flippable/offable gravity
+        NSAssert( GRAVITY_CONSTANT <  0, @"for now I assume gravity goes downward" );
+        NSAssert( maxVDueToGravity <= 0, @"for now I assume gravity goes downward" );
+        yComponent = vOrig.y;
+        if( vOrig.y > maxVDueToGravity )
+        {
+            yComponent = delta * GRAVITY_CONSTANT + vOrig.y;
+        }
+        else
+        {
+            yComponent = maxVDueToGravity;
+        }
     }
     
     [solidObject setV:EmuPointMake( vOrig.x, yComponent ) ];
@@ -310,11 +315,12 @@
     
     // try to bail early
     if(      targetOffset == 0 ) return targetOffset;
-    if(  xAxis && vOrig.y == 0 ) return targetOffset;
     if( !xAxis && vOrig.x == 0 ) return targetOffset;
-
+    // note: still process the vy=0 case so we can check for downward gaps.
+    // if a block is resting it won't have down v but should still be able to hit gaps.
+    
     ERDirection gapDirection;
-    if( xAxis ) gapDirection = vOrig.y > 0 ? ERDirUp : ERDirDown;
+    if( xAxis ) gapDirection = vOrig.y > 0 ? ERDirUp : ERDirDown;  // if vy == 0, check for down gaps.
     else        gapDirection = vOrig.x > 0 ? ERDirRight : ERDirLeft;
     NSArray *gapAbutters = [m_worldFrameCache lazyGetAbuttListForSO:node inER:m_elbowRoom direction:gapDirection];
     if( [gapAbutters count] == 0 ) return targetOffset;
@@ -448,7 +454,7 @@
 // parameter isPerpProp controls whether we are handling the perpendicular drag propagation
 //   (if so, avoid doing parallel propagation again to cut down on weird jittery effects...still not perfect)
 -(Emu)doRecurseForNode:(ASolidObject *)node targetOffset:(Emu)targetOffset isXAxis:(BOOL)xAxis isPerpProp:(BOOL)perpProp
-              originSO:(ASolidObject *)originSO groupPropStack:(NSMutableArray *)groupPropStack
+                                            originSO:(ASolidObject *)originSO groupPropStack:(NSMutableArray *)groupPropStack
 {
     if( ![node getProps].canMoveFreely || targetOffset == 0 )
     {
@@ -630,6 +636,25 @@
     
     EmuPoint vSO = [solidObject getV];
     EmuPoint vOffset = [self getVOffsetForSO:solidObject];
+
+    // why are we doing y first here?
+    // this is required by an optimization I made such that objects at rest no longer get small downward v at gravityUpdater.
+    // if they have no v, we can skip useless propagate work here. the problem was that without downward v, the gap checker
+    // logic wasn't working correctly. so the way it works now is, gap checker logic no longer cares about downward v, it
+    // always checks (for horizontally moving objects). so an object will end a frame over a gap if it would have otherwise
+    // passed over. then gravity will see nothing below that object at the start of next frame, and apply down v. so for this
+    // frame, the object is ready to fall into the gap. if we would compute x propagate first, they would just move over the
+    // gap and their down v would never be acted on. so compute y first so that we have a chance to act on this one-frame-only
+    // downv. gaps in other directions are fine since they really do carry v in that direction (no gravity optimization special
+    // case).
+    
+    if( (vSO.y + vOffset.y) != 0 )
+    {
+        [m_groupPropStack removeAllObjects];
+
+        Emu targetOffset = (vSO.y + vOffset.y) * delta;
+        [self doRecurseForNode:solidObject targetOffset:targetOffset isXAxis:NO isPerpProp:NO originSO:solidObject groupPropStack:m_groupPropStack];
+    }
     if( (vSO.x + vOffset.x) != 0 )
     {
         [m_groupPropStack removeAllObjects];
@@ -637,14 +662,6 @@
         
         Emu targetOffset = (vSO.x + vOffset.x) * delta;
         [self doRecurseForNode:solidObject targetOffset:targetOffset isXAxis:YES isPerpProp:NO originSO:solidObject groupPropStack:m_groupPropStack];
-    }
-
-    if( (vSO.y + vOffset.y) != 0 )
-    {
-        [m_groupPropStack removeAllObjects];
-
-        Emu targetOffset = (vSO.y + vOffset.y) * delta;
-        [self doRecurseForNode:solidObject targetOffset:targetOffset isXAxis:NO isPerpProp:NO originSO:solidObject groupPropStack:m_groupPropStack];
     }
 }
 

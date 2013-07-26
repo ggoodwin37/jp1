@@ -220,3 +220,6 @@ idle-crates-stress-01
 worldView draw avg: 1.025830ms.
 updating world average duration is 34.800255 ms.
 
+after tweaks to idle velocity due to gravity:
+worldView draw avg: 0.818030ms.
+updating world average duration is 10.195816 ms.
