@@ -232,3 +232,10 @@ crazy idea: what if er maintained a separate set of datastructures to help deter
 existing cachestrips aren't suited for this since they are unidirectional. but what if we had bidirectional caches as well? each solid object has refs to its bidiEdges (zero or more per direction) and can instantly check if the "next opposing bidi" is abutting or not.
 
 maybe this is how ER should work in general? this saves us from the "test edge" logic which is expensive. no longer need to make test edges because we have real edges in there already.
+
+ok, did a little reading online and found a new approach for collision detection. construct a virtual grid. each block sits on one or more grid spaces. when check for elbow room, just need to dumb check whatever other blocks are in our grid spaces.
+- need a concept of "how far do you want to move"...no sense checking until infinity if they only want to move 1 unit over. instead of return MAX_DISTANCE we just echo back how_far_i_wanted if they can move that far without hitting anything.
+- this is simpler if how_far_I_want << grid_size, so we ever have to check at most one space over.
+- the hardest part of this is probably how do we address lists of blocks on a given grid space without taking up a ton of memory/using slow key generation.
+- abutt list checks are just how_far_I_want == 1 emu.
+- still have complexity of copying edges over to the result list (this requirement is pretty baked in by ER callers/overall design).
