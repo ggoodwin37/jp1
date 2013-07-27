@@ -239,3 +239,4 @@ ok, did a little reading online and found a new approach for collision detection
 - the hardest part of this is probably how do we address lists of blocks on a given grid space without taking up a ton of memory/using slow key generation.
 - abutt list checks are just how_far_I_want == 1 emu.
 - still have complexity of copying edges over to the result list (this requirement is pretty baked in by ER callers/overall design).
+- what is the max step that any actor ever takes?

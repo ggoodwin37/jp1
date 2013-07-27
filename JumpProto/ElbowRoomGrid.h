@@ -17,8 +17,8 @@
     int m_numGridCells;
     NSMutableArray **m_gridCells;    // each slot lazy holds an NSArray of grid inhabitants.
                                      // using a raw buffer here since NSArrays can't hold nil.
+    
+    NSMutableArray *m_workingStack;
 }
-
--(void)resetWithWorldMin:(EmuPoint)minPoint worldMax:(EmuPoint)maxPoint;
 
 @end

@@ -12,10 +12,12 @@
 
 @protocol IElbowRoom <NSObject>
 
+-(void)resetWithWorldMin:(EmuPoint)minPoint worldMax:(EmuPoint)maxPoint;
+-(Emu)getMaxDistance;
 -(void)addBlock:(Block *)block;
 -(void)removeBlock:(Block *)block;
 -(void)moveBlock:(Block *)block byOffset:(EmuPoint)offset;
--(Emu)getElbowRoomForSO:(ASolidObject *)solidObject inDirection:(ERDirection)dir outCollidingEdgeList:(NSArray **)outCollidingEdgeList;
--(void)reset;
+-(Emu)getElbowRoomForSO:(ASolidObject *)solidObject inDirection:(ERDirection)dir;
+-(Block *)popCollider;  // returns next collider resulting from the most recent getElbowRoomForSO: call.
 
 @end

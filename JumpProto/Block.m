@@ -373,7 +373,7 @@
     targetX = MIN( MAX( WORLD_MIN_X, targetX ), WORLD_MAX_X );
     targetY = MIN( MAX( WORLD_MIN_Y, targetY ), WORLD_MAX_Y );
     
-    // perform the actual move
+    // perform the actual move. let ER do this for us so it can update its state correctly.
     EmuPoint offset = EmuPointMake( targetX - self.x, targetY - self.y );
     [elbowRoom moveBlock:self byOffset:offset];
 }
