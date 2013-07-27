@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Block.h"
-#import "ElbowRoom.h"
+#import "IElbowRoom.h"
 #import "WorldFrameState.h"
 
 // order note: these updaters are intended to execute in the order listed here.
@@ -28,11 +28,11 @@
 
 @interface ERBlockUpdater : BlockUpdater {
 @public
-    ElbowRoom *m_elbowRoom;
+    NSObject<IElbowRoom> *m_elbowRoom;
 }
-@property (nonatomic, retain) ElbowRoom *elbowRoom;
+@property (nonatomic, retain) NSObject<IElbowRoom> *elbowRoom;
 
--(id)initWithElbowRoom:(ElbowRoom *)elbowRoom;
+-(id)initWithElbowRoom:(NSObject<IElbowRoom> *)elbowRoom;
 
 @end
 
@@ -45,7 +45,7 @@
 }
 @property (nonatomic, retain) WorldFrameCache *frameCache;
 
--(id)initWithElbowRoom:(ElbowRoom *)elbowRoom frameCache:(WorldFrameCache *)frameCacheIn;
+-(id)initWithElbowRoom:(NSObject<IElbowRoom> *)elbowRoom frameCache:(WorldFrameCache *)frameCacheIn;
 
 @end
 

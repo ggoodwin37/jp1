@@ -9,7 +9,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import "ElbowRoom.h"
+#import "IElbowRoom.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// WorldFrameCacheEntry
 
@@ -55,6 +55,6 @@
 -(void)hardReset;
 -(void)resetForSO:(ASolidObject *)solidObject;
 
--(NSArray *)lazyGetAbuttListForSO:(ASolidObject *)solidObject inER:(ElbowRoom *)er direction:(ERDirection)dir;
+-(NSArray *)lazyGetAbuttListForSO:(ASolidObject *)solidObject inER:(NSObject<IElbowRoom> *)er direction:(ERDirection)dir;
 
 @end

@@ -12,6 +12,7 @@
 #import "GlobalCommand.h"
 #import "AspectController.h"
 #import "constants.h"
+#import "ElbowRoom.h"   // concrete impl
 
 // TODO: remove/debug only
 #import "WorldTest.h"

@@ -103,7 +103,7 @@
 }
 
 
--(void)copyAbuttingBlocksFromEdgeList:(NSArray *)edgeList forDirection:(ERDirection)dir
+-(void)copyAbuttingBlocksFromElbowRoom:(NSObject<IElbowRoom> *)elbowRoom forDirection:(ERDirection)dir
 {
     NSMutableArray *targetArray;
     switch( dir )
@@ -244,14 +244,14 @@
 }
 
 
--(void)updateOneAbuttListForSolidObject:(ASolidObject *)solidObject inER:(ElbowRoom *)er direction:(ERDirection)dir
+-(void)updateOneAbuttListForSolidObject:(ASolidObject *)solidObject inER:(NSObject<IElbowRoom> *)er direction:(ERDirection)dir
 {
     WorldFrameCacheEntry *cacheEntry = [self ensureEntryForSO:solidObject];
     
-    NSMutableArray *abuttEdgeList;
-    Emu thisElbowRoom = [er getElbowRoomForSO:solidObject inDirection:dir outCollidingEdgeList:&abuttEdgeList];
+    Emu thisElbowRoom = [er getElbowRoomForSO:solidObject inDirection:dir];
     if( thisElbowRoom == 0 )
     {
+        
         [cacheEntry copyAbuttingBlocksFromEdgeList:abuttEdgeList forDirection:dir];
     }
     
@@ -266,7 +266,7 @@
             Block *thisElement = (Block *)[thisGroup.blocks objectAtIndex:i];
             WorldFrameCacheEntry *thisElementCacheEntry = [self ensureEntryForSO:thisElement];
             [thisElementCacheEntry clearAbuttListForDirection:dir];
-            thisElbowRoom = [er getElbowRoomForSO:thisElement inDirection:dir outCollidingEdgeList:&abuttEdgeList];
+            thisElbowRoom = [er getElbowRoomForSO:thisElement inDirection:dir];
             if( thisElbowRoom == 0 )
             {
                 // when using the non-group flavor of getElbowRoomForSO, the return list can contain SOs that are
@@ -286,7 +286,7 @@
 }
 
 
--(NSArray *)lazyGetAbuttListForSO:(ASolidObject *)solidObject inER:(ElbowRoom *)er direction:(ERDirection)dir
+-(NSArray *)lazyGetAbuttListForSO:(ASolidObject *)solidObject inER:(NSObject<IElbowRoom> *)er direction:(ERDirection)dir
 {
     NSAssert( [solidObject getProps].canMoveFreely, @"Only moving blocks need abutt lists." );
     WorldFrameCacheEntry *cacheEntry = [self ensureEntryForSO:solidObject];

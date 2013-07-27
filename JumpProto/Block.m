@@ -7,7 +7,7 @@
 //
 
 #import "Block.h"
-#import "ElbowRoom.h"  // still smells funny
+//#import "ElbowRoom.h"  // still smells funny  // TODO verify
 #import "constants.h"
 #import "BlockUpdater.h"
 
@@ -354,7 +354,7 @@
 
 -(void)changePositionOnXAxis:(BOOL)onXAxis signedMoveOffset:(Emu)didMoveOffset elbowRoom:(id)elbowRoomIn
 {
-    ElbowRoom *elbowRoom = (ElbowRoom *)elbowRoomIn;
+    NSObject<IElbowRoom> *elbowRoom = (NSObject<IElbowRoom> *)elbowRoomIn;
     Emu targetX, targetY;
     
     // move as far as possible in this direction

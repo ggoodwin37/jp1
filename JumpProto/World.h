@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Block.h"
-#import "ElbowRoom.h"
+#import "IElbowRoom.h"
 #import "BlockUpdater.h"
 #import "Actor.h"
 #import "ActorUpdater.h"
@@ -23,7 +23,7 @@
     NSMutableArray *m_worldStateBlockUpdaters;
     PlayerActor *m_playerActor;
     NSMutableArray *m_npcActors;
-    ElbowRoom *m_elbowRoom;
+    NSObject<IElbowRoom> *m_elbowRoom;
     WorldFrameCache *m_worldFrameCache;
     
     NSMutableArray *m_playerActorUpdaters;
@@ -46,7 +46,7 @@
 
 @property (nonatomic, retain) NSString *levelName;
 @property (nonatomic, retain) NSString *levelDescription;
-@property (nonatomic, readonly) ElbowRoom *elbowRoom;
+@property (nonatomic, readonly) NSObject<IElbowRoom> *elbowRoom;
 @property (nonatomic, readonly) WorldFrameCache *frameCache;
 
 @property (nonatomic, assign) Emu yBottom;

@@ -31,7 +31,7 @@
 
 @synthesize elbowRoom = m_elbowRoom;
 
--(id)initWithElbowRoom:(ElbowRoom *)elbowRoomIn
+-(id)initWithElbowRoom:(NSObject<IElbowRoom> *)elbowRoomIn
 {
     if( self = [super init] )
     {
@@ -56,7 +56,7 @@
 
 @synthesize frameCache = m_worldFrameCache;
 
--(id)initWithElbowRoom:(ElbowRoom *)elbowRoomIn frameCache:(WorldFrameCache *)frameCacheIn
+-(id)initWithElbowRoom:(NSObject<IElbowRoom> *)elbowRoomIn frameCache:(WorldFrameCache *)frameCacheIn
 {
     if( self = [super initWithElbowRoom:elbowRoomIn] )
     {
@@ -265,7 +265,7 @@
 
 @implementation PropagateMovementUpdater
 
--(id)initWithElbowRoom:(ElbowRoom *)elbowRoom frameCache:(WorldFrameCache *)frameCacheIn
+-(id)initWithElbowRoom:(NSObject<IElbowRoom> *)elbowRoom frameCache:(WorldFrameCache *)frameCacheIn
 {
     if( self = [super initWithElbowRoom:elbowRoom frameCache:frameCacheIn] )
     {
