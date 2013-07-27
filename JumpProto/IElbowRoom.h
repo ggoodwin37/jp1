@@ -13,6 +13,7 @@
 @protocol IElbowRoom <NSObject>
 
 -(void)resetWithWorldMin:(EmuPoint)minPoint worldMax:(EmuPoint)maxPoint;
+-(void)reset;   // for compatibility with worldTest only, should remove this eventually.
 -(Emu)getMaxDistance;
 -(void)addBlock:(Block *)block;
 -(void)removeBlock:(Block *)block;

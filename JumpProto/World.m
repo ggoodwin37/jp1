@@ -643,7 +643,6 @@
     
     [m_worldFrameCache hardReset];
     [m_worldSOs removeAllObjects];
-    [m_elbowRoom reset];
     [m_playerActor release]; m_playerActor = nil;
     [m_groupTable removeAllObjects];
     [m_npcActors removeAllObjects];

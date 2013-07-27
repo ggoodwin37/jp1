@@ -380,7 +380,16 @@
 {
     // assume [world reset] was called already.
 
-    [world.elbowRoom reset];
+    EmuPoint worldMin = EmuPointMake( level.boundingBox.origin.x * GRID_SIZE_Emu, level.boundingBox.origin.y * GRID_SIZE_Emu );
+    EmuPoint worldMax = EmuPointMake( worldMin.x + level.boundingBox.size.width * GRID_SIZE_Emu,
+                                      worldMin.y + level.boundingBox.size.height * GRID_SIZE_Emu );
+    // apply padding to world box
+    Emu padding = 10 * GRID_SIZE_Emu;
+    worldMin.x -= padding;
+    worldMin.y -= padding;
+    worldMax.x += padding;
+    worldMax.y += padding;
+    [world.elbowRoom resetWithWorldMin:worldMin worldMax:worldMax];
     
     EmuPoint playerStart = EmuPointMake( 0, 0 );
     
@@ -532,7 +541,9 @@
     levelProps.name = world.levelName != nil ? world.levelName : @"Unnamed level";
     levelProps.description = world.levelDescription != nil ? world.levelDescription : @"No description.";
     
-    return [[[AFLevel alloc] initWithProps:levelProps blockList:afBlockList] autorelease];
+    NSAssert( NO, @"You are lazy and didn't update this codepath with AFLevel boundingBox." );
+    CGRect boundingBox = CGRectMake( 0, 0, 20, 20 );
+    return [[[AFLevel alloc] initWithProps:levelProps blockList:afBlockList boundingBox:boundingBox] autorelease];
 }
 
 

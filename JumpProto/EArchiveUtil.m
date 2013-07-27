@@ -216,6 +216,24 @@
 }
 
 
++(CGRect)getBoundingBoxForBlockList:(NSArray *)blockList
+{
+    float xMin = FLT_MAX;
+    float yMin = FLT_MAX;
+    float xMax = FLT_MIN;
+    float yMax = FLT_MIN;
+    for( int i = 0; i < [blockList count]; ++i )
+    {
+        AFPresetBlockBase *thisBlock = (AFPresetBlockBase *)[blockList objectAtIndex:i];
+        xMin = fminf( xMin, thisBlock.rect.origin.x );
+        yMin = fminf( yMin, thisBlock.rect.origin.y );
+        xMax = fmaxf( xMax, thisBlock.rect.origin.x + thisBlock.rect.size.width );
+        yMax = fmaxf( yMax, thisBlock.rect.origin.y + thisBlock.rect.size.height );
+    }
+    return CGRectMake( xMin, yMin, xMax - xMin, yMax - yMin );
+}
+
+
 +(AFLevel *)writeToAFFromDoc:(EGridDocument *)doc
 {
     NSArray *markerList = [doc getValues];
@@ -247,7 +265,8 @@
     levelProps.name = doc.levelName != nil ? doc.levelName : @"Unnamed level";
     levelProps.description = doc.levelDescription != nil ? doc.levelDescription : @"No description.";
     
-    AFLevel *result = [[[AFLevel alloc] initWithProps:levelProps blockList:afBlockList] autorelease];
+    CGRect boundingBox = [EArchiveUtil getBoundingBoxForBlockList:afBlockList];
+    AFLevel *result = [[[AFLevel alloc] initWithProps:levelProps blockList:afBlockList boundingBox:boundingBox] autorelease];
     [EArchiveUtil transformAFLevelAfterWritingFromDoc:result];
     [EArchiveUtil assignTokensForAF:result];
     return result;

@@ -49,7 +49,6 @@
     m_worldMin = minPoint;
     m_worldMax = maxPoint;
     
-    // TODO: make sure caller supplies padding, not ER's job.
     Emu worldWidth = maxPoint.x - minPoint.x;
     Emu worldHeight = maxPoint.y - minPoint.y;
     
@@ -66,6 +65,14 @@
     
     NSLog( @"reset ERGrid. worldSize is %d,%d->%d%d. grid is %d,%d, total %d cells",
           minPoint.x, minPoint.y, maxPoint.x, maxPoint.y, gridCol, gridRow, m_numGridCells );
+}
+
+
+-(void)reset
+{
+    Emu defaultMin = -10 * ONE_BLOCK_SIZE_Emu;
+    Emu defaultMax = 100 * ONE_BLOCK_SIZE_Emu;
+    [self resetWithWorldMin:EmuPointMake( defaultMin, defaultMin ) worldMax:EmuPointMake( defaultMax, defaultMax )];
 }
 
 

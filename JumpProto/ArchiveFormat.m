@@ -355,14 +355,15 @@
 
 @implementation AFLevel
 
-@synthesize props = m_props, blockList = m_blockList;
+@synthesize props = m_props, blockList = m_blockList, boundingBox = m_boundingBox;
 
--(id)initWithProps:(AFLevelProps *)props blockList:(NSArray *)blockList
+-(id)initWithProps:(AFLevelProps *)props blockList:(NSArray *)blockList boundingBox:(CGRect)boundingBox
 {
     if( self = [super init] )
     {
         self.props = props;
         self.blockList = blockList;
+        self.boundingBox = boundingBox;
     }
     return self;
 }
@@ -382,6 +383,12 @@
     {
         self.props = [decoder decodeObjectForKey:@"props"];
         self.blockList = [decoder decodeObjectForKey:@"blockList"];
+
+        float x = [((NSNumber *)[decoder decodeObjectForKey:@"bbx"]) floatValue];
+        float y = [((NSNumber *)[decoder decodeObjectForKey:@"bby"]) floatValue];
+        float w = [((NSNumber *)[decoder decodeObjectForKey:@"bbw"]) floatValue];
+        float h = [((NSNumber *)[decoder decodeObjectForKey:@"bbh"]) floatValue];
+        self.boundingBox = CGRectMake( x, y, w, h );
     }
     return self;
 }
@@ -389,8 +396,12 @@
 
 -(void)encodeWithCoder:(NSCoder *)encoder
 {
-    [encoder encodeObject:self.props                                         forKey:@"props"];
-    [encoder encodeObject:self.blockList                                     forKey:@"blockList"];
+    [encoder encodeObject:self.props                                              forKey:@"props"];
+    [encoder encodeObject:self.blockList                                          forKey:@"blockList"];
+    [encoder encodeObject:[NSNumber numberWithFloat:self.boundingBox.origin.x]    forKey:@"bbx"];
+    [encoder encodeObject:[NSNumber numberWithFloat:self.boundingBox.origin.y]    forKey:@"bby"];
+    [encoder encodeObject:[NSNumber numberWithFloat:self.boundingBox.size.width]  forKey:@"bbw"];
+    [encoder encodeObject:[NSNumber numberWithFloat:self.boundingBox.size.height] forKey:@"bbh"];
 }
 
 @end
