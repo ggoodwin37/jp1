@@ -388,8 +388,7 @@
                               ( targetOffset > 0 ? ERDirUp : ERDirDown );
 
     NSArray *abuttList;
-    Emu elbowRoomThisDir = [self.elbowRoom getElbowRoomForSO:node inDirection:dir
-                                           outCollidingEdgeList:&abuttList];             // unsigned
+    Emu elbowRoomThisDir = [self.elbowRoom getElbowRoomForSO:node inDirection:dir];      // unsigned
     Emu actualMoveThisFrame = MIN( ABS( targetOffset ), elbowRoomThisDir );              // unsigned
     Emu actualOffsetThisFrame = actualMoveThisFrame * ( (targetOffset < 0) ? -1 : 1 );   // signed
     
@@ -399,9 +398,10 @@
     BOOL fNewAbutters = (actualMoveThisFrame == elbowRoomThisDir) && (actualMoveThisFrame != 0);
     if( fNewAbutters )
     {
-        for( int i = 0; i < [abuttList count]; ++i )
+        while( YES )
         {
-            Block *thisAbutter = ((EREdge *)[abuttList objectAtIndex:i]).block;
+            Block *thisAbutter = [self.elbowRoom popCollider];
+            if( thisAbutter == nil ) break;
             if( [thisAbutter getProps].canMoveFreely )
             {
                 [m_worldFrameCache ensureEntryForSO:thisAbutter].newAbuttersThisFrame = YES;

@@ -474,13 +474,14 @@
     BOOL hitOwnGroup;
     
     hitOwnGroup = NO;
-    er = [m_elbowRoom getElbowRoomForSO:block inDirection:ERDirUp outCollidingEdgeList:&colList];
-    if( er == 0 && colList != nil )
+    er = [m_elbowRoom getElbowRoomForSO:block inDirection:ERDirUp];
+    if( er == 0 )
     {
-        for( int i = 0; i < [colList count]; ++i )
+        while( YES )
         {
-            EREdge *thisEdge = (EREdge *)[colList objectAtIndex:i];
-            if( thisEdge.block != nil && thisEdge.block.groupId == block.groupId )
+            Block *thisBlock = [m_elbowRoom popCollider];
+            if( thisBlock == nil ) break;
+            if( thisBlock.groupId == block.groupId )
             {
                 hitOwnGroup = YES;
                 break;
@@ -493,13 +494,14 @@
     }
 
     hitOwnGroup = NO;
-    er = [m_elbowRoom getElbowRoomForSO:block inDirection:ERDirLeft outCollidingEdgeList:&colList];
-    if( er == 0 && colList != nil )
+    er = [m_elbowRoom getElbowRoomForSO:block inDirection:ERDirLeft];
+    if( er == 0 )
     {
-        for( int i = 0; i < [colList count]; ++i )
+        while( YES )
         {
-            EREdge *thisEdge = (EREdge *)[colList objectAtIndex:i];
-            if( thisEdge.block != nil && thisEdge.block.groupId == block.groupId )
+            Block *thisBlock = [m_elbowRoom popCollider];
+            if( thisBlock == nil ) break;
+            if( thisBlock.groupId == block.groupId )
             {
                 hitOwnGroup = YES;
                 break;
@@ -512,13 +514,14 @@
     }
 
     hitOwnGroup = NO;
-    er = [m_elbowRoom getElbowRoomForSO:block inDirection:ERDirRight outCollidingEdgeList:&colList];
-    if( er == 0 && colList != nil )
+    er = [m_elbowRoom getElbowRoomForSO:block inDirection:ERDirRight];
+    if( er == 0 )
     {
-        for( int i = 0; i < [colList count]; ++i )
+        while( YES )
         {
-            EREdge *thisEdge = (EREdge *)[colList objectAtIndex:i];
-            if( thisEdge.block != nil && thisEdge.block.groupId == block.groupId )
+            Block *thisBlock = [m_elbowRoom popCollider];
+            if( thisBlock == nil ) break;
+            if( thisBlock.groupId == block.groupId )
             {
                 hitOwnGroup = YES;
                 break;
@@ -531,13 +534,14 @@
     }
 
     hitOwnGroup = NO;
-    er = [m_elbowRoom getElbowRoomForSO:block inDirection:ERDirDown outCollidingEdgeList:&colList];
-    if( er == 0 && colList != nil )
+    er = [m_elbowRoom getElbowRoomForSO:block inDirection:ERDirDown];
+    if( er == 0 )
     {
-        for( int i = 0; i < [colList count]; ++i )
+        while( YES )
         {
-            EREdge *thisEdge = (EREdge *)[colList objectAtIndex:i];
-            if( thisEdge.block != nil && thisEdge.block.groupId == block.groupId )
+            Block *thisBlock = [m_elbowRoom popCollider];
+            if( thisBlock == nil ) break;
+            if( thisBlock.groupId == block.groupId )
             {
                 hitOwnGroup = YES;
                 break;

@@ -116,7 +116,7 @@
     ActorBlock *playerBlock = playerActor.actorBlock;    
     if( playerActor.currentJumpTimeRemaining > 0.f || playerBlock.state.v.y > 0 )
     {
-        Emu upRoom = [self.world.elbowRoom getElbowRoomForSO:playerBlock inDirection:ERDirUp outCollidingEdgeList:nil];
+        Emu upRoom = [self.world.elbowRoom getElbowRoomForSO:playerBlock inDirection:ERDirUp];
         if( upRoom == 0 )
         {
             // phase 1: directly dampen their upward velocity with a gravity-like calculation

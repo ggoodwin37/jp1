@@ -31,7 +31,8 @@
 @property (nonatomic, assign) ASolidObject *gravityTallyOwningSO;  // weak
 @property (nonatomic, assign) BOOL newAbuttersThisFrame;
 
--(void)copyAbuttingBlocksFromEdgeList:(NSArray *)edgeList forDirection:(ERDirection)dir;
+-(void)copyAbuttingBlocksFromElbowRoom:(NSObject<IElbowRoom> *)er forDirection:(ERDirection)dir;
+-(void)removeAbuttersForGroup:(BlockGroup *)group forDirection:(ERDirection)dir;
 -(NSArray *)getAbuttListForDirection:(ERDirection)dir;
 -(void)clearAbuttListForDirection:(ERDirection)dir;
 -(void)markCacheAbuttListForDirection:(ERDirection)dir;

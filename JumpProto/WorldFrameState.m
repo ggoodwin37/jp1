@@ -103,6 +103,7 @@
 }
 
 
+// TODO: how often is copying really necessary? can we just consume off stack directly in most cases?
 -(void)copyAbuttingBlocksFromElbowRoom:(NSObject<IElbowRoom> *)elbowRoom forDirection:(ERDirection)dir
 {
     NSMutableArray *targetArray;
@@ -116,21 +117,23 @@
     }
     
     BOOL fDedupe = NO;  // only pay cost of deduping if we have an op that may add dupes.
-    
-    for( int i = 0; i < [edgeList count]; ++i )
+    while( YES )
     {
-        EREdge *thisEdge = (EREdge *)[edgeList objectAtIndex:i];
+        Block *thisBlock = [elbowRoom popCollider];
+        if( thisBlock == nil )
+        {
+            break;
+        }
 
         // if we are abutting a group element, also put a ref to the owning
         //  group in the list. This allows us to handle movement propagation
         //  for groups correctly.
-        Block *thisBlock = thisEdge.block;
         if( [thisBlock isGroupElement] )
         {
             [targetArray addObject:thisBlock.owningGroup];  // may be dupe
             fDedupe = YES;
         }
-
+        
         // add the abutting block, even if it was part of a group (which also got added).
         [targetArray addObject:thisBlock];
     }
@@ -140,6 +143,29 @@
         NSSet *uniqueSet = [NSSet setWithArray:targetArray];
         [targetArray removeAllObjects];
         [targetArray addObjectsFromArray:[uniqueSet allObjects]];
+    }
+}
+
+
+-(void)removeAbuttersForGroup:(BlockGroup *)group forDirection:(ERDirection)dir
+{
+    NSMutableArray *targetArray;
+    switch( dir )
+    {
+        case ERDirUp:    targetArray = m_abuttListUp;    break;
+        case ERDirLeft:  targetArray = m_abuttListLeft;  break;
+        case ERDirRight: targetArray = m_abuttListRight; break;
+        case ERDirDown:  targetArray = m_abuttListDown;  break;
+        default: NSAssert( NO, @"dir fail" );            break;
+    }
+
+    for( int i = [targetArray count] - 1; i >= 0; --i )
+    {
+        Block *thisBlock = (Block *)targetArray[i];
+        if( thisBlock.owningGroup == group )
+        {
+            [targetArray removeObjectAtIndex:i];
+        }
     }
 }
 
@@ -251,8 +277,7 @@
     Emu thisElbowRoom = [er getElbowRoomForSO:solidObject inDirection:dir];
     if( thisElbowRoom == 0 )
     {
-        
-        [cacheEntry copyAbuttingBlocksFromEdgeList:abuttEdgeList forDirection:dir];
+        [cacheEntry copyAbuttingBlocksFromElbowRoom:er forDirection:dir];
     }
     
     // also register abutters for each element of a group. This is needed for group gap check (specifically the case where
@@ -269,17 +294,8 @@
             thisElbowRoom = [er getElbowRoomForSO:thisElement inDirection:dir];
             if( thisElbowRoom == 0 )
             {
-                // when using the non-group flavor of getElbowRoomForSO, the return list can contain SOs that are
-                // in the same group as us. Ignore these.
-                for( int j = [abuttEdgeList count] - 1; j >= 0; --j )
-                {
-                    EREdge *thisTestEdge = (EREdge *)[abuttEdgeList objectAtIndex:j];
-                    if( thisTestEdge.block.owningGroup == thisGroup )
-                    {
-                        [abuttEdgeList removeObjectAtIndex:j];
-                    }
-                }
-                [thisElementCacheEntry copyAbuttingBlocksFromEdgeList:abuttEdgeList forDirection:dir];
+                [thisElementCacheEntry copyAbuttingBlocksFromElbowRoom:er forDirection:dir];
+                [thisElementCacheEntry removeAbuttersForGroup:thisGroup forDirection:dir];
             }
         }  // for
     }  // if group
