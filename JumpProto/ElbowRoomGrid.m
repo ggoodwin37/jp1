@@ -102,7 +102,6 @@
     int blockRow0 = (block.y - m_worldMin.y) / m_gridCellSize;
     int blockCol1 = (block.x + block.w - m_worldMin.x) / m_gridCellSize;
     int blockRow1 = (block.y + block.h - m_worldMin.y) / m_gridCellSize;
-    NSLog( @"adding block on range %d, %d -> %d, %d", blockCol0, blockRow0, blockCol1, blockRow1 );
     for( int ij = blockRow0; ij <= blockRow1; ++ij )
     {
         for( int ii = blockCol0; ii <= blockCol1; ++ii )
@@ -186,31 +185,32 @@
     for( int i = 0; i < [list count]; ++i )
     {
         Block *thisBlock = (Block *)[list objectAtIndex:i];
+        if( thisBlock == block ) continue;  // can't collide with self.
         if( dir == ERDirDown )
         {
-            if( thisBlock.x + thisBlock.w < block.x ) continue;
-            if( thisBlock.x > block.x + block.w ) continue;
+            if( thisBlock.x + thisBlock.w <= block.x ) continue;
+            if( thisBlock.x >= block.x + block.w ) continue;
             if( thisBlock.y + thisBlock.h > block.y ) continue;
             thisDistance = block.y - (thisBlock.y + thisBlock.h);
         }
         else if( dir == ERDirUp )
         {
-            if( thisBlock.x + thisBlock.w < block.x ) continue;
-            if( thisBlock.x > block.x + block.w ) continue;
+            if( thisBlock.x + thisBlock.w <= block.x ) continue;
+            if( thisBlock.x >= block.x + block.w ) continue;
             if( thisBlock.y < block.y + block.h ) continue;
             thisDistance = thisBlock.y - (block.y + block.h);
         }
         else if( dir == ERDirLeft )
         {
-            if( thisBlock.y + thisBlock.h < block.y ) continue;
-            if( thisBlock.y > block.y + block.h ) continue;
+            if( thisBlock.y + thisBlock.h <= block.y ) continue;
+            if( thisBlock.y >= block.y + block.h ) continue;
             if( thisBlock.x + thisBlock.w > block.x ) continue;
             thisDistance = block.x - (thisBlock.x + thisBlock.w);
         }
         else // if( dir == ERDirRight )
         {
-            if( thisBlock.y + thisBlock.h < block.y ) continue;
-            if( thisBlock.y > block.y + block.h ) continue;
+            if( thisBlock.y + thisBlock.h <= block.y ) continue;
+            if( thisBlock.y >= block.y + block.h ) continue;
             if( thisBlock.x < block.x + block.w ) continue;
             thisDistance = thisBlock.x - (block.x + block.w);
         }
@@ -236,53 +236,68 @@
 -(Emu)getElbowRoomForBlock:(Block *)block inDirection:(ERDirection)dir
 {
     int colInc, rowInc, blockCol0, blockCol1, blockRow0, blockRow1;
-    if( dir == ERDirDown )
+    if( dir == ERDirDown || dir == ERDirUp )
     {
-        colInc = 1;
-        rowInc = -1;
-        blockCol0 = (block.x - m_worldMin.x) / m_gridCellSize;
-        blockCol1 = (block.x + block.w - m_worldMin.x) / m_gridCellSize;
-        blockRow0 = (block.y - m_worldMin.y) / m_gridCellSize;
-        blockRow1 = blockRow0 + rowInc;
-    }
-    else if( dir == ERDirUp )
-    {
-        colInc = 1;
-        rowInc = 1;
-        blockCol0 = (block.x - m_worldMin.x) / m_gridCellSize;
-        blockCol1 = (block.x + block.w - m_worldMin.x) / m_gridCellSize;
-        blockRow0 = (block.y + block.h - m_worldMin.y) / m_gridCellSize;
-        blockRow1 = blockRow0 + rowInc;
-    }
-    if( dir == ERDirLeft )
-    {
-        colInc = -1;
-        rowInc = 1;
-        blockCol0 = (block.x - m_worldMin.x) / m_gridCellSize;
-        blockCol1 = blockCol0 + colInc;
-        blockRow0 = (block.y - m_worldMin.y) / m_gridCellSize;
-        blockRow1 = (block.y + block.h - m_worldMin.y) / m_gridCellSize;
-    }
-    else // if( dir == ERDirRight )
-    {
-        colInc = 1;
-        rowInc = 1;
-        blockCol0 = (block.x + block.w - m_worldMin.x) / m_gridCellSize;
-        blockCol1 = blockCol0 + colInc;
-        blockRow0 = (block.y - m_worldMin.y) / m_gridCellSize;
-        blockRow1 = (block.y + block.h - m_worldMin.y) / m_gridCellSize;
-    }
-    
-    Emu minDistance = m_gridCellSize;
-    for( int ii = blockCol0; ii <= blockCol1; ii += colInc )
-    {
-        for( int ij = blockRow0; ij <= blockRow1; ij += rowInc )
+        if( dir == ERDirDown )
         {
-            minDistance = [self getElbowRoomInCellForBlock:block col:ii row:ij dir:dir previousMinDistance:minDistance];
+            rowInc = -1;
+            blockCol0 = (block.x - m_worldMin.x) / m_gridCellSize;
+            blockCol1 = (block.x + block.w - m_worldMin.x) / m_gridCellSize;
+            blockRow0 = (block.y - m_worldMin.y) / m_gridCellSize;
+            blockRow1 = blockRow0 + rowInc;
         }
-        if( minDistance <= m_gridCellSize ) return minDistance;  // don't bother checking next
+        else if( dir == ERDirUp )
+        {
+            rowInc = 1;
+            blockCol0 = (block.x - m_worldMin.x) / m_gridCellSize;
+            blockCol1 = (block.x + block.w - m_worldMin.x) / m_gridCellSize;
+            blockRow0 = (block.y + block.h - m_worldMin.y) / m_gridCellSize;
+            blockRow1 = blockRow0 + rowInc;
+        }
+        
+        Emu minDistance = m_gridCellSize;
+        // row major
+        for( int ij = blockRow0; (rowInc > 0) ? (ij <= blockRow1) : (ij >= blockRow1); ij += rowInc )
+        {
+            for( int ii = blockCol0; ii <= blockCol1; ++ii )
+            {
+                minDistance = [self getElbowRoomInCellForBlock:block col:ii row:ij dir:dir previousMinDistance:minDistance];
+            }
+            if( minDistance < m_gridCellSize ) return minDistance;  // don't bother checking next
+        }
+        return m_gridCellSize;
     }
-    return minDistance;  // == m_gridCellSize
+    else
+    {
+        if( dir == ERDirLeft )
+        {
+            colInc = -1;
+            blockCol0 = (block.x - m_worldMin.x) / m_gridCellSize;
+            blockCol1 = blockCol0 + colInc;
+            blockRow0 = (block.y - m_worldMin.y) / m_gridCellSize;
+            blockRow1 = (block.y + block.h - m_worldMin.y) / m_gridCellSize;
+        }
+        else // if( dir == ERDirRight )
+        {
+            colInc = 1;
+            blockCol0 = (block.x + block.w - m_worldMin.x) / m_gridCellSize;
+            blockCol1 = blockCol0 + colInc;
+            blockRow0 = (block.y - m_worldMin.y) / m_gridCellSize;
+            blockRow1 = (block.y + block.h - m_worldMin.y) / m_gridCellSize;
+        }
+
+        Emu minDistance = m_gridCellSize;
+        // columnMajor
+        for( int ii = blockCol0; (colInc > 0) ? (ii <= blockCol1) : (ii >= blockCol1); ii += colInc )
+        {
+            for( int ij = blockRow0; ij <= blockRow1; ++ij )
+            {
+                minDistance = [self getElbowRoomInCellForBlock:block col:ii row:ij dir:dir previousMinDistance:minDistance];
+            }
+            if( minDistance < m_gridCellSize ) return minDistance;  // don't bother checking next
+        }
+        return m_gridCellSize;
+    }
 }
 
 

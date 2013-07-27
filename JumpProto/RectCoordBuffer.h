@@ -36,6 +36,6 @@
 -(void)incPtr;
 -(void)flush;
 
-#define LOG_COORDBUFFER
+//#define LOG_COORDBUFFER
 
 @end

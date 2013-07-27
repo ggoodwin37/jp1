@@ -494,13 +494,13 @@
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirRight];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
-    
+
     
     logStr = @"down barelyMissed";
     [world reset];
-    b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 100, 120, 10, 10 ) color:color];   testSubject = b;
+    b = [[TestBlock alloc] initWithRect:EmuRectMake( 100, 120, 10, 10 ) color:color];   testSubject = b;
     [world addWorldBlock:b];
-    b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 110, 100, 10, 10 ) color:color];
+    b = [[TestBlock alloc] initWithRect:EmuRectMake( 110, 100, 10, 10 ) color:color];
     [world addWorldBlock:b];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
@@ -508,9 +508,9 @@
     
     logStr = @"up barelyMissed";
     [world reset];
-    b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 100, 100, 10, 10 ) color:color];   testSubject = b;
+    b = [[TestBlock alloc] initWithRect:EmuRectMake( 100, 100, 10, 10 ) color:color];   testSubject = b;
     [world addWorldBlock:b];
-    b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 110, 120, 10, 10 ) color:color];
+    b = [[TestBlock alloc] initWithRect:EmuRectMake( 110, 120, 10, 10 ) color:color];
     [world addWorldBlock:b];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
@@ -518,9 +518,9 @@
     
     logStr = @"left barelyMissed";
     [world reset];
-    b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 100, 100, 10, 10 ) color:color];   testSubject = b;
+    b = [[TestBlock alloc] initWithRect:EmuRectMake( 100, 100, 10, 10 ) color:color];   testSubject = b;
     [world addWorldBlock:b];
-    b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 80, 110, 10, 10 ) color:color];
+    b = [[TestBlock alloc] initWithRect:EmuRectMake( 80, 110, 10, 10 ) color:color];
     [world addWorldBlock:b];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirLeft];
@@ -528,37 +528,37 @@
     
     logStr = @"right barelyMissed";
     [world reset];
-    b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 100, 100, 10, 10 ) color:color];   testSubject = b;
+    b = [[TestBlock alloc] initWithRect:EmuRectMake( 100, 100, 10, 10 ) color:color];   testSubject = b;
     [world addWorldBlock:b];
-    b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 120, 110, 10, 10 ) color:color];
+    b = [[TestBlock alloc] initWithRect:EmuRectMake( 120, 110, 10, 10 ) color:color];
     [world addWorldBlock:b];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirRight];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
     
-    
+    Emu smBlockSize = 17;
     logStr = @"down wideBlockHit";
     [world reset];
-    b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];   testSubject = b;
+    b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * smBlockSize, 8 * smBlockSize, 8 * smBlockSize, smBlockSize ) color:color];   testSubject = b;
     [world addWorldBlock:b];
-    b = [[TestBlock alloc] initWithRect:EmuRectMake( 9 * ONE_BLOCK_SIZE_Emu, 2 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
+    b = [[TestBlock alloc] initWithRect:EmuRectMake( 9 * smBlockSize, 2 * smBlockSize, smBlockSize, smBlockSize ) color:color];
     [world addWorldBlock:b];
-    b = [[TestBlock alloc] initWithRect:EmuRectMake( 14 * ONE_BLOCK_SIZE_Emu, 3 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
+    b = [[TestBlock alloc] initWithRect:EmuRectMake( 14 * smBlockSize, 3 * smBlockSize, smBlockSize, smBlockSize ) color:color];
     [world addWorldBlock:b];
-    expected = 4 * ONE_BLOCK_SIZE_Emu;
+    expected = 4 * smBlockSize;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
     logStr = @"up wideBlockHit";
     [world reset];
-    b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 2 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];   testSubject = b;
+    b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * smBlockSize, 2 * smBlockSize, 8 * smBlockSize, smBlockSize ) color:color];   testSubject = b;
     [world addWorldBlock:b];
-    b = [[TestBlock alloc] initWithRect:EmuRectMake( 9 * ONE_BLOCK_SIZE_Emu, 11 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
+    b = [[TestBlock alloc] initWithRect:EmuRectMake( 9 * smBlockSize, 11 * smBlockSize, smBlockSize, smBlockSize ) color:color];
     [world addWorldBlock:b];
-    b = [[TestBlock alloc] initWithRect:EmuRectMake( 14 * ONE_BLOCK_SIZE_Emu, 15 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
+    b = [[TestBlock alloc] initWithRect:EmuRectMake( 14 * smBlockSize, 15 * smBlockSize, smBlockSize, smBlockSize ) color:color];
     [world addWorldBlock:b];
-    expected = 8 * ONE_BLOCK_SIZE_Emu;
+    expected = 8 * smBlockSize;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
