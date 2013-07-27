@@ -103,7 +103,7 @@
 @property (nonatomic, retain) NSArray *blockList;
 @property (nonatomic, assign) CGRect boundingBox;
 
--(id)initWithProps:(AFLevelProps *)props blockList:(NSArray *)blockList boundingBox:(CGRect)boundingBox;
+-(id)initWithProps:(AFLevelProps *)props blockList:(NSArray *)blockList;
 
 @end
 

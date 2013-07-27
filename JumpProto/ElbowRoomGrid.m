@@ -63,8 +63,8 @@
     }
     m_gridCellStride = gridCol;
     
-    NSLog( @"reset ERGrid. worldSize is %d,%d->%d%d. grid is %d,%d, total %d cells",
-          minPoint.x, minPoint.y, maxPoint.x, maxPoint.y, gridCol, gridRow, m_numGridCells );
+    NSLog( @"reset ERGrid. cellSize is %d, worldSize is %d, %d -> %d, %d. grid is %d, %d, total %d cells.",
+          m_gridCellSize, minPoint.x, minPoint.y, maxPoint.x, maxPoint.y, gridCol, gridRow, m_numGridCells );
 }
 
 
@@ -102,6 +102,7 @@
     int blockRow0 = (block.y - m_worldMin.y) / m_gridCellSize;
     int blockCol1 = (block.x + block.w - m_worldMin.x) / m_gridCellSize;
     int blockRow1 = (block.y + block.h - m_worldMin.y) / m_gridCellSize;
+    NSLog( @"adding block on range %d, %d -> %d, %d", blockCol0, blockRow0, blockCol1, blockRow1 );
     for( int ij = blockRow0; ij <= blockRow1; ++ij )
     {
         for( int ii = blockCol0; ii <= blockCol1; ++ii )

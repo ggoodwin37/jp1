@@ -541,9 +541,7 @@
     levelProps.name = world.levelName != nil ? world.levelName : @"Unnamed level";
     levelProps.description = world.levelDescription != nil ? world.levelDescription : @"No description.";
     
-    NSAssert( NO, @"You are lazy and didn't update this codepath with AFLevel boundingBox." );
-    CGRect boundingBox = CGRectMake( 0, 0, 20, 20 );
-    return [[[AFLevel alloc] initWithProps:levelProps blockList:afBlockList boundingBox:boundingBox] autorelease];
+    return [[[AFLevel alloc] initWithProps:levelProps blockList:afBlockList] autorelease];
 }
 
 

@@ -641,6 +641,7 @@
     self.levelName = nil;
     self.levelDescription = nil;
     
+    [m_elbowRoom reset];  // this call is only needed for WorldTest, which just calls [world reset] and expects er to reset too.
     [m_worldFrameCache hardReset];
     [m_worldSOs removeAllObjects];
     [m_playerActor release]; m_playerActor = nil;

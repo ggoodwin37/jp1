@@ -357,13 +357,13 @@
 
 @synthesize props = m_props, blockList = m_blockList, boundingBox = m_boundingBox;
 
--(id)initWithProps:(AFLevelProps *)props blockList:(NSArray *)blockList boundingBox:(CGRect)boundingBox
+-(id)initWithProps:(AFLevelProps *)props blockList:(NSArray *)blockList
 {
     if( self = [super init] )
     {
         self.props = props;
         self.blockList = blockList;
-        self.boundingBox = boundingBox;
+        self.boundingBox = CGRectMake( 0, 0, 0, 0 );
     }
     return self;
 }
