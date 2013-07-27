@@ -86,9 +86,4 @@
 -(void)onSODied:(ASolidObject *)solidObject;
 
 
-// test only
-// TODO: remove eventually. Are some of the methods above test only too?
--(int)test_getCacheStripCount;
-
-
 @end

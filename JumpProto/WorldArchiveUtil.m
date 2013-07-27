@@ -379,11 +379,8 @@
 +(void)readWorld:(World *)world fromAF:(AFLevel *)level
 {
     // assume [world reset] was called already.
-    
-    // TODO: do we need to be able to read/write this value to disk, or can we always use a standard value?
-    // TODO: need to put more thought into this. One_Block strikes me as too small for actors. works well for movingplatform stuff that stays constrained.
-    // TODO: reconsider this now that you jacked the grid size by 4
-    world.elbowRoom.stripSize = ONE_BLOCK_SIZE_Emu;
+
+    [world.elbowRoom reset];
     
     EmuPoint playerStart = EmuPointMake( 0, 0 );
     

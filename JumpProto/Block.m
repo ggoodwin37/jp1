@@ -352,27 +352,6 @@
 }
 
 
--(void)changePositionBy:(EmuPoint)offset elbowRoom:(ElbowRoom *)elbowRoom
-{
-    BOOL movingBothAxes = (offset.x != 0) && (offset.y != 0);    
-    const BOOL disableSingleAxis = NO;
-    
-    if( disableSingleAxis || movingBothAxes )
-    {
-        // less common, more complex cases: just remove and re-add the block
-        [elbowRoom removeBlock:self];
-        EmuRect targetRect = EmuRectMake( self.x + offset.x, self.y + offset.y, self.w, self.h );
-        [self.state setRect:targetRect];
-        [elbowRoom addBlock:self];
-    }
-    else
-    {
-        // more common case: block is just moving along one axis. Give ER a chance to be clever.
-        [elbowRoom singleAxisMoveBlock:self withOffset:offset];
-    }
-}
-
-
 -(void)changePositionOnXAxis:(BOOL)onXAxis signedMoveOffset:(Emu)didMoveOffset elbowRoom:(id)elbowRoomIn
 {
     ElbowRoom *elbowRoom = (ElbowRoom *)elbowRoomIn;
@@ -396,8 +375,7 @@
     
     // perform the actual move
     EmuPoint offset = EmuPointMake( targetX - self.x, targetY - self.y );
-    
-    [self changePositionBy:offset elbowRoom:elbowRoom];
+    [elbowRoom moveBlock:self byOffset:offset];
 }
 
 

@@ -785,7 +785,9 @@
 {
     if( self = [super init] )
     {
-        m_stripSize = 0;
+        // TODO: need to put more thought into this. One_Block strikes me as too small for actors. works well for movingplatform stuff that stays constrained.
+        // TODO: try tweaking this value to see if it affects stress test performance.
+        m_stripSize = ONE_BLOCK_SIZE_Emu;
         
         // TODO: what's the right capacity?
         m_stripTable = [[NSMutableDictionary dictionaryWithCapacity:200] retain];
@@ -808,17 +810,10 @@
 }
 
 
--(Emu)getStripSize
-{
-    return m_stripSize;
-}
-
-
 -(void)setStripSize:(Emu)stripSize
 {
     NSAssert( stripSize > 0, @"stripSize must be > zero" );
     NSAssert( stripSize % GRID_SIZE_Emu == 0, @"stripSize must be a multiple of gridSize" );
-    m_stripSize = stripSize;
     [self reset];
     NSLog( @"ER reset with stripSize %d", stripSize );
 }
@@ -1191,6 +1186,27 @@
 }
 
 
+-(void)moveBlock:(Block *)block byOffset:(EmuPoint)offset
+{
+    BOOL movingBothAxes = (offset.x != 0) && (offset.y != 0);
+    const BOOL disableSingleAxis = NO;
+    
+    if( disableSingleAxis || movingBothAxes )
+    {
+        // less common, more complex cases: just remove and re-add the block
+        [self removeBlock:block];
+        EmuRect targetRect = EmuRectMake( block.x + offset.x, block.y + offset.y, block.w, block.h );
+        [block.state setRect:targetRect];
+        [self addBlock:block];
+    }
+    else
+    {
+        // more common case: block is just moving along one axis, use optimized codepath.
+        [self singleAxisMoveBlock:block withOffset:offset];
+    }
+}
+
+
 -(Emu)getElbowRoomForBlock:(Block *)block inDirection:(ERDirection)dir outCollidingEdgeList:(NSArray **)outCollidingEdgeList
 {
 #ifdef LOG_ER_STATS
@@ -1382,52 +1398,6 @@
 }
 
 
--(int)test_getCacheStripCount
-{
-    return [m_stripTable count];
-}
-
-
-+(NSString *)getStringForDir:(ERDirection)dir
-{
-    switch( dir )
-    {
-        case ERDirUp:
-            return @"U";
-        case ERDirLeft:
-            return @"L";
-        case ERDirRight:
-            return @"R";
-        case ERDirDown:
-            return @"D";
-        default:
-            return @"?";
-    }
-}
-
-
--(Emu)getElbowRoomForSO:(ASolidObject *)solidObject inDirection:(ERDirection)dir
-{
-    // FUTURE: would caching elbowRoom help?
-    //         seems like the lifetime of such a cache would be very short, if we were moving the SO and
-    //         querying ER for that SO in the same Updater loop. But if we have to query ER multiple times
-    //         per Updater loop, or query the ER for a different SO than the one we're currently updating,
-    //         it could pay off. This shouldn't care whether the SO is a group or not.
-    
-    if( [solidObject isGroup] )
-    {
-        return [self getElbowRoomForGroup:(BlockGroup *)solidObject inDirection:dir outCollidingEdgeList:nil];
-    }
-    else
-    {
-        // for posterity: saw an odd issue when ERMaxDistance is close to the max value of Emu.
-        //   in particular, I set the constant to 0x0fffffff, and sometimes returning that value
-        //   here would mysteriously add one by the time the caller recieves the value. freaky.
-        return [self getElbowRoomForBlock:(Block *)solidObject inDirection:dir outCollidingEdgeList:nil];
-    }
-}
-
-
 -(Emu)getElbowRoomForSO:(ASolidObject *)solidObject inDirection:(ERDirection)dir outCollidingEdgeList:(NSArray **)outCollidingEdgeList
 {
     if( [solidObject isGroup] )
@@ -1436,6 +1406,9 @@
     }
     else
     {
+        // for posterity: saw an odd issue when ERMaxDistance is close to the max value of Emu.
+        //   in particular, I set the constant to 0x0fffffff, and sometimes returning that value
+        //   here would mysteriously add one by the time the caller recieves the value. freaky.
         return [self getElbowRoomForBlock:(Block *)solidObject inDirection:dir outCollidingEdgeList:outCollidingEdgeList];
     }
 }

@@ -127,6 +127,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		930FFDF717A3574A00735149 /* IElbowRoom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IElbowRoom.h; sourceTree = "<group>"; };
 		932DD07717974A3100375642 /* RectCoordBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RectCoordBuffer.h; sourceTree = "<group>"; };
 		932DD07817974A3100375642 /* RectCoordBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RectCoordBuffer.m; sourceTree = "<group>"; };
 		93A736BA17580FEE0059C2C9 /* EBlockMRUList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBlockMRUList.h; sourceTree = "<group>"; };
@@ -577,6 +578,7 @@
 				F3D4C6ED1469005300FC282A /* BlockGroup.h */,
 				F3D4C6EE1469005300FC282A /* BlockGroup.m */,
 				F3CF4EA915FF0B280040BBCF /* ERDirection.h */,
+				930FFDF717A3574A00735149 /* IElbowRoom.h */,
 				F31EECB813DD3EF800A337EF /* ElbowRoom.h */,
 				F31EECB913DD3EF800A337EF /* ElbowRoom.m */,
 				F31EECBB13DD3F3500A337EF /* BlockUpdater.h */,

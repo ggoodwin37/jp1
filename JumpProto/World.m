@@ -657,12 +657,6 @@
 }
 
 
--(int)test_getCacheStripCount
-{
-    return [m_elbowRoom test_getCacheStripCount];
-}
-
-
 // handles global reset commands
 -(void)onGlobalCommand_resetWorld
 {

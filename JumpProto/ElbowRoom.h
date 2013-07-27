@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ERDirection.h"
 #import "Block.h"
+#import "IElbowRoom.h"
 
 #define ERMaxDistance   (0x00ffffff)
 
@@ -109,7 +110,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ElbowRoom
 
-@interface ElbowRoom : NSObject
+@interface ElbowRoom : NSObject<IElbowRoom>
 {
     NSMutableDictionary *m_stripTable;
     
@@ -122,20 +123,6 @@
     NSMutableArray *m_resultCollidingEdgeList;    
     
 }
-
-@property (nonatomic, getter = getStripSize, setter = setStripSize:) Emu stripSize;
-
--(void)addBlock:(Block *)block;
--(void)removeBlock:(Block *)block;
--(void)singleAxisMoveBlock:(Block *)block withOffset:(EmuPoint)offset;
-
--(Emu)getElbowRoomForSO:(ASolidObject *)solidObject inDirection:(ERDirection)dir;
--(Emu)getElbowRoomForSO:(ASolidObject *)solidObject inDirection:(ERDirection)dir outCollidingEdgeList:(NSArray **)outCollidingEdgeList;
--(void)reset;
-
-+(NSString *)getStringForDir:(ERDirection)dir;
-
--(int)test_getCacheStripCount;
 
 @end
 
