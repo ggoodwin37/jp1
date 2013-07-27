@@ -240,3 +240,15 @@ ok, did a little reading online and found a new approach for collision detection
 - abutt list checks are just how_far_I_want == 1 emu.
 - still have complexity of copying edges over to the result list (this requirement is pretty baked in by ER callers/overall design).
 - what is the max step that any actor ever takes?
+
+after switching to ElbowRoomGrid, drawStress looks like:
+worldView draw avg: 2.452579ms.
+updating world average duration is 4.471143 ms.
+
+don't know whether to laugh at how awesome this is, or cry at how bad my original one was -.-
+
+still a few loose ends to fix up but overall this is bitchin.
+- one-way walls don't work
+- groups not implemented yet, just need to aggregate blocks.
+- check crate pushing, etc.
+- right gaps not hitting when jumping up, only when jumping down?
