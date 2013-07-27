@@ -223,3 +223,12 @@ updating world average duration is 34.800255 ms.
 after tweaks to idle velocity due to gravity:
 worldView draw avg: 0.818030ms.
 updating world average duration is 10.195816 ms.
+
+// so after no-down-velocity-for-idle-blocks, original stress test looks like (compared to 31.3 before any changes):
+worldView draw avg: 2.824817ms.
+updating world average duration is 14.317692 ms.
+
+crazy idea: what if er maintained a separate set of datastructures to help determine abuttlists?
+existing cachestrips aren't suited for this since they are unidirectional. but what if we had bidirectional caches as well? each solid object has refs to its bidiEdges (zero or more per direction) and can instantly check if the "next opposing bidi" is abutting or not.
+
+maybe this is how ER should work in general? this saves us from the "test edge" logic which is expensive. no longer need to make test edges because we have real edges in there already.
