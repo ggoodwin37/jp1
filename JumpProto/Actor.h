@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Block.h"
-#import "ElbowRoom.h"  // just for ERDirection. TODO: this isn't specific to ER anymore, should extract it.
+#import "ERDirection.h"
 #import "DpadInput.h"
 
 

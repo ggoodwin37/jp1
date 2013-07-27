@@ -387,7 +387,6 @@
     ERDirection dir = xAxis ? ( targetOffset > 0 ? ERDirRight : ERDirLeft ) :
                               ( targetOffset > 0 ? ERDirUp : ERDirDown );
 
-    NSArray *abuttList;
     Emu elbowRoomThisDir = [self.elbowRoom getElbowRoomForSO:node inDirection:dir];      // unsigned
     Emu actualMoveThisFrame = MIN( ABS( targetOffset ), elbowRoomThisDir );              // unsigned
     Emu actualOffsetThisFrame = actualMoveThisFrame * ( (targetOffset < 0) ? -1 : 1 );   // signed

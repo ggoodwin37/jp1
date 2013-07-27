@@ -12,7 +12,7 @@
 #import "GlobalCommand.h"
 #import "AspectController.h"
 #import "constants.h"
-#import "ElbowRoom.h"   // concrete impl
+#import "ElbowRoomGrid.h"   // concrete impl
 
 // TODO: remove/debug only
 #import "WorldTest.h"
@@ -38,7 +38,6 @@
 {
     if( self = [super init] )
     {
-        [ERStats initStaticInstance];
         [BUStats initStaticInstance];
         
         m_playerActor = nil;
@@ -47,7 +46,7 @@
         m_frameStateBlockUpdaters = [[NSMutableArray arrayWithCapacity:10] retain];
         m_updateGraphWorkers = [[NSMutableArray arrayWithCapacity:10] retain];
         m_worldStateBlockUpdaters = [[NSMutableArray arrayWithCapacity:10] retain];
-        m_elbowRoom = [[ElbowRoom alloc] init];
+        m_elbowRoom = [[ElbowRoomGrid alloc] init];
         m_groupTable = [[NSMutableDictionary dictionaryWithCapacity:20] retain];
         
         m_worldFrameCache = [[WorldFrameCache alloc] init];
@@ -102,7 +101,6 @@
     [m_worldSOs release]; m_worldSOs = nil;
     
     [BUStats releaseStaticInstance];
-    [ERStats releaseStaticInstance];
     [super dealloc];
 }
 
@@ -338,7 +336,6 @@
         return;
     }
     
-    [[ERStats instance] updateWithTimeDelta:timeDelta];
     [[BUStats instance] updateWithTimeDelta:timeDelta];
 
     long startTime = getUpTimeMs();
@@ -469,7 +466,6 @@
 {
     BlockEdgeDirMask result = BlockEdgeDirMask_None;
 
-    NSArray *colList;
     Emu er;
     BOOL hitOwnGroup;
     
@@ -640,7 +636,6 @@
 
 -(void)reset
 {
-    [[ERStats instance] reset];
     [[BUStats instance] reset];
     
     self.levelName = nil;

@@ -7,7 +7,6 @@
 //
 
 #import "Block.h"
-//#import "ElbowRoom.h"  // still smells funny  // TODO verify
 #import "constants.h"
 #import "BlockUpdater.h"
 

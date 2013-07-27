@@ -380,7 +380,7 @@
     [world reset];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];   testSubject = b;
     [world addWorldBlock:b];
-    expected = ERMaxDistance;
+    expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
@@ -388,7 +388,7 @@
     [world reset];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];   testSubject = b;
     [world addWorldBlock:b];
-    expected = ERMaxDistance;
+    expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
@@ -396,7 +396,7 @@
     [world reset];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];   testSubject = b;
     [world addWorldBlock:b];
-    expected = ERMaxDistance;
+    expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirLeft];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
@@ -404,7 +404,7 @@
     [world reset];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];   testSubject = b;
     [world addWorldBlock:b];
-    expected = ERMaxDistance;
+    expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirRight];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
@@ -502,7 +502,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 110, 100, 10, 10 ) color:color];
     [world addWorldBlock:b];
-    expected = ERMaxDistance;
+    expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
@@ -512,7 +512,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 110, 120, 10, 10 ) color:color];
     [world addWorldBlock:b];
-    expected = ERMaxDistance;
+    expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
@@ -522,7 +522,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 80, 110, 10, 10 ) color:color];
     [world addWorldBlock:b];
-    expected = ERMaxDistance;
+    expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirLeft];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
@@ -532,7 +532,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 120, 110, 10, 10 ) color:color];
     [world addWorldBlock:b];
-    expected = ERMaxDistance;
+    expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirRight];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
@@ -573,7 +573,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 132, 90, 10, 10 ) color:color];
     [world addWorldBlock:b];
-    expected = ERMaxDistance;
+    expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
@@ -585,7 +585,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 132, 90, 10, 10 ) color:color];
     [world addWorldBlock:b];
-    expected = ERMaxDistance;
+    expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
@@ -690,7 +690,7 @@
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 100, 40, 20, 20 ) color:color];
     [world addWorldBlock:b];
     [world removeWorldSO:b];
-    expected = ERMaxDistance;
+    expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
@@ -701,7 +701,7 @@
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 100, 150, 20, 20 ) color:color];
     [world addWorldBlock:b];
     [world removeWorldSO:b];
-    expected = ERMaxDistance;
+    expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     
@@ -712,7 +712,7 @@
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 100, 40, 600, 20 ) color:color];
     [world addWorldBlock:b];
     [world removeWorldSO:b];
-    expected = ERMaxDistance;
+    expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
     

@@ -16,7 +16,6 @@
 		F30EFB71144233F6003054DC /* EDoc.m in Sources */ = {isa = PBXBuildFile; fileRef = F30EFB70144233F6003054DC /* EDoc.m */; };
 		F31EECB313DD3ED500A337EF /* World.m in Sources */ = {isa = PBXBuildFile; fileRef = F31EECB213DD3ED500A337EF /* World.m */; };
 		F31EECB713DD3EE800A337EF /* Block.m in Sources */ = {isa = PBXBuildFile; fileRef = F31EECB613DD3EE800A337EF /* Block.m */; };
-		F31EECBA13DD3EF900A337EF /* ElbowRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = F31EECB913DD3EF800A337EF /* ElbowRoom.m */; };
 		F31EECBD13DD3F3500A337EF /* BlockUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = F31EECBC13DD3F3500A337EF /* BlockUpdater.m */; };
 		F3259F6B13D6A5FC0018CC3D /* DpadInput.m in Sources */ = {isa = PBXBuildFile; fileRef = F3259F6A13D6A5FC0018CC3D /* DpadInput.m */; };
 		F3471E4A143D4CF9001AA4C8 /* SpriteStateDrawUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F3471E49143D4CF9001AA4C8 /* SpriteStateDrawUtil.m */; };
@@ -144,8 +143,6 @@
 		F31EECB213DD3ED500A337EF /* World.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = World.m; sourceTree = "<group>"; };
 		F31EECB513DD3EE800A337EF /* Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Block.h; sourceTree = "<group>"; };
 		F31EECB613DD3EE800A337EF /* Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Block.m; sourceTree = "<group>"; };
-		F31EECB813DD3EF800A337EF /* ElbowRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElbowRoom.h; sourceTree = "<group>"; };
-		F31EECB913DD3EF800A337EF /* ElbowRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElbowRoom.m; sourceTree = "<group>"; };
 		F31EECBB13DD3F3500A337EF /* BlockUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockUpdater.h; sourceTree = "<group>"; };
 		F31EECBC13DD3F3500A337EF /* BlockUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockUpdater.m; sourceTree = "<group>"; };
 		F3259F6913D6A5FC0018CC3D /* DpadInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DpadInput.h; sourceTree = "<group>"; };
@@ -582,8 +579,6 @@
 				F3D4C6EE1469005300FC282A /* BlockGroup.m */,
 				F3CF4EA915FF0B280040BBCF /* ERDirection.h */,
 				930FFDF717A3574A00735149 /* IElbowRoom.h */,
-				F31EECB813DD3EF800A337EF /* ElbowRoom.h */,
-				F31EECB913DD3EF800A337EF /* ElbowRoom.m */,
 				93732D8217A4327D00F1B5A7 /* ElbowRoomGrid.h */,
 				93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */,
 				F31EECBB13DD3F3500A337EF /* BlockUpdater.h */,
@@ -820,7 +815,6 @@
 				F38FA57713D92C410007B99D /* DpadFeedbackLayerView.m in Sources */,
 				F31EECB313DD3ED500A337EF /* World.m in Sources */,
 				F31EECB713DD3EE800A337EF /* Block.m in Sources */,
-				F31EECBA13DD3EF900A337EF /* ElbowRoom.m in Sources */,
 				F31EECBD13DD3F3500A337EF /* BlockUpdater.m in Sources */,
 				F3C8327A13DE8DAD007CF1CE /* WorldView.m in Sources */,
 				F3E8E40B13DF1E5F00066200 /* WorldTest.m in Sources */,
