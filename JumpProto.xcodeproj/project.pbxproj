@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		932DD07917974A3100375642 /* RectCoordBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 932DD07817974A3100375642 /* RectCoordBuffer.m */; };
+		93732D8417A4327D00F1B5A7 /* ElbowRoomGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */; };
 		93A736BC17580FEE0059C2C9 /* EBlockMRUList.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */; };
 		F305ECE91623E1FB00E153FB /* blAlgae.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE61623E1FB00E153FB /* blAlgae.png */; };
 		F305ECEA1623E1FB00E153FB /* blavQik.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE71623E1FB00E153FB /* blavQik.png */; };
@@ -130,6 +131,8 @@
 		930FFDF717A3574A00735149 /* IElbowRoom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IElbowRoom.h; sourceTree = "<group>"; };
 		932DD07717974A3100375642 /* RectCoordBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RectCoordBuffer.h; sourceTree = "<group>"; };
 		932DD07817974A3100375642 /* RectCoordBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RectCoordBuffer.m; sourceTree = "<group>"; };
+		93732D8217A4327D00F1B5A7 /* ElbowRoomGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElbowRoomGrid.h; sourceTree = "<group>"; };
+		93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElbowRoomGrid.m; sourceTree = "<group>"; };
 		93A736BA17580FEE0059C2C9 /* EBlockMRUList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBlockMRUList.h; sourceTree = "<group>"; };
 		93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBlockMRUList.m; sourceTree = "<group>"; };
 		F305ECE61623E1FB00E153FB /* blAlgae.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blAlgae.png; path = images/blAlgae.png; sourceTree = "<group>"; };
@@ -581,6 +584,8 @@
 				930FFDF717A3574A00735149 /* IElbowRoom.h */,
 				F31EECB813DD3EF800A337EF /* ElbowRoom.h */,
 				F31EECB913DD3EF800A337EF /* ElbowRoom.m */,
+				93732D8217A4327D00F1B5A7 /* ElbowRoomGrid.h */,
+				93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */,
 				F31EECBB13DD3F3500A337EF /* BlockUpdater.h */,
 				F31EECBC13DD3F3500A337EF /* BlockUpdater.m */,
 				F3D6C7E514CA1B2F003FE5B4 /* Actor.h */,
@@ -852,6 +857,7 @@
 				F3DABAEF1665F39B00471044 /* DrawSettingsViewController.m in Sources */,
 				93A736BC17580FEE0059C2C9 /* EBlockMRUList.m in Sources */,
 				932DD07917974A3100375642 /* RectCoordBuffer.m in Sources */,
+				93732D8417A4327D00F1B5A7 /* ElbowRoomGrid.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
