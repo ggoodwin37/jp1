@@ -85,6 +85,7 @@
 -(NSMutableArray *)ensureGridCellAtCol:(int)x Row:(int)y
 {
     int offset = y * m_gridCellStride + x;
+    NSAssert( offset < m_numGridCells, @"Don't read outside of grid." );
     NSMutableArray *result = m_gridCells[offset];
     if( result == nil )
     {
@@ -158,17 +159,17 @@
     {
         for( int ii = minCol; ii <= maxCol; ++ii )
         {
-            if( ii < oldBlockRow0 ||
-                ii > oldBlockRow1 ||
-                ij < oldBlockCol0 ||
-                ij > oldBlockCol1 )
+            if( ii < oldBlockCol0 ||
+                ii > oldBlockCol1 ||
+                ij < oldBlockRow0 ||
+                ij > oldBlockRow1 )
             {
                 [[self ensureGridCellAtCol:ii Row:ij] addObject:block];  // O(1)
             }
-            if( ii < newBlockRow0 ||
-                ii > newBlockRow1 ||
-                ij < newBlockCol0 ||
-                ij > newBlockCol1 )
+            if( ii < newBlockCol0 ||
+                ii > newBlockCol1 ||
+                ij < newBlockRow0 ||
+                ij > newBlockRow1 )
             {
                 [[self ensureGridCellAtCol:ii Row:ij] removeObject:block];  // O(n)
             }
@@ -191,6 +192,7 @@
             if( thisBlock.x + thisBlock.w <= block.x ) continue;
             if( thisBlock.x >= block.x + block.w ) continue;
             if( thisBlock.y + thisBlock.h > block.y ) continue;
+            if( !(thisBlock.props.solidMask & BlockEdgeDirMask_Up) ) continue;
             thisDistance = block.y - (thisBlock.y + thisBlock.h);
         }
         else if( dir == ERDirUp )
@@ -198,6 +200,7 @@
             if( thisBlock.x + thisBlock.w <= block.x ) continue;
             if( thisBlock.x >= block.x + block.w ) continue;
             if( thisBlock.y < block.y + block.h ) continue;
+            if( !(thisBlock.props.solidMask & BlockEdgeDirMask_Down) ) continue;
             thisDistance = thisBlock.y - (block.y + block.h);
         }
         else if( dir == ERDirLeft )
@@ -205,6 +208,7 @@
             if( thisBlock.y + thisBlock.h <= block.y ) continue;
             if( thisBlock.y >= block.y + block.h ) continue;
             if( thisBlock.x + thisBlock.w > block.x ) continue;
+            if( !(thisBlock.props.solidMask & BlockEdgeDirMask_Right) ) continue;
             thisDistance = block.x - (thisBlock.x + thisBlock.w);
         }
         else // if( dir == ERDirRight )
@@ -212,6 +216,7 @@
             if( thisBlock.y + thisBlock.h <= block.y ) continue;
             if( thisBlock.y >= block.y + block.h ) continue;
             if( thisBlock.x < block.x + block.w ) continue;
+            if( !(thisBlock.props.solidMask & BlockEdgeDirMask_Left) ) continue;
             thisDistance = thisBlock.x - (block.x + block.w);
         }
         
