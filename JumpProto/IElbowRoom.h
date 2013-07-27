@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ERDirection.h"
+#import "Block.h"
 
 @protocol IElbowRoom <NSObject>
 

@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ERDirection.h"
-#import "Block.h"
 #import "IElbowRoom.h"
 
 #define ERMaxDistance   (0x00ffffff)
@@ -101,9 +99,6 @@
 {
 }
 @property (nonatomic, readonly) NSMutableArray *edgeList;     // the edges that were added for this SO.
-
-// TODO: move this to WorldFrameState
-//@property (nonatomic, retain) NSMutableArray *downEdgeList; // the last known list of edges directly below this SO.
 
 @end
 
