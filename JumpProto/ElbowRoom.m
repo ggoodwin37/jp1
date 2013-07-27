@@ -810,15 +810,6 @@
 }
 
 
--(void)setStripSize:(Emu)stripSize
-{
-    NSAssert( stripSize > 0, @"stripSize must be > zero" );
-    NSAssert( stripSize % GRID_SIZE_Emu == 0, @"stripSize must be a multiple of gridSize" );
-    [self reset];
-    NSLog( @"ER reset with stripSize %d", stripSize );
-}
-
-
 -(void)registerEdge:(EREdge *)edge forSOInfo:(ERSOInfo *)info
 {
     [info.edgeList addObject:edge];
