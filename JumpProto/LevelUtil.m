@@ -92,9 +92,9 @@
 @end
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////// LevelManifestManager
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// LevelFileUtil
 
-@implementation LevelManifestManager
+@implementation LevelFileUtil
 
 -(id)init
 {
@@ -127,12 +127,12 @@
 }
 
 
-static LevelManifestManager *globalLevelManifestManagerInstance = nil;
+static LevelFileUtil *globalLevelManifestManagerInstance = nil;
 
 +(void)initGlobalInstance
 {
     NSAssert( globalLevelManifestManagerInstance == nil, @"initializing global LevelManifestManager more than once is BAD." );
-    globalLevelManifestManagerInstance = [[LevelManifestManager alloc] init];
+    globalLevelManifestManagerInstance = [[LevelFileUtil alloc] init];
 }
 
 
@@ -142,7 +142,7 @@ static LevelManifestManager *globalLevelManifestManagerInstance = nil;
 }
 
 
-+(LevelManifestManager *)instance
++(LevelFileUtil *)instance
 {
     return globalLevelManifestManagerInstance;
 }

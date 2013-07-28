@@ -58,7 +58,7 @@
     [m_levelPickerViewContents release]; m_levelPickerViewContents = nil;
     [m_childViewController release]; m_childViewController = nil;
     [m_currentLauncherDialog release]; m_currentLauncherDialog = nil;
-    [LevelManifestManager releaseGlobalInstance];
+    [LevelFileUtil releaseGlobalInstance];
     [AspectController releaseGlobalInstance];
     [super dealloc];
 }
@@ -72,7 +72,7 @@
     //  IT'S NOT LIKE THIS WILL EVER COME BACK TO BITE ME IN THE ASS.
     [AspectController initGlobalInstanceWithRect:self.view.frame flipCoords:YES];
     
-    [LevelManifestManager initGlobalInstance];
+    [LevelFileUtil initGlobalInstance];
     m_lastPickedPackRow = 0;
     [self populatePackPickerView];
 
@@ -210,7 +210,7 @@
     [self addCurrentLauncherDialog];
     
     int cLevels = 0;
-    LevelManifest *currentManifest = [[LevelManifestManager instance] getExistingManifestNamed:self.currentManifestName];
+    LevelManifest *currentManifest = [[LevelFileUtil instance] getExistingManifestNamed:self.currentManifestName];
     if( currentManifest != nil )
     {
         cLevels = [currentManifest getLevelNameCount];
@@ -269,14 +269,14 @@
     }
     
     NSString *deleteName = (NSString *)[m_levelPickerViewContents objectAtIndex:m_lastPickedLevelRow];
-    NSString *deletePath = [[LevelManifestManager instance] getPathForLevelName:deleteName];
-    NSAssert( [[LevelManifestManager instance] doesFileExistAtPath:deletePath], @"got a bad path (assume it came from the picker?)" );
-    [[LevelManifestManager instance] deleteFileAtPath:deletePath];
+    NSString *deletePath = [[LevelFileUtil instance] getPathForLevelName:deleteName];
+    NSAssert( [[LevelFileUtil instance] doesFileExistAtPath:deletePath], @"got a bad path (assume it came from the picker?)" );
+    [[LevelFileUtil instance] deleteFileAtPath:deletePath];
     
-    LevelManifest *currentManifest = [[LevelManifestManager instance] getExistingManifestNamed:self.currentManifestName];
+    LevelManifest *currentManifest = [[LevelFileUtil instance] getExistingManifestNamed:self.currentManifestName];
     NSAssert( currentManifest != nil, @"bad current manifest?" );
     [currentManifest tryRemoveLevelName:deleteName];
-    [[LevelManifestManager instance] writeManifest:currentManifest];
+    [[LevelFileUtil instance] writeManifest:currentManifest];
     
     [self populateLevelPickerView];
     self.deleteArmedSwitch.on = NO;
@@ -312,7 +312,7 @@
 {
     NSMutableArray *mutableContents = [[NSMutableArray arrayWithCapacity:50] retain];
     
-    [[LevelManifestManager instance] addManifestNamesTo:mutableContents];
+    [[LevelFileUtil instance] addManifestNamesTo:mutableContents];
     
     [m_packPickerViewContents release];
     m_packPickerViewContents = mutableContents;
@@ -328,7 +328,7 @@
     // zero'th entry is special, corresponding to "new level"
     [mutableContents addObject:@"Create new level..."];
     
-    [[LevelManifestManager instance] addLevelNamesForManifestName:self.currentManifestName to:mutableContents];
+    [[LevelFileUtil instance] addLevelNamesForManifestName:self.currentManifestName to:mutableContents];
     
     [m_levelPickerViewContents release];
     m_levelPickerViewContents = mutableContents;
@@ -438,7 +438,7 @@
             if( stringInput != nil )
             {
                 NSLog( @"Adding a manifest called %@", stringInput );
-                [[LevelManifestManager instance] addManifestWithName:stringInput];
+                [[LevelFileUtil instance] addManifestWithName:stringInput];
                 self.currentManifestName = stringInput;
                 
                 // update pickers based on newly created pack (which is now selected)
@@ -470,7 +470,7 @@
     }
     else if( dialogId == LauncherUIDialog_DeletePack )
     {
-        LevelManifest *currentManifest = [[LevelManifestManager instance] getExistingManifestNamed:self.currentManifestName];
+        LevelManifest *currentManifest = [[LevelFileUtil instance] getExistingManifestNamed:self.currentManifestName];
         if( currentManifest == nil )
         {
             NSLog (@"onDeleteDialogClosed: bad currentManifestName." );
@@ -483,9 +483,9 @@
                 // yes, delete levels
                 for( int i = 0; i < [currentManifest getLevelNameCount]; ++i )
                 {
-                    NSString *thisLevelPath = [[LevelManifestManager instance] getPathForLevelName:[currentManifest getLevelName:i]];
-                    NSAssert( [[LevelManifestManager instance] doesFileExistAtPath:thisLevelPath], @"where did my file go?" );
-                    [[LevelManifestManager instance] deleteFileAtPath:thisLevelPath];
+                    NSString *thisLevelPath = [[LevelFileUtil instance] getPathForLevelName:[currentManifest getLevelName:i]];
+                    NSAssert( [[LevelFileUtil instance] doesFileExistAtPath:thisLevelPath], @"where did my file go?" );
+                    [[LevelFileUtil instance] deleteFileAtPath:thisLevelPath];
                 }
                 fDeleteCurrentManifest = YES;
             }
@@ -504,9 +504,9 @@
             }
             if( fDeleteCurrentManifest )
             {
-                NSString *thisManifestPath = [[LevelManifestManager instance] getPathForManifest:currentManifest];
-                [[LevelManifestManager instance] deleteFileAtPath:thisManifestPath];
-                [[LevelManifestManager instance] refreshManifestView];
+                NSString *thisManifestPath = [[LevelFileUtil instance] getPathForManifest:currentManifest];
+                [[LevelFileUtil instance] deleteFileAtPath:thisManifestPath];
+                [[LevelFileUtil instance] refreshManifestView];
                 m_lastPickedPackRow = 0;
                 [self populatePackPickerView];
                 self.currentManifestName = (NSString *)[m_packPickerViewContents objectAtIndex:m_lastPickedPackRow];

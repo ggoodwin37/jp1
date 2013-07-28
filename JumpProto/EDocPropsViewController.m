@@ -64,7 +64,7 @@
     
     // populate picker data source
     m_manifestNameList = [[NSMutableArray arrayWithCapacity:32] retain];
-    [[LevelManifestManager instance] addManifestNamesTo:m_manifestNameList];
+    [[LevelFileUtil instance] addManifestNamesTo:m_manifestNameList];
     
     // try to find the initial pack name we were given.
     int startingIndex = 0;
@@ -129,22 +129,22 @@
     NSAssert( component == 0, @"called with bad component number?" );
 
     NSAssert( row < [m_manifestNameList count], @"bad row?" );
-    LevelManifest *oldManifest = [[LevelManifestManager instance] getOwningManifestForLevelName:self.doc.levelName];
+    LevelManifest *oldManifest = [[LevelFileUtil instance] getOwningManifestForLevelName:self.doc.levelName];
     
     self.selectedManifestName = (NSString *)[m_manifestNameList objectAtIndex:row];
     
     // move to new manifest
     if( oldManifest != nil && ![oldManifest.name isEqualToString:self.selectedManifestName] )
     {
-        [[LevelManifestManager instance] removeLevelName:self.doc.levelName fromManifest:oldManifest];
-        [[LevelManifestManager instance] writeManifest:oldManifest];
+        [[LevelFileUtil instance] removeLevelName:self.doc.levelName fromManifest:oldManifest];
+        [[LevelFileUtil instance] writeManifest:oldManifest];
     }
 
-    LevelManifest *newManifest = [[LevelManifestManager instance] getExistingManifestNamed:self.selectedManifestName];
+    LevelManifest *newManifest = [[LevelFileUtil instance] getExistingManifestNamed:self.selectedManifestName];
     if( newManifest != nil )
     {
-        [[LevelManifestManager instance] addLevelName:self.doc.levelName toManifest:newManifest];
-        [[LevelManifestManager instance] writeManifest:newManifest];
+        [[LevelFileUtil instance] addLevelName:self.doc.levelName toManifest:newManifest];
+        [[LevelFileUtil instance] writeManifest:newManifest];
     }
 }
 

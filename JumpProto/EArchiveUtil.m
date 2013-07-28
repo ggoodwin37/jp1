@@ -263,7 +263,7 @@
 
 +(void)loadDoc:(EGridDocument *)doc fromDiskForName:(NSString *)levelName
 {
-    NSString *path = [[LevelManifestManager instance] getPathForLevelName:levelName];
+    NSString *path = [[LevelFileUtil instance] getPathForLevelName:levelName];
     NSDictionary *rootObject;
     
     // TODO: error handling
@@ -314,7 +314,7 @@
     }
 #endif
     
-    NSString *path = [[LevelManifestManager instance] getPathForLevelName:doc.levelName];
+    NSString *path = [[LevelFileUtil instance] getPathForLevelName:doc.levelName];
     
     // check for existing file.
     NSFileManager *fileManager = [NSFileManager defaultManager];

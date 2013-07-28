@@ -34,10 +34,10 @@
 @end
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////// LevelManifestManager
-// a singleton that knows about the manifests on disk
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// LevelFileUtil
+// a singleton that offers level-file utilities.
 
-@interface LevelManifestManager : NSObject
+@interface LevelFileUtil : NSObject
 {
     NSString *m_documentsDirectoryPath;
     NSMutableArray *m_manifestList;
@@ -46,7 +46,7 @@
 
 +(void)initGlobalInstance;
 +(void)releaseGlobalInstance;
-+(LevelManifestManager *)instance;
++(LevelFileUtil *)instance;
 
 -(void)refreshManifestView;
 -(int)getManifestCount;

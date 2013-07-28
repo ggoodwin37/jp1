@@ -540,7 +540,7 @@
 
 +(void)loadWorld:(World *)world fromDiskForName:(NSString *)levelName
 {
-    NSString *path = [[LevelManifestManager instance] getPathForLevelName:levelName];
+    NSString *path = [[LevelFileUtil instance] getPathForLevelName:levelName];
     NSLog( @"loading world from disk path: %@", path );
     NSDictionary *rootObject;
     
@@ -579,7 +579,7 @@
         return;
     }
     
-    NSString *path = [[LevelManifestManager instance] getPathForLevelName:world.levelName];
+    NSString *path = [[LevelFileUtil instance] getPathForLevelName:world.levelName];
     
     // check for existing file.
     NSFileManager *fileManager = [NSFileManager defaultManager];

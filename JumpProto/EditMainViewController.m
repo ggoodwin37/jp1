@@ -42,7 +42,7 @@
 
         self.editToolsBlockPaletteVC = [[EBlockPaletteViewController alloc] initWithNibName:@"EBlockPaletteViewController" bundle:nil];
 
-        LevelManifest *owningManifest = [[LevelManifestManager instance] getOwningManifestForLevelName:m_doc.levelName];
+        LevelManifest *owningManifest = [[LevelFileUtil instance] getOwningManifestForLevelName:m_doc.levelName];
         NSString *initialLevelPackName = (owningManifest != nil) ? owningManifest.name : defaultManifestName;
 
         self.docPropsVC = [[EDocPropsViewController alloc] initWithNibName:@"EDocPropsViewController"
@@ -214,11 +214,11 @@
         m_doc.levelName = [EditMainViewController nextLevelName];
         m_doc.levelDescription = @"No description";
         
-        LevelManifest *currentManifest = [[LevelManifestManager instance] getExistingManifestNamed:self.docPropsVC.selectedManifestName];
+        LevelManifest *currentManifest = [[LevelFileUtil instance] getExistingManifestNamed:self.docPropsVC.selectedManifestName];
         NSAssert( currentManifest != nil, @"bad initial docProps manifest?" );
         NSLog( @"adding new level %@ to manifest %@.", m_doc.levelName, currentManifest.name );
-        [[LevelManifestManager instance] addLevelName:m_doc.levelName toManifest:currentManifest];
-        [[LevelManifestManager instance] writeManifest:currentManifest];
+        [[LevelFileUtil instance] addLevelName:m_doc.levelName toManifest:currentManifest];
+        [[LevelFileUtil instance] writeManifest:currentManifest];
     }
     self.worldView.worldRect = [self getInitialWorldViewRect];
     
@@ -510,8 +510,8 @@
     {
         result = [NSString stringWithFormat:@"n%03d", currentTry];
         
-        NSString *levelPath = [[LevelManifestManager instance] getPathForLevelName:result];
-        if( ![[LevelManifestManager instance] doesFileExistAtPath:levelPath] )
+        NSString *levelPath = [[LevelFileUtil instance] getPathForLevelName:result];
+        if( ![[LevelFileUtil instance] doesFileExistAtPath:levelPath] )
         {
             break;
         }
@@ -571,28 +571,28 @@
             self.worldView.docDirty = YES;
             
             // update owning manifest
-            LevelManifest *owningManifest = [[LevelManifestManager instance] getOwningManifestForLevelName:oldName];
+            LevelManifest *owningManifest = [[LevelFileUtil instance] getOwningManifestForLevelName:oldName];
             if( owningManifest != nil )
             {
                 NSLog( @"rename: removing old name %@ from manifest %@.", oldName, owningManifest.name );
-                [[LevelManifestManager instance] removeLevelName:oldName fromManifest:owningManifest];
+                [[LevelFileUtil instance] removeLevelName:oldName fromManifest:owningManifest];
             }
             else
             {
                 // no manifest owned this level yet, possibly because the level hasn't been saved yet (only saved levels can be owned)
                 NSLog( @"rename: ld name %@ is not owned by a manifest yet.", oldName );
-                owningManifest = [[LevelManifestManager instance] getExistingManifestNamed:self.docPropsVC.selectedManifestName];
+                owningManifest = [[LevelFileUtil instance] getExistingManifestNamed:self.docPropsVC.selectedManifestName];
                 NSAssert( owningManifest != nil, @"not-saved-yet case: selected manifest doesn't exist?" );
             }
             NSLog( @"rename: adding new name %@ to manifest %@.", m_doc.levelName, owningManifest.name );
-            [[LevelManifestManager instance] addLevelName:m_doc.levelName toManifest:owningManifest];
-            [[LevelManifestManager instance] writeManifest:owningManifest];  // level may not actually be on disk yet, though...problem?
+            [[LevelFileUtil instance] addLevelName:m_doc.levelName toManifest:owningManifest];
+            [[LevelFileUtil instance] writeManifest:owningManifest];  // level may not actually be on disk yet, though...problem?
             
-            NSString *oldPath = [[LevelManifestManager instance] getPathForLevelName:oldName];
-            if( [[LevelManifestManager instance] doesFileExistAtPath:oldPath] )
+            NSString *oldPath = [[LevelFileUtil instance] getPathForLevelName:oldName];
+            if( [[LevelFileUtil instance] doesFileExistAtPath:oldPath] )
             {
                 NSLog( @"rename: deleting old file at %@", oldPath );
-                [[LevelManifestManager instance] deleteFileAtPath:oldPath];
+                [[LevelFileUtil instance] deleteFileAtPath:oldPath];
             }
             else
             {
