@@ -190,6 +190,17 @@
 }
 
 
++(void)addIfUniqueToStack:(NSMutableArray *)resultStack block:(Block *)block
+{
+    for( int i = 0; i < [resultStack count]; ++i )
+    {
+        Block *thisBlock = (Block *)[resultStack objectAtIndex:i];
+        if( thisBlock == block ) return;
+    }
+    [resultStack addObject:block];
+}
+
+
 -(Emu)getElbowRoomInCellForBlock:(Block *)block col:(int)col row:(int)row dir:(ERDirection)dir previousMinDistance:(Emu)prevMin resultStack:(NSMutableArray *)resultStack
 {
     NSArray *list = [self tryGetGridCellAtCol:col row:row];  // could be nil
@@ -242,8 +253,8 @@
         }
         else if( thisDistance == minDistance )
         {
-            // this candidate is same as known best, save it with others.
-            [resultStack addObject:candidateBlock];
+            // this candidate is same as known best, save it with others if it is unique.
+            [ElbowRoomGrid addIfUniqueToStack:resultStack block:candidateBlock];
         }
         // else do nothing for this candidate since it's further than min.
     }

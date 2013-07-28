@@ -248,7 +248,4 @@ updating world average duration is 4.471143 ms.
 don't know whether to laugh at how awesome this is, or cry at how bad my original one was -.-
 
 still a few loose ends to fix up but overall this is bitchin.
-- one-way walls don't work
-- groups not implemented yet, just need to aggregate blocks.
-- check crate pushing, etc.
 - right gaps not hitting when jumping up, only when jumping down?
