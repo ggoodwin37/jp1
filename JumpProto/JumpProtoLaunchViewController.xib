@@ -49,7 +49,6 @@
 						<string key="NSFrame">{{360, 81}, {305, 42}}</string>
 						<reference key="NSSuperview" ref="49697874"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -79,7 +78,7 @@
 					<object class="IBUIButton" id="942456117">
 						<reference key="NSNextResponder" ref="49697874"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{379, 482}, {266, 37}}</string>
+						<string key="NSFrame">{{379, 520}, {266, 37}}</string>
 						<reference key="NSSuperview" ref="49697874"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="442261466"/>
@@ -116,10 +115,9 @@
 					<object class="IBUIButton" id="1019599672">
 						<reference key="NSNextResponder" ref="49697874"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{379, 527}, {266, 37}}</string>
+						<string key="NSFrame">{{379, 565}, {266, 37}}</string>
 						<reference key="NSSuperview" ref="49697874"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -138,7 +136,7 @@
 					<object class="IBUIButton" id="178991036">
 						<reference key="NSNextResponder" ref="49697874"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{379, 572}, {266, 37}}</string>
+						<string key="NSFrame">{{379, 610}, {266, 37}}</string>
 						<reference key="NSSuperview" ref="49697874"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1058317605"/>
@@ -188,7 +186,7 @@
 					<object class="IBUIPickerView" id="639472678">
 						<reference key="NSNextResponder" ref="49697874"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{270, 205}, {469, 216}}</string>
+						<string key="NSFrame">{{270, 243}, {469, 216}}</string>
 						<reference key="NSSuperview" ref="49697874"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="222689425"/>
@@ -198,10 +196,9 @@
 					<object class="IBUILabel" id="564590203">
 						<reference key="NSNextResponder" ref="49697874"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{320, 164}, {98, 21}}</string>
+						<string key="NSFrame">{{320, 202}, {98, 21}}</string>
 						<reference key="NSSuperview" ref="49697874"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -225,7 +222,7 @@
 					<object class="IBUISwitch" id="1058317605">
 						<reference key="NSNextResponder" ref="49697874"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{645, 577}, {94, 27}}</string>
+						<string key="NSFrame">{{645, 615}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="49697874"/>
 						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -237,10 +234,9 @@
 					<object class="IBUISwitch" id="442261466">
 						<reference key="NSNextResponder" ref="49697874"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{645, 487}, {94, 27}}</string>
+						<string key="NSFrame">{{645, 525}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="49697874"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -250,10 +246,9 @@
 					<object class="IBUILabel" id="640744824">
 						<reference key="NSNextResponder" ref="49697874"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{644, 458}, {110, 21}}</string>
+						<string key="NSFrame">{{644, 496}, {110, 21}}</string>
 						<reference key="NSSuperview" ref="49697874"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -527,17 +522,11 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>onDeleteButtonTouched:</string>
-							<string>onDeletePackButtonTouched:</string>
 							<string>onEditButtonTouched:</string>
-							<string>onExportPackButtonTouched:</string>
-							<string>onNewPackButtonTouched:</string>
 							<string>onPlayButtonTouched:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -548,10 +537,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>onDeleteButtonTouched:</string>
-							<string>onDeletePackButtonTouched:</string>
 							<string>onEditButtonTouched:</string>
-							<string>onExportPackButtonTouched:</string>
-							<string>onNewPackButtonTouched:</string>
 							<string>onPlayButtonTouched:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
@@ -561,19 +547,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">onDeletePackButtonTouched:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
 								<string key="name">onEditButtonTouched:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">onExportPackButtonTouched:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">onNewPackButtonTouched:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -589,14 +563,12 @@
 							<string>deleteArmedSwitch</string>
 							<string>levelPickerView</string>
 							<string>loadFromDiskSwitch</string>
-							<string>packPickerView</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UISwitch</string>
 							<string>UIPickerView</string>
 							<string>UISwitch</string>
-							<string>UIPickerView</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -606,7 +578,6 @@
 							<string>deleteArmedSwitch</string>
 							<string>levelPickerView</string>
 							<string>loadFromDiskSwitch</string>
-							<string>packPickerView</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -621,10 +592,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">loadFromDiskSwitch</string>
 								<string key="candidateClassName">UISwitch</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">packPickerView</string>
-								<string key="candidateClassName">UIPickerView</string>
 							</object>
 						</object>
 					</object>

@@ -19,10 +19,8 @@
         NSArray *paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES );
         m_documentsDirectoryPath = [[paths objectAtIndex:0] retain];
 
-        // TODO remove manifest
-        // temp: cleanup junk levels/manifests that were created due to bugs or testing.
+        // temp: cleanup junk levels that were created due to bugs or testing.
         //[self deleteAllLevelsOnDisk];
-        //[self deleteAllManifestsOnDisk];
     }
     return self;
 }
@@ -98,14 +96,6 @@ static LevelFileUtil *globalLevelFileUtilInstance = nil;
 }
 
 
-// TODO: run this once, then remove :)
-// TODO remove manifest
--(void)deleteAllManifestsOnDisk
-{
-    [self deleteAllFilesWithExtension:LEVEL_MANIFEST_EXTENSION];
-}
-
-
 -(void)deleteAllLevelsOnDisk
 {
     [self deleteAllFilesWithExtension:LEVEL_EXTENSION];
@@ -137,28 +127,17 @@ static LevelFileUtil *globalLevelFileUtilInstance = nil;
 
 -(void)addAllLevelNamesTo:(NSMutableArray *)array
 {
-    NSAssert( NO, @"update this to make sure it is manifest-free" );
-    // TODO remove manifest
-/*    LevelManifest *targetManifest = nil;
-    for( int i = 0; i < [self getManifestCount]; ++i )
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *allFiles = [fileManager contentsOfDirectoryAtPath:m_documentsDirectoryPath error:nil];
+    for( int i = 0; i < [allFiles count]; ++i )
     {
-        if( [[self getManifest:i].name isEqualToString:manifestName] )
+        NSString *thisPath = (NSString *)[allFiles objectAtIndex:i];
+        if( [thisPath hasSuffix:LEVEL_EXTENSION] )
         {
-            targetManifest = [self getManifest:i];
-            break;
+            NSString *justFilename = [[thisPath lastPathComponent] stringByDeletingPathExtension];
+            [array addObject:justFilename];
         }
     }
-    if( targetManifest == nil )
-    {
-        NSLog( @"addLevelNamesForManifestName: couldn't find manifest with name %@.", manifestName );
-        return;
-    }
-    
-    for( int i = 0; i < [targetManifest getLevelNameCount]; ++i )
-    {
-        [array addObject:[targetManifest getLevelName:i]];
-    }
- */
 }
 
 @end
