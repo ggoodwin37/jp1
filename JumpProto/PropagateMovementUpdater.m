@@ -200,16 +200,10 @@
 // returns actual move offset
 // parameter isPerpProp controls whether we are handling the perpendicular drag propagation
 //   (if so, avoid doing parallel propagation again to cut down on weird jittery effects...still not perfect)
+// param depth is unused for now.
 -(Emu)doRecurseForNode:(ASolidObject *)node targetOffset:(Emu)targetOffset isXAxis:(BOOL)xAxis isPerpProp:(BOOL)perpProp
                                             originSO:(ASolidObject *)originSO groupPropStack:(NSMutableArray *)groupPropStack depth:(int)depth
 {
-    if( depth > 3 )
-    {
-        // BAIL OUT DUDE
-        // TODO: revisit this if you fix the jerky push problem that seems to be exacerbating things.
-        return 0;
-    }
-    
     if( ![node getProps].canMoveFreely || targetOffset == 0 )
     {
         return 0;
