@@ -11,7 +11,7 @@
 #import "constants.h"
 #import "SpriteAutoVariationDefines.h"
 #import "Emu.h"
-#import "LevelManifest.h"
+#import "LevelUtil.h"
 
 @implementation WorldArchiveUtil
 

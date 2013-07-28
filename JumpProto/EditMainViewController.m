@@ -10,7 +10,7 @@
 #import "EArchiveUtil.h"
 #import "constants.h"
 #import "SpriteManager.h"
-#import "LevelManifest.h"
+#import "LevelUtil.h"
 
 @interface EditMainViewController (private)
 

@@ -11,7 +11,7 @@
 #import "JumpProtoLaunchViewController.h"
 #import "JumpProtoViewController.h"
 #import "EditMainViewController.h"
-#import "LevelManifest.h"
+#import "LevelUtil.h"
 #import "LauncherNewPackDialog.h"
 #import "LauncherDeletePackDialog.h"
 #import "LauncherExportPackDialog.h"

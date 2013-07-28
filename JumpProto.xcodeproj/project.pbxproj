@@ -98,7 +98,7 @@
 		F3D6C7EB14CA2641003FE5B4 /* ActorUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D6C7EA14CA2640003FE5B4 /* ActorUpdater.m */; };
 		F3DABAEF1665F39B00471044 /* DrawSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DABAED1665F39B00471044 /* DrawSettingsViewController.m */; };
 		F3DABAF01665F39B00471044 /* DrawSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3DABAEE1665F39B00471044 /* DrawSettingsViewController.xib */; };
-		F3DE18F014FAA6E80090BDEB /* LevelManifest.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DE18EF14FAA6E80090BDEB /* LevelManifest.m */; };
+		F3DE18F014FAA6E80090BDEB /* LevelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DE18EF14FAA6E80090BDEB /* LevelUtil.m */; };
 		F3DE18F514FBF9FC0090BDEB /* LauncherNewPackDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DE18F314FBF9FC0090BDEB /* LauncherNewPackDialog.m */; };
 		F3DE18F614FBF9FC0090BDEB /* LauncherNewPackDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3DE18F414FBF9FC0090BDEB /* LauncherNewPackDialog.xib */; };
 		F3DE18FA14FBFB040090BDEB /* LauncherDeletePackDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DE18F814FBFB040090BDEB /* LauncherDeletePackDialog.m */; };
@@ -281,8 +281,8 @@
 		F3DABAEC1665F39B00471044 /* DrawSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawSettingsViewController.h; sourceTree = "<group>"; };
 		F3DABAED1665F39B00471044 /* DrawSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawSettingsViewController.m; sourceTree = "<group>"; };
 		F3DABAEE1665F39B00471044 /* DrawSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawSettingsViewController.xib; sourceTree = "<group>"; };
-		F3DE18EE14FAA6E80090BDEB /* LevelManifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelManifest.h; sourceTree = "<group>"; };
-		F3DE18EF14FAA6E80090BDEB /* LevelManifest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelManifest.m; sourceTree = "<group>"; };
+		F3DE18EE14FAA6E80090BDEB /* LevelUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelUtil.h; sourceTree = "<group>"; };
+		F3DE18EF14FAA6E80090BDEB /* LevelUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelUtil.m; sourceTree = "<group>"; };
 		F3DE18F214FBF9FC0090BDEB /* LauncherNewPackDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherNewPackDialog.h; sourceTree = "<group>"; };
 		F3DE18F314FBF9FC0090BDEB /* LauncherNewPackDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherNewPackDialog.m; sourceTree = "<group>"; };
 		F3DE18F414FBF9FC0090BDEB /* LauncherNewPackDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LauncherNewPackDialog.xib; sourceTree = "<group>"; };
@@ -558,8 +558,8 @@
 				F347EADB13E1FD7E00F6EA15 /* GlobalCommand.h */,
 				F347EADC13E1FD7E00F6EA15 /* GlobalCommand.m */,
 				F35CFA4714A1AD9F00137887 /* sharedTypes.h */,
-				F3DE18EE14FAA6E80090BDEB /* LevelManifest.h */,
-				F3DE18EF14FAA6E80090BDEB /* LevelManifest.m */,
+				F3DE18EE14FAA6E80090BDEB /* LevelUtil.h */,
+				F3DE18EF14FAA6E80090BDEB /* LevelUtil.m */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -847,7 +847,7 @@
 				F3D6C7EB14CA2641003FE5B4 /* ActorUpdater.m in Sources */,
 				F36BC4E314CF8E5B0028CC80 /* EDocPropsViewController.m in Sources */,
 				F3CB7BDA14F37907005C7377 /* TestSpriteSheetLayerView.m in Sources */,
-				F3DE18F014FAA6E80090BDEB /* LevelManifest.m in Sources */,
+				F3DE18F014FAA6E80090BDEB /* LevelUtil.m in Sources */,
 				F3DE18F514FBF9FC0090BDEB /* LauncherNewPackDialog.m in Sources */,
 				F3DE18FA14FBFB040090BDEB /* LauncherDeletePackDialog.m in Sources */,
 				F3DE18FF14FBFC340090BDEB /* LauncherExportPackDialog.m in Sources */,

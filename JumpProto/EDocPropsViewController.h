@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LevelManifest.h"
+#import "LevelUtil.h"
 #import "EDoc.h"
 
 @interface EDocPropsViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>

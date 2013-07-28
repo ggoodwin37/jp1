@@ -9,7 +9,7 @@
 #import "EArchiveUtil.h"
 #import "constants.h"
 #import "SpriteAutoVariationDefines.h"
-#import "LevelManifest.h"
+#import "LevelUtil.h"
 #import "EBlockPresetSpriteNames.h"
 #import "SpriteManager.h"
 
