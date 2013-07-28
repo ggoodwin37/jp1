@@ -13,6 +13,7 @@
 #import "AspectController.h"
 #import "constants.h"
 #import "ElbowRoomGrid.h"   // concrete impl
+#import "PropagateMovementUpdater.h"
 
 // TODO: remove/debug only
 #import "WorldTest.h"

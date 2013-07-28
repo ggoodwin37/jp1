@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		932DD07917974A3100375642 /* RectCoordBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 932DD07817974A3100375642 /* RectCoordBuffer.m */; };
 		93732D8417A4327D00F1B5A7 /* ElbowRoomGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */; };
+		93732D8717A4982B00F1B5A7 /* PropagateMovementUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */; };
 		93A736BC17580FEE0059C2C9 /* EBlockMRUList.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */; };
 		F305ECE91623E1FB00E153FB /* blAlgae.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE61623E1FB00E153FB /* blAlgae.png */; };
 		F305ECEA1623E1FB00E153FB /* blavQik.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE71623E1FB00E153FB /* blavQik.png */; };
@@ -132,6 +133,8 @@
 		932DD07817974A3100375642 /* RectCoordBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RectCoordBuffer.m; sourceTree = "<group>"; };
 		93732D8217A4327D00F1B5A7 /* ElbowRoomGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElbowRoomGrid.h; sourceTree = "<group>"; };
 		93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElbowRoomGrid.m; sourceTree = "<group>"; };
+		93732D8517A4982A00F1B5A7 /* PropagateMovementUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropagateMovementUpdater.h; sourceTree = "<group>"; };
+		93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropagateMovementUpdater.m; sourceTree = "<group>"; };
 		93A736BA17580FEE0059C2C9 /* EBlockMRUList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBlockMRUList.h; sourceTree = "<group>"; };
 		93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBlockMRUList.m; sourceTree = "<group>"; };
 		F305ECE61623E1FB00E153FB /* blAlgae.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blAlgae.png; path = images/blAlgae.png; sourceTree = "<group>"; };
@@ -583,6 +586,8 @@
 				93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */,
 				F31EECBB13DD3F3500A337EF /* BlockUpdater.h */,
 				F31EECBC13DD3F3500A337EF /* BlockUpdater.m */,
+				93732D8517A4982A00F1B5A7 /* PropagateMovementUpdater.h */,
+				93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */,
 				F3D6C7E514CA1B2F003FE5B4 /* Actor.h */,
 				F3D6C7E614CA1B2F003FE5B4 /* Actor.m */,
 				F3D6C7E914CA2640003FE5B4 /* ActorUpdater.h */,
@@ -852,6 +857,7 @@
 				93A736BC17580FEE0059C2C9 /* EBlockMRUList.m in Sources */,
 				932DD07917974A3100375642 /* RectCoordBuffer.m in Sources */,
 				93732D8417A4327D00F1B5A7 /* ElbowRoomGrid.m in Sources */,
+				93732D8717A4982B00F1B5A7 /* PropagateMovementUpdater.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
