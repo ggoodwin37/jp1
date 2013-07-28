@@ -158,13 +158,17 @@
         case ERDirDown:  targetArray = m_abuttListDown;  break;
         default: NSAssert( NO, @"dir fail" );            break;
     }
-
+    
     for( int i = [targetArray count] - 1; i >= 0; --i )
     {
-        Block *thisBlock = (Block *)targetArray[i];
-        if( thisBlock.owningGroup == group )
+        ASolidObject *thisSO = (ASolidObject *)targetArray[i];
+        if( ![thisSO isGroup] )
         {
-            [targetArray removeObjectAtIndex:i];
+            Block *thisBlock = (Block *)thisSO;
+            if( thisBlock.owningGroup == group )
+            {
+                [targetArray removeObjectAtIndex:i];
+            }
         }
     }
 }

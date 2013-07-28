@@ -104,7 +104,7 @@
     //[WorldTest runMiscTests];
 
     //NSLog( @"Skipping ElbowRoom tests." );  // leaving ElbowRoom in a stable state for now.
-    [WorldTest runTestsOnWorld:m_world];
+    //[WorldTest runTestsOnWorld:m_world];
     
     [m_world showTestWorld:m_startingLevel loadFromDisk:self.loadFromDisk];
     

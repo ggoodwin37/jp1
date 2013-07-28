@@ -298,6 +298,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = ONE_BLOCK_SIZE_Emu;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirLeft];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -308,6 +309,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 10 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = ONE_BLOCK_SIZE_Emu;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirRight];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -318,6 +320,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 10 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = ONE_BLOCK_SIZE_Emu;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -328,6 +331,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = ONE_BLOCK_SIZE_Emu;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -340,6 +344,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = ONE_BLOCK_SIZE_Emu;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -350,6 +355,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 10 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = ONE_BLOCK_SIZE_Emu;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -360,6 +366,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = ONE_BLOCK_SIZE_Emu;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirLeft];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -370,6 +377,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 10 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = ONE_BLOCK_SIZE_Emu;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirRight];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -380,6 +388,7 @@
     [world.elbowRoom reset]; [world reset];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];   testSubject = b;
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -388,6 +397,7 @@
     [world.elbowRoom reset]; [world reset];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];   testSubject = b;
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -396,6 +406,7 @@
     [world.elbowRoom reset]; [world reset];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];   testSubject = b;
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirLeft];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -404,6 +415,7 @@
     [world.elbowRoom reset]; [world reset];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];   testSubject = b;
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirRight];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -417,6 +429,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 9 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = 0;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirRight];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -427,6 +440,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = 0;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirLeft];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -437,6 +451,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 9 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = 0;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -447,6 +462,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = 0;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -460,6 +476,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 9 * ONE_BLOCK_SIZE_Emu - 1, 8 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = ONE_BLOCK_SIZE_Emu;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -470,6 +487,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 9 * ONE_BLOCK_SIZE_Emu - 1, 10 * ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = ONE_BLOCK_SIZE_Emu;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -480,6 +498,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 8 * ONE_BLOCK_SIZE_Emu, 9 * ONE_BLOCK_SIZE_Emu - 1, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = ONE_BLOCK_SIZE_Emu;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirLeft];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -490,6 +509,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 10 * ONE_BLOCK_SIZE_Emu, 9 * ONE_BLOCK_SIZE_Emu - 1, ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = ONE_BLOCK_SIZE_Emu;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirRight];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -502,6 +522,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 110, 100, 10, 10 ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -512,6 +533,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 110, 120, 10, 10 ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -522,6 +544,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 80, 110, 10, 10 ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirLeft];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -532,6 +555,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 120, 110, 10, 10 ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirRight];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -546,6 +570,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 14 * smBlockSize, 3 * smBlockSize, smBlockSize, smBlockSize ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = 4 * smBlockSize;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -558,6 +583,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMake( 14 * smBlockSize, 15 * smBlockSize, smBlockSize, smBlockSize ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = 8 * smBlockSize;
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -573,6 +599,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 132, 90, 10, 10 ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -585,6 +612,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 132, 90, 10, 10 ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -596,6 +624,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 50, 80, 2, 2 ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     actual = [WorldTest countColliders:world.elbowRoom];
     expected = 0;
@@ -607,6 +636,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 105, 80, 2, 2 ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     actual = [WorldTest countColliders:world.elbowRoom];
     expected = 1;
@@ -620,6 +650,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 111, 80, 2, 2 ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     actual = [WorldTest countColliders:world.elbowRoom];
     expected = 2;
@@ -639,6 +670,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 100, 50, 100, 100 ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     actual = [WorldTest countColliders:world.elbowRoom];
     expected = 4;
@@ -658,6 +690,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 100, 30, 2, 2 ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     actual = [WorldTest countColliders:world.elbowRoom];
     expected = 2;
@@ -677,6 +710,7 @@
     [world addWorldBlock:b];
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 600, 515, 2, 2 ) color:color];
     [world addWorldBlock:b];
+    [world setupElbowRoom];
     [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
     actual = [WorldTest countColliders:world.elbowRoom];
     expected = 2;
@@ -690,6 +724,7 @@
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 100, 40, 20, 20 ) color:color];
     [world addWorldBlock:b];
     [world removeWorldSO:b];
+    [world setupElbowRoom];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -701,6 +736,7 @@
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 100, 150, 20, 20 ) color:color];
     [world addWorldBlock:b];
     [world removeWorldSO:b];
+    [world setupElbowRoom];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirUp];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
@@ -712,6 +748,7 @@
     b = [[TestBlock alloc] initWithRect:EmuRectMakeFromFl( 100, 40, 600, 20 ) color:color];
     [world addWorldBlock:b];
     [world removeWorldSO:b];
+    [world setupElbowRoom];
     expected = [world.elbowRoom getMaxDistance];
     actual = [world.elbowRoom getElbowRoomForSO:testSubject inDirection:ERDirDown];
     [WorldTest logTestResultStr:logStr exp:expected act:actual pNumPassed:&numPassed pNumTotal:&numTotal];
