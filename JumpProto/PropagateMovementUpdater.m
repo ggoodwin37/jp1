@@ -204,10 +204,14 @@
 -(Emu)doRecurseForNode:(ASolidObject *)node targetOffset:(Emu)targetOffset isXAxis:(BOOL)xAxis isPerpProp:(BOOL)perpProp
                                             originSO:(ASolidObject *)originSO groupPropStack:(NSMutableArray *)groupPropStack depth:(int)depth
 {
-    if( ![node getProps].canMoveFreely || targetOffset == 0 )
+    if( ![node getProps].canMoveFreely )
     {
         return 0;
     }
+    if( xAxis && targetOffset == 0 )
+    {
+        return 0;
+    }  // for y, need to check down collision special case with targetOffset == 0
     
     // handle group checks to prevent group loop.
     if( ![self groupLoopCheckOkForSO:node stack:groupPropStack] )
@@ -232,7 +236,7 @@
         }
         else
         {
-            dir = xAxis ? ERDirLeft : ERDirDown;
+            dir = xAxis ? ERDirLeft : ERDirDown;  // including targetOffset == 0
             paraAbuttList = [m_worldFrameCache lazyGetAbuttListForSO:node inER:m_elbowRoom direction:dir];
         }
         Emu attTargetOffset = targetOffset * 1;  // future: some attenuation here?
@@ -243,15 +247,24 @@
             // skip group elements since they'll be handled via owning group.
             if( [thisAbutter isGroupElement] ) continue;
             
-            // don't push things on y if they aren't affected by gravity (e.g. floating platforms, which should stay floating).
-            if( xAxis || [thisAbutter getProps].affectedByGravity )
+            if( targetOffset != 0 )
             {
-                [self doRecurseForNode:thisAbutter targetOffset:attTargetOffset isXAxis:xAxis isPerpProp:NO
-                              originSO:originSO groupPropStack:groupPropStack depth:(depth + 1)];
+                // don't push things on y if they aren't affected by gravity (e.g. floating platforms, which should stay floating).
+                if( xAxis || [thisAbutter getProps].affectedByGravity )
+                {
+                    [self doRecurseForNode:thisAbutter targetOffset:attTargetOffset isXAxis:xAxis isPerpProp:NO
+                                  originSO:originSO groupPropStack:groupPropStack depth:(depth + 1)];
+                }
             }
             
-            didBounce = didBounce || [self collisionBetween:node and:thisAbutter inDir:dir];
+            didBounce = [self collisionBetween:node and:thisAbutter inDir:dir] || didBounce;
         }
+    }
+    
+    // we've had a chance to check for collisions in the y-axis-but-zero-targetOffset case, so finish early if we can.
+    if( targetOffset == 0 )
+    {
+        return 0;
     }
     
     Emu didMoveOffset = [self performMoveForNode:node targetOffset:targetOffset isXAxis:xAxis];
@@ -396,7 +409,7 @@
     // downv. gaps in other directions are fine since they really do carry v in that direction (no gravity optimization special
     // case).
     
-    if( (vSO.y + vOffset.y) != 0 )
+    if( YES )  // still check y even if v is 0, otherwise we miss downward collision detection.
     {
         [m_groupPropStack removeAllObjects];
         
