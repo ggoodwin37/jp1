@@ -379,17 +379,6 @@
 +(void)readWorld:(World *)world fromAF:(AFLevel *)level
 {
     // assume [world reset] was called already.
-
-    EmuPoint worldMin = EmuPointMake( level.boundingBox.origin.x * GRID_SIZE_Emu, level.boundingBox.origin.y * GRID_SIZE_Emu );
-    EmuPoint worldMax = EmuPointMake( worldMin.x + level.boundingBox.size.width * GRID_SIZE_Emu,
-                                      worldMin.y + level.boundingBox.size.height * GRID_SIZE_Emu );
-    // apply padding to world box
-    Emu padding = 10 * GRID_SIZE_Emu;
-    worldMin.x -= padding;
-    worldMin.y -= padding;
-    worldMax.x += padding;
-    worldMax.y += padding;
-    [world.elbowRoom resetWithWorldMin:worldMin worldMax:worldMax];
     
     EmuPoint playerStart = EmuPointMake( 0, 0 );
     
@@ -467,6 +456,8 @@
     
     // is this right? Could also just store the starting point and actually init later, depending on usage.
     [world initPlayerAt:playerStart];
+    
+    [world setupElbowRoom];
 }
 
 

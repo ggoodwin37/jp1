@@ -82,17 +82,32 @@
 }
 
 
--(NSMutableArray *)ensureGridCellAtCol:(int)x Row:(int)y
+-(NSMutableArray *)ensureGridCellAtCol:(int)x row:(int)y
 {
     int offset = y * m_gridCellStride + x;
-    NSAssert( offset < m_numGridCells, @"Don't read outside of grid." );
+    if( offset < 0 || offset >= m_numGridCells )
+    {
+        // degrade gracefully. if a block wants to move off grid, it can, we just
+        //  won't track it in elbowRoom. world is responsible for killing stuff.
+        return nil;
+    }
     NSMutableArray *result = m_gridCells[offset];
     if( result == nil )
     {
         result = m_gridCells[offset] = [[NSMutableArray arrayWithCapacity:4] retain];   // TODO: capacity makes sense?
-        
     }
     return result;
+}
+
+
+-(NSMutableArray *)tryGetGridCellAtCol:(int)x row:(int)y
+{
+    int offset = y * m_gridCellStride + x;
+    if( offset < 0 || offset >= m_numGridCells )
+    {
+        return nil;
+    }
+    return m_gridCells[offset];  // may be nil
 }
 
 
@@ -107,7 +122,7 @@
     {
         for( int ii = blockCol0; ii <= blockCol1; ++ii )
         {
-            [[self ensureGridCellAtCol:ii Row:ij] addObject:block];  // O(1)
+            [[self ensureGridCellAtCol:ii row:ij] addObject:block];  // O(1)
         }
     }
 }
@@ -125,7 +140,7 @@
     {
         for( int ii = blockCol0; ii <= blockCol1; ++ii )
         {
-            [[self ensureGridCellAtCol:ii Row:ij] removeObject:block];  // O(n)
+            [[self tryGetGridCellAtCol:ii row:ij] removeObject:block];  // O(n)
         }
     }
 }
@@ -164,14 +179,14 @@
                 ij < oldBlockRow0 ||
                 ij > oldBlockRow1 )
             {
-                [[self ensureGridCellAtCol:ii Row:ij] addObject:block];  // O(1)
+                [[self ensureGridCellAtCol:ii row:ij] addObject:block];  // O(1)
             }
             if( ii < newBlockCol0 ||
                 ii > newBlockCol1 ||
                 ij < newBlockRow0 ||
                 ij > newBlockRow1 )
             {
-                [[self ensureGridCellAtCol:ii Row:ij] removeObject:block];  // O(n)
+                [[self tryGetGridCellAtCol:ii row:ij] removeObject:block];  // O(n)
             }
         }
     }
@@ -180,57 +195,57 @@
 
 -(Emu)getElbowRoomInCellForBlock:(Block *)block col:(int)col row:(int)row dir:(ERDirection)dir previousMinDistance:(Emu)prevMin
 {
-    NSArray *list = [self ensureGridCellAtCol:col Row:row];
+    NSArray *list = [self tryGetGridCellAtCol:col row:row];  // could be nil
     Emu minDistance = prevMin;
     Emu thisDistance;
     for( int i = 0; i < [list count]; ++i )
     {
-        Block *thisBlock = (Block *)[list objectAtIndex:i];
-        if( thisBlock == block ) continue;  // can't collide with self.
+        Block *candidateBlock = (Block *)[list objectAtIndex:i];
+        if( candidateBlock == block ) continue;  // can't collide with self.
         if( dir == ERDirDown )
         {
-            if( thisBlock.x + thisBlock.w <= block.x ) continue;
-            if( thisBlock.x >= block.x + block.w ) continue;
-            if( thisBlock.y + thisBlock.h > block.y ) continue;
-            if( !(thisBlock.props.solidMask & BlockEdgeDirMask_Up) ) continue;
-            thisDistance = block.y - (thisBlock.y + thisBlock.h);
+            if( candidateBlock.x + candidateBlock.w <= block.x ) continue;
+            if( candidateBlock.x >= block.x + block.w ) continue;
+            if( candidateBlock.y + candidateBlock.h > block.y ) continue;
+            if( !(candidateBlock.props.solidMask & BlockEdgeDirMask_Up) ) continue;
+            thisDistance = block.y - (candidateBlock.y + candidateBlock.h);
         }
         else if( dir == ERDirUp )
         {
-            if( thisBlock.x + thisBlock.w <= block.x ) continue;
-            if( thisBlock.x >= block.x + block.w ) continue;
-            if( thisBlock.y < block.y + block.h ) continue;
-            if( !(thisBlock.props.solidMask & BlockEdgeDirMask_Down) ) continue;
-            thisDistance = thisBlock.y - (block.y + block.h);
+            if( candidateBlock.x + candidateBlock.w <= block.x ) continue;
+            if( candidateBlock.x >= block.x + block.w ) continue;
+            if( candidateBlock.y < block.y + block.h ) continue;
+            if( !(candidateBlock.props.solidMask & BlockEdgeDirMask_Down) ) continue;
+            thisDistance = candidateBlock.y - (block.y + block.h);
         }
         else if( dir == ERDirLeft )
         {
-            if( thisBlock.y + thisBlock.h <= block.y ) continue;
-            if( thisBlock.y >= block.y + block.h ) continue;
-            if( thisBlock.x + thisBlock.w > block.x ) continue;
-            if( !(thisBlock.props.solidMask & BlockEdgeDirMask_Right) ) continue;
-            thisDistance = block.x - (thisBlock.x + thisBlock.w);
+            if( candidateBlock.y + candidateBlock.h <= block.y ) continue;
+            if( candidateBlock.y >= block.y + block.h ) continue;
+            if( candidateBlock.x + candidateBlock.w > block.x ) continue;
+            if( !(candidateBlock.props.solidMask & BlockEdgeDirMask_Right) ) continue;
+            thisDistance = block.x - (candidateBlock.x + candidateBlock.w);
         }
         else // if( dir == ERDirRight )
         {
-            if( thisBlock.y + thisBlock.h <= block.y ) continue;
-            if( thisBlock.y >= block.y + block.h ) continue;
-            if( thisBlock.x < block.x + block.w ) continue;
-            if( !(thisBlock.props.solidMask & BlockEdgeDirMask_Left) ) continue;
-            thisDistance = thisBlock.x - (block.x + block.w);
+            if( candidateBlock.y + candidateBlock.h <= block.y ) continue;
+            if( candidateBlock.y >= block.y + block.h ) continue;
+            if( candidateBlock.x < block.x + block.w ) continue;
+            if( !(candidateBlock.props.solidMask & BlockEdgeDirMask_Left) ) continue;
+            thisDistance = candidateBlock.x - (block.x + block.w);
         }
         
         if( thisDistance < minDistance )
         {
             // this candidate is the best so far, reset stack and save.
             [m_workingStack removeAllObjects];
-            [m_workingStack addObject:thisBlock];
+            [m_workingStack addObject:candidateBlock];
             minDistance = thisDistance;
         }
         else if( thisDistance == minDistance )
         {
             // this candidate is same as known best, save it with others.
-            [m_workingStack addObject:thisBlock];
+            [m_workingStack addObject:candidateBlock];
         }
         // else do nothing for this candidate since it's further than min.
     }

@@ -84,24 +84,6 @@
 }
 
 
-+(CGRect)getBoundingBoxForBlockList:(NSArray *)blockList
-{
-    float xMin = FLT_MAX;
-    float yMin = FLT_MAX;
-    float xMax = FLT_MIN;
-    float yMax = FLT_MIN;
-    for( int i = 0; i < [blockList count]; ++i )
-    {
-        AFPresetBlockBase *thisBlock = (AFPresetBlockBase *)[blockList objectAtIndex:i];
-        xMin = fminf( xMin, thisBlock.rect.origin.x );
-        yMin = fminf( yMin, thisBlock.rect.origin.y );
-        xMax = fmaxf( xMax, thisBlock.rect.origin.x + thisBlock.rect.size.width );
-        yMax = fmaxf( yMax, thisBlock.rect.origin.y + thisBlock.rect.size.height );
-    }
-    return CGRectMake( xMin, yMin, xMax - xMin, yMax - yMin );
-}
-
-
 +(void)transformAFLevelBeforeReadingToDoc:(AFLevel *)level
 {
     // AFs exist in "true" space (which is defined to be the same as opengl space).
@@ -117,7 +99,6 @@
 {
     [EArchiveUtil yFlip:level];
     [EArchiveUtil normalize:level];
-    level.boundingBox = [EArchiveUtil getBoundingBoxForBlockList:level.blockList];
 }
 
 

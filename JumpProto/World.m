@@ -126,6 +126,57 @@
 }
 
 
+-(void)setupElbowRoom
+{
+    // first, calculate world bounding box.
+    Emu xMin = WORLD_MAX_X;
+    Emu yMin = WORLD_MAX_Y;
+    Emu xMax = WORLD_MIN_X;
+    Emu yMax = WORLD_MIN_Y;
+    for( int i = 0; i < [m_npcActors count]; ++i )
+    {
+        Actor *thisActor = (Actor *)[m_npcActors objectAtIndex:i];
+        Block *thisBlock = thisActor.actorBlock;
+        if( thisBlock == nil ) continue;
+        xMin = MIN( xMin, thisBlock.x );
+        yMin = MIN( yMin, thisBlock.y );
+        xMax = MAX( xMax, thisBlock.x + thisBlock.w );
+        yMax = MAX( yMax, thisBlock.y + thisBlock.h );
+    }
+    for( int i = 0; i < [m_worldSOs count]; ++i )
+    {
+        ASolidObject *thisSO = (ASolidObject *)[m_worldSOs objectAtIndex:i];
+        NSAssert( ![thisSO isGroup], @"Groups NYI here, think you need to iterate over group's blocks." );
+        Block *thisBlock = (Block *)thisSO;
+        xMin = MIN( xMin, thisBlock.x );
+        yMin = MIN( yMin, thisBlock.y );
+        xMax = MAX( xMax, thisBlock.x + thisBlock.w );
+        yMax = MAX( yMax, thisBlock.y + thisBlock.h );
+    }
+    Emu padding = 20 * ONE_BLOCK_SIZE_Emu;
+    xMin -= padding;
+    yMin -= padding;
+    xMax += padding;
+    yMax += padding;
+    [m_elbowRoom resetWithWorldMin:EmuPointMake(xMin, yMin) worldMax:EmuPointMake(xMax, yMax)];
+
+    // now that ER is set with right size, add everything.
+    for( int i = 0; i < [m_npcActors count]; ++i )
+    {
+        Actor *thisActor = (Actor *)[m_npcActors objectAtIndex:i];
+        Block *thisBlock = thisActor.actorBlock;
+        [m_elbowRoom addBlock:thisBlock];
+    }
+    for( int i = 0; i < [m_worldSOs count]; ++i )
+    {
+        ASolidObject *thisSO = (ASolidObject *)[m_worldSOs objectAtIndex:i];
+        NSAssert( ![thisSO isGroup], @"Groups NYI here, think you need to iterate over group's blocks." );
+        Block *thisBlock = (Block *)thisSO;
+        [m_elbowRoom addBlock:thisBlock];
+    }
+}
+
+
 -(void)onDpadEvent:(DpadEvent *)event
 {
     [m_playerActor onDpadEvent:event];
@@ -397,7 +448,6 @@
 {
     block.state.vIntrinsic = block.props.initialVelocity;
     [m_worldSOs addObject:block];
-    [m_elbowRoom addBlock:block];
 }
 
 
@@ -437,6 +487,8 @@
 }
 
 
+// TODO: refactor this, shouldn't have to removeWorldSO, that's dumb. Need to make sure we are consistent
+//       with adding/removing ER refs.
 -(void)addBlock:(Block *)block toGroup:(BlockGroup *)group
 {
     // the intent is that the ER ref to this block should move along with the block
@@ -447,11 +499,11 @@
     
     if( [m_worldSOs containsObject:block] )
     {
-        [self removeWorldSO:block];  // removes ER ref too.
+        NSAssert( NO, @"this case is no longer doing the right thing because we're losing the ER ref" );
+        //[self removeWorldSO:block];  // removes ER ref too.
     }
     
     [group addBlock:block];
-    [m_elbowRoom addBlock:block];    
 }
 
 

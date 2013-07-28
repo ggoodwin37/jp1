@@ -52,6 +52,7 @@
 #define TERMINAL_VELOCITY ( -20000 )
 #define GRAVITY_CONSTANT ( -44000 )
 
+// TODO: still relevant?
 // note: this value comes in to play as a downward velocity at idle. This is important
 //       because this * typical_frame_time_delta must be >= 1, else it will round to 
 //       zero and we won't trigger gap checker logic.

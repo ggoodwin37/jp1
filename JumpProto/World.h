@@ -70,6 +70,9 @@
 
 -(void)initPlayerAt:(EmuPoint)p;
 
+// after a level has been loaded/initialized, call this to populate ElbowRoom from world lists.
+-(void)setupElbowRoom;
+
 -(BlockGroup *)ensureGroupForId:(GroupId)groupId;
 -(void)addBlock:(Block *)block toGroup:(BlockGroup *)group;
 
