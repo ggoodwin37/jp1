@@ -30,21 +30,8 @@
 }
 
 
-+(void)setPropsForBlock:(Block *)block fromPreset:(EBlockPreset)preset
++(void)setProps_batch1Style_ForBlock:(Block *)block fromPreset:(EBlockPreset)preset
 {
-    // defaults
-    block.props.canMoveFreely = NO;
-    block.props.affectedByGravity = NO;
-    block.props.affectedByFriction = NO;
-    block.props.bounceDampFactor = 0.f;    
-    block.props.initialVelocity = EmuPointMake( 0, 0 );
-    block.props.solidMask = BlockEdgeDirMask_Full;
-    block.props.xConveyor = 0.f;
-    block.props.hurtyMask = BlockEdgeDirMask_None;
-    block.props.isGoalBlock = NO;
-    block.props.isActorBlock = NO;
-    block.props.isPlayerBlock = NO;
-
     switch( preset )
     {
         // just ground
@@ -150,14 +137,48 @@
             block.props.affectedByGravity = YES;
             block.props.affectedByFriction = YES;
             break;
-            
-        // unknown or unexpected
-        case EBlockPreset_PlayerStart:
-        case EBlockPreset_None:
         default:
-            NSLog( @"setPropsForBlock:fromPreset: unknown or unexpected block preset." );
             break;
     }
+}
+
+
++(void)setProps_batch2Style_ForBlock:(Block *)block fromPreset:(EBlockPreset)preset
+{
+    switch( preset )
+    {
+            // just ground
+        case EBlockPreset_Test0:
+            break;
+        default:
+            break;
+    }
+}
+
+
++(void)setPropsForBlock:(Block *)block fromPreset:(EBlockPreset)preset
+{
+    // defaults
+    block.props.canMoveFreely = NO;
+    block.props.affectedByGravity = NO;
+    block.props.affectedByFriction = NO;
+    block.props.bounceDampFactor = 0.f;
+    block.props.initialVelocity = EmuPointMake( 0, 0 );
+    block.props.solidMask = BlockEdgeDirMask_Full;
+    block.props.xConveyor = 0.f;
+    block.props.hurtyMask = BlockEdgeDirMask_None;
+    block.props.isGoalBlock = NO;
+    block.props.isActorBlock = NO;
+    block.props.isPlayerBlock = NO;
+    
+    if( preset == EBlockPreset_PlayerStart || preset == EBlockPreset_None )
+    {
+        NSAssert( NO, @"Didn't expect this." );
+    }
+    
+    // these are additive
+    [WorldArchiveUtil setProps_batch1Style_ForBlock:block fromPreset:preset];
+    [WorldArchiveUtil setProps_batch2Style_ForBlock:block fromPreset:preset];
 }
 
 
@@ -178,7 +199,7 @@
 }
 
 
-+(NSString *)getSpriteResourceNameForPreset:(EBlockPreset)preset fourWayAVCode:(UInt32)fourWayAVCode
++(NSString *)getSpriteResourceName_batch1Style_forPreset:(EBlockPreset)preset fourWayAVCode:(UInt32)fourWayAVCode
 {
     switch( preset )
     {
@@ -264,10 +285,42 @@
         // unknown or unexpected
         case EBlockPreset_PlayerStart:
         case EBlockPreset_None:
-        default:
             NSLog( @"getSpriteNameForPresetBlock:fromPreset: unknown or unexpected block preset." );
             return nil;
+            
+        default:
+            return nil;
     }
+}
+
+
++(NSString *)getSpriteResourceName_batch2Style_forPreset:(EBlockPreset)preset fourWayAVCode:(UInt32)fourWayAVCode
+{
+    switch( preset )
+    {
+        // TODO
+        case EBlockPreset_Test0:
+            return nil;
+        default:
+            return nil;
+    }
+}
+
+
++(NSString *)getSpriteResourceNameForPreset:(EBlockPreset)preset fourWayAVCode:(UInt32)fourWayAVCode
+{
+    if( preset == EBlockPreset_PlayerStart || preset == EBlockPreset_None )
+    {
+        NSAssert( NO, @"Didn't expect this." );
+    }
+
+    NSString *result = nil;
+    result = [WorldArchiveUtil getSpriteResourceName_batch1Style_forPreset:preset fourWayAVCode:fourWayAVCode];
+    if( result == nil )
+    {
+        result = [WorldArchiveUtil getSpriteResourceName_batch2Style_forPreset:preset fourWayAVCode:fourWayAVCode];
+    }
+    return result;
 }
 
 

@@ -17,6 +17,8 @@
     {
         case EBlockPreset_None:
             return nil;
+            
+        // batch 1
         case EBlockPreset_Test0:
             return @"bl_brick";
         case EBlockPreset_PlayerStart:
@@ -87,6 +89,8 @@
             return @"bl_half_redbrick";
         case EBlockPreset_Lavender:
             return @"bl_half_lavender";
+            
+        // batch 2
             
         default:
             return @"icon_close";  // TODO: better "unknown" tile?

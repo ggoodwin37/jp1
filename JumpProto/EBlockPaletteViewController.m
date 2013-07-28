@@ -118,7 +118,7 @@
 }
 
 
--(void)initPresetCategoryList
+-(NSArray *)getPresetCategoryList_batch1
 {
     NSMutableArray *list = [NSMutableArray arrayWithCapacity:10];
     
@@ -284,7 +284,34 @@
     
     [list addObject:category];
     
-    m_presetCategoryList = [list retain];
+    return list;
+}
+
+
+-(NSArray *)getPresetCategoryList_batch2
+{
+    NSMutableArray *list = [NSMutableArray arrayWithCapacity:10];
+    
+    EBPPresetCategory *category;
+    NSString *entryName;
+    NSString *entryDescription;
+    EBlockPreset entryPreset;
+    
+    category = [[[EBPPresetCategory alloc] initWithName:@"Ground"] autorelease];
+    entryPreset =      EBlockPreset_Test0;
+    entryName =        @"GrTest0";
+    entryDescription = @"Basic test block 0.";
+    [category addPresetEntry:[[[EBPPresetEntry alloc] initWithPreset:entryPreset name:entryName description:entryDescription] autorelease]];
+    
+    [list addObject:category];
+    
+    return list;
+}
+
+
+-(void)initPresetCategoryList
+{
+    m_presetCategoryList = [[self getPresetCategoryList_batch1] retain];
 }
 
 

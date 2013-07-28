@@ -1,6 +1,6 @@
 // misc
 
-// near term plan
+- core, low pri: handling of sprite and preset constants is pretty ugly. should make this more dynamic and compact.
 
 - edit: shouldn't go to smallest visual grid size unless draw brush is that size.
 - edit: new level should show props immediately so I can type in level name. search "TODO: edit new level"
@@ -30,6 +30,8 @@
 // future
 
 - implement the restricted rect version of EWorldView drawToContext for better perf while drawing blocks. (still relevant?) (pretty sure I did this already)
+
+- core, low pri: handling of sprite and preset constants is pretty ugly. should make this more dynamic and compact.
 
 
 // edit. claim: investing in edit makes play exponentially more awesome.

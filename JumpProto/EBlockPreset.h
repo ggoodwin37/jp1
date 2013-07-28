@@ -12,6 +12,8 @@
 enum EBlockPresetEnum
 {
     EBlockPreset_None = 0,
+    
+    // batch 1: early test assets (24x24)
     EBlockPreset_Test0,
     EBlockPreset_PlayerStart,
     EBlockPreset_MovingPlatformRightMedium,
@@ -57,6 +59,9 @@ enum EBlockPresetEnum
     EBlockPreset_Qik,
     EBlockPreset_RedBrick,
     EBlockPreset_Lavender,
+    
+    // batch 2: slightly less early test assets, "tiny" motif, 8x8.
+    // TODO assets
     
     
     EBlockPresetCount,
