@@ -7,6 +7,7 @@
 //
 
 #import "ElbowRoomGrid.h"
+#import "BlockGroup.h"
 
 @implementation ElbowRoomGrid
 
@@ -113,7 +114,6 @@
 
 -(void)addBlock:(Block *)block
 {
-    // TODO: groups?
     int blockCol0 = (block.x - m_worldMin.x) / m_gridCellSize;
     int blockRow0 = (block.y - m_worldMin.y) / m_gridCellSize;
     int blockCol1 = (block.x + block.w - m_worldMin.x) / m_gridCellSize;
@@ -130,7 +130,6 @@
 
 -(void)removeBlock:(Block *)block
 {
-    // TODO: groups?
     // TODO: figure out how to pass param'd selectors in obj-c so I can reuse the calc/iteration code.
     int blockCol0 = (block.x - m_worldMin.x) / m_gridCellSize;
     int blockRow0 = (block.y - m_worldMin.y) / m_gridCellSize;
@@ -148,8 +147,6 @@
 
 -(void)moveBlock:(Block *)block byOffset:(EmuPoint)offset
 {
-    // TODO: groups?
-
     int oldBlockCol0 = (block.x - m_worldMin.x) / m_gridCellSize;
     int oldBlockRow0 = (block.y - m_worldMin.y) / m_gridCellSize;
     int oldBlockCol1 = (block.x + block.w - m_worldMin.x) / m_gridCellSize;
@@ -193,7 +190,7 @@
 }
 
 
--(Emu)getElbowRoomInCellForBlock:(Block *)block col:(int)col row:(int)row dir:(ERDirection)dir previousMinDistance:(Emu)prevMin
+-(Emu)getElbowRoomInCellForBlock:(Block *)block col:(int)col row:(int)row dir:(ERDirection)dir previousMinDistance:(Emu)prevMin resultStack:(NSMutableArray *)resultStack
 {
     NSArray *list = [self tryGetGridCellAtCol:col row:row];  // could be nil
     Emu minDistance = prevMin;
@@ -202,6 +199,7 @@
     {
         Block *candidateBlock = (Block *)[list objectAtIndex:i];
         if( candidateBlock == block ) continue;  // can't collide with self.
+        if( block.groupId != GROUPID_NONE && block.groupId == candidateBlock.groupId ) continue;  // can't collide with own group.
         if( dir == ERDirDown )
         {
             if( candidateBlock.x + candidateBlock.w <= block.x ) continue;
@@ -238,14 +236,14 @@
         if( thisDistance < minDistance )
         {
             // this candidate is the best so far, reset stack and save.
-            [m_workingStack removeAllObjects];
-            [m_workingStack addObject:candidateBlock];
+            [resultStack removeAllObjects];
+            [resultStack addObject:candidateBlock];
             minDistance = thisDistance;
         }
         else if( thisDistance == minDistance )
         {
             // this candidate is same as known best, save it with others.
-            [m_workingStack addObject:candidateBlock];
+            [resultStack addObject:candidateBlock];
         }
         // else do nothing for this candidate since it's further than min.
     }
@@ -253,7 +251,7 @@
 }
 
 
--(Emu)getElbowRoomForBlock:(Block *)block inDirection:(ERDirection)dir
+-(Emu)getElbowRoomForBlock:(Block *)block inDirection:(ERDirection)dir resultStack:(NSMutableArray *)resultStack
 {
     int colInc, rowInc, blockCol0, blockCol1, blockRow0, blockRow1;
     if( dir == ERDirDown || dir == ERDirUp )
@@ -281,7 +279,7 @@
         {
             for( int ii = blockCol0; ii <= blockCol1; ++ii )
             {
-                minDistance = [self getElbowRoomInCellForBlock:block col:ii row:ij dir:dir previousMinDistance:minDistance];
+                minDistance = [self getElbowRoomInCellForBlock:block col:ii row:ij dir:dir previousMinDistance:minDistance resultStack:resultStack];
             }
             if( minDistance < m_gridCellSize ) return minDistance;  // don't bother checking next
         }
@@ -312,7 +310,7 @@
         {
             for( int ij = blockRow0; ij <= blockRow1; ++ij )
             {
-                minDistance = [self getElbowRoomInCellForBlock:block col:ii row:ij dir:dir previousMinDistance:minDistance];
+                minDistance = [self getElbowRoomInCellForBlock:block col:ii row:ij dir:dir previousMinDistance:minDistance resultStack:resultStack];
             }
             if( minDistance < m_gridCellSize ) return minDistance;  // don't bother checking next
         }
@@ -323,16 +321,41 @@
 
 -(Emu)getElbowRoomForGroup:(BlockGroup *)blockGroup inDirection:(ERDirection)dir
 {
-    return 0;
+    NSMutableArray *tempStack = [NSMutableArray arrayWithCapacity:4];
+
+    Emu minDistance = m_gridCellSize;
+    for( int i = 0; i < [blockGroup.blocks count]; ++i )
+    {
+        Block *thisBlock = (Block *)[blockGroup.blocks objectAtIndex:i];
+        [tempStack removeAllObjects];
+        Emu thisDistance = [self getElbowRoomForBlock:thisBlock inDirection:dir resultStack:tempStack];
+        if( thisDistance < minDistance )
+        {
+            [m_workingStack removeAllObjects];
+            [m_workingStack addObjectsFromArray:tempStack];
+            minDistance = thisDistance;
+        }
+        else if( thisDistance == minDistance )
+        {
+            [m_workingStack addObjectsFromArray:tempStack];
+        }
+        // else do nothing with this block
+    }
+    return minDistance;
 }
 
 
 -(Emu)getElbowRoomForSO:(ASolidObject *)solidObject inDirection:(ERDirection)dir
 {
-    // TODO: groups?
-    NSAssert( ![solidObject isGroup], @"Group NYI" );
     [m_workingStack removeAllObjects];
-    return [self getElbowRoomForBlock:(Block *)solidObject inDirection:dir];
+    if( [solidObject isGroup] )
+    {
+        return [self getElbowRoomForGroup:(BlockGroup *)solidObject inDirection:dir];
+    }
+    else
+    {
+        return [self getElbowRoomForBlock:(Block *)solidObject inDirection:dir resultStack:m_workingStack];
+    }
 }
 
 

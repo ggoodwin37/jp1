@@ -147,12 +147,26 @@
     for( int i = 0; i < [m_worldSOs count]; ++i )
     {
         ASolidObject *thisSO = (ASolidObject *)[m_worldSOs objectAtIndex:i];
-        NSAssert( ![thisSO isGroup], @"Groups NYI here, think you need to iterate over group's blocks." );
-        Block *thisBlock = (Block *)thisSO;
-        xMin = MIN( xMin, thisBlock.x );
-        yMin = MIN( yMin, thisBlock.y );
-        xMax = MAX( xMax, thisBlock.x + thisBlock.w );
-        yMax = MAX( yMax, thisBlock.y + thisBlock.h );
+        if( [thisSO isGroup] )
+        {
+            BlockGroup *thisGroup = (BlockGroup *)thisSO;
+            for( int i = 0; i < [thisGroup.blocks count]; ++i )
+            {
+                Block *thisBlock = (Block *)[thisGroup.blocks objectAtIndex:i];
+                xMin = MIN( xMin, thisBlock.x );
+                yMin = MIN( yMin, thisBlock.y );
+                xMax = MAX( xMax, thisBlock.x + thisBlock.w );
+                yMax = MAX( yMax, thisBlock.y + thisBlock.h );
+            }
+        }
+        else
+        {
+            Block *thisBlock = (Block *)thisSO;
+            xMin = MIN( xMin, thisBlock.x );
+            yMin = MIN( yMin, thisBlock.y );
+            xMax = MAX( xMax, thisBlock.x + thisBlock.w );
+            yMax = MAX( yMax, thisBlock.y + thisBlock.h );
+        }
     }
     Emu padding = 20 * ONE_BLOCK_SIZE_Emu;
     xMin -= padding;
@@ -166,14 +180,28 @@
     {
         Actor *thisActor = (Actor *)[m_npcActors objectAtIndex:i];
         Block *thisBlock = thisActor.actorBlock;
-        [m_elbowRoom addBlock:thisBlock];
+        if( thisBlock != nil )
+        {
+            [m_elbowRoom addBlock:thisBlock];
+        }
     }
     for( int i = 0; i < [m_worldSOs count]; ++i )
     {
         ASolidObject *thisSO = (ASolidObject *)[m_worldSOs objectAtIndex:i];
-        NSAssert( ![thisSO isGroup], @"Groups NYI here, think you need to iterate over group's blocks." );
-        Block *thisBlock = (Block *)thisSO;
-        [m_elbowRoom addBlock:thisBlock];
+        if( [thisSO isGroup] )
+        {
+            BlockGroup *thisGroup = (BlockGroup *)thisSO;
+            for( int i = 0; i < [thisGroup.blocks count]; ++i )
+            {
+                Block *thisBlock = (Block *)[thisGroup.blocks objectAtIndex:i];
+                [m_elbowRoom addBlock:thisBlock];
+            }
+        }
+        else
+        {
+            Block *thisBlock = (Block *)thisSO;
+            [m_elbowRoom addBlock:thisBlock];
+        }
     }
 }
 
@@ -694,7 +722,6 @@
     self.levelName = nil;
     self.levelDescription = nil;
     
-    [m_elbowRoom reset];  // this call is only needed for WorldTest, which just calls [world reset] and expects er to reset too.
     [m_worldFrameCache hardReset];
     [m_worldSOs removeAllObjects];
     [m_playerActor release]; m_playerActor = nil;

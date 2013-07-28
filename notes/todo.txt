@@ -2,6 +2,12 @@
 
 // near term plan
 
+- when changing size of edit block brush, should have -4/+4 buttons in addition (or just make existing ones do +/- 4)
+
+- one-hole is busted for half of the directions.
+
+- revisit how groups are instantiated/added to world and er.
+
 // things that call getAbuttListForDirection:
 - actor jump-reset check (self, down only)
 - gravity updater (self, down only, canMove/affectedByGravity)
