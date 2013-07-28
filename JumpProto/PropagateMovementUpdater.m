@@ -201,8 +201,15 @@
 // parameter isPerpProp controls whether we are handling the perpendicular drag propagation
 //   (if so, avoid doing parallel propagation again to cut down on weird jittery effects...still not perfect)
 -(Emu)doRecurseForNode:(ASolidObject *)node targetOffset:(Emu)targetOffset isXAxis:(BOOL)xAxis isPerpProp:(BOOL)perpProp
-              originSO:(ASolidObject *)originSO groupPropStack:(NSMutableArray *)groupPropStack
+                                            originSO:(ASolidObject *)originSO groupPropStack:(NSMutableArray *)groupPropStack depth:(int)depth
 {
+    if( depth > 3 )
+    {
+        // BAIL OUT DUDE
+        // TODO: revisit this if you fix the jerky push problem that seems to be exacerbating things.
+        return 0;
+    }
+    
     if( ![node getProps].canMoveFreely || targetOffset == 0 )
     {
         return 0;
@@ -246,7 +253,7 @@
             if( xAxis || [thisAbutter getProps].affectedByGravity )
             {
                 [self doRecurseForNode:thisAbutter targetOffset:attTargetOffset isXAxis:xAxis isPerpProp:NO
-                              originSO:originSO groupPropStack:groupPropStack];
+                              originSO:originSO groupPropStack:groupPropStack depth:(depth + 1)];
             }
             
             didBounce = didBounce || [self collisionBetween:node and:thisAbutter inDir:dir];
@@ -318,7 +325,7 @@
         if( moveOffsetDifference != 0 )
         {
             thisAbutterDidMove = [self doRecurseForNode:thisAbutter targetOffset:moveOffsetDifference isXAxis:YES isPerpProp:YES
-                                               originSO:originSO groupPropStack:groupPropStack];
+                                               originSO:originSO groupPropStack:groupPropStack depth:(depth + 1)];
         }
     }
     
@@ -400,7 +407,7 @@
         [m_groupPropStack removeAllObjects];
         
         Emu targetOffset = (vSO.y + vOffset.y) * delta;
-        [self doRecurseForNode:solidObject targetOffset:targetOffset isXAxis:NO isPerpProp:NO originSO:solidObject groupPropStack:m_groupPropStack];
+        [self doRecurseForNode:solidObject targetOffset:targetOffset isXAxis:NO isPerpProp:NO originSO:solidObject groupPropStack:m_groupPropStack depth:0];
     }
     if( (vSO.x + vOffset.x) != 0 )
     {
@@ -408,7 +415,7 @@
         [self checkExemptGroupsForNode:solidObject forStack:m_groupPropStack];
         
         Emu targetOffset = (vSO.x + vOffset.x) * delta;
-        [self doRecurseForNode:solidObject targetOffset:targetOffset isXAxis:YES isPerpProp:NO originSO:solidObject groupPropStack:m_groupPropStack];
+        [self doRecurseForNode:solidObject targetOffset:targetOffset isXAxis:YES isPerpProp:NO originSO:solidObject groupPropStack:m_groupPropStack depth:0];
     }
 }
 
