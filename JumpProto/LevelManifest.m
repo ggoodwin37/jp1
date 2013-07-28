@@ -158,7 +158,20 @@ static LevelManifestManager *globalLevelManifestManagerInstance = nil;
         NSString *thisPath = (NSString *)[allFiles objectAtIndex:i];
         if( [thisPath hasSuffix:ext] )
         {
-            [targetPathList addObject:thisPath];
+            // function is form
+            BOOL exclude = NO;
+            if( [thisPath rangeOfString:@"draw-stress-01"].location != NSNotFound
+             || [thisPath rangeOfString:@"gap-logic-check-1"].location != NSNotFound
+             || [thisPath rangeOfString:@"idle-crates-stress-01"].location != NSNotFound )
+            {
+                NSLog( @"deleteAllFiles: excluding %@", thisPath );
+                exclude = YES;
+            }
+            
+            if( !exclude )
+            {
+                [targetPathList addObject:thisPath];
+            }
         }
     }
     
