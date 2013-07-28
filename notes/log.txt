@@ -253,5 +253,3 @@ Well the perf pass took a little longer than expected, but went way better than 
 Last day of coding, todos:
 - new graphics in.
 - minor tweaks and bugfixes (4x4 buttons, edit props pop up on new level, etc).
-
-// graphic asset update TODO assets

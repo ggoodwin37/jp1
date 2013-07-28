@@ -287,23 +287,88 @@
     return list;
 }
 
+#define PCL_CAT( __CAT_NAME ) category = [[[EBPPresetCategory alloc] initWithName:__CAT_NAME] autorelease]
+#define PCL_ADD( __ENUM, __NAME, __DESC) [category addPresetEntry:[[[EBPPresetEntry alloc] initWithPreset:(__ENUM) name:(__NAME) description:(__DESC)] autorelease]]
+#define PCL_CATDONE() [list addObject:category]
 
 -(NSArray *)getPresetCategoryList_batch2
 {
     NSMutableArray *list = [NSMutableArray arrayWithCapacity:10];
-    
     EBPPresetCategory *category;
-    NSString *entryName;
-    NSString *entryDescription;
-    EBlockPreset entryPreset;
+
+    PCL_CAT( @"start/end" );
+    PCL_ADD( EBlockPreset_tiny_playerStart, @"pl-start", @"" );
+    PCL_ADD( EBlockPreset_tiny_bl_exit, @"pl-end", @"" );
+    PCL_CATDONE();
+
+    PCL_CAT( @"solid" );
+    PCL_ADD( EBlockPreset_tiny_bl_0, @"bl-0", @"" );
+    PCL_ADD( EBlockPreset_tiny_bl_1, @"bl-1", @"" );
+    PCL_ADD( EBlockPreset_tiny_bl_2, @"bl-2", @"" );
+    PCL_ADD( EBlockPreset_tiny_bl_3, @"bl-3", @"" );
+    PCL_ADD( EBlockPreset_tiny_bl_4, @"bl-4", @"" );
+    PCL_ADD( EBlockPreset_tiny_bl_5, @"bl-5", @"" );
+    PCL_ADD( EBlockPreset_tiny_bl_6, @"bl-6", @"" );
+    PCL_ADD( EBlockPreset_tiny_bl_7, @"bl-7", @"" );
+    PCL_ADD( EBlockPreset_tiny_bl_8, @"bl-8", @"" );
+    PCL_ADD( EBlockPreset_tiny_bl_9, @"bl-9", @"" );
+    PCL_ADD( EBlockPreset_tiny_col, @"col", @"" );
+    PCL_ADD( EBlockPreset_tiny_bl_stretch, @"bl-stretch", @"" );
+    PCL_ADD( EBlockPreset_tiny_bl_turf1, @"bl-turf1", @"" );
+    PCL_ADD( EBlockPreset_tiny_bl_turf2, @"bl-turf2", @"" );
+    PCL_CATDONE();
     
-    category = [[[EBPPresetCategory alloc] initWithName:@"Ground"] autorelease];
-    entryPreset =      EBlockPreset_Test0;
-    entryName =        @"GrTest0";
-    entryDescription = @"Basic test block 0.";
-    [category addPresetEntry:[[[EBPPresetEntry alloc] initWithPreset:entryPreset name:entryName description:entryDescription] autorelease]];
+    PCL_CAT( @"crates" );
+    PCL_ADD( EBlockPreset_tiny_cr_1, @"crate1", @"" );
+    PCL_ADD( EBlockPreset_tiny_cr_2, @"crate2", @"" );
+    PCL_ADD( EBlockPreset_tiny_bigcr, @"bigcrate", @"" );
+    PCL_CATDONE();
     
-    [list addObject:category];
+    PCL_CAT( @"flow" );
+    PCL_ADD( EBlockPreset_tiny_conveyor_l, @"conveyor-left", @"" );
+    PCL_ADD( EBlockPreset_tiny_conveyor_r, @"conveyor-right", @"" );
+    PCL_ADD( EBlockPreset_tiny_oneway_u, @"oneway-up", @"" );
+    PCL_ADD( EBlockPreset_tiny_oneway_l, @"oneway-left", @"" );
+    PCL_ADD( EBlockPreset_tiny_oneway_r, @"oneway-right", @"" );
+    PCL_ADD( EBlockPreset_tiny_oneway_d, @"oneway-down", @"" );
+    PCL_ADD( EBlockPreset_tiny_crum, @"crumble", @"" );
+    PCL_ADD( EBlockPreset_tiny_bl_wallJump, @"walljump", @"" );
+    PCL_ADD( EBlockPreset_tiny_lift, @"lift", @"" );
+    PCL_ADD( EBlockPreset_tiny_mv_plat_l, @"mvplat-left", @"" );
+    PCL_ADD( EBlockPreset_tiny_mv_plat_r, @"mvplat-right", @"" );
+    PCL_ADD( EBlockPreset_tiny_bl_ice, @"ice", @"" );
+    PCL_CATDONE();
+    
+    PCL_CAT( @"creeps/ouch" );
+    PCL_ADD( EBlockPreset_tiny_spikes_u, @"spikes-up", @"" );
+    PCL_ADD( EBlockPreset_tiny_spikes_l, @"spikes-left", @"" );
+    PCL_ADD( EBlockPreset_tiny_spikes_r, @"spikes-right", @"" );
+    PCL_ADD( EBlockPreset_tiny_spikes_d, @"spikes-down", @"" );
+    PCL_ADD( EBlockPreset_tiny_creep_fuzz_l, @"fuzz-left", @"" );
+    PCL_ADD( EBlockPreset_tiny_creep_fuzz_r, @"fuzz-right", @"" );
+    PCL_ADD( EBlockPreset_tiny_creep_martian, @"martian", @"" );
+    PCL_ADD( EBlockPreset_tiny_creep_mosquito, @"mosquito", @"" );
+    PCL_ADD( EBlockPreset_tiny_creep_jelly, @"jelly", @"" );
+    
+    // leave these out for now, useless without beam logic which is a long way off.
+    //PCL_ADD( EBlockPreset_tiny_hbeam_emitter_l, @"hbeam-left", @"" );
+    //PCL_ADD( EBlockPreset_tiny_hbeam_emitter_r, @"hbeam-right", @"" );
+    PCL_CATDONE();
+
+    PCL_CAT( @"tiny-er" );
+    PCL_ADD( EBlockPreset_tiny_sprtiny_0, @"supertiny-0", @"" );
+    PCL_ADD( EBlockPreset_tiny_sprtiny_1, @"supertiny-1", @"" );
+    PCL_ADD( EBlockPreset_tiny_sprtiny_2, @"supertiny-2", @"" );
+    PCL_ADD( EBlockPreset_tiny_sprtiny_3, @"supertiny-3", @"" );
+    PCL_ADD( EBlockPreset_tiny_pipe, @"supertiny-pipe", @"" );
+    PCL_ADD( EBlockPreset_tiny_pipe_bub, @"supertiny-bub", @"" );
+    PCL_CATDONE();
+    
+    PCL_CAT( @"event-y" );
+    PCL_ADD( EBlockPreset_tiny_btn1, @"btn1", @"" );
+    PCL_ADD( EBlockPreset_tiny_redblu_red, @"redblu-red", @"" );
+    PCL_ADD( EBlockPreset_tiny_redblu_blu, @"redblu-blu", @"" );
+    PCL_CATDONE();
     
     return list;
 }
@@ -311,7 +376,8 @@
 
 -(void)initPresetCategoryList
 {
-    m_presetCategoryList = [[self getPresetCategoryList_batch1] retain];
+    //m_presetCategoryList = [[self getPresetCategoryList_batch1] retain];
+    m_presetCategoryList = [[self getPresetCategoryList_batch2] retain];
 }
 
 

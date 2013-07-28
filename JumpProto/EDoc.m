@@ -201,23 +201,6 @@
 }
 
 
--(EGridPoint *)getSizeForPreset:(EBlockPreset)preset
-{
-    // TODO: the size of this marker should eventually come from UI, rather than being hardcoded here.
-    switch( preset )
-    {
-        case EBlockPreset_SillyEm0:
-            return [[[EGridPoint alloc] initAtXGrid:8 yGrid:8] autorelease];
-        case EBlockPreset_SillyMax0:
-            return [[[EGridPoint alloc] initAtXGrid:12 yGrid:12] autorelease];
-        case EBlockPreset_RedBrick:
-            return [[[EGridPoint alloc] initAtXGrid:2 yGrid:2] autorelease];
-        default:
-            return [[[EGridPoint alloc] initAtXGrid:4 yGrid:4] autorelease];
-    }
-}
-
-
 -(EGridBlockMarker *)getMarkerAtXGrid:(UInt32)xGrid yGrid:(UInt32)yGrid
 {
     // TODO: this won't hit with non-1x1 blocks (other than the origin point).

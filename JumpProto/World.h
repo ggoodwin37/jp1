@@ -14,6 +14,7 @@
 #import "ActorUpdater.h"
 #import "BlockGroup.h"
 #import "WorldFrameState.h"
+#import "EBlockPreset.h"   // just for player presets
 
 @interface World : NSObject<DpadEventDelegate> {
     
@@ -68,7 +69,7 @@
 -(void)addWorldBlock:(Block *)block;
 -(void)removeWorldSO:(ASolidObject *)solidObject;
 
--(void)initPlayerAt:(EmuPoint)p;
+-(void)initPlayerAt:(EmuPoint)p fromPreset:(EBlockPreset)preset;
 
 // after a level has been loaded/initialized, call this to populate ElbowRoom from world lists.
 -(void)setupElbowRoom;

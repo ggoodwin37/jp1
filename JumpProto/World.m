@@ -106,9 +106,11 @@
 }
 
 
--(void)initPlayerAt:(EmuPoint)p
+-(void)initPlayerAt:(EmuPoint)p fromPreset:(EBlockPreset)preset
 {
     NSAssert( m_playerActor == nil, @"World initPlayerAt: player already exists!" );
+    
+    // TODO: consume player type preset (create rob16)
 
     m_playerActor = [[PlayerActor alloc] initAtStartingPoint:p];
     m_playerActor.world = self;

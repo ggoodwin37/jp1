@@ -13,24 +13,24 @@
         <NextSprite name="tiny-bl-5" />
         <NextSprite name="tiny-bl-6" />
         <NextSprite name="tiny-bl-7" />
-        <NextSprite name="tiny-bl-dbl-l" />
-        <NextSprite name="tiny-bl-dbl-r" />
+        <NextSprite name="tiny-bl-stretch-l"/>
+        <NextSprite name="tiny-bl-stretch-r"/>
         <NextSprite name="tiny-bl-turf1-m" />
         <NextSprite name="tiny-bl-turf1-t" />
         <NextSprite name="tiny-bl-8" />
         
         <NextSprite name="tiny-cr-1" />
-        <NextSprite name="tiny-bigcr-ul" />
-        <NextSprite name="tiny-bigcr-ur" />
+        <NextSprite />
+        <NextSprite />
         <NextSprite name="tiny-bl-9" />
-        <NextSprite name="tiny-bl-a" />
+        <NextSprite name="tiny-bl-stretch-m" />
         <NextSprite />
         <NextSprite name="tiny-conveyor-0" />
         <NextSprite name="tiny-oneway-l" />
         
         <NextSprite name="tiny-cr-2" />
-        <NextSprite name="tiny-bigcr-ll" />
-        <NextSprite name="tiny-bigcr-lr" />
+        <NextSprite />
+        <NextSprite />
         <NextSprite name="tiny-hbeam-l" />
         <NextSprite name="tiny-hbeam-m-0" />
         <NextSprite name="tiny-hbeam-r" />
@@ -58,7 +58,7 @@
         <NextSprite name="tiny-spikes-l-0" />
         <NextSprite name="tiny-spikes-l-1" />
         <NextSprite name="tiny-crum-2" />
-        <NextSprite name="tiny-exit-t" />
+        <NextSprite />
         <NextSprite name="tiny-start-token" />
         <NextSprite name="tiny-bl-walljump" />
         <NextSprite name="tiny-bl-turf2-m" />
@@ -67,7 +67,7 @@
         <NextSprite name="tiny-spikes-d-0" />
         <NextSprite name="tiny-spikes-d-1" />
         <NextSprite name="tiny-crum-3" />
-        <NextSprite name="tiny-exit-b" />
+        <NextSprite />
         <NextSprite name="tiny-mv-plat-0" />
         <NextSprite name="tiny-mv-plat-1" />
         <NextSprite name="tiny-mv-plat-2" />
@@ -75,7 +75,7 @@
     </SpriteDefRun>
 
     <!-- button kit 4x4 -->
-    <SpriteDefRun resourceName="tiny-debut-1.png" xStart="40" yStart="16" xEnd="48" spriteWidth="4" spriteHeight="4">
+    <SpriteDefRun resourceName="tiny-debut-1.png" xStart="40" yStart="16" xEnd="48" spriteWidth="4" spriteHeight="4" worldWidth="2" worldHeight="2">
         <NextSprite name="tiny-light1-off" />
         <NextSprite name="tiny-btn1-plate" />
         <NextSprite name="tiny-btn1-rod" />
@@ -83,7 +83,7 @@
     </SpriteDefRun>
     
     <!-- supertiny kit 4x4 -->
-    <SpriteDefRun resourceName="tiny-debut-1.png" xStart="32" yStart="40" xEnd="40" spriteWidth="4" spriteHeight="4">
+    <SpriteDefRun resourceName="tiny-debut-1.png" xStart="32" yStart="40" xEnd="40" spriteWidth="4" spriteHeight="4" worldWidth="2" worldHeight="2">
         <NextSprite name="tiny-sprtiny-0" />
         <NextSprite name="tiny-sprtiny-1" />
         <NextSprite name="tiny-sprtiny-2" />
@@ -91,11 +91,23 @@
     </SpriteDefRun>
     
     <!-- pipe kit 4x4 -->
-    <SpriteDefRun resourceName="tiny-debut-1.png" xStart="56" yStart="56" xEnd="64" spriteWidth="4" spriteHeight="4">
+    <SpriteDefRun resourceName="tiny-debut-1.png" xStart="56" yStart="56" xEnd="64" spriteWidth="4" spriteHeight="4" worldWidth="2" worldHeight="2">
         <NextSprite name="tiny-pipe-ud" />
         <NextSprite name="tiny-pipe-lr" />
         <NextSprite name="tiny-pipe-m" />
         <NextSprite name="tiny-pipe-bub" />
+    </SpriteDefRun>
+
+    <SpriteDefRun resourceName="tiny-debut-1.png" xStart="24" yStart="8" xEnd="40" spriteWidth="16" spriteHeight="8" worldWidth="8" worldHeight="4">
+        <NextSprite name="tiny-bl-dbl" />
+    </SpriteDefRun>
+    
+    <SpriteDefRun resourceName="tiny-debut-1.png" xStart="8" yStart="16" xEnd="24" spriteWidth="16" spriteHeight="16" worldWidth="8" worldHeight="8">
+        <NextSprite name="tiny-bigcr" />
+    </SpriteDefRun>
+    
+    <SpriteDefRun resourceName="tiny-debut-1.png" xStart="24" yStart="40" xEnd="32" spriteWidth="8" spriteHeight="16" worldWidth="4" worldHeight="8">
+        <NextSprite name="tiny-exit" />
     </SpriteDefRun>
     
     <SpriteDefRun resourceName="tiny-creeps-1.png" xStart="0" yStart="0" xEnd="16" spriteWidth="8" spriteHeight="8">

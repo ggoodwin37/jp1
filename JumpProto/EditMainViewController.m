@@ -116,7 +116,7 @@
         {
             continue;
         }
-        if( thisMarker.preset == EBlockPreset_PlayerStart )
+        if( thisMarker.preset == EBlockPreset_PlayerStart || thisMarker.preset == EBlockPreset_tiny_playerStart )
         {
             return CGRectMake( thisMarker.gridLocation.xGrid * yardstick - (w / 2.f),
                                thisMarker.gridLocation.yGrid * yardstick - (h / 2.f),

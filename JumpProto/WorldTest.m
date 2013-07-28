@@ -837,8 +837,7 @@
     [WorldTest addStandardWalls_forWorld:world];
     
     EmuPoint playerPos = EmuPointMakeFromFl( 480.0f, 650.f );
-    [world initPlayerAt:playerPos];
-    
+    [world initPlayerAt:playerPos fromPreset:EBlockPreset_PlayerStart];
 }
 
 
@@ -913,7 +912,7 @@
     }
     
     EmuPoint playerPos = EmuPointMakeFromFl( frand() * 1000.f + 12.f, frand() * 700.f + 60.f );
-    [world initPlayerAt:playerPos];
+    [world initPlayerAt:playerPos fromPreset:EBlockPreset_PlayerStart];
     
 }
 
@@ -925,7 +924,7 @@
     [WorldTest addStandardWalls_forWorld:world];
     
     EmuPoint playerPos = EmuPointMakeFromFl( frand() * 1000.f + 12.f, frand() * 700.f + 60.f );
-    [world initPlayerAt:playerPos];
+    [world initPlayerAt:playerPos fromPreset:EBlockPreset_PlayerStart];
     
 }
 
@@ -970,7 +969,7 @@
     [world addWorldBlock:thisBlock];
     
     EmuPoint playerPos = EmuPointMakeFromFl( 480.0f, 650.f );
-    [world initPlayerAt:playerPos];
+    [world initPlayerAt:playerPos fromPreset:EBlockPreset_PlayerStart];
     
 }
 
@@ -1017,7 +1016,7 @@
     }
     
     EmuPoint playerPos = EmuPointMakeFromFl( 480.0f, 650.f );
-    [world initPlayerAt:playerPos];
+    [world initPlayerAt:playerPos fromPreset:EBlockPreset_PlayerStart];
     
 }
 
@@ -1059,7 +1058,7 @@
     }
     
     EmuPoint playerPos = EmuPointMakeFromFl( 480.0f, 650.f );
-    [world initPlayerAt:playerPos];
+    [world initPlayerAt:playerPos fromPreset:EBlockPreset_PlayerStart];
     
 }
 
@@ -1094,7 +1093,7 @@
     [WorldTest addStandardWalls_forWorld:world];
     
     EmuPoint playerPos = EmuPointMakeFromFl( frand() * 1000.f + 12.f, frand() * 700.f + 60.f );  // could spawn inside the containment chamber, poor soul.
-    [world initPlayerAt:playerPos];
+    [world initPlayerAt:playerPos fromPreset:EBlockPreset_PlayerStart];
     
     
     const float wallDim = 12.f;
@@ -1155,7 +1154,7 @@
     [WorldTest addStandardWalls_forWorld:world];
     
     EmuPoint playerPos = EmuPointMakeFromFl( frand() * 1000.f + 12.f, frand() * 700.f + 60.f );
-    [world initPlayerAt:playerPos];
+    [world initPlayerAt:playerPos fromPreset:EBlockPreset_PlayerStart];
 
     
     for( int i = 0; i < 20; ++i )
@@ -1174,7 +1173,7 @@
     [WorldTest addStandardWalls_forWorld:world];
     
     EmuPoint playerPos = EmuPointMakeFromFl( frand() * 1000.f + 12.f, frand() * 700.f + 60.f );
-    [world initPlayerAt:playerPos];
+    [world initPlayerAt:playerPos fromPreset:EBlockPreset_PlayerStart];
     
     const float w = 120.f;
     const float gap = 120.f;
@@ -1239,7 +1238,7 @@
             else if( block == 4 )  // player start position
             {                
                 EmuPoint playerPos = EmuPointMakeFromFl( x, y );
-                [world initPlayerAt:playerPos];
+                [world initPlayerAt:playerPos fromPreset:EBlockPreset_PlayerStart];
             }
             else if( block == 5 )  // horiz moving platform 3: left medium
             {
@@ -1376,7 +1375,7 @@
 
     // player
     EmuPoint playerPos = EmuPointMakeFromFl( 455.f, 250.f );
-    [world initPlayerAt:playerPos];
+    [world initPlayerAt:playerPos fromPreset:EBlockPreset_PlayerStart];
 
 }
 
@@ -1537,7 +1536,7 @@
             else if( block == SM_O_ )  // player start position
             {
                 EmuPoint playerPos = EmuPointMake( x, y );
-                [world initPlayerAt:playerPos];
+                [world initPlayerAt:playerPos fromPreset:EBlockPreset_PlayerStart];
             }
             else if( block == SM_G1 || block == SM_G2 ) // test group block
             {
@@ -1801,7 +1800,7 @@ static unsigned char mazedat5_basic[] = {
     x = 224.f;
     y = 720;
     EmuPoint playerPos = EmuPointMakeFromFl( x, y );
-    [world initPlayerAt:playerPos];
+    [world initPlayerAt:playerPos fromPreset:EBlockPreset_PlayerStart];
 }
 
 

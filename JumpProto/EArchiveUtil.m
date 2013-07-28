@@ -155,10 +155,21 @@
 
 +(BOOL)presetBlocksAreDistinct:(EBlockPreset)preset
 {
-    // TODO: return YES here for presets that should only autovary within blocks, not across blocks.
-    //       this will allow you to have variable size bricks with av but still have a nice visual differentiation
-    //       between adjacent bricks.
-    return NO;
+    // return YES here for presets that should only autovary within blocks, not across blocks.
+    //  this will allow you to have variable size bricks with av but still have a nice visual differentiation
+    //  between adjacent bricks.
+    switch( preset )
+    {
+        // batch 1
+            // (not used)
+
+        // batch 2
+        case EBlockPreset_tiny_bl_stretch:
+            return YES;
+            
+        default:
+            return NO;
+    }
 }
 
 

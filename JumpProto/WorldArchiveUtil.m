@@ -147,9 +147,111 @@
 {
     switch( preset )
     {
-            // just ground
-        case EBlockPreset_Test0:
+        // just ground
+        case EBlockPreset_tiny_bl_0:
+        case EBlockPreset_tiny_bl_1:
+        case EBlockPreset_tiny_bl_2:
+        case EBlockPreset_tiny_bl_3:
+        case EBlockPreset_tiny_bl_4:
+        case EBlockPreset_tiny_bl_5:
+        case EBlockPreset_tiny_bl_6:
+        case EBlockPreset_tiny_bl_7:
+        case EBlockPreset_tiny_bl_8:
+        case EBlockPreset_tiny_bl_9:
+        case EBlockPreset_tiny_col:
+        case EBlockPreset_tiny_bl_stretch:
+        case EBlockPreset_tiny_bl_turf1:
+        case EBlockPreset_tiny_bl_turf2:
+        case EBlockPreset_tiny_sprtiny_0:
+        case EBlockPreset_tiny_sprtiny_1:
+        case EBlockPreset_tiny_sprtiny_2:
+        case EBlockPreset_tiny_sprtiny_3:
+        case EBlockPreset_tiny_pipe:
+        case EBlockPreset_tiny_pipe_bub:
             break;
+            
+        // crates
+        case EBlockPreset_tiny_cr_1:
+        case EBlockPreset_tiny_cr_2:
+        case EBlockPreset_tiny_bigcr:
+            block.props.canMoveFreely = YES;
+            block.props.affectedByGravity = YES;
+            block.props.affectedByFriction = YES;
+            break;
+
+        case EBlockPreset_tiny_conveyor_l:
+            block.props.solidMask = BlockEdgeDirMask_Up;
+            block.props.xConveyor = -CONVEYOR_VX;
+            break;
+        case EBlockPreset_tiny_conveyor_r:
+            block.props.solidMask = BlockEdgeDirMask_Up;
+            block.props.xConveyor = CONVEYOR_VX;
+            break;
+            
+        case EBlockPreset_tiny_oneway_u:
+            block.props.solidMask = BlockEdgeDirMask_Up;
+            break;
+        case EBlockPreset_tiny_oneway_l:
+            block.props.solidMask = BlockEdgeDirMask_Left;
+            break;
+        case EBlockPreset_tiny_oneway_r:
+            block.props.solidMask = BlockEdgeDirMask_Right;
+            break;
+        case EBlockPreset_tiny_oneway_d:
+            block.props.solidMask = BlockEdgeDirMask_Down;
+            break;
+
+        case EBlockPreset_tiny_spikes_u:
+            block.props.hurtyMask = BlockEdgeDirMask_Up;
+            break;
+        case EBlockPreset_tiny_spikes_l:
+            block.props.hurtyMask = BlockEdgeDirMask_Left;
+            break;
+        case EBlockPreset_tiny_spikes_r:
+            block.props.hurtyMask = BlockEdgeDirMask_Right;
+            break;
+        case EBlockPreset_tiny_spikes_d:
+            block.props.hurtyMask = BlockEdgeDirMask_Down;
+            break;
+
+        case EBlockPreset_tiny_bl_exit:
+            block.props.isGoalBlock = YES;
+            break;
+        
+        case EBlockPreset_tiny_mv_plat_l:
+            block.props.canMoveFreely = YES;
+            block.props.bounceDampFactor = 1.f;
+            block.props.initialVelocity = EmuPointMake( -MOVING_PLATFORM_RIGHT_MEDIUM_VX, 0.f );
+            break;
+        case EBlockPreset_tiny_mv_plat_r:
+            block.props.canMoveFreely = YES;
+            block.props.bounceDampFactor = 1.f;
+            block.props.initialVelocity = EmuPointMake( MOVING_PLATFORM_RIGHT_MEDIUM_VX, 0.f );
+            break;
+            
+        // TODOs
+        case EBlockPreset_tiny_btn1:
+        case EBlockPreset_tiny_bl_wallJump:
+        case EBlockPreset_tiny_lift:
+        case EBlockPreset_tiny_bl_ice:
+            break;
+            
+        // TODO: implement red/blu switching. for now just pretend blu is active.
+        case EBlockPreset_tiny_redblu_red:
+            block.props.solidMask = 0;
+            break;
+        case EBlockPreset_tiny_redblu_blu:
+            break;
+            
+        // TODO creeps
+        case EBlockPreset_tiny_creep_fuzz_l:
+        case EBlockPreset_tiny_creep_fuzz_r:
+        case EBlockPreset_tiny_creep_martian:
+        case EBlockPreset_tiny_creep_mosquito:
+        case EBlockPreset_tiny_creep_jelly:
+            block.props.hurtyMask = BlockEdgeDirMask_Full;
+            break;
+            
         default:
             break;
     }
@@ -171,7 +273,7 @@
     block.props.isActorBlock = NO;
     block.props.isPlayerBlock = NO;
     
-    if( preset == EBlockPreset_PlayerStart || preset == EBlockPreset_None )
+    if( preset == EBlockPreset_PlayerStart || preset == EBlockPreset_tiny_playerStart || preset == EBlockPreset_None )
     {
         NSAssert( NO, @"Didn't expect this." );
     }
@@ -186,6 +288,7 @@
 {
     switch( preset )
     {
+        // batch 1
         case EBlockPreset_PropGoal:
             return 0.5f;
             
@@ -193,6 +296,22 @@
         case EBlockPreset_ConveyorR:
             return 0.1f;
             
+        // batch 2
+        // TODO: tune these
+        case EBlockPreset_tiny_conveyor_l:
+        case EBlockPreset_tiny_conveyor_r:
+            return 1.f;
+            
+        case EBlockPreset_tiny_spikes_u:
+        case EBlockPreset_tiny_spikes_l:
+        case EBlockPreset_tiny_spikes_r:
+        case EBlockPreset_tiny_spikes_d:
+            return 0.5f;
+            
+        case EBlockPreset_tiny_mv_plat_l:
+        case EBlockPreset_tiny_mv_plat_r:
+            return 0.3f;
+
         default:
             return 0.f;
     }
@@ -282,12 +401,6 @@
         case EBlockPreset_Lavender:
             return @"bl_half_lavender";
             
-        // unknown or unexpected
-        case EBlockPreset_PlayerStart:
-        case EBlockPreset_None:
-            NSLog( @"getSpriteNameForPresetBlock:fromPreset: unknown or unexpected block preset." );
-            return nil;
-            
         default:
             return nil;
     }
@@ -298,9 +411,67 @@
 {
     switch( preset )
     {
-        // TODO
-        case EBlockPreset_Test0:
-            return nil;
+        // TODO: av handling for the missing ones. actors in some cases.
+        case EBlockPreset_tiny_bl_0: return @"tiny-bl-0";
+        case EBlockPreset_tiny_bl_1: return @"tiny-bl-1";
+        case EBlockPreset_tiny_bl_2: return @"tiny-bl-2";
+        case EBlockPreset_tiny_bl_3: return @"tiny-bl-3";
+        case EBlockPreset_tiny_bl_4: return @"tiny-bl-4";
+        case EBlockPreset_tiny_bl_5: return @"tiny-bl-5";
+        case EBlockPreset_tiny_bl_6: return @"tiny-bl-6";
+        case EBlockPreset_tiny_bl_7: return @"tiny-bl-7";
+        case EBlockPreset_tiny_bl_8: return @"tiny-bl-8";
+        case EBlockPreset_tiny_bl_9: return @"tiny-bl-9";
+            
+        case EBlockPreset_tiny_col: //return @"tiny-bl-col-m";
+            return nil; // TODO
+        case EBlockPreset_tiny_bl_stretch: // return @"tiny-bl-stretch";
+            return nil; // TODO
+        case EBlockPreset_tiny_bl_turf1: //return @"tiny-bl-turf1-m";
+            return nil; // TODO
+        case EBlockPreset_tiny_bl_turf2: //return @"tiny-bl-turf2-m";
+            return nil; // TODO
+        case EBlockPreset_tiny_cr_1: return @"tiny-cr-1";
+        case EBlockPreset_tiny_cr_2: return @"tiny-cr-2";
+        case EBlockPreset_tiny_bigcr: return @"tiny-bigcr";
+        case EBlockPreset_tiny_conveyor_l: return @"tiny-conveyor-l";
+        case EBlockPreset_tiny_conveyor_r: return @"tiny-conveyor-r";
+        case EBlockPreset_tiny_oneway_u: return @"tiny-oneway-u";
+        case EBlockPreset_tiny_oneway_l: return @"tiny-oneway-l";
+        case EBlockPreset_tiny_oneway_r: return @"tiny-oneway-r";
+        case EBlockPreset_tiny_oneway_d: return @"tiny-oneway-d";
+        case EBlockPreset_tiny_spikes_u: return @"tiny-spikes-u";
+        case EBlockPreset_tiny_spikes_l: return @"tiny-spikes-l";
+        case EBlockPreset_tiny_spikes_r: return @"tiny-spikes-r";
+        case EBlockPreset_tiny_spikes_d: return @"tiny-spikes-d";
+        case EBlockPreset_tiny_playerStart: //return @"tiny-start-token";
+            return nil; // TODO: update edge case handling with this new type
+        case EBlockPreset_tiny_bl_wallJump: return @"tiny-bl-walljump";
+        case EBlockPreset_tiny_bl_exit: return @"tiny-exit";
+        case EBlockPreset_tiny_lift: return @"tiny-lift-0";
+        case EBlockPreset_tiny_mv_plat_l: return @"tiny-mv-plat";
+        case EBlockPreset_tiny_mv_plat_r: return @"tiny-mv-plat";
+        case EBlockPreset_tiny_btn1: //return @"tiny-light1-on";
+            return nil; // TODO
+        case EBlockPreset_tiny_sprtiny_0: return @"tiny-sprtiny-0";
+        case EBlockPreset_tiny_sprtiny_1: return @"tiny-sprtiny-1";
+        case EBlockPreset_tiny_sprtiny_2: return @"tiny-sprtiny-2";
+        case EBlockPreset_tiny_sprtiny_3: return @"tiny-sprtiny-3";
+        case EBlockPreset_tiny_pipe: //return @"tiny-pipe-ud";
+            return nil; // TODO
+        case EBlockPreset_tiny_pipe_bub: return @"tiny-pipe-bub";
+
+        case EBlockPreset_tiny_creep_fuzz_l: //return @"tiny-creep-fuzz-0";
+        case EBlockPreset_tiny_creep_fuzz_r: //return @"tiny-creep-fuzz-1";
+        case EBlockPreset_tiny_creep_martian: //return @"tiny-creep-martian-0";
+        case EBlockPreset_tiny_creep_mosquito: //return @"tiny-creep-mosquito-0";
+        case EBlockPreset_tiny_creep_jelly: //return @"tiny-creep-jelly-0";
+            return nil; // TODO: actors
+            
+        case EBlockPreset_tiny_redblu_red: return @"tiny-redblue-red-off";  // represents initial blu-is-on state
+        case EBlockPreset_tiny_redblu_blu: return @"tiny-redblue-blu-on";
+        case EBlockPreset_tiny_bl_ice: return @"tiny-bl-ice";
+  
         default:
             return nil;
     }
@@ -309,7 +480,7 @@
 
 +(NSString *)getSpriteResourceNameForPreset:(EBlockPreset)preset fourWayAVCode:(UInt32)fourWayAVCode
 {
-    if( preset == EBlockPreset_PlayerStart || preset == EBlockPreset_None )
+    if( preset == EBlockPreset_PlayerStart || preset == EBlockPreset_tiny_playerStart || preset == EBlockPreset_None )
     {
         NSAssert( NO, @"Didn't expect this." );
     }
@@ -391,6 +562,7 @@
 {
     switch( preset )
     {
+        // batch 1
         case EBlockPreset_TestMeanieB:
         case EBlockPreset_FaceBone:
         case EBlockPreset_Crumbles1:
@@ -398,6 +570,20 @@
 
         case EBlockPreset_PlayerStart:
             // player start is handled specially.
+            return NO;
+            
+        // batch 2
+        case EBlockPreset_tiny_crum:
+        case EBlockPreset_tiny_lift:
+        case EBlockPreset_tiny_btn1:
+        case EBlockPreset_tiny_creep_fuzz_l:
+        case EBlockPreset_tiny_creep_fuzz_r:
+        case EBlockPreset_tiny_creep_martian:
+        case EBlockPreset_tiny_creep_mosquito:
+        case EBlockPreset_tiny_creep_jelly:
+            return YES;
+
+        case EBlockPreset_tiny_playerStart:
             return NO;
 
         default:
@@ -434,6 +620,7 @@
     // assume [world reset] was called already.
     
     EmuPoint playerStart = EmuPointMake( 0, 0 );
+    EBlockPreset playerStartPreset;
     
     for( int i = 0; i < [level.blockList count]; ++i )
     {
@@ -464,9 +651,10 @@
                 int y = thisAFPresetBlockBase.rect.origin.y * ONE_BLOCK_SIZE_Emu - blockDims.y;  // late night y-flipped-ness correction.
                 EmuRect thisRectEmu = EmuRectMake( x, y, blockDims.x, blockDims.y );
                 
-                if( thisAFPresetBlockBase.preset == EBlockPreset_PlayerStart )
+                if( thisAFPresetBlockBase.preset == EBlockPreset_PlayerStart || thisAFPresetBlockBase.preset == EBlockPreset_tiny_playerStart )
                 {
                     playerStart = EmuPointMake( thisRectEmu.origin.x, thisRectEmu.origin.y );
+                    playerStartPreset = thisAFPresetBlockBase.preset;
                     continue;
                 }
                 SpriteStateMap *spriteStateMap = [WorldArchiveUtil getSpriteStateMapForPresetBlock:thisAFPresetBlockBase];
@@ -507,8 +695,7 @@
     world.levelName = level.props.name;
     world.levelDescription = level.props.description;
     
-    // is this right? Could also just store the starting point and actually init later, depending on usage.
-    [world initPlayerAt:playerStart];
+    [world initPlayerAt:playerStart fromPreset:playerStartPreset];
     
     [world setupElbowRoom];
 }
