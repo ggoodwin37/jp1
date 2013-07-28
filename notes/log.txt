@@ -251,6 +251,5 @@ don't know whether to laugh at how awesome this is, or cry at how bad my origina
 Well the perf pass took a little longer than expected, but went way better than expected.
 
 Last day of coding, todos:
-- rip out manifest stuff, just leave it flat level list for now (opportunistically get set up for tags if possible).
 - new graphics in.
 - minor tweaks and bugfixes (4x4 buttons, edit props pop up on new level, etc).

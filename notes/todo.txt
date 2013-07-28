@@ -16,11 +16,6 @@
 
 - put it on new iPad (maybe? I sort of like the old one keeping me honest).
 
-- finish manifest import/export. export to zip+email. import from bundle+zip (to disk).
-  - is there a better way to do this? dropbox integration...
-  - who is the audience for this? is it for dev only, or is this something that end users need? I think it's dev only, then when shipp
-ing, import the files into the bundle. so dropbox or something ghetto would work, as long as you can backup/manage the levels.
-
 - need a physics constants pass once most stuff is working
 - tweak air friction to less
 
@@ -34,9 +29,7 @@ ing, import the files into the bundle. so dropbox or something ghetto would work
 
 // future
 
-- low-hanging perf pass. some levels perf seems worse than expected. e.g. lots of moving platforms only, lots of stationary crates only.
-
-- implement the restricted rect version of EWorldView drawToContext for better perf while drawing blocks. (still relevant?)
+- implement the restricted rect version of EWorldView drawToContext for better perf while drawing blocks. (still relevant?) (pretty sure I did this already)
 
 
 // edit. claim: investing in edit makes play exponentially more awesome.
