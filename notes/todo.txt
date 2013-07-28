@@ -6,12 +6,8 @@
 
 - revisit how groups are instantiated/added to world and er.
 
-- fix down collide.
 - fix autovariation
 - edit: new level should show props immediately so I can type in level name.
-
-- experimental physics change: for blocks that are affected by gravity, only paraProp if they are standing on something. does this break collision detection?
-  - I forget why this was originally interesting, is it intended to stop player from jump-up-pushing stuff? but there's a risk that core collision detection would stop working.
 
 - drawing spriteStateMaps: base case is done, need to do edit support (tiling?) and consider handling non-integral case in play.
 
