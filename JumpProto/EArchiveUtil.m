@@ -179,36 +179,41 @@
         for( int xOffs = 0; xOffs < presetBlock.autoVariationMap.size.width; ++xOffs )
         {
             UInt32 xGrid = presetBlock.rect.origin.x + (xOffs * xStep);
-            UInt32 yGrid = presetBlock.rect.origin.y + (yOffs * yStep);
+            int yOffsAdjusted = presetBlock.autoVariationMap.size.height - yOffs - 1;  // the ol' mystery flip.
+            // I think this is because y polarity is different in grid coords and avmap coords. *waves hands*
+            UInt32 yGrid = presetBlock.rect.origin.y + (yOffsAdjusted * yStep);
             UInt32 avHint = 0;
-            
+
             EBlockPreset preset;
             EGridBlockMarker *marker;
-            
+
             marker = [doc getMarkerAtXGrid:(xGrid + 0) yGrid:(yGrid + yStep)];
             if( marker != nil && marker.shadowParent != nil ) marker = marker.shadowParent;
             preset = ( marker != nil ) ? marker.preset : EBlockPreset_None;
             if( [EArchiveUtil presetBlocksAreDistinct:presetBlock.preset] && marker != origMarker ) preset = EBlockPreset_None;
             if( presetBlock.preset == preset )
-                avHint |= AutoVariationMask_U;
+                avHint |= AutoVariationMask_D;
+
             marker = [doc getMarkerAtXGrid:(xGrid - xStep) yGrid:(yGrid + 0)];
             if( marker != nil && marker.shadowParent != nil ) marker = marker.shadowParent;
             preset = ( marker != nil ) ? marker.preset : EBlockPreset_None;
             if( [EArchiveUtil presetBlocksAreDistinct:presetBlock.preset] && marker != origMarker ) preset = EBlockPreset_None;
             if( presetBlock.preset == preset )
                 avHint |= AutoVariationMask_L;
+
             marker = [doc getMarkerAtXGrid:(xGrid + xStep) yGrid:(yGrid + 0)];
             if( marker != nil && marker.shadowParent != nil ) marker = marker.shadowParent;
             preset = ( marker != nil ) ? marker.preset : EBlockPreset_None;
             if( [EArchiveUtil presetBlocksAreDistinct:presetBlock.preset] && marker != origMarker ) preset = EBlockPreset_None;
             if( presetBlock.preset == preset )
                 avHint |= AutoVariationMask_R;
+
             marker = [doc getMarkerAtXGrid:(xGrid + 0) yGrid:(yGrid - yStep)];
             if( marker != nil && marker.shadowParent != nil ) marker = marker.shadowParent;
             preset = ( marker != nil ) ? marker.preset : EBlockPreset_None;
             if( [EArchiveUtil presetBlocksAreDistinct:presetBlock.preset] && marker != origMarker ) preset = EBlockPreset_None;
             if( presetBlock.preset == preset )
-                avHint |= AutoVariationMask_D;
+                avHint |= AutoVariationMask_U;
 
             [presetBlock.autoVariationMap setHintAtX:xOffs y:yOffs to:avHint];
         }

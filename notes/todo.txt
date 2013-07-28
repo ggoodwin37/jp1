@@ -2,12 +2,13 @@
 
 // near term plan
 
-- when changing size of edit block brush, should have -4/+4 buttons in addition (or just make existing ones do +/- 4)
+- edit: shouldn't go to smallest visual grid size unless draw brush is that size.
+- edit: new level should show props immediately so I can type in level name.
+- edit: when changing size of edit block brush, should have -4/+4 buttons in addition (or just make existing ones do +/- 4)
+
+- crumbles: off by one y?
 
 - revisit how groups are instantiated/added to world and er.
-
-- fix autovariation
-- edit: new level should show props immediately so I can type in level name.
 
 - drawing spriteStateMaps: base case is done, need to do edit support (tiling?) and consider handling non-integral case in play.
 

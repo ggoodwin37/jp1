@@ -2,7 +2,6 @@
 
 - player gibs broken (invisible, but still in ER)
 - trying to erase 2x2 blocks (instead of 4x4) seemed to not work in some cases.
-- autovariation not quite right, looks like it might be a simple edge flip type of problem.
 
 
 // old
