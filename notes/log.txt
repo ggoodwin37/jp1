@@ -249,4 +249,5 @@ don't know whether to laugh at how awesome this is, or cry at how bad my origina
 
 still a few loose ends to fix up but overall this is bitchin.
 - down collide not firing?
+  - actually this looks like it was broken during the downV = 0 optimization, this causes collision detection to not fire for the down case because targetOffset == 0 by the time we want to check this.
 
