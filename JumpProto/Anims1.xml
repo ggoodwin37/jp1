@@ -1,54 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <AnimDefs>
-    <!--
-    <AnimDef name="pr1_walking">
-        <AnimFrame spriteName="pr1_walk0" dur="5" />
-        <AnimFrame spriteName="pr1_walk1" dur="5" />
-        <AnimFrame spriteName="pr1_walk2" dur="10" />
+    <AnimDef name="rob16-walking" >
+        <AnimFrame spriteName="rob16-walk-0" dur="1" />
+        <AnimFrame spriteName="rob16-walk-1" dur="1" />
+        <AnimFrame spriteName="rob16-walk-2" dur="1" />
+        <AnimFrame spriteName="rob16-walk-3" dur="1" />
     </AnimDef>
-    <AnimDef name="pr2_walking">
-        <AnimFrame spriteName="pr2_walk1" dur="5" />
-        <AnimFrame spriteName="pr2_walk2" dur="5" />
-        <AnimFrame spriteName="pr2_walk0" dur="5" />
-        <AnimFrame spriteName="pr2_walk2" dur="5" />
+    <AnimDef name="tiny-creep-fuzz-walking" >
+        <AnimFrame spriteName="tiny-creep-fuzz-0" dur="4" />
+        <AnimFrame spriteName="tiny-creep-fuzz-1" dur="3" />
     </AnimDef>
-    <AnimDef name="props0_goalflag_anim">
-        <AnimFrame spriteName="props0_goalflag_0" dur="3" />
-        <AnimFrame spriteName="props0_goalflag_1" dur="1" />
+    <AnimDef name="tiny-creep-jelly-wobble" >
+        <AnimFrame spriteName="tiny-creep-jelly-0" dur="1" />
+        <AnimFrame spriteName="tiny-creep-jelly-1" dur="1" />
     </AnimDef>
-    <AnimDef name="convL">
-        <AnimFrame spriteName="bl_convL_1" dur="1" />
-        <AnimFrame spriteName="bl_convL_2" dur="1" />
-        <AnimFrame spriteName="bl_convL_3" dur="1" />
+    <AnimDef name="tiny-conveyor-l" >
+        <AnimFrame spriteName="tiny-conveyor-0" dur="1" />
+        <AnimFrame spriteName="tiny-conveyor-1" dur="1" />
+        <AnimFrame spriteName="tiny-conveyor-2" dur="1" />
+        <AnimFrame spriteName="tiny-conveyor-3" dur="1" />
     </AnimDef>
-    <AnimDef name="convR">
-        <AnimFrame spriteName="bl_convR_1" dur="1" />
-        <AnimFrame spriteName="bl_convR_2" dur="1" />
-        <AnimFrame spriteName="bl_convR_3" dur="1" />
+    <AnimDef name="tiny-conveyor-r" >
+        <AnimFrame spriteName="tiny-conveyor-3" dur="1" />
+        <AnimFrame spriteName="tiny-conveyor-2" dur="1" />
+        <AnimFrame spriteName="tiny-conveyor-1" dur="1" />
+        <AnimFrame spriteName="tiny-conveyor-0" dur="1" />
     </AnimDef>
-    <AnimDef name="testMeanieB">
-        <AnimFrame spriteName="props0_testMeanieB_0" dur="4" />
-        <AnimFrame spriteName="props0_testMeanieB_1" dur="3" />
-        <AnimFrame spriteName="props0_testMeanieB_2" dur="3" />
-        <AnimFrame spriteName="props0_testMeanieB_1" dur="3" />
+    <AnimDef name="tiny-hbeam-vibrate" >
+        <AnimFrame spriteName="tiny-hbeam-m-0" dur="1" />
+        <AnimFrame spriteName="tiny-hbeam-m-1" dur="1" />
     </AnimDef>
-    <AnimDef name="faceBoneMenace">
-        <AnimFrame spriteName="badguy_faceBone0" dur="1" />
-        <AnimFrame spriteName="badguy_faceBone1" dur="1" />
+    <AnimDef name="tiny-mv-plat" >
+        <AnimFrame spriteName="tiny-mv-plat-0" dur="1" />
+        <AnimFrame spriteName="tiny-mv-plat-1" dur="1" />
+        <AnimFrame spriteName="tiny-mv-plat-2" dur="1" />
     </AnimDef>
-    <AnimDef name="bl_crumbles1_crumbling">
-        <AnimFrame spriteName="bl_crumbles1_crumbling1" dur="1" />
-        <AnimFrame spriteName="bl_crumbles1_crumbling2" dur="1" />
-        <AnimFrame spriteName="bl_crumbles1_crumbling3" dur="1" />
-        <AnimFrame spriteName="bl_crumbles1_crumbling4" dur="1" />
+    <AnimDef name="tiny-spikes-u" >
+        <AnimFrame spriteName="tiny-spikes-u-0" dur="5" />
+        <AnimFrame spriteName="tiny-spikes-u-1" dur="4" />
     </AnimDef>
-    <AnimDef name="bl_crumbles1_reappearing">
-        <AnimFrame spriteName="bl_crumbles1_crumbling4" dur="1" />
-        <AnimFrame spriteName="bl_crumbles1_crumbling3" dur="1" />
-        <AnimFrame spriteName="bl_crumbles1_crumbling2" dur="1" />
-        <AnimFrame spriteName="bl_crumbles1_crumbling1" dur="1" />
+    <AnimDef name="tiny-spikes-r" >
+        <AnimFrame spriteName="tiny-spikes-r-0" dur="5" />
+        <AnimFrame spriteName="tiny-spikes-r-1" dur="4" />
     </AnimDef>
-     -->
-    
-    
+    <AnimDef name="tiny-spikes-l" >
+        <AnimFrame spriteName="tiny-spikes-l-0" dur="5" />
+        <AnimFrame spriteName="tiny-spikes-l-1" dur="4" />
+    </AnimDef>
+    <AnimDef name="tiny-spikes-d" >
+        <AnimFrame spriteName="tiny-spikes-d-0" dur="5" />
+        <AnimFrame spriteName="tiny-spikes-d-1" dur="4" />
+    </AnimDef>
+    <AnimDef name="tiny-crum" >
+        <AnimFrame spriteName="tiny-crum-1" dur="1" />
+        <AnimFrame spriteName="tiny-crum-2" dur="1" />
+        <AnimFrame spriteName="tiny-crum-3" dur="1" />
+        <AnimFrame spriteName="tiny-crum-4" dur="1" />
+    </AnimDef>
 </AnimDefs>
