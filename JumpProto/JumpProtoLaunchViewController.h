@@ -35,13 +35,8 @@
     NSArray *m_levelPickerViewContents;
     int m_lastPickedLevelRow;
     
-    NSArray *m_packPickerViewContents;
-    int m_lastPickedPackRow;
-    
     LauncherDialogBase *m_currentLauncherDialog;
 }
-
-@property (nonatomic, retain) IBOutlet UIPickerView *packPickerView;
 
 @property (nonatomic, retain) IBOutlet UIPickerView *levelPickerView;
 @property (nonatomic, retain) IBOutlet UISwitch *deleteArmedSwitch;
@@ -51,13 +46,6 @@
 @property (nonatomic, retain) NSString *exitedLevelName;
 
 @property (nonatomic, retain) DpadInput *dpadInput;
-
-@property (nonatomic, retain) NSString *currentManifestName;
-
-
--(IBAction)onNewPackButtonTouched:(id)sender;
--(IBAction)onDeletePackButtonTouched:(id)sender;
--(IBAction)onExportPackButtonTouched:(id)sender;
 
 -(IBAction)onPlayButtonTouched:(id)sender;
 -(IBAction)onEditButtonTouched:(id)sender;

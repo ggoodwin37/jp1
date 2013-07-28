@@ -18,7 +18,6 @@
 
 @interface JumpProtoLaunchViewController (private)
 
--(void)populatePackPickerView;
 -(void)populateLevelPickerView;
 
 @end
@@ -28,11 +27,8 @@
 
 @synthesize levelPickerView, deleteArmedSwitch, loadFromDiskSwitch;
 @synthesize dpadInput;
-@synthesize packPickerView;
 
 @synthesize exitedLevelName;
-
-@synthesize currentManifestName;
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -54,7 +50,6 @@
     self.loadFromDiskSwitch = nil;
     self.levelPickerView = nil;
     self.exitedLevelName = nil;
-    [m_packPickerViewContents release]; m_packPickerViewContents = nil;
     [m_levelPickerViewContents release]; m_levelPickerViewContents = nil;
     [m_childViewController release]; m_childViewController = nil;
     [m_currentLauncherDialog release]; m_currentLauncherDialog = nil;
@@ -73,12 +68,7 @@
     [AspectController initGlobalInstanceWithRect:self.view.frame flipCoords:YES];
     
     [LevelFileUtil initGlobalInstance];
-    m_lastPickedPackRow = 0;
-    [self populatePackPickerView];
 
-    NSAssert( [m_packPickerViewContents count] > m_lastPickedPackRow, @"not enough manifests, can't handle this." );  // TODO: could handle this by generating one on the spot.
-    self.currentManifestName = (NSString *)[m_packPickerViewContents objectAtIndex:m_lastPickedPackRow];
-    
     self.dpadInput = [[DpadInput alloc] init];
     
     [self populateLevelPickerView];
@@ -180,58 +170,6 @@
 }
 
 
--(IBAction)onNewPackButtonTouched:(id)sender
-{
-    if( m_currentLauncherDialog != nil )
-    {
-        NSLog( @"already a LauncherDialog exists, go away." );
-        return;
-    }
-    m_currentLauncherDialog = [[LauncherNewPackDialog alloc] initWithNibName:@"LauncherNewPackDialog" bundle:nil];
-    [self addCurrentLauncherDialog];
-}
-
-
--(IBAction)onDeletePackButtonTouched:(id)sender
-{
-    if( m_currentLauncherDialog != nil )
-    {
-        NSLog( @"already a LauncherDialog exists, go away." );
-        return;
-    }
-    if( [m_packPickerViewContents count] < 2 )
-    {
-        NSLog( @"can't delete last pack." );
-        return;
-    }
-    
-    LauncherDeletePackDialog *dialog = [[LauncherDeletePackDialog alloc] initWithNibName:@"LauncherDeletePackDialog" bundle:nil];
-    m_currentLauncherDialog = dialog;
-    [self addCurrentLauncherDialog];
-    
-    int cLevels = 0;
-    LevelManifest *currentManifest = [[LevelFileUtil instance] getExistingManifestNamed:self.currentManifestName];
-    if( currentManifest != nil )
-    {
-        cLevels = [currentManifest getLevelNameCount];
-    }
-    
-    dialog.theLabel.text = [NSString stringWithFormat:@"Pack contains %d levels, do you want to delete them too?", cLevels];
-}
-
-
--(IBAction)onExportPackButtonTouched:(id)sender
-{
-    if( m_currentLauncherDialog != nil )
-    {
-        NSLog( @"already a LauncherDialog exists, go away." );
-        return;
-    }
-    m_currentLauncherDialog = [[LauncherExportPackDialog alloc] initWithNibName:@"LauncherExportPackDialog" bundle:nil];
-    [self addCurrentLauncherDialog];
-}
-
-
 -(IBAction)onPlayButtonTouched:(id)sender
 {
     if( m_lastPickedLevelRow == 0 )
@@ -249,7 +187,7 @@
 
 -(IBAction)onEditButtonTouched:(id)sender
 {
-    EditMainViewController *editVC = [[EditMainViewController alloc] initWithNibName:@"EditMainViewController" bundle:nil defaultManifestName:self.currentManifestName];
+    EditMainViewController *editVC = [[EditMainViewController alloc] initWithNibName:@"EditMainViewController" bundle:nil];
     m_childViewController = editVC;
     [self addChildViewWithTransition:YES];
 }
@@ -272,11 +210,6 @@
     NSString *deletePath = [[LevelFileUtil instance] getPathForLevelName:deleteName];
     NSAssert( [[LevelFileUtil instance] doesFileExistAtPath:deletePath], @"got a bad path (assume it came from the picker?)" );
     [[LevelFileUtil instance] deleteFileAtPath:deletePath];
-    
-    LevelManifest *currentManifest = [[LevelFileUtil instance] getExistingManifestNamed:self.currentManifestName];
-    NSAssert( currentManifest != nil, @"bad current manifest?" );
-    [currentManifest tryRemoveLevelName:deleteName];
-    [[LevelFileUtil instance] writeManifest:currentManifest];
     
     [self populateLevelPickerView];
     self.deleteArmedSwitch.on = NO;
@@ -303,21 +236,7 @@
     m_childViewController.view.hidden = YES;
 
     // refresh pickerViews in case something changed (eg new level).
-    [self populatePackPickerView];
     [self populateLevelPickerView];
-}
-
-
--(void)populatePackPickerView
-{
-    NSMutableArray *mutableContents = [[NSMutableArray arrayWithCapacity:50] retain];
-    
-    [[LevelFileUtil instance] addManifestNamesTo:mutableContents];
-    
-    [m_packPickerViewContents release];
-    m_packPickerViewContents = mutableContents;
-    
-    [self.packPickerView reloadAllComponents];
 }
 
 
@@ -328,7 +247,7 @@
     // zero'th entry is special, corresponding to "new level"
     [mutableContents addObject:@"Create new level..."];
     
-    [[LevelFileUtil instance] addLevelNamesForManifestName:self.currentManifestName to:mutableContents];
+    [[LevelFileUtil instance] addAllLevelNamesTo:mutableContents];
     
     [m_levelPickerViewContents release];
     m_levelPickerViewContents = mutableContents;
@@ -360,23 +279,19 @@
 
 -(int)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
-    NSAssert( pickerView == self.levelPickerView || pickerView == self.packPickerView, @"what pickerView is talking to me?" );
+    NSAssert( pickerView == self.levelPickerView, @"what pickerView is talking to me?" );
     return 1;
 }
 
 
 -(int)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    NSAssert( pickerView == self.levelPickerView || pickerView == self.packPickerView, @"what pickerView is talking to me?" );
+    NSAssert( pickerView == self.levelPickerView, @"what pickerView is talking to me?" );
     NSAssert( component == 0, @"called with bad component number?" );
 
     if( pickerView == self.levelPickerView )
     {
         return [m_levelPickerViewContents count];
-    }
-    else if( pickerView == self.packPickerView )
-    {
-        return [m_packPickerViewContents count];
     }
     
     return 0;
@@ -387,16 +302,9 @@
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    NSAssert( pickerView == self.levelPickerView || pickerView == self.packPickerView, @"what pickerView is talking to me?" );
+    NSAssert( pickerView == self.levelPickerView, @"what pickerView is talking to me?" );
     NSAssert( component == 0, @"called with bad component number?" );
-    if( pickerView == self.packPickerView )
-    {
-        NSAssert( row < [m_packPickerViewContents count], @"bad row?" );
-        m_lastPickedPackRow = row;
-        self.currentManifestName = (NSString *)[m_packPickerViewContents objectAtIndex:m_lastPickedPackRow];
-        [self populateLevelPickerView]; // update level picker with contents of newly selected manifest.
-    }
-    else if( pickerView == self.levelPickerView )
+    if( pickerView == self.levelPickerView )
     {
         NSAssert( row < [m_levelPickerViewContents count], @"bad row?" );
         m_lastPickedLevelRow = row;
@@ -406,15 +314,9 @@
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    NSAssert( pickerView == self.levelPickerView || pickerView == self.packPickerView, @"what pickerView is talking to me?" );
+    NSAssert( pickerView == self.levelPickerView, @"what pickerView is talking to me?" );
     NSAssert( component == 0, @"called with bad component number?" );
-    if( pickerView == self.packPickerView )
-    {
-        NSAssert( row < [m_packPickerViewContents count], @"bad row?" );
-        NSString *resultString = (NSString *)[m_packPickerViewContents objectAtIndex:row];
-        return resultString;
-    }
-    else if( pickerView == self.levelPickerView )
+    if( pickerView == self.levelPickerView )
     {
         NSAssert( row < [m_levelPickerViewContents count], @"bad row?" );
         NSString *resultString = (NSString *)[m_levelPickerViewContents objectAtIndex:row];
@@ -428,111 +330,9 @@
 
 -(void)onDialogClosed:(LauncherUIDialogId)dialogId withStringInput:(NSString *)stringInput buttonSelection:(LauncherUIButtonSelection)button
 {
+    // this appears to be unused since I removed manifest/pack stuff.
     NSAssert( m_currentLauncherDialog != nil, @"m_currentLauncherDialog fail." );
-
-    if( dialogId == LauncherUIDialog_NewPack )
-    {
-        if( button == LauncherUIButton_1 )
-        {
-            // create new manifest
-            if( stringInput != nil )
-            {
-                NSLog( @"Adding a manifest called %@", stringInput );
-                [[LevelFileUtil instance] addManifestWithName:stringInput];
-                self.currentManifestName = stringInput;
-                
-                // update pickers based on newly created pack (which is now selected)
-                [self populatePackPickerView];
-                m_lastPickedPackRow = 0;
-                for( int i = 0; i < [m_packPickerViewContents count]; ++i )
-                {
-                    NSString *thisContentsString = (NSString *)[m_packPickerViewContents objectAtIndex:i];
-                    if( [thisContentsString isEqualToString:self.currentManifestName] )
-                    {
-                        m_lastPickedPackRow = i;
-                        break;
-                    }
-                }
-                [self.packPickerView selectRow:m_lastPickedPackRow inComponent:0 animated:NO];
-                [self populateLevelPickerView];
-                
-                NSLog( @"created manifest, current manifest name is now %@", self.currentManifestName );
-            }
-        }
-        else if( button == LauncherUIButton_2 )
-        {
-            // cancel, do nothing
-        }
-        else
-        {
-            NSLog( @"onDialogClosed: unexpected button for DialogNew" );
-        }
-    }
-    else if( dialogId == LauncherUIDialog_DeletePack )
-    {
-        LevelManifest *currentManifest = [[LevelFileUtil instance] getExistingManifestNamed:self.currentManifestName];
-        if( currentManifest == nil )
-        {
-            NSLog (@"onDeleteDialogClosed: bad currentManifestName." );
-        }
-        else
-        {
-            BOOL fDeleteCurrentManifest = NO;
-            if( button == LauncherUIButton_1 )
-            {
-                // yes, delete levels
-                for( int i = 0; i < [currentManifest getLevelNameCount]; ++i )
-                {
-                    NSString *thisLevelPath = [[LevelFileUtil instance] getPathForLevelName:[currentManifest getLevelName:i]];
-                    NSAssert( [[LevelFileUtil instance] doesFileExistAtPath:thisLevelPath], @"where did my file go?" );
-                    [[LevelFileUtil instance] deleteFileAtPath:thisLevelPath];
-                }
-                fDeleteCurrentManifest = YES;
-            }
-            else if( button == LauncherUIButton_2 )
-            {
-                // no, don't delete levels, only remove manifest
-                fDeleteCurrentManifest = YES;
-            }
-            else if( button == LauncherUIButton_3 )
-            {
-                // cancel, do nothing
-            }
-            else
-            {
-                NSLog( @"onDialogClosed: unexpected button for DialogDelete" );
-            }
-            if( fDeleteCurrentManifest )
-            {
-                NSString *thisManifestPath = [[LevelFileUtil instance] getPathForManifest:currentManifest];
-                [[LevelFileUtil instance] deleteFileAtPath:thisManifestPath];
-                [[LevelFileUtil instance] refreshManifestView];
-                m_lastPickedPackRow = 0;
-                [self populatePackPickerView];
-                self.currentManifestName = (NSString *)[m_packPickerViewContents objectAtIndex:m_lastPickedPackRow];
-                [self populateLevelPickerView];
-            }
-        }
-    }
-    else if( dialogId == LauncherUIDialog_ExportPack )
-    {
-        if( button == LauncherUIButton_1 )
-        {
-            NSLog( @"exportPack NYI" );
-        }
-        else if( button == LauncherUIButton_2 )
-        {
-            // cancel, do nothing
-        }
-        else
-        {
-            NSLog( @"onDialogClosed: unexpected button for DialogExport" );
-        }
-    }
-    else
-    {
-        NSLog( @"onDialogClosed: Unrecognized dialogId." );
-    }
+    NSLog( @"onDialogClosed: Unrecognized dialogId." );
     
     [m_currentLauncherDialog.view removeFromSuperview];
     [m_currentLauncherDialog removeFromParentViewController]; // what's the diff between this and m_currentLauncherDialog.view removeFromSuperview?

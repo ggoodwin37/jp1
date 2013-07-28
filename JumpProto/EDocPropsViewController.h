@@ -10,22 +10,17 @@
 #import "LevelUtil.h"
 #import "EDoc.h"
 
-@interface EDocPropsViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface EDocPropsViewController : UIViewController
 {
-    NSMutableArray *m_manifestNameList;
 }
 
 @property (nonatomic, retain) IBOutlet UITextField *levelNameTextField;
 @property (nonatomic, retain) IBOutlet UITextField *tagsTextField;
 
-@property (nonatomic, retain) IBOutlet UIPickerView *packPickerView;
-
 @property (nonatomic, retain) EGridDocument *doc;
 
-@property (nonatomic, retain) NSString *selectedManifestName;
 
-
--(id)initWithNibName:(NSString *)nibNameIn bundle:(NSBundle *)bundleIn doc:(EGridDocument *)docIn initialLevelPackName:(NSString *)levelPackName;
+-(id)initWithNibName:(NSString *)nibNameIn bundle:(NSBundle *)bundleIn doc:(EGridDocument *)docIn;
 
 -(void)updateValuesFromDoc;
 

@@ -56,7 +56,7 @@
 @property (nonatomic, retain) GroupPickerViewController *groupPickerVC;
 @property (nonatomic, retain) DrawSettingsViewController *drawSettingsVC;
 
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil defaultManifestName:(NSString *)defaultManifestName;
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 
 -(void)setParentDelegate:(id<IParentVC>)parent;
 -(void)setStartingLevel:(NSString *)levelName;

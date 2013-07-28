@@ -30,7 +30,7 @@
 @synthesize showHideEditToolsButton, showHideGridButton, showHidePropsButton;
 @synthesize docPropsVC, groupPickerVC, drawSettingsVC;
 
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil defaultManifestName:(NSString *)defaultManifestName
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     if( self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil] )
     {
@@ -42,11 +42,7 @@
 
         self.editToolsBlockPaletteVC = [[EBlockPaletteViewController alloc] initWithNibName:@"EBlockPaletteViewController" bundle:nil];
 
-        LevelManifest *owningManifest = [[LevelFileUtil instance] getOwningManifestForLevelName:m_doc.levelName];
-        NSString *initialLevelPackName = (owningManifest != nil) ? owningManifest.name : defaultManifestName;
-
-        self.docPropsVC = [[EDocPropsViewController alloc] initWithNibName:@"EDocPropsViewController"
-                                                           bundle:nil doc:m_doc initialLevelPackName:initialLevelPackName];
+        self.docPropsVC = [[EDocPropsViewController alloc] initWithNibName:@"EDocPropsViewController" bundle:nil doc:m_doc];
         
         self.groupPickerVC = [[GroupPickerViewController alloc] initWithNibName:@"GroupPickerViewController" bundle:nil];
         self.drawSettingsVC = [[DrawSettingsViewController alloc] initWithNibName:@"DrawSettingsViewController" bundle:nil];
@@ -211,14 +207,9 @@
     }
     else
     {
+        // TODO: edit new level fixes/improvements here
         m_doc.levelName = [EditMainViewController nextLevelName];
         m_doc.levelDescription = @"No description";
-        
-        LevelManifest *currentManifest = [[LevelFileUtil instance] getExistingManifestNamed:self.docPropsVC.selectedManifestName];
-        NSAssert( currentManifest != nil, @"bad initial docProps manifest?" );
-        NSLog( @"adding new level %@ to manifest %@.", m_doc.levelName, currentManifest.name );
-        [[LevelFileUtil instance] addLevelName:m_doc.levelName toManifest:currentManifest];
-        [[LevelFileUtil instance] writeManifest:currentManifest];
     }
     self.worldView.worldRect = [self getInitialWorldViewRect];
     
@@ -569,24 +560,6 @@
         if( ![oldName isEqualToString:m_doc.levelName] )
         {
             self.worldView.docDirty = YES;
-            
-            // update owning manifest
-            LevelManifest *owningManifest = [[LevelFileUtil instance] getOwningManifestForLevelName:oldName];
-            if( owningManifest != nil )
-            {
-                NSLog( @"rename: removing old name %@ from manifest %@.", oldName, owningManifest.name );
-                [[LevelFileUtil instance] removeLevelName:oldName fromManifest:owningManifest];
-            }
-            else
-            {
-                // no manifest owned this level yet, possibly because the level hasn't been saved yet (only saved levels can be owned)
-                NSLog( @"rename: ld name %@ is not owned by a manifest yet.", oldName );
-                owningManifest = [[LevelFileUtil instance] getExistingManifestNamed:self.docPropsVC.selectedManifestName];
-                NSAssert( owningManifest != nil, @"not-saved-yet case: selected manifest doesn't exist?" );
-            }
-            NSLog( @"rename: adding new name %@ to manifest %@.", m_doc.levelName, owningManifest.name );
-            [[LevelFileUtil instance] addLevelName:m_doc.levelName toManifest:owningManifest];
-            [[LevelFileUtil instance] writeManifest:owningManifest];  // level may not actually be on disk yet, though...problem?
             
             NSString *oldPath = [[LevelFileUtil instance] getPathForLevelName:oldName];
             if( [[LevelFileUtil instance] doesFileExistAtPath:oldPath] )
