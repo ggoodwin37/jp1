@@ -10,6 +10,12 @@
 		932DD07917974A3100375642 /* RectCoordBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 932DD07817974A3100375642 /* RectCoordBuffer.m */; };
 		93732D8417A4327D00F1B5A7 /* ElbowRoomGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */; };
 		93732D8717A4982B00F1B5A7 /* PropagateMovementUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */; };
+		9386061417A5B86900A544B5 /* rob-16.png in Resources */ = {isa = PBXBuildFile; fileRef = 9386061017A5B86900A544B5 /* rob-16.png */; };
+		9386061517A5B86900A544B5 /* tiny-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9386061117A5B86900A544B5 /* tiny-2.png */; };
+		9386061617A5B86900A544B5 /* tiny-creeps-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9386061217A5B86900A544B5 /* tiny-creeps-1.png */; };
+		9386061717A5B86900A544B5 /* tiny-debut-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9386061317A5B86900A544B5 /* tiny-debut-1.png */; };
+		9386061A17A5BA6E00A544B5 /* Anims1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9386061817A5BA6E00A544B5 /* Anims1.xml */; };
+		9386061B17A5BA6E00A544B5 /* Sprites1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9386061917A5BA6E00A544B5 /* Sprites1.xml */; };
 		93A736BC17580FEE0059C2C9 /* EBlockMRUList.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */; };
 		F305ECE91623E1FB00E153FB /* blAlgae.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE61623E1FB00E153FB /* blAlgae.png */; };
 		F305ECEA1623E1FB00E153FB /* blavQik.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE71623E1FB00E153FB /* blavQik.png */; };
@@ -135,6 +141,12 @@
 		93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElbowRoomGrid.m; sourceTree = "<group>"; };
 		93732D8517A4982A00F1B5A7 /* PropagateMovementUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropagateMovementUpdater.h; sourceTree = "<group>"; };
 		93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropagateMovementUpdater.m; sourceTree = "<group>"; };
+		9386061017A5B86900A544B5 /* rob-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rob-16.png"; path = "images/rob-16.png"; sourceTree = "<group>"; };
+		9386061117A5B86900A544B5 /* tiny-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-2.png"; path = "images/tiny-2.png"; sourceTree = "<group>"; };
+		9386061217A5B86900A544B5 /* tiny-creeps-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-creeps-1.png"; path = "images/tiny-creeps-1.png"; sourceTree = "<group>"; };
+		9386061317A5B86900A544B5 /* tiny-debut-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-debut-1.png"; path = "images/tiny-debut-1.png"; sourceTree = "<group>"; };
+		9386061817A5BA6E00A544B5 /* Anims1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Anims1.xml; sourceTree = "<group>"; };
+		9386061917A5BA6E00A544B5 /* Sprites1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Sprites1.xml; sourceTree = "<group>"; };
 		93A736BA17580FEE0059C2C9 /* EBlockMRUList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBlockMRUList.h; sourceTree = "<group>"; };
 		93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBlockMRUList.m; sourceTree = "<group>"; };
 		F305ECE61623E1FB00E153FB /* blAlgae.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blAlgae.png; path = images/blAlgae.png; sourceTree = "<group>"; };
@@ -337,6 +349,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9386060E17A5B83B00A544B5 /* batch1 */ = {
+			isa = PBXGroup;
+			children = (
+				F305ECE61623E1FB00E153FB /* blAlgae.png */,
+				F305ECE71623E1FB00E153FB /* blavQik.png */,
+				F305ECE81623E1FB00E153FB /* blHalfsize1.png */,
+				F3FB8F6D14D90CEE00C19FBF /* blCrumbles1.png */,
+				F3B180AE14D0A8DA007DEA9E /* badGuys2.png */,
+				F3B180AF14D0A8DA007DEA9E /* blColl3.png */,
+				F3B180B014D0A8DA007DEA9E /* playerGibs1.png */,
+				F3BB50EB14C14A7D00D29D55 /* beinSilly_emCrop1_48.png */,
+				F3BB50EC14C14A7D00D29D55 /* beinSilly_maxCrop1_96.png */,
+				F3F75E3114A2E0C100F5A52F /* avblTurf2.png */,
+				F3B3E90214508E0100B5A579 /* conveyor1.png */,
+				F39963041445F3680082822E /* blColumn0.png */,
+				F39963051445F3680082822E /* blOneWay0.png */,
+				F39963061445F3680082822E /* props0.png */,
+				F39963071445F3680082822E /* testblox2b.png */,
+				F3471E4C143D515F001AA4C8 /* icons 1.png */,
+				F3F306AB14153D11005ACA55 /* pr2.png */,
+				F35880261407FD32005A1FD3 /* pr1.png */,
+				F35880271407FD32005A1FD3 /* testblox1.png */,
+				F3BF63871405FB7E00431E18 /* Sprites0.xml */,
+				F3BF63891405FB9A00431E18 /* Anims0.xml */,
+			);
+			name = batch1;
+			sourceTree = "<group>";
+		};
+		9386060F17A5B84F00A544B5 /* batch2 */ = {
+			isa = PBXGroup;
+			children = (
+				9386061817A5BA6E00A544B5 /* Anims1.xml */,
+				9386061917A5BA6E00A544B5 /* Sprites1.xml */,
+				9386061017A5B86900A544B5 /* rob-16.png */,
+				9386061117A5B86900A544B5 /* tiny-2.png */,
+				9386061217A5B86900A544B5 /* tiny-creeps-1.png */,
+				9386061317A5B86900A544B5 /* tiny-debut-1.png */,
+			);
+			name = batch2;
+			sourceTree = "<group>";
+		};
 		F3471E4E143D6E08001AA4C8 /* ArchiveFormat */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,27 +495,8 @@
 		F3BF63851405FAFF00431E18 /* Game resources */ = {
 			isa = PBXGroup;
 			children = (
-				F305ECE61623E1FB00E153FB /* blAlgae.png */,
-				F305ECE71623E1FB00E153FB /* blavQik.png */,
-				F305ECE81623E1FB00E153FB /* blHalfsize1.png */,
-				F3FB8F6D14D90CEE00C19FBF /* blCrumbles1.png */,
-				F3B180AE14D0A8DA007DEA9E /* badGuys2.png */,
-				F3B180AF14D0A8DA007DEA9E /* blColl3.png */,
-				F3B180B014D0A8DA007DEA9E /* playerGibs1.png */,
-				F3BB50EB14C14A7D00D29D55 /* beinSilly_emCrop1_48.png */,
-				F3BB50EC14C14A7D00D29D55 /* beinSilly_maxCrop1_96.png */,
-				F3F75E3114A2E0C100F5A52F /* avblTurf2.png */,
-				F3B3E90214508E0100B5A579 /* conveyor1.png */,
-				F39963041445F3680082822E /* blColumn0.png */,
-				F39963051445F3680082822E /* blOneWay0.png */,
-				F39963061445F3680082822E /* props0.png */,
-				F39963071445F3680082822E /* testblox2b.png */,
-				F3471E4C143D515F001AA4C8 /* icons 1.png */,
-				F3F306AB14153D11005ACA55 /* pr2.png */,
-				F35880261407FD32005A1FD3 /* pr1.png */,
-				F35880271407FD32005A1FD3 /* testblox1.png */,
-				F3BF63871405FB7E00431E18 /* Sprites0.xml */,
-				F3BF63891405FB9A00431E18 /* Anims0.xml */,
+				9386060F17A5B84F00A544B5 /* batch2 */,
+				9386060E17A5B83B00A544B5 /* batch1 */,
 			);
 			name = "Game resources";
 			sourceTree = "<group>";
@@ -764,6 +798,12 @@
 				F305ECEA1623E1FB00E153FB /* blavQik.png in Resources */,
 				F305ECEB1623E1FB00E153FB /* blHalfsize1.png in Resources */,
 				F3DABAF01665F39B00471044 /* DrawSettingsViewController.xib in Resources */,
+				9386061417A5B86900A544B5 /* rob-16.png in Resources */,
+				9386061517A5B86900A544B5 /* tiny-2.png in Resources */,
+				9386061617A5B86900A544B5 /* tiny-creeps-1.png in Resources */,
+				9386061717A5B86900A544B5 /* tiny-debut-1.png in Resources */,
+				9386061A17A5BA6E00A544B5 /* Anims1.xml in Resources */,
+				9386061B17A5BA6E00A544B5 /* Sprites1.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

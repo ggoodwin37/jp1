@@ -72,7 +72,7 @@
 {
     NSMutableDictionary *spriteSheetTable = [NSMutableDictionary dictionaryWithCapacity:20];
     
-    NSArray *spriteDefResources = [NSArray arrayWithObjects:@"Sprites0.xml", nil];
+    NSArray *spriteDefResources = [NSArray arrayWithObjects:@"Sprites0.xml", @"Sprites1.xml", nil];
     SpriteDefLoader *spriteDefLoader = [[SpriteDefLoader alloc] init];
     NSArray *spriteDefs = [spriteDefLoader loadSpriteDefsFrom:spriteDefResources withSpriteSheetTable:spriteSheetTable];
     [spriteDefLoader release];
@@ -90,7 +90,7 @@
         }
     }
     
-    NSArray *animDefResources = [NSArray arrayWithObjects:@"Anims0.xml", nil];
+    NSArray *animDefResources = [NSArray arrayWithObjects:@"Anims0.xml", @"Anims1.xml", nil];
     AnimDefLoader *animDefLoader = [[AnimDefLoader alloc] init];
     NSArray *animDefs = [animDefLoader loadAnimDefsFrom:animDefResources withSpriteDefTable:m_spriteDefMap];
     [animDefLoader release];

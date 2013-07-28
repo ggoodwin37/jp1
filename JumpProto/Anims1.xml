@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AnimDefs>
+    <!--
+    <AnimDef name="pr1_walking">
+        <AnimFrame spriteName="pr1_walk0" dur="5" />
+        <AnimFrame spriteName="pr1_walk1" dur="5" />
+        <AnimFrame spriteName="pr1_walk2" dur="10" />
+    </AnimDef>
+    <AnimDef name="pr2_walking">
+        <AnimFrame spriteName="pr2_walk1" dur="5" />
+        <AnimFrame spriteName="pr2_walk2" dur="5" />
+        <AnimFrame spriteName="pr2_walk0" dur="5" />
+        <AnimFrame spriteName="pr2_walk2" dur="5" />
+    </AnimDef>
+    <AnimDef name="props0_goalflag_anim">
+        <AnimFrame spriteName="props0_goalflag_0" dur="3" />
+        <AnimFrame spriteName="props0_goalflag_1" dur="1" />
+    </AnimDef>
+    <AnimDef name="convL">
+        <AnimFrame spriteName="bl_convL_1" dur="1" />
+        <AnimFrame spriteName="bl_convL_2" dur="1" />
+        <AnimFrame spriteName="bl_convL_3" dur="1" />
+    </AnimDef>
+    <AnimDef name="convR">
+        <AnimFrame spriteName="bl_convR_1" dur="1" />
+        <AnimFrame spriteName="bl_convR_2" dur="1" />
+        <AnimFrame spriteName="bl_convR_3" dur="1" />
+    </AnimDef>
+    <AnimDef name="testMeanieB">
+        <AnimFrame spriteName="props0_testMeanieB_0" dur="4" />
+        <AnimFrame spriteName="props0_testMeanieB_1" dur="3" />
+        <AnimFrame spriteName="props0_testMeanieB_2" dur="3" />
+        <AnimFrame spriteName="props0_testMeanieB_1" dur="3" />
+    </AnimDef>
+    <AnimDef name="faceBoneMenace">
+        <AnimFrame spriteName="badguy_faceBone0" dur="1" />
+        <AnimFrame spriteName="badguy_faceBone1" dur="1" />
+    </AnimDef>
+    <AnimDef name="bl_crumbles1_crumbling">
+        <AnimFrame spriteName="bl_crumbles1_crumbling1" dur="1" />
+        <AnimFrame spriteName="bl_crumbles1_crumbling2" dur="1" />
+        <AnimFrame spriteName="bl_crumbles1_crumbling3" dur="1" />
+        <AnimFrame spriteName="bl_crumbles1_crumbling4" dur="1" />
+    </AnimDef>
+    <AnimDef name="bl_crumbles1_reappearing">
+        <AnimFrame spriteName="bl_crumbles1_crumbling4" dur="1" />
+        <AnimFrame spriteName="bl_crumbles1_crumbling3" dur="1" />
+        <AnimFrame spriteName="bl_crumbles1_crumbling2" dur="1" />
+        <AnimFrame spriteName="bl_crumbles1_crumbling1" dur="1" />
+    </AnimDef>
+     -->
+    
+    
+</AnimDefs>

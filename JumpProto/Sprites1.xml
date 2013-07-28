@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<SpriteDefs>
+<!--    <SpriteDefRun resourceName="testblox1.png" xStart="0" yStart="0" xEnd="128" spriteWidth="16" spriteHeight="16">
+        <NextSprite name="bl_brick" />
+        <NextSprite/>
+        <NextSprite/>
+        <NextSprite name="bl_ice" />
+        <NextSprite name="bl_cactus" />
+        <NextSprite name="bl_clown" />
+        <NextSprite name="bl_camo" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="pr1.png" xStart="0" yStart="0" xEnd="64" spriteWidth="16" spriteHeight="32">
+        <NextSprite name="pr1_still" />
+        <NextSprite name="pr1_walk0" />
+        <NextSprite name="pr1_walk1" />
+        <NextSprite name="pr1_walk2" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="pr2.png" xStart="0" yStart="0" xEnd="128" spriteWidth="24" spriteHeight="48" worldHeight="8">
+        <NextSprite name="pr2_still" />
+        <NextSprite name="pr2_walk0" />
+        <NextSprite name="pr2_walk1" />
+        <NextSprite name="pr2_walk2" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="icons 1.png" xStart="0" yStart="0" xEnd="64" spriteWidth="16" spriteHeight="16">
+        <NextSprite name="icon_close" />
+        <NextSprite name="icon_resetDpad" />
+        <NextSprite name="icon_resetLevel" />
+        <NextSprite name="icon_nextLevel" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="blColumn0.png" xStart="0" yStart="0" xEnd="24" spriteWidth="24" spriteHeight="24">
+        <NextSprite name="bl_column_top" />
+        <NextSprite name="bl_column_mid" />
+        <NextSprite name="bl_column_bottom" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="blOneWay0.png" xStart="0" yStart="0" xEnd="96" spriteWidth="24" spriteHeight="24">
+        <NextSprite name="bl_oneway0_up" />
+        <NextSprite name="bl_oneway0_left" />
+        <NextSprite name="bl_oneway0_right" />
+        <NextSprite name="bl_oneway0_down" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="props0.png" xStart="0" yStart="0" xEnd="96" spriteWidth="24" spriteHeight="24">
+        <NextSprite name="props0_spikes" />
+        <NextSprite name="props0_skull" />
+        <NextSprite name="props0_goalflag_0" />
+        <NextSprite name="props0_goalflag_1" />
+        <NextSprite name="props0_testMeanieB_0" />
+        <NextSprite name="props0_testMeanieB_1" />
+        <NextSprite name="props0_testMeanieB_2" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="testblox2b.png" xStart="0" yStart="0" xEnd="120" spriteWidth="24" spriteHeight="24">
+        <NextSprite name="bl_brickAVTest0_avl0" />
+        <NextSprite name="bl_brickAVTest0_avl1" />
+        <NextSprite name="bl_brickAVTest0_avl2" />
+        <NextSprite name="bl_brickAVTest0_avl3" />
+        <NextSprite name="bl_fancyCrate0" />
+        <NextSprite name="bl_brickAVTest0_avl4" />
+        <NextSprite name="bl_brickAVTest0_avl5" />
+        <NextSprite name="bl_brickAVTest0_avl6" />
+        <NextSprite name="bl_brickAVTest0_avl7" />
+        <NextSprite/>
+        <NextSprite name="bl_brickAVTest0_avl8" />
+        <NextSprite name="bl_brickAVTest0_avl9" />
+        <NextSprite name="bl_brickAVTest0_avla" />
+        <NextSprite name="bl_brickAVTest0_avlb" />
+        <NextSprite/>
+        <NextSprite name="bl_brickAVTest0_avlc" />
+        <NextSprite name="bl_brickAVTest0_avld" />
+        <NextSprite name="bl_brickAVTest0_avle" />
+        <NextSprite name="bl_brickAVTest0_avlf" />
+        <NextSprite/>
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="conveyor1.png" xStart="0" yStart="0" xEnd="72" spriteWidth="24" spriteHeight="24">
+        <NextSprite name="bl_convL_1" />
+        <NextSprite name="bl_convL_2" />
+        <NextSprite name="bl_convL_3" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="conveyor1.png" xStart="0" yStart="0" xEnd="72" spriteWidth="24" spriteHeight="24">
+        <NextSprite name="bl_convR_1" xFlip="YES"/>
+        <NextSprite name="bl_convR_2" xFlip="YES" />
+        <NextSprite name="bl_convR_3" xFlip="YES" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="avblTurf2.png" xStart="0" yStart="0" xEnd="96" spriteWidth="24" spriteHeight="24">
+        <NextSprite name="bl_turf_avl0" />
+        <NextSprite name="bl_turf_avl1" />
+        <NextSprite name="bl_turf_avl2" />
+        <NextSprite name="bl_turf_avl3" />
+        <NextSprite name="bl_turf_avl4" />
+        <NextSprite name="bl_turf_avl5" />
+        <NextSprite name="bl_turf_avl6" />
+        <NextSprite name="bl_turf_avl7" />
+        <NextSprite name="bl_turf_avl8" />
+        <NextSprite name="bl_turf_avl9" />
+        <NextSprite name="bl_turf_avla" />
+        <NextSprite name="bl_turf_avlb" />
+        <NextSprite name="bl_turf_avlc" />
+        <NextSprite name="bl_turf_avld" />
+        <NextSprite name="bl_turf_avle" />
+        <NextSprite name="bl_turf_avlf" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="beinSilly_emCrop1_48.png" xStart="0" yStart="0" xEnd="48" spriteWidth="48" spriteHeight="48" worldWidth="8" worldHeight="8">
+        <NextSprite name="bl_sillyEm0" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="beinSilly_maxCrop1_96.png" xStart="0" yStart="0" xEnd="48" spriteWidth="96" spriteHeight="96" worldWidth="12" worldHeight="12">
+        <NextSprite name="bl_sillyMax0" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="badGuys2.png" xStart="0" yStart="0" xEnd="96" spriteWidth="24" spriteHeight="24">
+        <NextSprite name="badguy_faceBone0" />
+        <NextSprite name="badguy_faceBone1" />
+        <NextSprite name="badguy_cheapMineRed" />
+        <NextSprite name="badguy_cheapMineBlue" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="blColl3.png" xStart="0" yStart="0" xEnd="96" spriteWidth="24" spriteHeight="24">
+        <NextSprite name="bl_rusty" />
+        <NextSprite name="bl_wood" />
+        <NextSprite name="bl_quilt" />
+        <NextSprite name="prop_testSpring" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="playerGibs1.png" xStart="0" yStart="0" xEnd="48" spriteWidth="12" spriteHeight="12">
+        <NextSprite name="gib_pl0_a" />
+        <NextSprite name="gib_pl0_b" />
+        <NextSprite name="gib_pl0_c" />
+        <NextSprite name="gib_pl0_d" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="blCrumbles1.png" xStart="0" yStart="0" xEnd="96" spriteWidth="24" spriteHeight="24">
+        <NextSprite name="bl_crumbles1_full" />
+        <NextSprite name="bl_crumbles1_crumbling1" />
+        <NextSprite name="bl_crumbles1_crumbling2" />
+        <NextSprite name="bl_crumbles1_crumbling3" />
+        <NextSprite name="bl_crumbles1_crumbling4" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="blAlgae.png" xStart="0" yStart="0" xEnd="120" spriteWidth="24" spriteHeight="24">
+        <NextSprite name="bl_algae_avl0" />
+        <NextSprite name="bl_algae_avl1" />
+        <NextSprite name="bl_algae_avl2" />
+        <NextSprite name="bl_algae_avl3" />
+        <NextSprite name="bl_algae_avlf_b" />
+        
+        <NextSprite name="bl_algae_avl4" />
+        <NextSprite name="bl_algae_avl5" />
+        <NextSprite name="bl_algae_avl6" />
+        <NextSprite name="bl_algae_avl7" />
+        <NextSprite name="bl_wood_crate" />
+        
+        <NextSprite name="bl_algae_avl8" />
+        <NextSprite name="bl_algae_avl9" />
+        <NextSprite name="bl_algae_avla" />
+        <NextSprite name="bl_algae_avlb" />
+        <NextSprite />
+
+        <NextSprite name="bl_algae_avlc" />
+        <NextSprite name="bl_algae_avld" />
+        <NextSprite name="bl_algae_avle" />
+        <NextSprite name="bl_algae_avlf" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="blavQik.png" xStart="0" yStart="0" xEnd="96" spriteWidth="24" spriteHeight="24" defGredWidth="4" defGridHeight="4">
+        <NextSprite name="bl_qik_avl0" />
+        <NextSprite name="bl_qik_avl1" />
+        <NextSprite name="bl_qik_avl2" />
+        <NextSprite name="bl_qik_avl3" />
+        <NextSprite name="bl_qik_avl4" />
+        <NextSprite name="bl_qik_avl5" />
+        <NextSprite name="bl_qik_avl6" />
+        <NextSprite name="bl_qik_avl7" />
+        <NextSprite name="bl_qik_avl8" />
+        <NextSprite name="bl_qik_avl9" />
+        <NextSprite name="bl_qik_avla" />
+        <NextSprite name="bl_qik_avlb" />
+        <NextSprite name="bl_qik_avlc" />
+        <NextSprite name="bl_qik_avld" />
+        <NextSprite name="bl_qik_avle" />
+        <NextSprite name="bl_qik_avlf" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="blHalfsize1" xStart="0" yStart="0" xEnd="60" spriteWidth="12" spriteHeight="12" worldWidth="2" worldHeight="2">
+        <NextSprite name="bl_half_trig_blu_on" />
+        <NextSprite name="bl_half_fuzz_1" />
+        <NextSprite name="bl_half_rok_1" />
+        <NextSprite name="bl_half_pipe_h" />
+        <NextSprite name="bl_half_redbrick" />
+        
+        <NextSprite name="bl_half_trig_red_on" />
+        <NextSprite name="bl_half_fuzz_2" />
+        <NextSprite name="bl_half_rok_2" />
+        <NextSprite name="bl_half_pipe_v" />
+        <NextSprite name="bl_half_coral" />
+        
+        <NextSprite name="bl_half_trig_blu_off" />
+        <NextSprite name="bl_half_trig_blu_sw" />
+        <NextSprite />
+        <NextSprite />
+        <NextSprite name="bl_half_lavender" />
+        
+        <NextSprite name="bl_half_trig_red_off" />
+        <NextSprite name="bl_half_trig_red_sw" />
+        
+    </SpriteDefRun>
+    -->
+    
+    <!-- TODO: also support individual spriteDefs for special cases. and maybe a way to generate a whole
+          run of spriteDefs with a single line (auto-assigning names/tokens). Then you can have a
+          corresponding construct in the AnimDef that allows you to use them without naming each frame...how? -->
+</SpriteDefs>
