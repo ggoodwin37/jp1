@@ -384,6 +384,8 @@
     self.drawSettingsVC.segmentControl.selectedSegmentIndex = self.worldView.currentSnap;
     self.drawSettingsVC.widthStepper.value = self.worldView.brushSizeGrid.xGrid;
     self.drawSettingsVC.heightStepper.value = self.worldView.brushSizeGrid.yGrid;
+    self.drawSettingsVC.width4Stepper.value = self.worldView.brushSizeGrid.xGrid;
+    self.drawSettingsVC.height4Stepper.value = self.worldView.brushSizeGrid.yGrid;
     [self.drawSettingsVC updateTextFields];
     self.drawSettingsVC.view.hidden = self.editToolsBlockPaletteVC.view.hidden;
 }
