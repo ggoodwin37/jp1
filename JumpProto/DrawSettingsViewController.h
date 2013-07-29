@@ -47,9 +47,9 @@
 @property (nonatomic, retain) IBOutlet UIButton *sizePresetButton_8x8;
 @property (nonatomic, retain) IBOutlet UIButton *sizePresetButton_32x4;
 @property (nonatomic, retain) IBOutlet UIButton *sizePresetButton_8x4;
-@property (nonatomic, retain) IBOutlet UIButton *sizePresetButton_4x16;
 @property (nonatomic, retain) IBOutlet UIButton *sizePresetButton_4x8;
 @property (nonatomic, retain) IBOutlet UIButton *sizePresetButton_12x12;
+@property (nonatomic, retain) IBOutlet UIButton *sizePresetButton_16x16;
 @property (nonatomic, retain) IBOutlet UIStepper *width4Stepper;
 @property (nonatomic, retain) IBOutlet UIStepper *height4Stepper;
 

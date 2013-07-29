@@ -19,8 +19,8 @@
 @synthesize brushSizeDelegate;
 @synthesize currentWidthTextField, currentHeightTextField, widthStepper, heightStepper;
 @synthesize sizePresetButton_2x2, sizePresetButton_4x4, sizePresetButton_8x4;
-@synthesize sizePresetButton_8x8, sizePresetButton_4x16, sizePresetButton_32x4;
-@synthesize sizePresetButton_4x8, sizePresetButton_12x12, width4Stepper, height4Stepper;
+@synthesize sizePresetButton_8x8, sizePresetButton_32x4;
+@synthesize sizePresetButton_4x8, sizePresetButton_12x12, sizePresetButton_16x16, width4Stepper, height4Stepper;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -132,10 +132,6 @@
     {
         newSize = [[EGridPoint alloc] initAtXGrid:8 yGrid:8];
     }
-    else if( sender == self.sizePresetButton_4x16 )
-    {
-        newSize = [[EGridPoint alloc] initAtXGrid:4 yGrid:16];
-    }
     else if( sender == self.sizePresetButton_32x4 )
     {
         newSize = [[EGridPoint alloc] initAtXGrid:32 yGrid:4];
@@ -147,6 +143,10 @@
     else if( sender == self.sizePresetButton_12x12 )
     {
         newSize = [[EGridPoint alloc] initAtXGrid:12 yGrid:12];
+    }
+    else if( sender == sizePresetButton_16x16 )
+    {
+        newSize = [[EGridPoint alloc] initAtXGrid:16 yGrid:16];
     }
     else
     {

@@ -614,6 +614,7 @@
 -(void)onSnapSelectionChanged:(int)newSelection
 {
     self.worldView.currentSnap = newSelection;
+    [self.worldView setNeedsDisplay];  // in case the grid wants to redraw on snap setting change.
 }
 
 

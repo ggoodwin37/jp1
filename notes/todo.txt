@@ -1,9 +1,5 @@
 // misc
 
-- ai hint bounce block
-- slow down running anim
-- edit view geometric mode
-- level list picker sort by modified
 - check: does dpad still listen during edit?
 
 - crumbles: off by one y?
@@ -42,3 +38,5 @@
 - would be cool to have like 3 to 4 draw slots so I can rapidly choose between several presets, can be pre-pop'd too.
 
 - undo stack
+
+- edit view geometric mode. this would be cool for block size inspecting and perf savings on big levels.

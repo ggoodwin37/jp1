@@ -125,13 +125,43 @@ static LevelFileUtil *globalLevelFileUtilInstance = nil;
 }
 
 
+-(NSArray *)getAllDocumentsSortedByModified
+{
+    // courtesy of http://stackoverflow.com/questions/1523793/get-directory-contents-in-date-modified-order
+    
+    // Application documents directory
+    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSArray *directoryContent = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:documentsURL
+                                                              includingPropertiesForKeys:@[NSURLContentModificationDateKey]
+                                                                                 options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                                   error:nil];
+    NSArray *sortedContent = [directoryContent sortedArrayUsingComparator:
+                              ^(NSURL *file1, NSURL *file2)
+                              {
+                                  // compare
+                                  NSDate *file1Date;
+                                  [file1 getResourceValue:&file1Date forKey:NSURLContentModificationDateKey error:nil];
+                                  
+                                  NSDate *file2Date;
+                                  [file2 getResourceValue:&file2Date forKey:NSURLContentModificationDateKey error:nil];
+                                  
+                                  // Ascending:
+                                  //return [file1Date compare: file2Date];
+                                  // Descending:
+                                  return [file2Date compare: file1Date];
+                              }];
+    return sortedContent;
+}
+
+
 -(void)addAllLevelNamesTo:(NSMutableArray *)array
 {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *allFiles = [fileManager contentsOfDirectoryAtPath:m_documentsDirectoryPath error:nil];
+    NSArray *allFiles = [self getAllDocumentsSortedByModified];
+    
     for( int i = 0; i < [allFiles count]; ++i )
     {
-        NSString *thisPath = (NSString *)[allFiles objectAtIndex:i];
+        NSURL *thisUrl = (NSURL *)[allFiles objectAtIndex:i];
+        NSString *thisPath = thisUrl.path;
         if( [thisPath hasSuffix:LEVEL_EXTENSION] )
         {
             NSString *justFilename = [[thisPath lastPathComponent] stringByDeletingPathExtension];
