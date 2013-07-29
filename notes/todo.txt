@@ -1,9 +1,5 @@
 // misc
 
-- edit: shouldn't go to smallest visual grid size unless draw brush is that size.
-- edit: new level should show props immediately so I can type in level name. search "TODO: edit new level"
-- edit: when changing size of edit block brush, should have -4/+4 buttons in addition (or just make existing ones do +/- 4)
-
 - crumbles: off by one y?
 
 - revisit how groups are instantiated/added to world and er.
@@ -18,9 +14,6 @@
 - tweak air friction to less
 
 - world layers
-
-- fix sprite tile edge artifacts (or decide to redo all art so we can be at native resolution during regular play)
-  - I think this just means blending has to stay off. then you have the jaggies, which can potentially be mitigated if our block size happens to be integral with the physical display. even if it is, do we have to worry about sub-pixel offsets messing with us?
 
 - z-index? can we use depth buffer? do layers cover this?
 
