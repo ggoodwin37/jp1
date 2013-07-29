@@ -126,6 +126,7 @@ typedef enum ActorLifeStateEnum ActorLifeState;
 
 -(void)onDpadEvent:(DpadEvent *)event;
 -(void)processNextInputEvent;
+-(NSString *)getStaticFrameName;
 
 @end
 

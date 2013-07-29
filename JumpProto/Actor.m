@@ -662,6 +662,14 @@
     [self handleCollisionWithSO:node edgeMask:mask];
 }
 
+
+// used by worldView to draw something when player is in a state that doesn't have a true sprite associated.
+//  (e.g. before they are born, so player's block hasn't been created yet)
+-(NSString *)getStaticFrameName
+{
+    return @"pr2_still";
+};
+
 @end
 
 

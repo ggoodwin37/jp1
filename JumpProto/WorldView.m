@@ -278,7 +278,7 @@ float smoothRatio( float inputRatio )
     
     if( m_genericPlayerSpriteState == nil )
     {
-        m_genericPlayerSpriteState = [[StaticSpriteState alloc] initWithSpriteName:@"pr2_still"];
+        m_genericPlayerSpriteState = [[StaticSpriteState alloc] initWithSpriteName:[playerActor getStaticFrameName]];
         NSAssert( m_genericPlayerSpriteState != nil, @"failed to make cheezy spriteState thingie." );
     }
     
