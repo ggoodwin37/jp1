@@ -221,7 +221,6 @@
         
         [m_world addWorldBlock:thisGibBlock];
     }
-    [m_world.elbowRoom removeBlock:m_actorBlock];  // don't let the (dead) player's edges mess up gib collision.
 }
 
 

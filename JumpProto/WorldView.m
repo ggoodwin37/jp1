@@ -245,8 +245,8 @@ float smoothRatio( float inputRatio )
     
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
-	glOrthof( viewRect.origin.x, viewRect.origin.x + viewRect.size.width,
-              viewRect.origin.y, viewRect.origin.y + viewRect.size.height,
+	glOrthof( floorf( viewRect.origin.x ), ceilf( viewRect.origin.x + viewRect.size.width ),
+              floorf( viewRect.origin.y ), ceilf( viewRect.origin.y + viewRect.size.height ),
               -0.01 /*zNear*/, 0.01 /*zFar*/ );
 	glMatrixMode( GL_MODELVIEW );
 

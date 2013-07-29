@@ -104,7 +104,8 @@
     NSArray *markerList = [m_doc getValues];
     if( [markerList count] == 0 )
     {
-        return CGRectMake( 128.f * yardstick, 128.f * yardstick, w, h );
+        // since we don't allow negative values, start them pretty far from origin so they can build up/left a ways if they want.
+        return CGRectMake( 4096.f * yardstick, 4096.f * yardstick, w, h );
     }
     
     int xMin = INT_MAX;
