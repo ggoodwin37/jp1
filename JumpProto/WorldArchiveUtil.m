@@ -649,6 +649,11 @@
     EmuPoint pStart = EmuPointMake( block.rect.origin.x * ONE_BLOCK_SIZE_Emu,
                                     block.rect.origin.y * ONE_BLOCK_SIZE_Emu );
     
+    // afblock y-goes-down, world y-goes-up, so adjust yStart by height of actor
+    // TODO: this assumes an actor is 4*block high. Should grab this value from the
+    //       actor instead.
+    pStart.y -= (4 * ONE_BLOCK_SIZE_Emu);
+
     switch( block.preset )
     {
         case EBlockPreset_TestMeanieB:            

@@ -132,8 +132,8 @@
         case EBlockPreset_tiny_sprtiny_3: return @"tiny-sprtiny-3";
         case EBlockPreset_tiny_pipe: return @"tiny-pipe-ud";
         case EBlockPreset_tiny_pipe_bub: return @"tiny-pipe-bub";
-        case EBlockPreset_tiny_creep_fuzz_l: return @"tiny-creep-fuzz-0";
-        case EBlockPreset_tiny_creep_fuzz_r: return @"tiny-creep-fuzz-reversed";
+        case EBlockPreset_tiny_creep_fuzz_l: return @"tiny-creep-fuzz-reversed";
+        case EBlockPreset_tiny_creep_fuzz_r: return @"tiny-creep-fuzz-0";
         case EBlockPreset_tiny_creep_martian: return @"tiny-creep-martian-0";
         case EBlockPreset_tiny_creep_mosquito: return @"tiny-creep-mosquito-0";
         case EBlockPreset_tiny_creep_jelly: return @"tiny-creep-jelly-0";

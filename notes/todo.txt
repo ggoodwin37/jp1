@@ -2,8 +2,6 @@
 
 - check: does dpad still listen during edit?
 
-- crumbles: off by one y?
-
 - revisit how groups are instantiated/added to world and er.
 
 - drawing spriteStateMaps: base case is done, need to do edit support (tiling?) and consider handling non-integral case in play.
