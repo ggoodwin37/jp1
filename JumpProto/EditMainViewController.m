@@ -220,6 +220,11 @@
                                    self.docPropsVC.view.frame.size.height );    
     [self.docPropsVC.view setFrame:rDocProps];
     [self.view addSubview:self.docPropsVC.view];
+    if( m_startingLevel == nil )
+    {
+        // show the doc props dialog if we are editing a new level.
+        self.docPropsVC.view.hidden = NO;
+    }
 
     self.docPropsVC.levelNameTextField.delegate = self;
     self.docPropsVC.tagsTextField.delegate = self;

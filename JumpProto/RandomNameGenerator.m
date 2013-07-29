@@ -40,7 +40,7 @@
         list1 = [[NSArray arrayWithObjects: @"boisterous", @"vociferous", @"ambiguous", @"glistening",
                   @"throbbing", @"amorphous", @"duplicitous", @"scandalous", @"precarious", @"stationary",
                   @"mobile", @"unambiguous", @"traiterous", @"hot", @"unhappy", @"disciplined", @"amorous", @"stealthy", @"subtle", @"vulgar",
-                  @"keen", @"spacious", @"frugal", @"deciduous", @"compact", @"bargain", @"generic", @"lewd", @"trustworthy", @"valiant",
+                  @"keen", @"spacious", @"frugal", @"calculating", @"compact", @"bargain", @"generic", @"lewd", @"trustworthy", @"valiant",
                   @"stout", @"rotten", @"fragrant", @"responsive", @"silly", @"softspoken", @"precious", @"pithy", @"remote", @"tilted",
                   nil] retain];
     };
