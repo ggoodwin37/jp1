@@ -110,9 +110,18 @@
 {
     NSAssert( m_playerActor == nil, @"World initPlayerAt: player already exists!" );
     
-    // TODO: consume player type preset (create rob16)
-
-    m_playerActor = [[PlayerActor alloc] initAtStartingPoint:p];
+    switch( preset )
+    {
+        case EBlockPreset_PlayerStart:
+            m_playerActor = [[PR2PlayerActor alloc] initAtStartingPoint:p];
+            break;
+        case EBlockPreset_tiny_playerStart:
+            m_playerActor = [[Rob16PlayerActor alloc] initAtStartingPoint:p];
+            break;
+        default:
+            NSAssert( NO, @"Unexpected player start type." );
+            return;
+    }
     m_playerActor.world = self;
 }
 

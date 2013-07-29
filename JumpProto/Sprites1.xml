@@ -135,7 +135,7 @@
         <NextSprite name="tiny-redblu-btn-blu-rod" />
     </SpriteDefRun>
     
-    <SpriteDefRun resourceName="rob-16.png" xStart="0" yStart="0" xEnd="64" spriteWidth="16" spriteHeight="32">
+    <SpriteDefRun resourceName="rob-16.png" xStart="0" yStart="0" xEnd="64" spriteWidth="16" spriteHeight="32" worldWidth="4" worldHeight="8">
         <NextSprite name="rob16-idle" />
         <NextSprite />
         <NextSprite />
@@ -151,10 +151,10 @@
         <NextSprite name="rob16-wallclimb" />
     </SpriteDefRun>
     <SpriteDefRun resourceName="rob-16.png" xStart="16" yStart="0" xEnd="32" spriteWidth="8" spriteHeight="8">
-        <NextSprite name="rob16-gib0" />
-        <NextSprite name="rob16-gib1" />
-        <NextSprite name="rob16-gib2" />
-        <NextSprite name="rob16-gib3" />
+        <NextSprite name="rob16-gib-0" />
+        <NextSprite name="rob16-gib-1" />
+        <NextSprite name="rob16-gib-2" />
+        <NextSprite name="rob16-gib-3" />
     </SpriteDefRun>
     
 </SpriteDefs>

@@ -61,20 +61,13 @@
 
 -(void)setRunningAnimState
 {
-    static const float runningAnimDur = 0.25f;
-    if( m_actorBlock != nil )
-    {
-        m_actorBlock.defaultSpriteState = [[[AnimSpriteState alloc] initWithAnimName:@"pr2_walking" animDur:runningAnimDur] autorelease];
-    }
+    NSAssert( NO, @"Don't call base PlayerActor version of this method." );
 }
 
 
 -(void)setStillAnimState
 {
-    if( m_actorBlock != nil )
-    {
-        m_actorBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"pr2_still"] autorelease];
-    }
+    NSAssert( NO, @"Don't call base PlayerActor version of this method." );
 }
 
 
@@ -196,31 +189,31 @@
 }
 
 
+-(NSString *)getRandomGibName
+{
+    NSAssert( NO, @"Don't call base PlayerActor version of this method." );
+    return nil;
+}
+
+
 -(void)spawnGibsOnDeath
 {
     m_isGibbed = YES;
     
-    const EmuSize gibSize = EmuSizeMake( 2 * ONE_BLOCK_SIZE_Emu, 2 * ONE_BLOCK_SIZE_Emu );
+    const EmuSize gibSize = EmuSizeMake( ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu );
     for( int i = 0; i < PLAYER_DEAD_GIB_COUNT; ++i )
     {
         EmuRect thisRect = EmuRectMake( m_actorBlock.x, m_actorBlock.y, gibSize.width, gibSize.height );
         
-        NSString *thisSpriteDefName = @"";
-        int randomSprite = (int)floorf( frand() * 4.f );
-        switch( randomSprite )
-        {
-            case 0: thisSpriteDefName = @"gib_pl0_a"; break;
-            case 1: thisSpriteDefName = @"gib_pl0_b"; break;
-            case 2: thisSpriteDefName = @"gib_pl0_c"; break;
-            case 3: thisSpriteDefName = @"gib_pl0_d"; break;
-            default: NSAssert( NO, @"basic fail" ); thisSpriteDefName = @""; break;
-        }
+        NSString *thisSpriteDefName = [self getRandomGibName];
+        SpriteState *thisSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:thisSpriteDefName] autorelease];
         
         Emu vMag = PLAYER_DEAD_GIB_V;
         float thisTheta = frand() * 2 * M_PI;
         EmuPoint thisV = EmuPointMake( vMag * cosf( thisTheta ), vMag * sinf( thisTheta ) );
         
         SpriteStateMap *spriteStateMap = [[[SpriteStateMap alloc] initWithSize:CGSizeMake( 1.f, 1.f)] autorelease];
+        [spriteStateMap setSpriteStateAtX:0 y:0 to:thisSpriteState];
         SpriteBlock *thisGibBlock = [[SpriteBlock alloc] initWithRect:thisRect spriteStateMap:spriteStateMap];
         thisGibBlock.props.canMoveFreely = YES;
         thisGibBlock.props.affectedByGravity = NO;
@@ -384,7 +377,107 @@
 //  (e.g. before they are born, so player's block hasn't been created yet)
 -(NSString *)getStaticFrameName
 {
+    NSAssert( NO, @"Don't call base PlayerActor version of this method." );
+    return nil;
+};
+
+@end
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// PR2PlayerActor
+
+@implementation PR2PlayerActor
+
+// override
+-(void)setRunningAnimState
+{
+    static const float runningAnimDur = 0.25f;
+    if( m_actorBlock != nil )
+    {
+        m_actorBlock.defaultSpriteState = [[[AnimSpriteState alloc] initWithAnimName:@"pr2_walking" animDur:runningAnimDur] autorelease];
+    }
+}
+
+
+// override
+-(void)setStillAnimState
+{
+    if( m_actorBlock != nil )
+    {
+        m_actorBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"pr2_still"] autorelease];
+    }
+}
+
+
+// override
+-(NSString *)getRandomGibName
+{
+    int randomSprite = (int)floorf( frand() * 4.f );
+    switch( randomSprite )
+    {
+        case 0: return @"gib_pl0_a";
+        case 1: return @"gib_pl0_b";
+        case 2: return @"gib_pl0_c";
+        case 3: return @"gib_pl0_d";
+        default: NSAssert( NO, @"basic fail" ); return nil;
+    }
+}
+
+
+// override
+-(NSString *)getStaticFrameName
+{
     return @"pr2_still";
 };
 
 @end
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// Rob16PlayerActor
+
+@implementation Rob16PlayerActor
+
+// override
+-(void)setRunningAnimState
+{
+    static const float runningAnimDur = 0.25f;
+    if( m_actorBlock != nil )
+    {
+        m_actorBlock.defaultSpriteState = [[[AnimSpriteState alloc] initWithAnimName:@"rob16-walking" animDur:runningAnimDur] autorelease];
+    }
+}
+
+
+// override
+-(void)setStillAnimState
+{
+    if( m_actorBlock != nil )
+    {
+        m_actorBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"rob16-idle"] autorelease];
+    }
+}
+
+
+// override
+-(NSString *)getRandomGibName
+{
+    int randomSprite = (int)floorf( frand() * 4.f );
+    switch( randomSprite )
+    {
+        case 0: return @"rob16-gib-0";
+        case 1: return @"rob16-gib-1";
+        case 2: return @"rob16-gib-2";
+        case 3: return @"rob16-gib-3";
+        default: NSAssert( NO, @"basic fail" ); return nil;
+    }
+}
+
+
+// override
+-(NSString *)getStaticFrameName
+{
+    return @"rob16-idle";
+};
+
+@end
+
