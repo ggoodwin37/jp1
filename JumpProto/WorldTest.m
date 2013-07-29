@@ -14,6 +14,7 @@
 #import "constants.h"
 #import "WorldArchiveUtil.h"
 #import "BlockGroup.h"
+#import "LevelUtil.h"
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// TestBlock
@@ -1880,21 +1881,7 @@ static unsigned char mazedat5_basic[] = {
 +(NSArray *)getOnDiskLevelList
 {
     NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:50];
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES );
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *allFiles = [fileManager contentsOfDirectoryAtPath:documentsDirectory error:NULL];
-    for( int i = 0; i < [allFiles count]; ++i )
-    {
-        NSString *thisPath = (NSString *)[allFiles objectAtIndex:i];
-        if( [thisPath hasSuffix:@".jlevel"] )
-        {
-            NSString *thisName = [[thisPath lastPathComponent] stringByDeletingPathExtension];
-            [resultArray addObject:thisName];
-        }
-    }
+    [[LevelFileUtil instance] addAllLevelNamesTo:resultArray];
     return resultArray;
 }
 
