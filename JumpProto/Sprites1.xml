@@ -106,7 +106,7 @@
         <NextSprite name="tiny-bigcr" />
     </SpriteDefRun>
     
-    <SpriteDefRun resourceName="tiny-debut-1.png" xStart="24" yStart="40" xEnd="32" spriteWidth="8" spriteHeight="16" worldWidth="4" worldHeight="8">
+    <SpriteDefRun resourceName="tiny-debut-1.png" xStart="24" yStart="48" xEnd="32" spriteWidth="8" spriteHeight="16" worldWidth="4" worldHeight="8">
         <NextSprite name="tiny-exit" />
     </SpriteDefRun>
     

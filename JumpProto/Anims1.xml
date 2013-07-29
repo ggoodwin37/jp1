@@ -14,13 +14,13 @@
         <AnimFrame spriteName="tiny-creep-jelly-0" dur="1" />
         <AnimFrame spriteName="tiny-creep-jelly-1" dur="1" />
     </AnimDef>
-    <AnimDef name="tiny-conveyor-l" >
+    <AnimDef name="tiny-conveyor-r" >
         <AnimFrame spriteName="tiny-conveyor-0" dur="1" />
         <AnimFrame spriteName="tiny-conveyor-1" dur="1" />
         <AnimFrame spriteName="tiny-conveyor-2" dur="1" />
         <AnimFrame spriteName="tiny-conveyor-3" dur="1" />
     </AnimDef>
-    <AnimDef name="tiny-conveyor-r" >
+    <AnimDef name="tiny-conveyor-l" >
         <AnimFrame spriteName="tiny-conveyor-3" dur="1" />
         <AnimFrame spriteName="tiny-conveyor-2" dur="1" />
         <AnimFrame spriteName="tiny-conveyor-1" dur="1" />
