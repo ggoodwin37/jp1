@@ -115,7 +115,7 @@
         <NextSprite name="bl_quilt" />
         <NextSprite name="prop_testSpring" />
     </SpriteDefRun>
-    <SpriteDefRun resourceName="playerGibs1.png" xStart="0" yStart="0" xEnd="48" spriteWidth="12" spriteHeight="12">
+    <SpriteDefRun resourceName="playerGibs1.png" xStart="0" yStart="0" xEnd="48" spriteWidth="12" spriteHeight="12" worldWidth="2" worldHeight="2">
         <NextSprite name="gib_pl0_a" />
         <NextSprite name="gib_pl0_b" />
         <NextSprite name="gib_pl0_c" />

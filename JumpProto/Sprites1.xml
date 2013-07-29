@@ -150,7 +150,7 @@
         <NextSprite />
         <NextSprite name="rob16-wallclimb" />
     </SpriteDefRun>
-    <SpriteDefRun resourceName="rob-16.png" xStart="16" yStart="0" xEnd="32" spriteWidth="8" spriteHeight="8">
+    <SpriteDefRun resourceName="rob-16.png" xStart="16" yStart="0" xEnd="32" spriteWidth="8" spriteHeight="8" worldWidth="2" worldHeight="2">
         <NextSprite name="rob16-gib-0" />
         <NextSprite name="rob16-gib-1" />
         <NextSprite name="rob16-gib-2" />

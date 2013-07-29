@@ -359,7 +359,7 @@
 
 -(BOOL)hasBlockFallenOffWorld:(Block *)block
 {
-    const Emu cScreenShiftFactor = FlToEmu( 768.f );  // TODO: cheezy, not resolution safe
+    const Emu cScreenShiftFactor = FlToEmu( 3072.f );  // TODO: cheezy, not resolution safe
     return ( block.y + block.h < self.world.yBottom - cScreenShiftFactor );
 }
 

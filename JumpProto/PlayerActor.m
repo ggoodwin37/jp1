@@ -200,7 +200,7 @@
 {
     m_isGibbed = YES;
     
-    const EmuSize gibSize = EmuSizeMake( ONE_BLOCK_SIZE_Emu, ONE_BLOCK_SIZE_Emu );
+    const EmuSize gibSize = EmuSizeMake( ONE_BLOCK_SIZE_Emu * 2, ONE_BLOCK_SIZE_Emu * 2 );
     for( int i = 0; i < PLAYER_DEAD_GIB_COUNT; ++i )
     {
         EmuRect thisRect = EmuRectMake( m_actorBlock.x, m_actorBlock.y, gibSize.width, gibSize.height );
@@ -216,11 +216,12 @@
         [spriteStateMap setSpriteStateAtX:0 y:0 to:thisSpriteState];
         SpriteBlock *thisGibBlock = [[SpriteBlock alloc] initWithRect:thisRect spriteStateMap:spriteStateMap];
         thisGibBlock.props.canMoveFreely = YES;
-        thisGibBlock.props.affectedByGravity = NO;
+        thisGibBlock.props.affectedByGravity = YES;
         thisGibBlock.props.initialVelocity = thisV;
         
         [m_world addWorldBlock:thisGibBlock];
     }
+    [m_world.elbowRoom removeBlock:m_actorBlock];  // don't let the (dead) player's edges mess up gib collision.
 }
 
 

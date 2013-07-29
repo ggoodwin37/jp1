@@ -108,8 +108,8 @@
 
 #define SPRING_VY (30000)
 
-#define PLAYER_DEAD_GIB_COUNT  (8)
-#define PLAYER_DEAD_GIB_V      (44000)
+#define PLAYER_DEAD_GIB_COUNT  (15)
+#define PLAYER_DEAD_GIB_V      (77000)
 
 // misc world physics/prop values
 #define MOVING_PLATFORM_RIGHT_MEDIUM_VX ( 2560 )
