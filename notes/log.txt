@@ -250,5 +250,6 @@ don't know whether to laugh at how awesome this is, or cry at how bad my origina
 7-28
 Well the perf pass took a little longer than expected, but went way better than expected.
 
-Last day of coding, got lots of little things done. Need to regroup and think about what comes next, I vote for buttons and events, but some monsters wouldn't hurt. Also walljumping. And fixing player animation states so we can do the jump anim etc.
+New art is in.
 
+Last day of coding, got lots of little things done. Need to regroup and think about what comes next, I vote for buttons and events, but some monsters wouldn't hurt. Also walljumping. And fixing player animation states so we can do the jump anim etc. Also lift actor, new crumbles actor, ice. General idea is there are several low-ish hanging items that will add to toolkit.
