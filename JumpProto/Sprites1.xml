@@ -110,15 +110,27 @@
         <NextSprite name="tiny-exit" />
     </SpriteDefRun>
     
-    <SpriteDefRun resourceName="tiny-creeps-1.png" xStart="0" yStart="0" xEnd="16" spriteWidth="8" spriteHeight="8">
+    <SpriteDefRun resourceName="tiny-creeps-1.png" xStart="0" yStart="0" xEnd="24" spriteWidth="8" spriteHeight="8">
         <NextSprite name="tiny-creep-fuzz-0" />
         <NextSprite name="tiny-creep-fuzz-1" />
+        <NextSprite name="tiny-creep-fuzz-reversed" />
         <NextSprite name="tiny-creep-martian-0" />
         <NextSprite name="tiny-creep-martian-1" />
+        <NextSprite />
         <NextSprite name="tiny-creep-mosquito-0" />
         <NextSprite name="tiny-creep-mosquito-1" />
+        <NextSprite />
         <NextSprite name="tiny-creep-jelly-0" />
         <NextSprite name="tiny-creep-jelly-1" />
+    </SpriteDefRun>
+
+    <SpriteDefRun resourceName="tiny-edit-hints.png" xStart="0" yStart="0" xEnd="64" spriteWidth="8" spriteHeight="8">
+        <NextSprite name="tiny-conveyor-l-edithint" />
+        <NextSprite name="tiny-conveyor-r-edithint" />
+        <NextSprite name="tiny-mv-plat-l-edithint" />
+        <NextSprite name="tiny-mv-plat-r-edithint" />
+        <NextSprite name="tiny-ai-bounce-edithint" />
+        <NextSprite name="tiny-button-edithint" />
     </SpriteDefRun>
 
     <SpriteDefRun resourceName="tiny-2.png" xStart="0" yStart="0" xEnd="64" spriteWidth="8" spriteHeight="8">
