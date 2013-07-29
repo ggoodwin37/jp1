@@ -108,27 +108,42 @@
     int lineSkipCounterMax;
     int lineSkipCounter;
 
-    float oneBlockWidthInViewUnits = worldToView( gridSpaceWorldUnits, 0.f, self.worldRect.size.width, self.frame.size.width );
-    if( oneBlockWidthInViewUnits <= 12.f )
+    const BOOL dynamicSpacing = NO;
+    if( dynamicSpacing )
     {
-        lineSkipCounterMax = 4;
-    }
-    else if( oneBlockWidthInViewUnits <= 36.f )
-    {
-        lineSkipCounterMax = 2;
+        float oneBlockWidthInViewUnits = worldToView( gridSpaceWorldUnits, 0.f, self.worldRect.size.width, self.frame.size.width );
+        if( oneBlockWidthInViewUnits <= 12.f )
+        {
+            lineSkipCounterMax = 4;
+        }
+        else if( oneBlockWidthInViewUnits <= 36.f )
+        {
+            lineSkipCounterMax = 2;
+        }
+        else
+        {
+            lineSkipCounterMax = 1;
+        }
     }
     else
     {
-        lineSkipCounterMax = 1;
+        // not dynamic spacing, line skip max is tied to world's snap grid.
+        int snapFactor = 1;
+        switch( self.currentSnap )
+        {
+            case 0: default: snapFactor = 1; break;
+            case 1: snapFactor = 2; break;
+            case 2: snapFactor = 4; break;
+            case 3: snapFactor = 8; break;  // aka 2^n
+                
+        }
+        lineSkipCounterMax = snapFactor;
     }
     
-    const float grayIntensity = 0.6f;
+    const float grayIntensity = 0.4f;
 	CGContextSetRGBStrokeColor( context, grayIntensity, grayIntensity, grayIntensity, 1.0 );
 	CGContextSetLineWidth( context, 1.5 );
 
-    float phase;
-    const float dashPattern[] = { 3.f, 5.f };
-    
     float u, umax, v;
     float wo, ws, vs;  // worldOrigin, worldSize, viewSize
     
@@ -154,8 +169,6 @@
             lineSkipCounter = 0;
         }
     }
-    phase = worldToView( self.worldRect.origin.y, 0.f, ws, vs );
-    CGContextSetLineDash( context, phase, dashPattern, 2 );
     CGContextStrokePath(context);
 
     // then draw the horizontal grid (iterating y)
@@ -180,8 +193,6 @@
             lineSkipCounter = 0;
         }
     }    
-    phase = worldToView( self.worldRect.origin.x, 0.f, ws, vs );
-    CGContextSetLineDash( context, phase, dashPattern, 2 );
 	CGContextStrokePath(context);
 }
 
