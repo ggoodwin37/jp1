@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		932DD07917974A3100375642 /* RectCoordBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 932DD07817974A3100375642 /* RectCoordBuffer.m */; };
+		9337102017A606E20080C6EB /* RandomNameGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9337101F17A606E20080C6EB /* RandomNameGenerator.m */; };
 		93732D8417A4327D00F1B5A7 /* ElbowRoomGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */; };
 		93732D8717A4982B00F1B5A7 /* PropagateMovementUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */; };
 		9386061417A5B86900A544B5 /* rob-16.png in Resources */ = {isa = PBXBuildFile; fileRef = 9386061017A5B86900A544B5 /* rob-16.png */; };
@@ -139,6 +140,8 @@
 		930FFDF717A3574A00735149 /* IElbowRoom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IElbowRoom.h; sourceTree = "<group>"; };
 		932DD07717974A3100375642 /* RectCoordBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RectCoordBuffer.h; sourceTree = "<group>"; };
 		932DD07817974A3100375642 /* RectCoordBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RectCoordBuffer.m; sourceTree = "<group>"; };
+		9337101E17A606E20080C6EB /* RandomNameGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomNameGenerator.h; sourceTree = "<group>"; };
+		9337101F17A606E20080C6EB /* RandomNameGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomNameGenerator.m; sourceTree = "<group>"; };
 		93732D8217A4327D00F1B5A7 /* ElbowRoomGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElbowRoomGrid.h; sourceTree = "<group>"; };
 		93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElbowRoomGrid.m; sourceTree = "<group>"; };
 		93732D8517A4982A00F1B5A7 /* PropagateMovementUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropagateMovementUpdater.h; sourceTree = "<group>"; };
@@ -540,6 +543,8 @@
 				F37EEFEF13CF411800AC418D /* oal.h */,
 				F37EEFF013CF411800AC418D /* oal.m */,
 				F37EEFF113CF411800AC418D /* OpenGLCommon.h */,
+				9337101E17A606E20080C6EB /* RandomNameGenerator.h */,
+				9337101F17A606E20080C6EB /* RandomNameGenerator.m */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -910,6 +915,7 @@
 				93732D8717A4982B00F1B5A7 /* PropagateMovementUpdater.m in Sources */,
 				9386061E17A5ED8A00A544B5 /* PlayerActor.m in Sources */,
 				9386062117A5ED9C00A544B5 /* BadGuyActor.m in Sources */,
+				9337102017A606E20080C6EB /* RandomNameGenerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

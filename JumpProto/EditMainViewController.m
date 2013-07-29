@@ -11,6 +11,7 @@
 #import "constants.h"
 #import "SpriteManager.h"
 #import "LevelUtil.h"
+#import "RandomNameGenerator.h"
 
 @interface EditMainViewController (private)
 
@@ -35,7 +36,6 @@
     if( self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil] )
     {
         m_doc = [[EGridDocument alloc] init];        
-        m_currentlySelectedPreset = EBlockPreset_GroundBrickAVTest;
         
         [SpriteManager initGlobalInstance];
         [[SpriteManager instance] loadAllImages];
@@ -167,6 +167,7 @@
                                        self.editToolsBlockPaletteVC.view.frame.size.width,
                                        self.editToolsBlockPaletteVC.view.frame.size.height );    
     [self.editToolsBlockPaletteVC.view setFrame:rBlockPalette];
+    m_currentlySelectedPreset = [self.editToolsBlockPaletteVC getDefaultPreset];
     [self.editToolsBlockPaletteVC selectPreset:m_currentlySelectedPreset];
     [self.editToolsBlockPaletteVC setPresetStateHolder:self];
     [self.view addSubview: self.editToolsBlockPaletteVC.view];
@@ -497,11 +498,20 @@
     int currentTry = 0;
     NSString *result;
     
+    NSString *randomName = [EditMainViewController sanitizeLevelName:[RandomNameGenerator generateRandomNameLooselyBasedOnCurrentTime]];
     while( YES )
     {
-        result = [NSString stringWithFormat:@"n%03d", currentTry];
-        
-        NSString *levelPath = [[LevelFileUtil instance] getPathForLevelName:result];
+        NSString *levelPath;
+        if( currentTry == 0 )
+        {
+            result = randomName;
+            levelPath = [[LevelFileUtil instance] getPathForLevelName:result];
+        }
+        else
+        {
+            result = [NSString stringWithFormat:@"%@-%d", randomName, currentTry];
+            levelPath = [[LevelFileUtil instance] getPathForLevelName:result];
+        }
         if( ![[LevelFileUtil instance] doesFileExistAtPath:levelPath] )
         {
             break;
@@ -516,7 +526,7 @@
 {
     NSMutableString *ret = [NSMutableString stringWithString:nameIn];
 
-    [ret replaceOccurrencesOfString:@" " withString:@"_" options:0 range:NSMakeRange( 0, [ret length] ) ];
+    [ret replaceOccurrencesOfString:@" " withString:@"-" options:0 range:NSMakeRange( 0, [ret length] ) ];
     [ret replaceOccurrencesOfString:@"'" withString:@"-" options:0 range:NSMakeRange( 0, [ret length] ) ];
     [ret replaceOccurrencesOfString:@"," withString:@"-" options:0 range:NSMakeRange( 0, [ret length] ) ];
     [ret replaceOccurrencesOfString:@"." withString:@"-" options:0 range:NSMakeRange( 0, [ret length] ) ];

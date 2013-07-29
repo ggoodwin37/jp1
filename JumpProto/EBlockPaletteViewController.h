@@ -47,5 +47,6 @@
 @property (nonatomic, retain) IBOutlet UITableView *paletteTableView;
 
 -(void)selectPreset:(EBlockPreset)preset;
+-(EBlockPreset)getDefaultPreset;
 
 @end

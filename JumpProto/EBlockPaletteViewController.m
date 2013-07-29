@@ -381,6 +381,15 @@
 }
 
 
+-(EBlockPreset)getDefaultPreset
+{
+    NSAssert( [m_presetCategoryList count] > 0, @"Assume categories already got populated." );
+    EBPPresetCategory *defaultCategory = (EBPPresetCategory *)[m_presetCategoryList objectAtIndex:0];
+    EBPPresetEntry *defaultEntry = (EBPPresetEntry *)[defaultCategory.presetList objectAtIndex:0];
+    return defaultEntry.preset;
+}
+
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
