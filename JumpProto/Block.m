@@ -101,6 +101,7 @@
 @synthesize isGoalBlock = m_isGoalBlock;
 @synthesize isPlayerBlock = m_isPlayerBlock;
 @synthesize isActorBlock;
+@synthesize isAiHint, followsAiHints;
 @synthesize xConveyor = m_xConveyor;
 @synthesize springyMask;
 
@@ -158,6 +159,9 @@
     self.isGoalBlock = other.isGoalBlock;
     self.isPlayerBlock = other.isPlayerBlock;
     self.springyMask = other.springyMask;
+    self.isAiHint = other.isAiHint;
+    self.followsAiHints = other.followsAiHints;
+    // lol is this even getting used anywhere?
 }
 
 
@@ -175,7 +179,9 @@
                 self.hurtyMask == other.hurtyMask &&
                 self.isGoalBlock == other.isGoalBlock &&
                 self.isPlayerBlock == other.isPlayerBlock &&
-                self.springyMask == other.springyMask
+                self.springyMask == other.springyMask &&
+                self.isAiHint == other.isAiHint &&
+                self.followsAiHints == other.followsAiHints
             );
 }
 

@@ -209,8 +209,12 @@
     for( int i = 0; i < [list count]; ++i )
     {
         Block *candidateBlock = (Block *)[list objectAtIndex:i];
+
         if( candidateBlock == block ) continue;  // can't collide with self.
         if( block.groupId != GROUPID_NONE && block.groupId == candidateBlock.groupId ) continue;  // can't collide with own group.
+        
+        if( candidateBlock.props.isAiHint && !block.props.followsAiHints ) continue;
+
         if( dir == ERDirDown )
         {
             if( candidateBlock.x + candidateBlock.w <= block.x ) continue;
