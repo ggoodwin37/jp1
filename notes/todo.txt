@@ -1,5 +1,11 @@
 // misc
 
+- ai hint bounce block
+- slow down running anim
+- edit view geometric mode
+- level list picker sort by modified
+- check: does dpad still listen during edit?
+
 - crumbles: off by one y?
 
 - revisit how groups are instantiated/added to world and er.

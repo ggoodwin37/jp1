@@ -78,6 +78,13 @@
 
 -(id)initWithSpriteName:(NSString *)spriteName
 {
+    // TODO: the case where this definitely happens is for EBlockPreset_tiny_aiBounceHint
+    //       should audit the codepath(s) where this can be nil. Seems to not be harmful.
+    if( spriteName == nil )
+    {
+        return nil;
+    }
+    
     SpriteDef *spriteDef = [[SpriteManager instance] getSpriteDef:spriteName];
     if( nil == spriteDef )
     {

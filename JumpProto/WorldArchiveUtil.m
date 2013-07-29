@@ -232,6 +232,10 @@
             block.props.solidMask = BlockEdgeDirMask_Up | BlockEdgeDirMask_Left | BlockEdgeDirMask_Right;
             break;
             
+        case EBlockPreset_tiny_aiBounceHint:
+            // TODO
+            break;
+            
         // TODOs
         case EBlockPreset_tiny_btn1:
         case EBlockPreset_tiny_bl_wallJump:
@@ -520,6 +524,7 @@
         case EBlockPreset_tiny_redblu_red: return @"tiny-redblu-red-off";  // pretends initial blu-is-on state
         case EBlockPreset_tiny_redblu_blu: return @"tiny-redblu-blu-on";
         case EBlockPreset_tiny_bl_ice: return @"tiny-bl-ice";
+        case EBlockPreset_tiny_aiBounceHint: return nil;
   
         default:
             return nil;

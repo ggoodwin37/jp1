@@ -140,6 +140,7 @@
         case EBlockPreset_tiny_redblu_red: return @"tiny-redblu-red-off";  // represents initial blu-is-on state
         case EBlockPreset_tiny_redblu_blu: return @"tiny-redblu-blu-on";
         case EBlockPreset_tiny_bl_ice: return @"tiny-bl-ice";
+        case EBlockPreset_tiny_aiBounceHint: return @"tiny-ai-bounce-edithint";
             
         default:
             return @"icon_close";  // TODO: better "unknown" tile?

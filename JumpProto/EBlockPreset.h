@@ -112,6 +112,7 @@ enum EBlockPresetEnum
     EBlockPreset_tiny_redblu_red,
     EBlockPreset_tiny_redblu_blu,
     EBlockPreset_tiny_bl_ice,
+    EBlockPreset_tiny_aiBounceHint,
     
     EBlockPresetCount,
 };
