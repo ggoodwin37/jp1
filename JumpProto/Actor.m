@@ -322,6 +322,29 @@
 }
 
 
+-(NSString *)getSpriteResourceNameForCurrentState
+{
+    switch( m_currentState )
+    {
+        case Crumbles1State_Chillin:
+            return @"bl_crumbles1_full";
+            
+        case Crumbles1State_Crumbling:
+            return @"bl_crumbles1_crumbling";
+            
+        case Crumbles1State_Gone:
+            return nil;
+            
+        case Crumbles1State_Reappearing:
+            return @"bl_crumbles1_reappearing";
+            
+        default:
+            NSLog( @"getResourceNameForCurrentState: unrecognized crumbles state." );
+            break;
+    }
+}
+
+
 -(void)updateCurrentAnimState
 {
     if( m_actorBlock == nil )
@@ -330,15 +353,16 @@
     }
 
     AnimSpriteState *animSpriteState;
+    NSString *spriteResourceName = [self getSpriteResourceNameForCurrentState];
     
     switch( m_currentState )
     {
         case Crumbles1State_Chillin:
-            m_actorBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"bl_crumbles1_full"] autorelease];
+            m_actorBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:spriteResourceName] autorelease];
             break;
 
         case Crumbles1State_Crumbling:
-            animSpriteState = [[[AnimSpriteState alloc] initWithAnimName:@"bl_crumbles1_crumbling" animDur:CRUMBLES1_CRUMBLETIME] autorelease];
+            animSpriteState = [[[AnimSpriteState alloc] initWithAnimName:spriteResourceName animDur:CRUMBLES1_CRUMBLETIME] autorelease];
             m_actorBlock.defaultSpriteState = animSpriteState;
             animSpriteState.wrap = NO;
             break;
@@ -348,7 +372,7 @@
             break;
             
         case Crumbles1State_Reappearing:
-            animSpriteState = [[[AnimSpriteState alloc] initWithAnimName:@"bl_crumbles1_reappearing" animDur:CRUMBLES1_REAPPEARTIME] autorelease];
+            animSpriteState = [[[AnimSpriteState alloc] initWithAnimName:spriteResourceName animDur:CRUMBLES1_REAPPEARTIME] autorelease];
             m_actorBlock.defaultSpriteState = animSpriteState;
             animSpriteState.wrap = NO;
             break;
@@ -474,6 +498,35 @@
         m_currentState = Crumbles1State_Crumbling;
         m_timeRemainingInCurrentState = CRUMBLES1_CRUMBLETIME;
         [self updateCurrentAnimState];
+    }
+}
+
+@end
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// TinyCrumActor
+
+@implementation TinyCrumActor
+
+// override
+-(NSString *)getSpriteResourceNameForCurrentState
+{
+    switch( m_currentState )
+    {
+        case Crumbles1State_Chillin:
+            return @"tiny-crum-0";
+            
+        case Crumbles1State_Crumbling:
+            return @"tiny-crum-crumbling";
+            
+        case Crumbles1State_Gone:
+            return nil;
+            
+        case Crumbles1State_Reappearing:
+            return @"tiny-crum-reappearing";
+            
+        default:
+            NSLog( @"getResourceNameForCurrentState: unrecognized crumbles state." );
+            break;
     }
 }
 

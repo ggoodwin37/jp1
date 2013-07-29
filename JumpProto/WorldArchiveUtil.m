@@ -665,6 +665,9 @@
         case EBlockPreset_tiny_creep_fuzz_r:
             return [[[TinyFuzzActor alloc] initAtStartingPoint:pStart goingLeft:NO] autorelease];
             
+        case EBlockPreset_tiny_crum:
+            return [[[TinyCrumActor alloc] initAtStartingPoint:pStart] autorelease];
+            
         default:
             NSLog( @"don't know how to create actor for preset." );
             return nil;

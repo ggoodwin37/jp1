@@ -51,10 +51,16 @@
         <AnimFrame spriteName="tiny-spikes-d-0" dur="5" />
         <AnimFrame spriteName="tiny-spikes-d-1" dur="4" />
     </AnimDef>
-    <AnimDef name="tiny-crum" >
+    <AnimDef name="tiny-crum-crumbling" >
         <AnimFrame spriteName="tiny-crum-1" dur="1" />
         <AnimFrame spriteName="tiny-crum-2" dur="1" />
         <AnimFrame spriteName="tiny-crum-3" dur="1" />
         <AnimFrame spriteName="tiny-crum-4" dur="1" />
+    </AnimDef>
+    <AnimDef name="tiny-crum-reappearing" >
+        <AnimFrame spriteName="tiny-crum-4" dur="1" />
+        <AnimFrame spriteName="tiny-crum-3" dur="1" />
+        <AnimFrame spriteName="tiny-crum-2" dur="1" />
+        <AnimFrame spriteName="tiny-crum-1" dur="1" />
     </AnimDef>
 </AnimDefs>

@@ -127,3 +127,12 @@ typedef enum Crumbles1StateEnum Crumbles1State;
 }
 
 @end
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// TinyCrumActor
+
+@interface TinyCrumActor : Crumbles1Actor
+{
+}
+
+@end
