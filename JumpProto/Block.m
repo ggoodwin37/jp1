@@ -98,6 +98,7 @@
 @synthesize token = m_token, canMoveFreely = m_canMoveFreely, affectedByGravity = m_affectedByGravity;
 @synthesize bounceDampFactor = m_bounceDampFactor, affectedByFriction = m_affectedByFriction;
 @synthesize initialVelocity = m_initialVelocity, solidMask = m_solidMask, hurtyMask = m_hurtyMask;
+@synthesize isWallJumpable;
 @synthesize isGoalBlock = m_isGoalBlock;
 @synthesize isPlayerBlock = m_isPlayerBlock;
 @synthesize isActorBlock;
@@ -161,6 +162,7 @@
     self.springyMask = other.springyMask;
     self.isAiHint = other.isAiHint;
     self.followsAiHints = other.followsAiHints;
+    self.isWallJumpable = other.isWallJumpable;
     // lol is this even getting used anywhere?
 }
 
@@ -181,7 +183,8 @@
                 self.isPlayerBlock == other.isPlayerBlock &&
                 self.springyMask == other.springyMask &&
                 self.isAiHint == other.isAiHint &&
-                self.followsAiHints == other.followsAiHints
+                self.followsAiHints == other.followsAiHints &&
+                self.isWallJumpable == other.isWallJumpable
             );
 }
 

@@ -1,5 +1,11 @@
 // misc
 
+- finish off wall jumping:
+  - sprite states are messed up, need to fix them in general. left/right is broken.
+  - I think the walljump sprite might need to be flipped to be uniform, double check.
+  - I think you can still walljump off non-walljump blocks (but you don't slowdown).
+  - I think it would be cool if when doing a walljump you "launched out" (i.e. get some opposing x velocity)
+
 - check: does dpad still listen during edit?
 
 - revisit how groups are instantiated/added to world and er.

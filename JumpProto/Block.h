@@ -77,6 +77,8 @@ typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 
 @property (nonatomic, assign) UInt32 hurtyMask;
 
+@property (nonatomic, assign) BOOL isWallJumpable;
+
 @property (nonatomic, assign) BOOL isGoalBlock;
 
 @property (nonatomic, assign) BOOL isActorBlock;

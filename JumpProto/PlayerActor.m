@@ -15,6 +15,7 @@
 @interface PlayerActor (private)
 -(void)setStillAnimState;
 -(void)setRunningAnimState;
+-(void)setWallJumpAnimState;
 @end
 
 
@@ -22,6 +23,7 @@
 
 @synthesize isDirLeftPressed = m_isDirLeftPressed, isDirRightPressed = m_isDirRightPressed;
 @synthesize isGibbed = m_isGibbed;
+@synthesize isWallJumping = m_isWallJumping;
 
 -(id)initAtStartingPoint:(EmuPoint)startingPoint
 {
@@ -41,6 +43,7 @@
         m_lifeStateTimer = PLAYER_NOTBORNYET_TIME;
         
         m_isGibbed = NO;
+        m_isWallJumping = NO;
     }
     return self;
 }
@@ -80,12 +83,26 @@
     
     if( m_isDirLeftPressed )
     {
-        [self setRunningAnimState];
+        if( m_isWallJumping )
+        {
+            [self setWallJumpAnimState];
+        }
+        else
+        {
+            [self setRunningAnimState];
+        }
         m_actorBlock.defaultSpriteState.isFlipped = YES;
     }
     else if( m_isDirRightPressed )
     {
-        [self setRunningAnimState];
+        if( m_isWallJumping )
+        {
+            [self setWallJumpAnimState];
+        }
+        else
+        {
+            [self setRunningAnimState];
+        }
     }
     else
     {
@@ -317,6 +334,48 @@
 
 
 // override
+-(void)updateControlStateWithTimeDelta:(float)delta
+{
+    // potentially clean up state automatically
+    if( m_isWallJumping )
+    {
+        BOOL stillWallJumping = NO;
+        if( m_isDirLeftPressed )
+        {
+            NSArray *abutters = [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirLeft];
+            for( int i = 0; i < [abutters count]; ++i )
+            {
+                Block *thisAbutter = (Block *)[abutters objectAtIndex:i];
+                if( [thisAbutter getProps].isWallJumpable )
+                {
+                    stillWallJumping = YES;
+                    break;
+                }
+            }
+        }
+        else if( m_isDirRightPressed )
+        {
+            NSArray *abutters = [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirRight];
+            for( int i = 0; i < [abutters count]; ++i )
+            {
+                Block *thisAbutter = (Block *)[abutters objectAtIndex:i];
+                if( [thisAbutter getProps].isWallJumpable )
+                {
+                    stillWallJumping = YES;
+                    break;
+                }
+            }
+        }
+        if( !stillWallJumping )
+        {
+            [self updateCurrentAnimState];
+        }
+        m_isWallJumping = stillWallJumping;
+    }
+}
+
+
+// override
 -(void)updateLifeStateWithTimeDelta:(float)delta
 {
     switch( m_lifeState )
@@ -340,6 +399,17 @@
 }
 
 
+// override
+-(void)updateForJumpingStateWithTimeDelta:(float)delta
+{
+    [super updateForJumpingStateWithTimeDelta:delta];
+    if( m_isWallJumping )
+    {
+        m_jumpsRemaining = m_numJumpsAllowed - 1;  // TODO: figure out why -1 is needed here
+    }
+}
+
+
 -(void)handleCollisionWithSO:(ASolidObject *)solidObject edgeMask:(BlockEdgeDirMask)mask
 {
     // check various properties to see if colliding into this SO should trigger any actor events.
@@ -354,6 +424,28 @@
     if( [solidObject getProps].isGoalBlock )
     {
         [self onTouchedGoal];
+    }
+    
+    if( [solidObject getProps].isWallJumpable && !m_isWallJumping )
+    {
+        if( mask & BlockEdgeDirMask_Right )
+        {
+            if( m_isDirLeftPressed )
+            {
+                m_isWallJumping = YES;
+            }
+        }
+        else if( mask & BlockEdgeDirMask_Left )
+        {
+            if( m_isDirRightPressed )
+            {
+                m_isWallJumping = YES;
+            }
+        }
+        if( m_isWallJumping )
+        {
+            [self setWallJumpAnimState];
+        }
     }
 }
 
@@ -410,6 +502,13 @@
 
 
 // override
+-(void)setWallJumpAnimState
+{
+    [self setStillAnimState];  // no walljump state for PR2
+}
+
+
+// override
 -(NSString *)getRandomGibName
 {
     int randomSprite = (int)floorf( frand() * 4.f );
@@ -454,6 +553,20 @@
     if( m_actorBlock != nil )
     {
         m_actorBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"rob16-idle"] autorelease];
+    }
+}
+
+
+// override
+-(void)setWallJumpAnimState
+{
+    if( m_actorBlock != nil )
+    {
+        if( m_isDirRightPressed )
+        {
+            m_actorBlock.defaultSpriteState.isFlipped = YES;
+        }
+        m_actorBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"rob16-wallclimb"] autorelease];
     }
 }
 

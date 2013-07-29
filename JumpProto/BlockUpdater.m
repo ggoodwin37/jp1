@@ -207,6 +207,18 @@
     if( [downAbutters count] == 0 || vOrig.y > 0 )
     {
         Emu maxVDueToGravity = TERMINAL_VELOCITY;
+        
+        // walljumping players have different maxV
+        if( blockProps.isPlayerBlock )
+        {
+            ActorBlock *playerBlock = (ActorBlock *)solidObject;
+            PlayerActor *player = (PlayerActor *)playerBlock.owningActor;
+            if( player.isWallJumping )
+            {
+                maxVDueToGravity = TERMINAL_VELOCITY_WALLJUMP;
+            }
+            
+        }
 
         // this may change if we have flippable/offable gravity
         NSAssert( GRAVITY_CONSTANT <  0, @"for now I assume gravity goes downward" );

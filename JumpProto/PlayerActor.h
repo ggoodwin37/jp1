@@ -18,12 +18,14 @@
     BOOL m_isDirLeftPressed;
     BOOL m_isDirRightPressed;
     BOOL m_isGibbed;
+    BOOL m_isWallJumping;
 }
 
 
 @property (nonatomic, assign) BOOL isDirLeftPressed;
 @property (nonatomic, assign) BOOL isDirRightPressed;
 @property (nonatomic, assign) BOOL isGibbed;
+@property (nonatomic, assign) BOOL isWallJumping;
 
 -(void)onDpadEvent:(DpadEvent *)event;
 -(void)processNextInputEvent;

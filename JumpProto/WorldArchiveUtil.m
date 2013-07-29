@@ -238,9 +238,12 @@
             block.props.isAiHint = YES;
             break;
             
+        case EBlockPreset_tiny_bl_wallJump:
+            block.props.isWallJumpable = YES;
+            break;
+            
         // TODOs
         case EBlockPreset_tiny_btn1:
-        case EBlockPreset_tiny_bl_wallJump:
         case EBlockPreset_tiny_lift:
         case EBlockPreset_tiny_bl_ice:
             break;
