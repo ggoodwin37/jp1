@@ -440,7 +440,7 @@
 // override
 -(void)setRunningAnimState
 {
-    static const float runningAnimDur = 0.25f;
+    static const float runningAnimDur = 0.5f;
     if( m_actorBlock != nil )
     {
         m_actorBlock.defaultSpriteState = [[[AnimSpriteState alloc] initWithAnimName:@"rob16-walking" animDur:runningAnimDur] autorelease];

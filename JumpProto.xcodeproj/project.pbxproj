@@ -632,8 +632,12 @@
 				930FFDF717A3574A00735149 /* IElbowRoom.h */,
 				93732D8217A4327D00F1B5A7 /* ElbowRoomGrid.h */,
 				93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */,
+				F35204211500A2F100000CDC /* WorldFrameState.h */,
+				F35204221500A2F100000CDC /* WorldFrameState.m */,
 				F31EECBB13DD3F3500A337EF /* BlockUpdater.h */,
 				F31EECBC13DD3F3500A337EF /* BlockUpdater.m */,
+				F3D6C7E914CA2640003FE5B4 /* ActorUpdater.h */,
+				F3D6C7EA14CA2640003FE5B4 /* ActorUpdater.m */,
 				93732D8517A4982A00F1B5A7 /* PropagateMovementUpdater.h */,
 				93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */,
 				F3D6C7E514CA1B2F003FE5B4 /* Actor.h */,
@@ -642,10 +646,6 @@
 				9386061D17A5ED8A00A544B5 /* PlayerActor.m */,
 				9386061F17A5ED9C00A544B5 /* BadGuyActor.h */,
 				9386062017A5ED9C00A544B5 /* BadGuyActor.m */,
-				F3D6C7E914CA2640003FE5B4 /* ActorUpdater.h */,
-				F3D6C7EA14CA2640003FE5B4 /* ActorUpdater.m */,
-				F35204211500A2F100000CDC /* WorldFrameState.h */,
-				F35204221500A2F100000CDC /* WorldFrameState.m */,
 			);
 			name = "World logic";
 			sourceTree = "<group>";

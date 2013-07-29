@@ -1,6 +1,8 @@
 // current
 
 - trying to erase 2x2 blocks (instead of 4x4) seemed to not work in some cases.
+- revisit "move edit start away from origin", it still doesn't seem to be giving me as much space as I expect, unless my math is off.
+- gibs don't bounce right.
 
 come on, I know there's more bugs.
 

@@ -110,10 +110,10 @@
         <NextSprite name="tiny-exit" />
     </SpriteDefRun>
     
-    <SpriteDefRun resourceName="tiny-creeps-1.png" xStart="0" yStart="0" xEnd="24" spriteWidth="8" spriteHeight="8">
-        <NextSprite name="tiny-creep-fuzz-0" />
-        <NextSprite name="tiny-creep-fuzz-1" />
-        <NextSprite name="tiny-creep-fuzz-reversed" />
+    <SpriteDefRun resourceName="tiny-creeps-1.png" xStart="0" yStart="0" xEnd="32" spriteWidth="16" spriteHeight="16">
+        <NextSprite name="tiny-creep-fuzz-0"/>
+        <NextSprite name="tiny-creep-fuzz-1"/>
+        <NextSprite name="tiny-creep-fuzz-reversed"/>
         <NextSprite name="tiny-creep-martian-0" />
         <NextSprite name="tiny-creep-martian-1" />
         <NextSprite />

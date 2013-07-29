@@ -154,6 +154,12 @@
 }
 
 
+-(NSString *)getAnimDefName
+{
+    return @"testMeanieB";
+}
+
+
 // override
 -(void)updateCurrentAnimState
 {
@@ -162,7 +168,7 @@
     static const float runningAnimDur = 0.5f;
     if( m_actorBlock != nil )
     {
-        m_actorBlock.defaultSpriteState = [[[AnimSpriteState alloc] initWithAnimName:@"testMeanieB" animDur:runningAnimDur] autorelease];
+        m_actorBlock.defaultSpriteState = [[[AnimSpriteState alloc] initWithAnimName:[self getAnimDefName] animDur:runningAnimDur] autorelease];
     }
 }
 
@@ -214,6 +220,31 @@
     Emu xComponent = xAxis ? 0 : oldV.x;
     Emu yComponent = xAxis ? oldV.y : 0;
     [m_actorBlock setV:EmuPointMake(xComponent, yComponent) ];
+}
+
+@end
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// TinyFuzzActor
+
+@implementation TinyFuzzActor
+
+-(id)initAtStartingPoint:(EmuPoint)p goingLeft:(BOOL)goingLeft
+{
+    if( self = [super initAtStartingPoint:p] )
+    {
+        m_facingLeft = goingLeft;
+        m_walkAccel = TINYFUZZ_LR_ACCEL;
+        m_walkMaxV = TINYFUZZ_LR_MAX_V;
+    }
+    return self;
+}
+
+
+// override
+-(NSString *)getAnimDefName
+{
+    return @"tiny-creep-fuzz-walking";
 }
 
 @end

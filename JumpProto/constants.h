@@ -106,6 +106,10 @@
 #define CRUMBLES1_GONETIME     (2.75f)
 #define CRUMBLES1_REAPPEARTIME (0.20f)
 
+// tiny-fuzz values
+#define TINYFUZZ_LR_ACCEL (40000)
+#define TINYFUZZ_LR_MAX_V (2500)
+
 #define SPRING_VY (30000)
 
 #define PLAYER_DEAD_GIB_COUNT  (15)

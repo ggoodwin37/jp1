@@ -251,8 +251,6 @@
             break;
             
         // TODO creeps
-        case EBlockPreset_tiny_creep_fuzz_l:
-        case EBlockPreset_tiny_creep_fuzz_r:
         case EBlockPreset_tiny_creep_martian:
         case EBlockPreset_tiny_creep_mosquito:
         case EBlockPreset_tiny_creep_jelly:
@@ -514,8 +512,6 @@
 
         case EBlockPreset_tiny_pipe_bub: return @"tiny-pipe-bub";
 
-        case EBlockPreset_tiny_creep_fuzz_l: //return @"tiny-creep-fuzz-0";
-        case EBlockPreset_tiny_creep_fuzz_r: //return @"tiny-creep-fuzz-1";
         case EBlockPreset_tiny_creep_martian: //return @"tiny-creep-martian-0";
         case EBlockPreset_tiny_creep_mosquito: //return @"tiny-creep-mosquito-0";
         case EBlockPreset_tiny_creep_jelly: //return @"tiny-creep-jelly-0";
@@ -632,9 +628,9 @@
         case EBlockPreset_tiny_btn1:
         case EBlockPreset_tiny_creep_fuzz_l:
         case EBlockPreset_tiny_creep_fuzz_r:
-        case EBlockPreset_tiny_creep_martian:
-        case EBlockPreset_tiny_creep_mosquito:
-        case EBlockPreset_tiny_creep_jelly:
+        //case EBlockPreset_tiny_creep_martian:
+        //case EBlockPreset_tiny_creep_mosquito:
+        //case EBlockPreset_tiny_creep_jelly:
             return YES;
 
         case EBlockPreset_tiny_playerStart:
@@ -661,6 +657,11 @@
             
         case EBlockPreset_Crumbles1:
             return [[[Crumbles1Actor alloc] initAtStartingPoint:pStart] autorelease];
+            
+        case EBlockPreset_tiny_creep_fuzz_l:
+            return [[[TinyFuzzActor alloc] initAtStartingPoint:pStart goingLeft:YES] autorelease];
+        case EBlockPreset_tiny_creep_fuzz_r:
+            return [[[TinyFuzzActor alloc] initAtStartingPoint:pStart goingLeft:NO] autorelease];
             
         default:
             NSLog( @"don't know how to create actor for preset." );
