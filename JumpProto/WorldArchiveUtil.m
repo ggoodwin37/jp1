@@ -12,6 +12,7 @@
 #import "SpriteAutoVariationDefines.h"
 #import "Emu.h"
 #import "LevelUtil.h"
+#import "BadGuyActor.h"
 
 @implementation WorldArchiveUtil
 

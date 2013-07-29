@@ -16,6 +16,8 @@
 		9386061717A5B86900A544B5 /* tiny-debut-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9386061317A5B86900A544B5 /* tiny-debut-1.png */; };
 		9386061A17A5BA6E00A544B5 /* Anims1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9386061817A5BA6E00A544B5 /* Anims1.xml */; };
 		9386061B17A5BA6E00A544B5 /* Sprites1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9386061917A5BA6E00A544B5 /* Sprites1.xml */; };
+		9386061E17A5ED8A00A544B5 /* PlayerActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9386061D17A5ED8A00A544B5 /* PlayerActor.m */; };
+		9386062117A5ED9C00A544B5 /* BadGuyActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9386062017A5ED9C00A544B5 /* BadGuyActor.m */; };
 		93A736BC17580FEE0059C2C9 /* EBlockMRUList.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */; };
 		F305ECE91623E1FB00E153FB /* blAlgae.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE61623E1FB00E153FB /* blAlgae.png */; };
 		F305ECEA1623E1FB00E153FB /* blavQik.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE71623E1FB00E153FB /* blavQik.png */; };
@@ -147,6 +149,10 @@
 		9386061317A5B86900A544B5 /* tiny-debut-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-debut-1.png"; path = "images/tiny-debut-1.png"; sourceTree = "<group>"; };
 		9386061817A5BA6E00A544B5 /* Anims1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Anims1.xml; sourceTree = "<group>"; };
 		9386061917A5BA6E00A544B5 /* Sprites1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Sprites1.xml; sourceTree = "<group>"; };
+		9386061C17A5ED8A00A544B5 /* PlayerActor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerActor.h; sourceTree = "<group>"; };
+		9386061D17A5ED8A00A544B5 /* PlayerActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerActor.m; sourceTree = "<group>"; };
+		9386061F17A5ED9C00A544B5 /* BadGuyActor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadGuyActor.h; sourceTree = "<group>"; };
+		9386062017A5ED9C00A544B5 /* BadGuyActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadGuyActor.m; sourceTree = "<group>"; };
 		93A736BA17580FEE0059C2C9 /* EBlockMRUList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBlockMRUList.h; sourceTree = "<group>"; };
 		93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBlockMRUList.m; sourceTree = "<group>"; };
 		F305ECE61623E1FB00E153FB /* blAlgae.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blAlgae.png; path = images/blAlgae.png; sourceTree = "<group>"; };
@@ -624,6 +630,10 @@
 				93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */,
 				F3D6C7E514CA1B2F003FE5B4 /* Actor.h */,
 				F3D6C7E614CA1B2F003FE5B4 /* Actor.m */,
+				9386061C17A5ED8A00A544B5 /* PlayerActor.h */,
+				9386061D17A5ED8A00A544B5 /* PlayerActor.m */,
+				9386061F17A5ED9C00A544B5 /* BadGuyActor.h */,
+				9386062017A5ED9C00A544B5 /* BadGuyActor.m */,
 				F3D6C7E914CA2640003FE5B4 /* ActorUpdater.h */,
 				F3D6C7EA14CA2640003FE5B4 /* ActorUpdater.m */,
 				F35204211500A2F100000CDC /* WorldFrameState.h */,
@@ -898,6 +908,8 @@
 				932DD07917974A3100375642 /* RectCoordBuffer.m in Sources */,
 				93732D8417A4327D00F1B5A7 /* ElbowRoomGrid.m in Sources */,
 				93732D8717A4982B00F1B5A7 /* PropagateMovementUpdater.m in Sources */,
+				9386061E17A5ED8A00A544B5 /* PlayerActor.m in Sources */,
+				9386062117A5ED9C00A544B5 /* BadGuyActor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

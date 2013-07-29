@@ -10,7 +10,7 @@
 #import "Block.h"
 #import "IElbowRoom.h"
 #import "BlockUpdater.h"
-#import "Actor.h"
+#import "PlayerActor.h"
 #import "ActorUpdater.h"
 #import "BlockGroup.h"
 #import "WorldFrameState.h"
