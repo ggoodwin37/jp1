@@ -18,6 +18,24 @@
 -(void)setWallJumpAnimState;
 @end
 
+/* TODO: need to overhaul how spriteStates are selected. how about this:
+         remember current state (incl. flipped-ness).
+         we know all input states, abutters, and velocity.
+         each frame:
+           if input_left -> set left bit and continue
+           if input_right -> clear left bit and continue
+           if mid-air
+             if input_left && has_walljump_left_abutter -> walljump state and done
+             if input_right && has_walljump_right_abutter -> walljump state and done
+             if vy > 0 -> jumpup state and done
+             otherwise jumpdown state and done
+           else (not mid-air)
+             if input_left || input_right -> running state and done
+             otherwise -> static state and done
+           when done, if the calculated sprite state name is different, switch. handle left bit likewise.
+ */
+
+
 
 @implementation PlayerActor
 
