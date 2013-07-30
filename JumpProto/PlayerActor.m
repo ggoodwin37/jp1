@@ -18,24 +18,6 @@
 -(void)setWallJumpAnimState;
 @end
 
-/* TODO: need to overhaul how spriteStates are selected. how about this:
-         remember current state (incl. flipped-ness).
-         we know all input states, abutters, and velocity.
-         each frame:
-           if input_left -> set left bit and continue
-           if input_right -> clear left bit and continue
-           if mid-air
-             if input_left && has_walljump_left_abutter -> walljump state and done
-             if input_right && has_walljump_right_abutter -> walljump state and done
-             if vy > 0 -> jumpup state and done
-             otherwise jumpdown state and done
-           else (not mid-air)
-             if input_left || input_right -> running state and done
-             otherwise -> static state and done
-           when done, if the calculated sprite state name is different, switch. handle left bit likewise.
- */
-
-
 
 @implementation PlayerActor
 
@@ -92,8 +74,10 @@
 }
 
 
--(void)updateCurrentAnimState
+-(void)updateCurrentAnimStateForPlayer
 {
+    // TODO: this now runs every frame
+    
     if( m_actorBlock == nil )
     {
         return;
@@ -126,7 +110,39 @@
     {
         [self setStillAnimState];
     }
+
+    // TODO: gather these only if needed
+    NSArray *downAbutters =  [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirDown];
+    NSArray *leftAbutters =  [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirLeft];
+    NSArray *rightAbutters = [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirRight];
+    Emu vy = [m_actorBlock getV].y;
+    
+    NSLog( @"(out) player updateCurrentAnimStateForPlayer. l?%@ r?%@ wj?%@ flp?%@ #da=%d #la=%d #ra=%d vy=%d",
+          YORN( m_isDirLeftPressed ), YORN( m_isDirRightPressed ),
+          YORN( m_isWallJumping ), YORN( m_actorBlock.defaultSpriteState.isFlipped ),
+          [downAbutters count], [leftAbutters count], [rightAbutters count],
+          vy );
+    
 }
+
+/* TODO: need to overhaul how spriteStates are selected. how about this:
+ remember current state (incl. flipped-ness).
+ we know all input states, abutters, and velocity.
+ each frame:
+ if input_left -> set left bit and continue
+ if input_right -> clear left bit and continue
+ if mid-air
+ if input_left && has_walljump_left_abutter -> walljump state and done
+ if input_right && has_walljump_right_abutter -> walljump state and done
+ if vy > 0 -> jumpup state and done
+ otherwise jumpdown state and done
+ else (not mid-air)
+ if input_left || input_right -> running state and done
+ otherwise -> static state and done
+ when done, if the calculated sprite state name is different, switch. handle left bit likewise.
+ */
+
+
 
 
 -(void)processNextInputEvent
@@ -220,7 +236,7 @@
     // must come after dimensions have been set.
     [m_world.elbowRoom addBlock:m_actorBlock];
     
-    [self updateCurrentAnimState];
+    [self updateCurrentAnimStateForPlayer];
 }
 
 
@@ -354,7 +370,7 @@
 // override
 -(void)updateControlStateWithTimeDelta:(float)delta
 {
-    // potentially clean up state automatically
+    // wall jumping can be cancelled through no event of the players' (sliding off end)
     if( m_isWallJumping )
     {
         BOOL stillWallJumping = NO;
@@ -384,12 +400,14 @@
                 }
             }
         }
-        if( !stillWallJumping )
-        {
-            [self updateCurrentAnimState];
-        }
         m_isWallJumping = stillWallJumping;
     }
+
+    // calculates the player's spritestate for the current frame, given all known input states.
+    // since this operation requires knowledge of lots of different state (abutters, input, velocity),
+    // it's better to do this in one place as opposed to trying to sync state on the fly like
+    // simpler actors can.
+    [self updateCurrentAnimStateForPlayer];
 }
 
 

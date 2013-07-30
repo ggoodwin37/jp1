@@ -1,18 +1,23 @@
 // misc
 
+- test level: tower of babel. need to get the "distance from origin" thing figured out.
+  - why can't we handle negatives in edit anyways? pretty sure play is fine. maybe we can replace the key-gen-requires-positive-coord thing (is that what's happening)? can use space partition collision detection and allow overlapping blocks :)
+- different way to draw blocks: freeform mode. touch down begins, touch up ends, other touch cancels. could be really cool for quickly sketching efficient but interesting structures. not so much for big blocks. gels well with geometry mode.
+
+- crumbles: should trigger from any direction? might be more interesting, won't allow "locked in" scenarios though.
+
 - finish off wall jumping:
   - sprite states are messed up, need to fix them in general. left/right is broken.
-  - I think the walljump sprite might need to be flipped to be uniform, double check.
-  - I think you can still walljump off non-walljump blocks (but you don't slowdown).
   - I think it would be cool if when doing a walljump you "launched out" (i.e. get some opposing x velocity)
+    - should "deaden" the input signal during this time so it's like a mandatory reverse jump, this could limit infinite climbing (if we even want to do that...) at least write logic for it, can be tuned down later.
 
-- check: does dpad still listen during edit?
+- sanity check: does dpad still listen during edit? seems like dpad is offcenter after editing, or did my hands just shift.
 
 - revisit how groups are instantiated/added to world and er.
 
 - drawing spriteStateMaps: base case is done, need to do edit support (tiling?) and consider handling non-integral case in play.
 
-- button v1?
+- button v1? also need horizontal button kits.
 
 - put it on new iPad (maybe? I sort of like the old one keeping me honest).
 

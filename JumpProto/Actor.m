@@ -345,7 +345,7 @@
 }
 
 
--(void)updateCurrentAnimState
+-(void)updateCurrentAnimStateForCrumbles1
 {
     if( m_actorBlock == nil )
     {
@@ -378,7 +378,7 @@
             break;
 
         default:
-            NSLog( @"updateCurrentAnimState: unrecognized crumbles state." );
+            NSLog( @"updateCurrentAnimStateForCrumbles1: unrecognized crumbles state." );
             break;
     }
     m_actorBlock.defaultSpriteState.isFlipped = NO;
@@ -406,7 +406,7 @@
     NSAssert( m_world != nil, @"need world's ER at spawn time" );
     [m_world.elbowRoom addBlock:m_actorBlock];
     
-    [self updateCurrentAnimState];
+    [self updateCurrentAnimStateForCrumbles1];
 }
 
 
@@ -458,7 +458,7 @@
             NSLog( @"goNextState: unrecognized crumbles state." );
             break;
     }
-    [self updateCurrentAnimState];
+    [self updateCurrentAnimStateForCrumbles1];
 }
 
 
@@ -497,7 +497,7 @@
     {
         m_currentState = Crumbles1State_Crumbling;
         m_timeRemainingInCurrentState = CRUMBLES1_CRUMBLETIME;
-        [self updateCurrentAnimState];
+        [self updateCurrentAnimStateForCrumbles1];
     }
 }
 

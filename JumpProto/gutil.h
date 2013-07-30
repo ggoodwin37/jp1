@@ -12,15 +12,11 @@
 #import <mach/mach_time.h>
 #import <CoreGraphics/CoreGraphics.h>
 
-#ifdef DEBUG
-#define TODO_BREAK					NSAssert( false, @"TODO" );
-#endif
-// don't define in ship, get compiler error if these exist.
-
 #define RadToDeg(x) ((x)*180.0f/M_PI)
 #define DegToRad(x) ((x)*M_PI/180.0f)
 
-#define OK_OR_NIL( foo )             ((foo) == nil ? @"nil" : @"ok")
+#define OK_OR_NIL( myref )   ((myref) == nil ? @"nil" : @"ok")
+#define YORN( mybool )       ((mybool)       ? @"y"   : @"n")
 
 #define foo 0
 #define bar 1
