@@ -19,6 +19,12 @@
     BOOL m_isDirRightPressed;
     BOOL m_isGibbed;
     BOOL m_isWallJumping;
+    
+    SpriteState *m_stillSpriteState;
+    SpriteState *m_runningSpriteState;
+    SpriteState *m_jumpUpSpriteState;
+    SpriteState *m_jumpDownSpriteState;
+    SpriteState *m_wallJumpSpriteState;
 }
 
 
