@@ -490,10 +490,17 @@
         return;
     }
 
+    BOOL triggered;
+#if 0
     // since crumbles doesn't move, we only get collision events from other SOs that
     // moved into us. so this method will be getting called from their perspective,
     // meaning we're actually listening for the Up direction to trigger us.
-    if( dir == ERDirUp )
+    triggered = (dir == ERDirUp);
+#else
+    // on second thought, just trigger it from any direction.
+    triggered = YES;
+#endif
+    if( triggered )
     {
         m_currentState = Crumbles1State_Crumbling;
         m_timeRemainingInCurrentState = CRUMBLES1_CRUMBLETIME;
