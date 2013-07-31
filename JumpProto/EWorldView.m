@@ -251,6 +251,15 @@
 }
 
 
+-(void)drawBlockGeoViewWithBoundingBox:(CGRect)boundingBox toContext:(CGContextRef)context r:(float)r g:(float)g b:(float)b
+{
+	CGContextSetRGBStrokeColor( context, r, g, b, 1.f );
+	CGContextSetLineWidth( context, 4 );
+    CGContextAddRect( context, boundingBox );
+    CGContextStrokePath( context );
+}
+
+
 -(void)drawCursorWithBoundingBox:(CGRect)boundingBox toContext:(CGContextRef)context
 {
 	CGContextSetRGBStrokeColor( context, 1.f, 1.f, 0.f, 0.75f );
@@ -357,12 +366,21 @@
         vw = worldToView( thisMarker.gridSize.xGrid * ONE_BLOCK_SIZE_Fl, 0.f, self.worldRect.size.width, self.frame.size.width);
         vh = worldToView( thisMarker.gridSize.yGrid * ONE_BLOCK_SIZE_Fl, 0.f, self.worldRect.size.height, self.frame.size.height);
         CGRect boundingBox = CGRectMake( vx, vy, vw, vh);
-        // TODO: support non-integral case?
-        NSString *thisPresetSpriteName = [EBlockPresetSpriteNames getSpriteNameForPreset:thisMarker.preset];
-        SpriteDef *spriteDef = [[SpriteManager instance] getSpriteDef:thisPresetSpriteName];
-        int xCount = MAX( 1, thisMarker.gridSize.xGrid / spriteDef.worldSize.width );
-        int yCount = MAX( 1, thisMarker.gridSize.yGrid / spriteDef.worldSize.height );
-        [self drawBlockPreset:thisMarker.preset at:boundingBox toContext:context xCount:xCount yCount:yCount];
+        
+        const BOOL geoMode = YES;
+        if( geoMode )
+        {
+            [self drawBlockGeoViewWithBoundingBox:boundingBox toContext:context r:1.f g:0.5f b:0.25f];
+        }
+        else
+        {
+            // TODO: support non-integral case?
+            NSString *thisPresetSpriteName = [EBlockPresetSpriteNames getSpriteNameForPreset:thisMarker.preset];
+            SpriteDef *spriteDef = [[SpriteManager instance] getSpriteDef:thisPresetSpriteName];
+            int xCount = MAX( 1, thisMarker.gridSize.xGrid / spriteDef.worldSize.width );
+            int yCount = MAX( 1, thisMarker.gridSize.yGrid / spriteDef.worldSize.height );
+            [self drawBlockPreset:thisMarker.preset at:boundingBox toContext:context xCount:xCount yCount:yCount];
+        }
   
         if( self.drawGroupOverlay )
             [self drawBlockGroupOverlayForMarker:thisMarker at:boundingBox toContext:context];
