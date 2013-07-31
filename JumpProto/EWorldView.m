@@ -252,11 +252,33 @@
 }
 
 
--(void)drawBlockGeoViewWithBoundingBox:(CGRect)boundingBox toContext:(CGContextRef)context r:(float)r g:(float)g b:(float)b
+-(void)drawBlockGeoViewWithBoundingBox:(CGRect)boundingBox toContext:(CGContextRef)context colorSeed:(int)seed
 {
+    srand(seed + 7725); // unmodified seeds are too popular right now, I doubt you've heard of seed 7725.
+    unsigned int rComp0 = rand() % 1000;
+    unsigned int gComp0 = rand() % 1000;
+    unsigned int bComp0 = rand() % 1000;
+    
+    float rComp1 = (float)rComp0 / 1000;
+    float gComp1 = (float)gComp0 / 1000;
+    float bComp1 = (float)bComp0 / 1000;
+    float mag = sqrt( rComp1 * rComp1 + gComp1 * gComp1 + gComp1 * gComp1 );
+    if( mag == 0.f ) mag = 0.3f;  //  suuure
+    rComp1 /= mag;
+    gComp1 /= mag;
+    bComp1 /= mag;
+    
+    float r = rComp1;
+    float g = gComp1;
+    float b = bComp1;
+    float inset = 4.f;
+    CGRect insetBoundingBox = CGRectMake( boundingBox.origin.x + inset,
+                                          boundingBox.origin.y + inset,
+                                          boundingBox.size.width - 2 * inset,
+                                          boundingBox.size.height - 2 * inset );
 	CGContextSetRGBStrokeColor( context, r, g, b, 1.f );
-	CGContextSetLineWidth( context, 4 );
-    CGContextAddRect( context, boundingBox );
+	CGContextSetLineWidth( context, 8 );
+    CGContextAddRect( context, insetBoundingBox );
     CGContextStrokePath( context );
 }
 
@@ -370,7 +392,7 @@
         
         if( self.geoModeVisible )
         {
-            [self drawBlockGeoViewWithBoundingBox:boundingBox toContext:context r:1.f g:0.5f b:0.25f];
+            [self drawBlockGeoViewWithBoundingBox:boundingBox toContext:context colorSeed:(int)thisMarker.preset];
         }
         else
         {
