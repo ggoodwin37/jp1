@@ -87,8 +87,8 @@
         if( m_isDirLeftPressed ) {
             NSArray *leftAbutters =  [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirLeft];
             for( int i = 0; i < [leftAbutters count]; ++i ) {
-                Block *thisBlock = (Block *)[leftAbutters objectAtIndex:i];
-                if( thisBlock.props.isWallJumpable ) {
+                ASolidObject *thisSO = (ASolidObject *)[leftAbutters objectAtIndex:i];
+                if( [thisSO getProps].isWallJumpable ) {
                     targetState = m_wallJumpSpriteState;
                     break;
                 }
@@ -97,8 +97,8 @@
         } else if( m_isDirRightPressed ) {
             NSArray *rightAbutters =  [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirRight];
             for( int i = 0; i < [rightAbutters count]; ++i ) {
-                Block *thisBlock = (Block *)[rightAbutters objectAtIndex:i];
-                if( thisBlock.props.isWallJumpable ) {
+                ASolidObject *thisSO = (ASolidObject *)[rightAbutters objectAtIndex:i];
+                if( [thisSO getProps].isWallJumpable ) {
                     targetState = m_wallJumpSpriteState;
                     break;
                 }
@@ -347,8 +347,8 @@
             NSArray *abutters = [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirLeft];
             for( int i = 0; i < [abutters count]; ++i )
             {
-                Block *thisAbutter = (Block *)[abutters objectAtIndex:i];
-                if( [thisAbutter getProps].isWallJumpable )
+                ASolidObject *thisSO = (ASolidObject *)[abutters objectAtIndex:i];
+                if( [thisSO getProps].isWallJumpable )
                 {
                     stillWallJumping = YES;
                     break;
@@ -360,8 +360,8 @@
             NSArray *abutters = [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirRight];
             for( int i = 0; i < [abutters count]; ++i )
             {
-                Block *thisAbutter = (Block *)[abutters objectAtIndex:i];
-                if( [thisAbutter getProps].isWallJumpable )
+                ASolidObject *thisSO = (ASolidObject *)[abutters objectAtIndex:i];
+                if( [thisSO getProps].isWallJumpable )
                 {
                     stillWallJumping = YES;
                     break;
