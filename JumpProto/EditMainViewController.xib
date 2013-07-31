@@ -104,6 +104,12 @@
 								<int key="IBUIStyle">1</int>
 								<reference key="IBUIToolbar" ref="213233822"/>
 							</object>
+							<object class="IBUIBarButtonItem" id="325888913">
+								<string key="IBUITitle">Show Geo</string>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<int key="IBUIStyle">1</int>
+								<reference key="IBUIToolbar" ref="213233822"/>
+							</object>
 							<object class="IBUIBarButtonItem" id="940923387">
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<reference key="IBUIToolbar" ref="213233822"/>
@@ -151,7 +157,7 @@
 								<string key="NSFrame">{{115, 9}, {87, 29}}</string>
 								<reference key="NSSuperview" ref="764898782"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSNextKeyView" ref="6602986"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
 									<string key="IBUIAccessibilityLabel"/>
@@ -380,6 +386,14 @@
 					<int key="connectionID">104</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">showHideGeoModeButton</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="325888913"/>
+					</object>
+					<int key="connectionID">112</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">onMasterToolsExitButtonPressed:</string>
 						<reference key="source" ref="321317786"/>
@@ -455,6 +469,14 @@
 					</object>
 					<int key="connectionID">102</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">onShowHideGeoModeButtonPressed:</string>
+						<reference key="source" ref="325888913"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">111</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -505,6 +527,7 @@
 							<reference ref="238671057"/>
 							<reference ref="656195288"/>
 							<reference ref="940923387"/>
+							<reference ref="325888913"/>
 						</object>
 						<reference key="parent" ref="766721923"/>
 						<string key="objectName">EMasterToolbar</string>
@@ -612,6 +635,11 @@
 						<reference key="parent" ref="764898782"/>
 						<string key="objectName">Group</string>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">109</int>
+						<reference key="object" ref="325888913"/>
+						<reference key="parent" ref="213233822"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -623,6 +651,7 @@
 					<string>-2.CustomClassName</string>
 					<string>-2.IBPluginDependency</string>
 					<string>10.IBPluginDependency</string>
+					<string>109.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
 					<string>13.IBPluginDependency</string>
 					<string>14.IBPluginDependency</string>
@@ -660,6 +689,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>EWorldView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -683,7 +713,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">108</int>
+			<int key="maxID">112</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -706,12 +736,12 @@
 							<string>onDocPropsButtonPressed:</string>
 							<string>onEditToolsBlockPressed:</string>
 							<string>onEditToolsErasePressed:</string>
-							<string>onEditToolsFreeDrawBlockPressed:</string>
 							<string>onEditToolsGrabPressed:</string>
 							<string>onEditToolsGroupPressed:</string>
 							<string>onMasterToolsExitButtonPressed:</string>
 							<string>onMasterToolsSaveButtonPressed:</string>
 							<string>onShowHideEditToolsButtonPressed:</string>
+							<string>onShowHideGeoModeButtonPressed:</string>
 							<string>onShowHideGridButtonPressed:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
@@ -735,12 +765,12 @@
 							<string>onDocPropsButtonPressed:</string>
 							<string>onEditToolsBlockPressed:</string>
 							<string>onEditToolsErasePressed:</string>
-							<string>onEditToolsFreeDrawBlockPressed:</string>
 							<string>onEditToolsGrabPressed:</string>
 							<string>onEditToolsGroupPressed:</string>
 							<string>onMasterToolsExitButtonPressed:</string>
 							<string>onMasterToolsSaveButtonPressed:</string>
 							<string>onShowHideEditToolsButtonPressed:</string>
+							<string>onShowHideGeoModeButtonPressed:</string>
 							<string>onShowHideGridButtonPressed:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
@@ -755,10 +785,6 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">onEditToolsErasePressed:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">onEditToolsFreeDrawBlockPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -782,6 +808,10 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">onShowHideGeoModeButtonPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">onShowHideGridButtonPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -795,10 +825,10 @@
 							<string>editToolsBarView</string>
 							<string>editToolsDrawBlocksButton</string>
 							<string>editToolsEraseButton</string>
-							<string>editToolsFreeDrawBlocksButton</string>
 							<string>editToolsGrabButton</string>
 							<string>editToolsGroupButton</string>
 							<string>showHideEditToolsButton</string>
+							<string>showHideGeoModeButton</string>
 							<string>showHideGridButton</string>
 							<string>showHidePropsButton</string>
 							<string>worldView</string>
@@ -811,7 +841,7 @@
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
-							<string>UIButton</string>
+							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
@@ -826,10 +856,10 @@
 							<string>editToolsBarView</string>
 							<string>editToolsDrawBlocksButton</string>
 							<string>editToolsEraseButton</string>
-							<string>editToolsFreeDrawBlocksButton</string>
 							<string>editToolsGrabButton</string>
 							<string>editToolsGroupButton</string>
 							<string>showHideEditToolsButton</string>
+							<string>showHideGeoModeButton</string>
 							<string>showHideGridButton</string>
 							<string>showHidePropsButton</string>
 							<string>worldView</string>
@@ -853,10 +883,6 @@
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">editToolsFreeDrawBlocksButton</string>
-								<string key="candidateClassName">UIButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
 								<string key="name">editToolsGrabButton</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
@@ -866,6 +892,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">showHideEditToolsButton</string>
+								<string key="candidateClassName">UIBarButtonItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">showHideGeoModeButton</string>
 								<string key="candidateClassName">UIBarButtonItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">

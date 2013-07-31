@@ -61,6 +61,7 @@ typedef enum EToolModeEnum EToolMode;
 @property (nonatomic, assign) EToolMode currentToolMode;
 @property (nonatomic, assign) EGridDocument *document;  // weak
 @property (nonatomic, assign) BOOL gridVisible;
+@property (nonatomic, assign) BOOL geoModeVisible;
 @property (nonatomic, assign) id<IWorldViewEventCallback> worldViewEventCallback;  // weak
 @property (nonatomic, assign) BOOL docDirty;
 @property (nonatomic, retain) UILabel *groupOverlayDrawer;

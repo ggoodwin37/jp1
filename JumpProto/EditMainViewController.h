@@ -48,6 +48,7 @@
 
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *showHideEditToolsButton;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *showHideGridButton;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *showHideGeoModeButton;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *showHidePropsButton;
 
 @property (nonatomic, retain) EBlockPaletteViewController *editToolsBlockPaletteVC;
@@ -69,6 +70,7 @@
 
 -(IBAction)onShowHideEditToolsButtonPressed:(id)sender;
 -(IBAction)onShowHideGridButtonPressed:(id)sender;
+-(IBAction)onShowHideGeoModeButtonPressed:(id)sender;
 
 -(IBAction)onDocPropsButtonPressed:(id)sender;
 

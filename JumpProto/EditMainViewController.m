@@ -28,7 +28,7 @@
 @synthesize editToolsDrawBlocksButton, editToolsEraseButton, editToolsBarView;
 @synthesize editToolsGrabButton, editToolsGroupButton;
 @synthesize editToolsBlockPaletteVC;
-@synthesize showHideEditToolsButton, showHideGridButton, showHidePropsButton;
+@synthesize showHideEditToolsButton, showHideGridButton, showHidePropsButton, showHideGeoModeButton;
 @synthesize docPropsVC, groupPickerVC, drawSettingsVC;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -71,6 +71,7 @@
     self.showHidePropsButton = nil;
     self.showHideEditToolsButton = nil;
     self.showHideGridButton = nil;
+    self.showHideGeoModeButton = nil;
     
     [m_doc release]; m_doc = nil;
     [m_startingLevel release]; m_startingLevel = nil;
@@ -200,6 +201,7 @@
     [self.view addSubview: self.drawSettingsVC.view];
     
     self.worldView.gridVisible = YES;
+    self.worldView.geoModeVisible = NO;
     
     if( m_startingLevel != nil )
     {
@@ -445,6 +447,14 @@
     {
         self.showHidePropsButton.title = @"Show Props";
     }
+    if( self.worldView.geoModeVisible )
+    {
+        self.showHideGeoModeButton.title = @"Hide Geo";
+    }
+    else
+    {
+        self.showHideGeoModeButton.title = @"Show Geo";
+    }
 }
 
 
@@ -474,6 +484,14 @@
 -(IBAction)onShowHideGridButtonPressed:(id)sender
 {
     self.worldView.gridVisible = !self.worldView.gridVisible;
+    [self.worldView setNeedsDisplay];
+    [self setStringsForShowHideButtons];
+}
+
+
+-(IBAction)onShowHideGeoModeButtonPressed:(id)sender
+{
+    self.worldView.geoModeVisible = !self.worldView.geoModeVisible;
     [self.worldView setNeedsDisplay];
     [self setStringsForShowHideButtons];
 }

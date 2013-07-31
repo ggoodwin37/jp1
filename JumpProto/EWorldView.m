@@ -27,6 +27,7 @@
 @synthesize currentToolMode;
 @synthesize document;
 @synthesize gridVisible;
+@synthesize geoModeVisible;
 @synthesize worldViewEventCallback;
 @synthesize docDirty;
 @synthesize groupOverlayDrawer;
@@ -367,8 +368,7 @@
         vh = worldToView( thisMarker.gridSize.yGrid * ONE_BLOCK_SIZE_Fl, 0.f, self.worldRect.size.height, self.frame.size.height);
         CGRect boundingBox = CGRectMake( vx, vy, vw, vh);
         
-        const BOOL geoMode = YES;
-        if( geoMode )
+        if( self.geoModeVisible )
         {
             [self drawBlockGeoViewWithBoundingBox:boundingBox toContext:context r:1.f g:0.5f b:0.25f];
         }
