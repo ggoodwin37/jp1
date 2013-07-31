@@ -16,6 +16,7 @@
 enum EToolModeEnum
 {
     ToolModeDrawBlock = 0,
+    ToolModeFreeDrawBlock,
     ToolModeErase,
     ToolModeGrab,
     ToolModeGroup,

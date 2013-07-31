@@ -30,6 +30,7 @@
 @synthesize editToolsBlockPaletteVC;
 @synthesize showHideEditToolsButton, showHideGridButton, showHidePropsButton;
 @synthesize docPropsVC, groupPickerVC, drawSettingsVC;
+@synthesize editToolsFreeDrawBlocksButton;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -145,6 +146,7 @@
     m_editToolButtonsInactiveBorderColor = [self.editToolsEraseButton layer].borderColor;
     
     [[self.editToolsDrawBlocksButton layer] setBorderWidth:1.0f];
+    [[self.editToolsFreeDrawBlocksButton layer] setBorderWidth:1.0f];
     [[self.editToolsEraseButton layer] setBorderWidth:1.0f];
     [[self.editToolsGrabButton layer] setBorderWidth:1.0f];
     [[self.editToolsGroupButton layer] setBorderWidth:1.0f];
@@ -322,24 +324,35 @@
     {
         case ToolModeDrawBlock:
             [self.editToolsDrawBlocksButton layer].borderColor = m_editToolButtonsActiveBorderColor;
+            [self.editToolsFreeDrawBlocksButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
+            [self.editToolsEraseButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
+            [self.editToolsGrabButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
+            [self.editToolsGroupButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
+            break;
+        case ToolModeFreeDrawBlock:
+            [self.editToolsDrawBlocksButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
+            [self.editToolsFreeDrawBlocksButton layer].borderColor = m_editToolButtonsActiveBorderColor;
             [self.editToolsEraseButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
             [self.editToolsGrabButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
             [self.editToolsGroupButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
             break;
         case ToolModeErase:
             [self.editToolsDrawBlocksButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
+            [self.editToolsFreeDrawBlocksButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
             [self.editToolsEraseButton layer].borderColor = m_editToolButtonsActiveBorderColor;
             [self.editToolsGrabButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
             [self.editToolsGroupButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
             break;
         case ToolModeGrab:
             [self.editToolsDrawBlocksButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
+            [self.editToolsFreeDrawBlocksButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
             [self.editToolsEraseButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
             [self.editToolsGrabButton layer].borderColor = m_editToolButtonsActiveBorderColor;
             [self.editToolsGroupButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
             break;
         case ToolModeGroup:
             [self.editToolsDrawBlocksButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
+            [self.editToolsFreeDrawBlocksButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
             [self.editToolsEraseButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
             [self.editToolsGrabButton layer].borderColor = m_editToolButtonsInactiveBorderColor;
             [self.editToolsGroupButton layer].borderColor = m_editToolButtonsActiveBorderColor;
@@ -389,6 +402,16 @@
     self.drawSettingsVC.height4Stepper.value = self.worldView.brushSizeGrid.yGrid;
     [self.drawSettingsVC updateTextFields];
     self.drawSettingsVC.view.hidden = self.editToolsBlockPaletteVC.view.hidden;
+}
+
+
+-(IBAction)onEditToolsFreeDrawBlockPressed:(id)sender
+{
+    NSLog( @"freedraw blocks pressed" );
+    [self restoreBasicState];
+    self.worldView.currentToolMode = ToolModeFreeDrawBlock;
+    [self setEditToolButtonHighlightStateForCurrentToolMode];
+    // TODO
 }
 
 

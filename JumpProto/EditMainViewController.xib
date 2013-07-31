@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -75,6 +75,7 @@
 						<string key="NSFrame">{{0, 724}, {1024, 44}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -147,10 +148,10 @@
 							<object class="IBUIButton" id="718056270">
 								<reference key="NSNextResponder" ref="764898782"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{115, 9}, {87, 29}}</string>
+								<string key="NSFrame">{{115, 10}, {87, 29}}</string>
 								<reference key="NSSuperview" ref="764898782"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSNextKeyView" ref="877196798"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
 									<string key="IBUIAccessibilityLabel"/>
@@ -187,7 +188,7 @@
 							<object class="IBUIButton" id="761935308">
 								<reference key="NSNextResponder" ref="764898782"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 9}, {87, 29}}</string>
+								<string key="NSFrame">{{20, 10}, {87, 29}}</string>
 								<reference key="NSSuperview" ref="764898782"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="718056270"/>
@@ -212,7 +213,7 @@
 							<object class="IBUIButton" id="6602986">
 								<reference key="NSNextResponder" ref="764898782"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{210, 9}, {87, 29}}</string>
+								<string key="NSFrame">{{305, 9}, {87, 29}}</string>
 								<reference key="NSSuperview" ref="764898782"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="934283275"/>
@@ -234,10 +235,35 @@
 								<reference key="IBUIFontDescription" ref="604510242"/>
 								<reference key="IBUIFont" ref="85770660"/>
 							</object>
+							<object class="IBUIButton" id="877196798">
+								<reference key="NSNextResponder" ref="764898782"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{210, 9}, {87, 29}}</string>
+								<reference key="NSSuperview" ref="764898782"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="6602986"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
+									<string key="IBUIAccessibilityLabel"/>
+								</object>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<int key="IBUIButtonType">1</int>
+								<string key="IBUINormalTitle">FDraw</string>
+								<reference key="IBUIHighlightedTitleColor" ref="952893541"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="214745351"/>
+								<reference key="IBUIFontDescription" ref="604510242"/>
+								<reference key="IBUIFont" ref="85770660"/>
+							</object>
 							<object class="IBUIButton" id="934283275">
 								<reference key="NSNextResponder" ref="764898782"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{305, 9}, {87, 29}}</string>
+								<string key="NSFrame">{{400, 9}, {87, 29}}</string>
 								<reference key="NSSuperview" ref="764898782"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="213233822"/>
@@ -260,7 +286,7 @@
 								<reference key="IBUIFont" ref="85770660"/>
 							</object>
 						</object>
-						<string key="NSFrame">{{592, 20}, {412, 48}}</string>
+						<string key="NSFrame">{{497, 20}, {507, 48}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="761935308"/>
@@ -379,6 +405,14 @@
 					<int key="connectionID">104</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">editToolsFreeDrawBlocksButton</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="877196798"/>
+					</object>
+					<int key="connectionID">108</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">onMasterToolsExitButtonPressed:</string>
 						<reference key="source" ref="321317786"/>
@@ -453,6 +487,15 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">102</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">onEditToolsFreeDrawBlockPressed:</string>
+						<reference key="source" ref="877196798"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">107</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -581,6 +624,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="934283275"/>
 							<reference ref="6602986"/>
+							<reference ref="877196798"/>
 							<reference ref="718056270"/>
 							<reference ref="761935308"/>
 						</object>
@@ -611,6 +655,12 @@
 						<reference key="parent" ref="764898782"/>
 						<string key="objectName">Group</string>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">105</int>
+						<reference key="object" ref="877196798"/>
+						<reference key="parent" ref="764898782"/>
+						<string key="objectName">Draw</string>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -622,6 +672,7 @@
 					<string>-2.CustomClassName</string>
 					<string>-2.IBPluginDependency</string>
 					<string>10.IBPluginDependency</string>
+					<string>105.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
 					<string>13.IBPluginDependency</string>
 					<string>14.IBPluginDependency</string>
@@ -659,6 +710,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>EWorldView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -682,7 +734,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">104</int>
+			<int key="maxID">108</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -705,6 +757,7 @@
 							<string>onDocPropsButtonPressed:</string>
 							<string>onEditToolsBlockPressed:</string>
 							<string>onEditToolsErasePressed:</string>
+							<string>onEditToolsFreeDrawBlockPressed:</string>
 							<string>onEditToolsGrabPressed:</string>
 							<string>onEditToolsGroupPressed:</string>
 							<string>onMasterToolsExitButtonPressed:</string>
@@ -723,6 +776,7 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
@@ -732,6 +786,7 @@
 							<string>onDocPropsButtonPressed:</string>
 							<string>onEditToolsBlockPressed:</string>
 							<string>onEditToolsErasePressed:</string>
+							<string>onEditToolsFreeDrawBlockPressed:</string>
 							<string>onEditToolsGrabPressed:</string>
 							<string>onEditToolsGroupPressed:</string>
 							<string>onMasterToolsExitButtonPressed:</string>
@@ -751,6 +806,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">onEditToolsErasePressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">onEditToolsFreeDrawBlockPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -787,6 +846,7 @@
 							<string>editToolsBarView</string>
 							<string>editToolsDrawBlocksButton</string>
 							<string>editToolsEraseButton</string>
+							<string>editToolsFreeDrawBlocksButton</string>
 							<string>editToolsGrabButton</string>
 							<string>editToolsGroupButton</string>
 							<string>showHideEditToolsButton</string>
@@ -798,6 +858,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIImageView</string>
 							<string>UIView</string>
+							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
@@ -816,6 +877,7 @@
 							<string>editToolsBarView</string>
 							<string>editToolsDrawBlocksButton</string>
 							<string>editToolsEraseButton</string>
+							<string>editToolsFreeDrawBlocksButton</string>
 							<string>editToolsGrabButton</string>
 							<string>editToolsGroupButton</string>
 							<string>showHideEditToolsButton</string>
@@ -839,6 +901,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">editToolsEraseButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">editToolsFreeDrawBlocksButton</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
