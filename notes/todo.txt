@@ -2,7 +2,6 @@
 
 - test level: tower of babel. need to get the "distance from origin" thing figured out.
   - why can't we handle negatives in edit anyways? pretty sure play is fine. maybe we can replace the key-gen-requires-positive-coord thing (is that what's happening)? can use space partition collision detection and allow overlapping blocks :)
-- different way to draw blocks: freeform mode. touch down begins, touch up ends, other touch cancels. could be really cool for quickly sketching efficient but interesting structures. not so much for big blocks. gels well with geometry mode.
 
 - finish off wall jumping:
   - I think it would be cool if when doing a walljump you "launched out" (i.e. get some opposing x velocity)
