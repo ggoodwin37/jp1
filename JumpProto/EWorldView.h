@@ -16,7 +16,6 @@
 enum EToolModeEnum
 {
     ToolModeDrawBlock = 0,
-    ToolModeFreeDrawBlock,
     ToolModeErase,
     ToolModeGrab,
     ToolModeGroup,
@@ -67,7 +66,7 @@ typedef enum EToolModeEnum EToolMode;
 @property (nonatomic, retain) UILabel *groupOverlayDrawer;
 @property (nonatomic, assign) BOOL drawGroupOverlay;
 @property (nonatomic, assign) GroupId activeGroupId;
-@property (nonatomic, retain) NSSet *cursorTouches;
+@property (nonatomic, assign) BOOL cursorVisible;
 @property (nonatomic, assign) int currentSnap;
 @property (nonatomic, retain) EGridPoint *brushSizeGrid;
 @property (nonatomic, assign) BOOL currentTouchEventPanZoomed;

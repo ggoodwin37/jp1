@@ -43,7 +43,6 @@
 
 @property (nonatomic, retain) IBOutlet UIView   *editToolsBarView;
 @property (nonatomic, retain) IBOutlet UIButton *editToolsDrawBlocksButton;
-@property (nonatomic, retain) IBOutlet UIButton *editToolsFreeDrawBlocksButton;
 @property (nonatomic, retain) IBOutlet UIButton *editToolsEraseButton;
 @property (nonatomic, retain) IBOutlet UIButton *editToolsGrabButton;
 @property (nonatomic, retain) IBOutlet UIButton *editToolsGroupButton;
@@ -65,7 +64,6 @@
 -(IBAction)onMasterToolsExitButtonPressed:(id)sender;
 
 -(IBAction)onEditToolsBlockPressed:(id)sender;
--(IBAction)onEditToolsFreeDrawBlockPressed:(id)sender;
 -(IBAction)onEditToolsErasePressed:(id)sender;
 -(IBAction)onEditToolsGrabPressed:(id)sender;
 -(IBAction)onEditToolsGroupPressed:(id)sender;

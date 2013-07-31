@@ -32,7 +32,6 @@
 @synthesize groupOverlayDrawer;
 @synthesize drawGroupOverlay;
 @synthesize activeGroupId;
-@synthesize cursorTouches;
 @synthesize currentSnap;
 @synthesize brushSizeGrid;
 @synthesize currentTouchEventPanZoomed;  // whether the current event ever caused a pan/zoom (cancelling other tools).
@@ -60,7 +59,7 @@
         self.groupOverlayDrawer = [[UILabel alloc] init];
         [self initText];
         
-        self.cursorTouches = nil;
+        self.cursorVisible = NO;
         
         self.currentTouchEventPanZoomed = NO;
         
@@ -75,7 +74,6 @@
 {
     self.blockMRUList = nil;
     self.brushSizeGrid = nil;
-    self.cursorTouches = nil;
     self.groupOverlayDrawer = nil;
     m_blockPresetStateHolder = nil;  // weak
     self.level = nil;    // weak
@@ -319,7 +317,7 @@
     yWorldMax = viewToWorld( self.frame.size.height, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height );
     yWorldMax = ceilf( yWorldMax / ONE_BLOCK_SIZE_Fl ) * ONE_BLOCK_SIZE_Fl;
 
-    float vx, vy, vw, vh, wx, wy;
+    float vx, vy, vw, vh;
     
     float xWorldCur, yWorldCur;
 
@@ -373,54 +371,24 @@
             [self drawBlockGroupOverlayForMarker:thisMarker at:boundingBox toContext:context];
     }
     
-    if( self.cursorTouches != nil )
+    if( self.cursorVisible )
     {
-        if( self.currentToolMode == ToolModeDrawBlock )
-        {
-            int cursorGridW = self.brushSizeGrid.xGrid;
-            int cursorGridH = self.brushSizeGrid.yGrid;
-            vw = worldToView( cursorGridW * ONE_BLOCK_SIZE_Fl, 0.f, self.worldRect.size.width, self.frame.size.width);
-            vh = worldToView( cursorGridH * ONE_BLOCK_SIZE_Fl, 0.f, self.worldRect.size.height, self.frame.size.height);
-            
-            UITouch *touch;
-            NSEnumerator *enumerator = [self.cursorTouches objectEnumerator];
-            while( touch = (UITouch *)[enumerator nextObject] )
-            {
-                CGPoint touchPView = [touch locationInView:self];
-                wx = viewToWorld(touchPView.x, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width);
-                wy = viewToWorld(touchPView.y, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height);
-                
-                // round to nearest snap
-                wx = [self snapCoord:wx];
-                wy = [self snapCoord:wy];
-                
-                CGPoint touchPWorld = CGPointMake( wx, wy );
-                vx = worldToView( touchPWorld.x, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width);
-                vy = worldToView( touchPWorld.y, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height);
-                CGRect boundingBox = CGRectMake( vx, vy, vw, vh);
-                
-                [self drawCursorWithBoundingBox:boundingBox toContext:context];
-            }
-        }
-        else if( self.currentToolMode == ToolModeFreeDrawBlock )
-        {
-            float xMin = fminf( self.freeDrawStartPointWorld.x, self.freeDrawEndPointWorld.x );
-            float yMin = fminf( self.freeDrawStartPointWorld.y, self.freeDrawEndPointWorld.y );
-            float xMax = fmaxf( self.freeDrawStartPointWorld.x, self.freeDrawEndPointWorld.x );
-            float yMax = fmaxf( self.freeDrawStartPointWorld.y, self.freeDrawEndPointWorld.y );
-            xMin = [self snapCoord:xMin];
-            xMax = [self snapCoordUp: xMax];
-            yMin = [self snapCoord:yMin];
-            yMax = [self snapCoordUp: yMax];
-            
-            vw = worldToView( (xMax - xMin), 0.f, self.worldRect.size.width, self.frame.size.width);
-            vh = worldToView( (yMax - yMin), 0.f, self.worldRect.size.height, self.frame.size.height);
-            vx = worldToView( xMin, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width);
-            vy = worldToView( yMin, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height);
-            CGRect boundingBox = CGRectMake( vx, vy, vw, vh);
-            
-            [self drawCursorWithBoundingBox:boundingBox toContext:context];
-        }
+        float xMin = fminf( self.freeDrawStartPointWorld.x, self.freeDrawEndPointWorld.x );
+        float yMin = fminf( self.freeDrawStartPointWorld.y, self.freeDrawEndPointWorld.y );
+        float xMax = fmaxf( self.freeDrawStartPointWorld.x, self.freeDrawEndPointWorld.x );
+        float yMax = fmaxf( self.freeDrawStartPointWorld.y, self.freeDrawEndPointWorld.y );
+        xMin = [self snapCoord:xMin];
+        xMax = [self snapCoordUp: xMax];
+        yMin = [self snapCoord:yMin];
+        yMax = [self snapCoordUp: yMax];
+        
+        vw = worldToView( (xMax - xMin), 0.f, self.worldRect.size.width, self.frame.size.width);
+        vh = worldToView( (yMax - yMin), 0.f, self.worldRect.size.height, self.frame.size.height);
+        vx = worldToView( xMin, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width);
+        vy = worldToView( yMin, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height);
+        CGRect boundingBox = CGRectMake( vx, vy, vw, vh);
+        
+        [self drawCursorWithBoundingBox:boundingBox toContext:context];
     }
 }
 
@@ -597,23 +565,6 @@
 }
 
 
--(void)setCursorsWithTouches:(NSSet *)touches andEvent:(UIEvent *)event
-{
-    // FUTURE: cursor could be smarter and react appropriately depending on tool mode.
-    //         e.g. if drawing it would outline down right from touch. if erase it would
-    //         highlight the block that would be erased (not the same as draw mode).
-    self.cursorTouches = [event allTouches];
-    [self setNeedsDisplay];
-}
-
-
--(void)clearCursors
-{
-    self.cursorTouches = nil;
-    [self setNeedsDisplay];
-}
-
-
 -(int)getEventTouchCount:(UIEvent *)event
 {
     return [[event touchesForView:self] count];
@@ -660,19 +611,18 @@
     int touchCount = [self getEventTouchCount:event];
     if( touchCount == 1 )
     {
-        if( self.currentToolMode == ToolModeDrawBlock || self.currentToolMode == ToolModeFreeDrawBlock )
+        if( self.currentToolMode == ToolModeDrawBlock )
         {
-            if( self.currentToolMode == ToolModeFreeDrawBlock )
-            {
-                self.freeDrawStartPointWorld = [self getWorldPointFromTouchSet:touches];
-                self.freeDrawEndPointWorld = self.freeDrawStartPointWorld;
-            }
-            [self setCursorsWithTouches:touches andEvent:event];
+            self.freeDrawStartPointWorld = [self getWorldPointFromTouchSet:touches];
+            self.freeDrawEndPointWorld = self.freeDrawStartPointWorld;
+            self.cursorVisible = YES;
+            [self setNeedsDisplay];
         }
     }
     else
     {
-        [self clearCursors];
+        self.cursorVisible = NO;
+        [self setNeedsDisplay];
         self.currentTouchEventPanZoomed = YES;  // this event caused a pan/zoom, no other tools can execute for this event.
     }
 }
@@ -685,15 +635,9 @@
     {
         if( !self.currentTouchEventPanZoomed )
         {
-            if( self.currentToolMode == ToolModeDrawBlock )
-            {
-                [self setCursorsWithTouches:touches andEvent:event];
-            }
-            else if( self.currentToolMode == ToolModeFreeDrawBlock )
-            {
-                self.freeDrawEndPointWorld = [self getWorldPointFromTouchSet:touches];
-                [self setNeedsDisplay];
-            }
+            self.freeDrawEndPointWorld = [self getWorldPointFromTouchSet:touches];
+            self.cursorVisible = YES;
+            [self setNeedsDisplay];
         }
     }
     else if( touchCount == 2 )
@@ -708,10 +652,6 @@
     if( !self.currentTouchEventPanZoomed )
     {
         if( self.currentToolMode == ToolModeDrawBlock )
-        {
-            [self setBlock:[m_blockPresetStateHolder getCurrentBlockPreset] withTouches:touches];
-        }
-        else if( self.currentToolMode == ToolModeFreeDrawBlock )
         {
             [self freeDrawBlock:[m_blockPresetStateHolder getCurrentBlockPreset]];
         }
@@ -733,7 +673,8 @@
                 [self.worldViewEventCallback onGrabbedPreset];
             }
         }
-        [self clearCursors];
+        self.cursorVisible = NO;
+        [self setNeedsDisplay];
     }
     [self tryResetCurrentTouchEventPanZoomedForEvent:event];
 }
