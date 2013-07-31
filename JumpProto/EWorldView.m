@@ -33,7 +33,6 @@
 @synthesize drawGroupOverlay;
 @synthesize activeGroupId;
 @synthesize currentSnap;
-@synthesize brushSizeGrid;
 @synthesize currentTouchEventPanZoomed;  // whether the current event ever caused a pan/zoom (cancelling other tools).
 @synthesize blockMRUList;
 @synthesize freeDrawStartPointWorld;
@@ -54,7 +53,6 @@
         
         self.activeGroupId = GROUPID_NONE;
         self.currentSnap = 2;
-        self.brushSizeGrid = [[EGridPoint alloc] initAtXGrid:4 yGrid:4];
         
         self.groupOverlayDrawer = [[UILabel alloc] init];
         [self initText];
@@ -73,7 +71,6 @@
 -(void)dealloc
 {
     self.blockMRUList = nil;
-    self.brushSizeGrid = nil;
     self.groupOverlayDrawer = nil;
     m_blockPresetStateHolder = nil;  // weak
     self.level = nil;    // weak
@@ -430,14 +427,14 @@
         // if this is other than an erase, store in MRU
         if( preset != EBlockPreset_None )
         {
-            EBlockMRUEntry *mruEntry = [[[EBlockMRUEntry alloc] initWithPreset:preset size:self.brushSizeGrid] autorelease];
+            EBlockMRUEntry *mruEntry = [[[EBlockMRUEntry alloc] initWithPreset:preset] autorelease];
             [self.blockMRUList pushEntry:mruEntry];
         }
     }
 }
 
 
--(void)setBlock:(EBlockPreset)preset withTouches:(NSSet *)touches
+-(void)eraseBlockWithTouches:(NSSet *)touches
 {
     if( self.document == nil )
     {
@@ -455,10 +452,10 @@
         CGPoint touchPWorld = CGPointMake( wx, wy );
         NSUInteger xGrid = (NSUInteger)floorf( touchPWorld.x / ONE_BLOCK_SIZE_Fl );
         NSUInteger yGrid = (NSUInteger)floorf( touchPWorld.y / ONE_BLOCK_SIZE_Fl );
-        NSUInteger wGrid = self.brushSizeGrid.xGrid;
-        NSUInteger hGrid = self.brushSizeGrid.yGrid;
+        NSUInteger wGrid = 1;
+        NSUInteger hGrid = 1;
         
-        [self doSetBlock:preset xGrid:xGrid yGrid:yGrid wGrid:wGrid hGrid:hGrid];
+        [self doSetBlock:EBlockPreset_None xGrid:xGrid yGrid:yGrid wGrid:wGrid hGrid:hGrid];
     }
 }
 
@@ -488,12 +485,12 @@
 }
 
 
+
 // TODO: consume this from new MRU UI
 -(void)selectMRUEntryAtIndex:(int)index
 {
     NSAssert( index >= 0 && index < [self.blockMRUList getCurrentSize], @"Don't be an ass." );
     EBlockMRUEntry *entry = [self.blockMRUList getEntryAtOffset:index];
-    self.brushSizeGrid = entry.gridSize;
     [m_blockPresetStateHolder currentBlockPresetUpdated:entry.preset];
 }
 
@@ -508,7 +505,6 @@
     
     UITouch *touch;
     EBlockPreset grabbedPreset = EBlockPreset_None;
-    EGridPoint *grabbedSize = nil;
     NSEnumerator *enumerator = [touches objectEnumerator];
     while( touch = (UITouch *)[enumerator nextObject] )
     {
@@ -523,7 +519,6 @@
         if( marker != nil )
         {
             grabbedPreset = marker.preset;
-            grabbedSize = marker.gridSize;
         }
         else
         {
@@ -531,13 +526,6 @@
         }
     }
     [m_blockPresetStateHolder currentBlockPresetUpdated:grabbedPreset];
-
-    // TODO: kind of strange that this doesn't go through the blockPresetStateHolder...
-    //       ultimately the presetHolder should also have this knowledge.
-    if( grabbedSize != nil )
-    {
-        self.brushSizeGrid = grabbedSize;
-    }
 }
 
 
@@ -657,7 +645,7 @@
         }
         else if( self.currentToolMode == ToolModeErase )
         {
-            [self setBlock:EBlockPreset_None withTouches:touches];
+            [self eraseBlockWithTouches:touches];
         }
         else if( self.currentToolMode == ToolModeGroup )
         {

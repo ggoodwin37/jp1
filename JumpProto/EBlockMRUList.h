@@ -13,13 +13,11 @@
 @interface EBlockMRUEntry : NSObject
 {
     EBlockPreset m_preset;
-    EGridPoint *m_gridSize;
 }
 
 @property (nonatomic, readonly) EBlockPreset preset;
-@property (nonatomic, readonly) EGridPoint *gridSize;
 
--(id)initWithPreset:(EBlockPreset)preset size:(EGridPoint *)gridSize;
+-(id)initWithPreset:(EBlockPreset)preset;
 -(BOOL)isSameAs:(EBlockMRUEntry *)other;
 
 @end

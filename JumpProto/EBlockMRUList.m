@@ -11,14 +11,13 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// EBlockMRUEntry
 @implementation EBlockMRUEntry
-@synthesize preset = m_preset, gridSize = m_gridSize;
+@synthesize preset = m_preset;
 
--(id)initWithPreset:(EBlockPreset)preset size:(EGridPoint *)gridSize
+-(id)initWithPreset:(EBlockPreset)preset
 {
     if( self = [super init] )
     {
         m_preset = preset;
-        m_gridSize = [gridSize retain];
     }
     return self;
 }
@@ -26,16 +25,13 @@
 
 -(void)dealloc
 {
-    [m_gridSize release]; m_gridSize = nil;
     [super dealloc];
 }
 
 
 -(BOOL)isSameAs:(EBlockMRUEntry *)other
 {
-    return self.preset == other.preset &&
-           self.gridSize.xGrid == other.gridSize.xGrid &&
-           self.gridSize.yGrid == other.gridSize.yGrid;
+    return self.preset == other.preset;
 }
 
 @end

@@ -68,7 +68,6 @@ typedef enum EToolModeEnum EToolMode;
 @property (nonatomic, assign) GroupId activeGroupId;
 @property (nonatomic, assign) BOOL cursorVisible;
 @property (nonatomic, assign) int currentSnap;
-@property (nonatomic, retain) EGridPoint *brushSizeGrid;
 @property (nonatomic, assign) BOOL currentTouchEventPanZoomed;
 @property (nonatomic, retain) EBlockMRUList *blockMRUList;
 @property (nonatomic, assign) CGPoint freeDrawStartPointWorld;

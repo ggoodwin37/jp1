@@ -194,7 +194,6 @@
                                        self.drawSettingsVC.view.frame.size.height );    
     [self.drawSettingsVC.view setFrame:rDrawSettings];
     self.drawSettingsVC.snapSelectionDelegate = self;
-    self.drawSettingsVC.brushSizeDelegate = self;
     [[self.drawSettingsVC.view layer] setCornerRadius:8.0f];
     [[self.drawSettingsVC.view layer] setMasksToBounds:YES];
     [[self.drawSettingsVC.view layer] setBorderWidth:1.0f];
@@ -383,11 +382,6 @@
     
     // draw settings tags along with palette
     self.drawSettingsVC.segmentControl.selectedSegmentIndex = self.worldView.currentSnap;
-    self.drawSettingsVC.widthStepper.value = self.worldView.brushSizeGrid.xGrid;
-    self.drawSettingsVC.heightStepper.value = self.worldView.brushSizeGrid.yGrid;
-    self.drawSettingsVC.width4Stepper.value = self.worldView.brushSizeGrid.xGrid;
-    self.drawSettingsVC.height4Stepper.value = self.worldView.brushSizeGrid.yGrid;
-    [self.drawSettingsVC updateTextFields];
     self.drawSettingsVC.view.hidden = self.editToolsBlockPaletteVC.view.hidden;
 }
 
@@ -615,14 +609,6 @@
 {
     self.worldView.currentSnap = newSelection;
     [self.worldView setNeedsDisplay];  // in case the grid wants to redraw on snap setting change.
-}
-
-
-#pragma mark protocol IBrushSizeChangedConsumer
-
--(void)onBrushSizeChanged:(EGridPoint *)newSize
-{
-    self.worldView.brushSizeGrid = newSize;
 }
 
 @end

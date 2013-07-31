@@ -18,8 +18,7 @@
 
 @interface EditMainViewController : UIViewController<IChildVC, ICurrentBlockPresetStateHolder,
                                                      IWorldViewEventCallback, UITextFieldDelegate,
-                                                     ICurrentGroupIdChangedConsumer, ISnapSelectionChangedConsumer,
-                                                     IBrushSizeChangedConsumer > {
+                                                     ICurrentGroupIdChangedConsumer, ISnapSelectionChangedConsumer > {
 
     id<IParentVC> m_parentVC;
     
