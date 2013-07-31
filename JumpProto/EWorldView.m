@@ -37,6 +37,8 @@
 @synthesize brushSizeGrid;
 @synthesize currentTouchEventPanZoomed;  // whether the current event ever caused a pan/zoom (cancelling other tools).
 @synthesize blockMRUList;
+@synthesize freeDrawStartPointWorld;
+@synthesize freeDrawEndPointWorld;
 
 // TODO: general: this class knows about drawing stuff and also about editing commands.
 //       need a better abstraction.
@@ -280,6 +282,23 @@
 }
 
 
+-(float)snapCoordUp:(float)u
+{
+    int snapFactor = 1;
+    switch( self.currentSnap )
+    {
+        case 0: default: snapFactor = 1; break;
+        case 1: snapFactor = 2; break;
+        case 2: snapFactor = 4; break;
+        case 3: snapFactor = 8; break;  // aka 2^n
+            
+    }
+    float f = GRID_SIZE_Fl * snapFactor;
+    
+    return f * ceilf( u / f );
+}
+
+
 -(void)drawGridDocumentToContext:(CGContextRef)context
 {
     if( self.document == nil )
@@ -356,32 +375,53 @@
     
     if( self.cursorTouches != nil )
     {
-        int cursorGridW = self.brushSizeGrid.xGrid;
-        int cursorGridH = self.brushSizeGrid.yGrid;
-        vw = worldToView( cursorGridW * ONE_BLOCK_SIZE_Fl, 0.f, self.worldRect.size.width, self.frame.size.width);
-        vh = worldToView( cursorGridH * ONE_BLOCK_SIZE_Fl, 0.f, self.worldRect.size.height, self.frame.size.height);
-        
-        UITouch *touch;
-        NSEnumerator *enumerator = [self.cursorTouches objectEnumerator];
-        while( touch = (UITouch *)[enumerator nextObject] )
+        if( self.currentToolMode == ToolModeDrawBlock )
         {
-            CGPoint touchPView = [touch locationInView:self];
-            wx = viewToWorld(touchPView.x, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width);
-            wy = viewToWorld(touchPView.y, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height);
+            int cursorGridW = self.brushSizeGrid.xGrid;
+            int cursorGridH = self.brushSizeGrid.yGrid;
+            vw = worldToView( cursorGridW * ONE_BLOCK_SIZE_Fl, 0.f, self.worldRect.size.width, self.frame.size.width);
+            vh = worldToView( cursorGridH * ONE_BLOCK_SIZE_Fl, 0.f, self.worldRect.size.height, self.frame.size.height);
             
-            // round to nearest snap
-            wx = [self snapCoord:wx];
-            wy = [self snapCoord:wy];
+            UITouch *touch;
+            NSEnumerator *enumerator = [self.cursorTouches objectEnumerator];
+            while( touch = (UITouch *)[enumerator nextObject] )
+            {
+                CGPoint touchPView = [touch locationInView:self];
+                wx = viewToWorld(touchPView.x, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width);
+                wy = viewToWorld(touchPView.y, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height);
+                
+                // round to nearest snap
+                wx = [self snapCoord:wx];
+                wy = [self snapCoord:wy];
+                
+                CGPoint touchPWorld = CGPointMake( wx, wy );
+                vx = worldToView( touchPWorld.x, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width);
+                vy = worldToView( touchPWorld.y, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height);
+                CGRect boundingBox = CGRectMake( vx, vy, vw, vh);
+                
+                [self drawCursorWithBoundingBox:boundingBox toContext:context];
+            }
+        }
+        else if( self.currentToolMode == ToolModeFreeDrawBlock )
+        {
+            float xMin = fminf( self.freeDrawStartPointWorld.x, self.freeDrawEndPointWorld.x );
+            float yMin = fminf( self.freeDrawStartPointWorld.y, self.freeDrawEndPointWorld.y );
+            float xMax = fmaxf( self.freeDrawStartPointWorld.x, self.freeDrawEndPointWorld.x );
+            float yMax = fmaxf( self.freeDrawStartPointWorld.y, self.freeDrawEndPointWorld.y );
+            xMin = [self snapCoord:xMin];
+            xMax = [self snapCoordUp: xMax];
+            yMin = [self snapCoord:yMin];
+            yMax = [self snapCoordUp: yMax];
             
-            CGPoint touchPWorld = CGPointMake( wx, wy );
-            vx = worldToView( touchPWorld.x, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width);
-            vy = worldToView( touchPWorld.y, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height);
+            vw = worldToView( (xMax - xMin), 0.f, self.worldRect.size.width, self.frame.size.width);
+            vh = worldToView( (yMax - yMin), 0.f, self.worldRect.size.height, self.frame.size.height);
+            vx = worldToView( xMin, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width);
+            vy = worldToView( yMin, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height);
             CGRect boundingBox = CGRectMake( vx, vy, vw, vh);
             
             [self drawCursorWithBoundingBox:boundingBox toContext:context];
         }
     }
-
 }
 
 
@@ -408,6 +448,27 @@
 }
 
 
+-(void)doSetBlock:(EBlockPreset)preset xGrid:(NSUInteger)xGrid yGrid:(NSUInteger)yGrid wGrid:(NSUInteger)wGrid hGrid:(NSUInteger)hGrid
+{
+    BOOL fChangedState = [self.document setPreset: preset
+                                          atXGrid: xGrid yGrid: yGrid
+                                                w: wGrid h: hGrid
+                                          groupId: GROUPID_NONE];
+    if( fChangedState )
+    {
+        [self setNeedsDisplay];
+        self.docDirty = YES;
+        
+        // if this is other than an erase, store in MRU
+        if( preset != EBlockPreset_None )
+        {
+            EBlockMRUEntry *mruEntry = [[[EBlockMRUEntry alloc] initWithPreset:preset size:self.brushSizeGrid] autorelease];
+            [self.blockMRUList pushEntry:mruEntry];
+        }
+    }
+}
+
+
 -(void)setBlock:(EBlockPreset)preset withTouches:(NSSet *)touches
 {
     if( self.document == nil )
@@ -426,24 +487,36 @@
         CGPoint touchPWorld = CGPointMake( wx, wy );
         NSUInteger xGrid = (NSUInteger)floorf( touchPWorld.x / ONE_BLOCK_SIZE_Fl );
         NSUInteger yGrid = (NSUInteger)floorf( touchPWorld.y / ONE_BLOCK_SIZE_Fl );
+        NSUInteger wGrid = self.brushSizeGrid.xGrid;
+        NSUInteger hGrid = self.brushSizeGrid.yGrid;
         
-        BOOL fChangedState = [self.document setPreset: preset
-                                            atXGrid: xGrid yGrid: yGrid
-                                            w: self.brushSizeGrid.xGrid h: self.brushSizeGrid.yGrid
-                                            groupId: GROUPID_NONE];
-        if( fChangedState )
-        {
-            [self setNeedsDisplay];
-            self.docDirty = YES;
-            
-            // if this is other than an erase, store in MRU
-            if( preset != EBlockPreset_None )
-            {
-                EBlockMRUEntry *mruEntry = [[[EBlockMRUEntry alloc] initWithPreset:preset size:self.brushSizeGrid] autorelease];
-                [self.blockMRUList pushEntry:mruEntry];
-            }
-        }
+        [self doSetBlock:preset xGrid:xGrid yGrid:yGrid wGrid:wGrid hGrid:hGrid];
     }
+}
+
+
+-(void)freeDrawBlock:(EBlockPreset)preset
+{
+    float xMin = fminf( self.freeDrawStartPointWorld.x, self.freeDrawEndPointWorld.x );
+    float yMin = fminf( self.freeDrawStartPointWorld.y, self.freeDrawEndPointWorld.y );
+    float xMax = fmaxf( self.freeDrawStartPointWorld.x, self.freeDrawEndPointWorld.x );
+    float yMax = fmaxf( self.freeDrawStartPointWorld.y, self.freeDrawEndPointWorld.y );
+    xMin = [self snapCoord:xMin];
+    xMax = [self snapCoordUp: xMax];
+    yMin = [self snapCoord:yMin];
+    yMax = [self snapCoordUp: yMax];
+    
+    if( xMin == xMax || yMin == yMax )
+    {
+        return;
+    }
+    
+    NSUInteger xGrid = (NSUInteger)floorf( xMin / ONE_BLOCK_SIZE_Fl );
+    NSUInteger yGrid = (NSUInteger)floorf( yMin / ONE_BLOCK_SIZE_Fl );
+    NSUInteger wGrid = (NSUInteger)floorf( (xMax - xMin) / ONE_BLOCK_SIZE_Fl );
+    NSUInteger hGrid = (NSUInteger)floorf( (yMax - yMin) / ONE_BLOCK_SIZE_Fl );
+    
+    [self doSetBlock:preset xGrid:xGrid yGrid:yGrid wGrid:wGrid hGrid:hGrid];
 }
 
 
@@ -571,13 +644,29 @@
 }
 
 
+-(CGPoint)getWorldPointFromTouchSet:(NSSet *)touchSet
+{
+    UITouch *anyTouch = (UITouch *)[touchSet anyObject];
+    
+    CGPoint touchPView = [anyTouch locationInView:self];
+    float wx = viewToWorld(touchPView.x, self.worldRect.origin.x, self.worldRect.size.width, self.frame.size.width);
+    float wy = viewToWorld(touchPView.y, self.worldRect.origin.y, self.worldRect.size.height, self.frame.size.height);
+    return CGPointMake( wx, wy );
+}
+
+
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     int touchCount = [self getEventTouchCount:event];
     if( touchCount == 1 )
     {
-        if( self.currentToolMode == ToolModeDrawBlock )
+        if( self.currentToolMode == ToolModeDrawBlock || self.currentToolMode == ToolModeFreeDrawBlock )
         {
+            if( self.currentToolMode == ToolModeFreeDrawBlock )
+            {
+                self.freeDrawStartPointWorld = [self getWorldPointFromTouchSet:touches];
+                self.freeDrawEndPointWorld = self.freeDrawStartPointWorld;
+            }
             [self setCursorsWithTouches:touches andEvent:event];
         }
     }
@@ -600,6 +689,11 @@
             {
                 [self setCursorsWithTouches:touches andEvent:event];
             }
+            else if( self.currentToolMode == ToolModeFreeDrawBlock )
+            {
+                self.freeDrawEndPointWorld = [self getWorldPointFromTouchSet:touches];
+                [self setNeedsDisplay];
+            }
         }
     }
     else if( touchCount == 2 )
@@ -616,6 +710,10 @@
         if( self.currentToolMode == ToolModeDrawBlock )
         {
             [self setBlock:[m_blockPresetStateHolder getCurrentBlockPreset] withTouches:touches];
+        }
+        else if( self.currentToolMode == ToolModeFreeDrawBlock )
+        {
+            [self freeDrawBlock:[m_blockPresetStateHolder getCurrentBlockPreset]];
         }
         else if( self.currentToolMode == ToolModeErase )
         {

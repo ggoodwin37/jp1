@@ -72,6 +72,8 @@ typedef enum EToolModeEnum EToolMode;
 @property (nonatomic, retain) EGridPoint *brushSizeGrid;
 @property (nonatomic, assign) BOOL currentTouchEventPanZoomed;
 @property (nonatomic, retain) EBlockMRUList *blockMRUList;
+@property (nonatomic, assign) CGPoint freeDrawStartPointWorld;
+@property (nonatomic, assign) CGPoint freeDrawEndPointWorld;
 
 -(void)setCenterPoint:(CGPoint)centerPoint;
 -(void)selectMRUEntryAtIndex:(int)index;
