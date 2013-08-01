@@ -72,6 +72,9 @@
     BOOL isFlipped = m_actorBlock.defaultSpriteState.isFlipped;
     SpriteState *targetState = nil;
     
+    // I almost wanted to reuse this code but it's only used in a few places,
+    //  including base class with different vars, and this is perf sensitive
+    //  so excessive method calls are bad.
     BOOL lSignal;
     BOOL rSignal;
     if( [self shouldReverseWalkDirection] )
