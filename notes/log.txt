@@ -265,8 +265,6 @@ Should finish walljump (opposing jump part).
 
 Next up I want to do one or two more low-hanging items (lift and maybe another creep), then start looking at the next Big Thing, probably buttons and events. A simple button to toggle light would be a good goal. Probably want to sketch out design for event system and primary objects first. Also sketch out the physical button operation (actor state).
 
-Geometric view in edit: may not be terribly useful, but would be cheap to bang out.
-
 Been daydreaming about a scenario where you are a robot trapped in a lab. Your creator talks to you in textovers (and does tutorial this way). Very light story elements. Gives an excuse to have a "rat in a maze" feel. A little bit Portal, a little bit Mega Man in theme and setting if not gameplay.
 
 For the robot character, dream up a way to have interchangeable parts on the main character. Keypoints to bind different sprites. Are  we prerendering these are doing them live together each frame?
@@ -276,3 +274,11 @@ Maybe it's time to start coming up with the List of abilities the player can hav
 Another element: beams. How would you implement this smoothly? Could be used for lots of interesting elements. death rays, trigger beams, solid beams that can be moved. It's sort of like a dynamic block that changes size depending on how far it can move from a source. size change can happen non-instantly, even slowly. a moving platform can block and reveal it in a rhythm.
 
 Can we make a robot that is not generic? Robit = robot + hobbit. Not a walking trash can (like rob16), not a little boy. maybe a little bit Marvin from Hitchhiker's Guide.
+
+7-31
+
+Near-term list:
+- finish walljump opposing jump (including dead input logic).
+- lift actor.
+- add a few simple creeps.
+- how about a v1 of a (far) background scene? I like a starry night with a city skyline. Stick with ultra lowfi/pixellated look for now. Starts, moon, clouds. Render plain geometry where possible. What does parallax math look like? Collect timing info of course.

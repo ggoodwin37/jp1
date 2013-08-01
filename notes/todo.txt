@@ -7,6 +7,10 @@
   - I think it would be cool if when doing a walljump you "launched out" (i.e. get some opposing x velocity)
     - should "deaden" the input signal during this time so it's like a mandatory reverse jump, this could limit infinite climbing (if we even want to do that...) at least write logic for it, can be tuned down later.
 
+- a hitless group connector. hitless blocks in general (background)
+
+- beams
+
 - sanity check: does dpad still listen during edit? seems like dpad is offcenter after editing, or did my hands just shift.
 
 - revisit how groups are instantiated/added to world and er.
