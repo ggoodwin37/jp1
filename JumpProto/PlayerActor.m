@@ -37,6 +37,7 @@
         
         m_isGibbed = NO;
         m_isWallJumping = NO;
+        m_postWallJumpFlip = NO;
         
         m_stillSpriteState = nil;
         m_runningSpriteState = nil;
@@ -71,12 +72,25 @@
     BOOL isFlipped = m_actorBlock.defaultSpriteState.isFlipped;
     SpriteState *targetState = nil;
     
-    // handle sprite flipped flag
-    if( m_isDirLeftPressed )
+    BOOL lSignal;
+    BOOL rSignal;
+    if( [self shouldReverseWalkDirection] )
+    {
+        lSignal = m_isDirRightPressed;
+        rSignal = m_isDirLeftPressed;
+    }
+    else
+    {
+        lSignal = m_isDirLeftPressed;
+        rSignal = m_isDirRightPressed;
+    }
+    
+    // assumes that art is facing right, umad?
+    if( lSignal )
     {
         isFlipped = YES;
     }
-    else if( m_isDirRightPressed )
+    else if( rSignal )
     {
         isFlipped = NO;
     }
@@ -84,7 +98,7 @@
     
     NSArray *downAbutters =  [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirDown];
     if( [downAbutters count] == 0 ) { // mid-air
-        if( m_isDirLeftPressed ) {
+        if( lSignal ) {
             NSArray *leftAbutters =  [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirLeft];
             for( int i = 0; i < [leftAbutters count]; ++i ) {
                 ASolidObject *thisSO = (ASolidObject *)[leftAbutters objectAtIndex:i];
@@ -94,7 +108,7 @@
                 }
             }
             
-        } else if( m_isDirRightPressed ) {
+        } else if( rSignal ) {
             NSArray *rightAbutters =  [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirRight];
             for( int i = 0; i < [rightAbutters count]; ++i ) {
                 ASolidObject *thisSO = (ASolidObject *)[rightAbutters objectAtIndex:i];
@@ -113,7 +127,7 @@
             }
         }
     } else {
-        if( m_isDirLeftPressed || m_isDirRightPressed ) {
+        if( lSignal || rSignal ) {
             targetState = m_runningSpriteState;
         } else {
             targetState = m_stillSpriteState;
@@ -134,6 +148,9 @@
     [m_eventQueue removeObjectAtIndex:0];
     if( event.touchZone == LeftTouchZone )
     {
+        // any movement event cancels the post-walljump phase
+        m_postWallJumpFlip = NO;
+        
         // left touch zone, look for movingLeft/Right events.
         switch( event.button )
         {
@@ -341,8 +358,21 @@
     // wall jumping can be cancelled through no event of the players' (sliding off end)
     if( m_isWallJumping )
     {
+        BOOL lSignal;
+        BOOL rSignal;
+        if( [self shouldReverseWalkDirection] )
+        {
+            lSignal = m_isDirRightPressed;
+            rSignal = m_isDirLeftPressed;
+        }
+        else
+        {
+            lSignal = m_isDirLeftPressed;
+            rSignal = m_isDirRightPressed;
+        }
+        
         BOOL stillWallJumping = NO;
-        if( m_isDirLeftPressed )
+        if( lSignal )
         {
             NSArray *abutters = [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirLeft];
             for( int i = 0; i < [abutters count]; ++i )
@@ -355,7 +385,7 @@
                 }
             }
         }
-        else if( m_isDirRightPressed )
+        else if( rSignal )
         {
             NSArray *abutters = [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirRight];
             for( int i = 0; i < [abutters count]; ++i )
@@ -404,13 +434,24 @@
 
 
 // override
--(void)updateForJumpingStateWithTimeDelta:(float)delta
+-(void)onJumpEvent:(BOOL)starting
 {
-    [super updateForJumpingStateWithTimeDelta:delta];
-    if( m_isWallJumping )
+    if( m_isWallJumping && starting )
     {
-        m_jumpsRemaining = m_numJumpsAllowed - 1;  // TODO: figure out why -1 is needed here
+        m_jumpsRemaining = m_numJumpsAllowed;
+        m_postWallJumpFlip = !m_postWallJumpFlip;  // this could be second flip in a row.
+        m_isWallJumping = NO;
     }
+
+    [super onJumpEvent:starting];
+}
+
+
+// override
+-(void)updateStateForStandingOnGround
+{
+    [super updateStateForStandingOnGround];
+    m_postWallJumpFlip = NO;
 }
 
 
@@ -433,16 +474,29 @@
     // wall jumping?
     if( [solidObject getProps].isWallJumpable && !m_isWallJumping )
     {
+        BOOL lSignal;
+        BOOL rSignal;
+        if( [self shouldReverseWalkDirection] )
+        {
+            lSignal = m_isDirRightPressed;
+            rSignal = m_isDirLeftPressed;
+        }
+        else
+        {
+            lSignal = m_isDirLeftPressed;
+            rSignal = m_isDirRightPressed;
+        }
+        
         if( mask & BlockEdgeDirMask_Right )
         {
-            if( m_isDirLeftPressed )
+            if( lSignal )
             {
                 m_isWallJumping = YES;
             }
         }
         else if( mask & BlockEdgeDirMask_Left )
         {
-            if( m_isDirRightPressed )
+            if( rSignal )
             {
                 m_isWallJumping = YES;
             }
@@ -473,6 +527,12 @@
     NSAssert( NO, @"Don't call base PlayerActor version of this method." );
     return nil;
 };
+
+
+-(BOOL)shouldReverseWalkDirection
+{
+    return m_postWallJumpFlip;
+}
 
 @end
 

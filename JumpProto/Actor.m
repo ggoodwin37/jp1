@@ -155,6 +155,12 @@
 {
 }
 
+
+-(BOOL)shouldReverseWalkDirection
+{
+    return NO;
+}
+
 @end
 
 
@@ -218,6 +224,14 @@
 }
 
 
+// this name is so awkward. this runs every frame if the actor is standing on solid ground.
+//  (useful for baselining jump-related counters)
+-(void)updateStateForStandingOnGround
+{
+    m_jumpsRemaining = m_numJumpsAllowed;
+}
+
+
 // override
 -(void)updateForJumpingStateWithTimeDelta:(float)delta
 {
@@ -243,7 +257,7 @@
     BOOL fOnGround = ( [downEdgeList count] > 0 );
     if( fOnGround )
     {
-        m_jumpsRemaining = m_numJumpsAllowed;
+        [self updateStateForStandingOnGround];
     }
     else
     {        
@@ -263,11 +277,24 @@
     Emu xMotive = 0;
     Emu yMotive = 0;
     
-    if( m_walkingLeft )
+    BOOL lSignal;
+    BOOL rSignal;
+    if( [self shouldReverseWalkDirection] )
+    {
+        lSignal = m_walkingRight;
+        rSignal = m_walkingLeft;
+    }
+    else
+    {
+        lSignal = m_walkingLeft;
+        rSignal = m_walkingRight;
+    }
+    
+    if( lSignal )
     {
         xMotive = -1 * m_walkMaxV;
     }
-    else if( m_walkingRight )
+    else if( rSignal )
     {
         xMotive =  1 * m_walkMaxV;
     }

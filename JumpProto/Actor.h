@@ -73,6 +73,8 @@ typedef enum ActorLifeStateEnum ActorLifeState;
 -(void)bouncedOnXAxis:(BOOL)xAxis;
 -(void)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir;
 
+-(BOOL)shouldReverseWalkDirection;
+
 @end
 
 
@@ -103,6 +105,7 @@ typedef enum ActorLifeStateEnum ActorLifeState;
 @property (nonatomic, assign) float currentJumpTimeRemaining;
 
 
+-(void)updateStateForStandingOnGround;
 -(void)onJumpEvent:(BOOL)starting;
 
 @end

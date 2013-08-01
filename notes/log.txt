@@ -278,7 +278,7 @@ Can we make a robot that is not generic? Robit = robot + hobbit. Not a walking t
 7-31
 
 Near-term list:
-- finish walljump opposing jump (including dead input logic).
+x finish walljump opposing jump (including dead input logic).
 - lift actor.
 - add a few simple creeps.
 - how about a v1 of a (far) background scene? I like a starry night with a city skyline. Stick with ultra lowfi/pixellated look for now. Starts, moon, clouds. Render plain geometry where possible. What does parallax math look like? Collect timing info of course.

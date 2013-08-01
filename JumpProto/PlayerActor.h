@@ -20,6 +20,8 @@
     BOOL m_isGibbed;
     BOOL m_isWallJumping;
     
+    float m_postWallJumpFlip;
+    
     SpriteState *m_stillSpriteState;
     SpriteState *m_runningSpriteState;
     SpriteState *m_jumpUpSpriteState;

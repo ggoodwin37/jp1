@@ -396,6 +396,19 @@
 			name = batch2;
 			sourceTree = "<group>";
 		};
+		93A9866A17AA3189000F1B90 /* Actor */ = {
+			isa = PBXGroup;
+			children = (
+				F3D6C7E514CA1B2F003FE5B4 /* Actor.h */,
+				F3D6C7E614CA1B2F003FE5B4 /* Actor.m */,
+				9386061C17A5ED8A00A544B5 /* PlayerActor.h */,
+				9386061D17A5ED8A00A544B5 /* PlayerActor.m */,
+				9386061F17A5ED9C00A544B5 /* BadGuyActor.h */,
+				9386062017A5ED9C00A544B5 /* BadGuyActor.m */,
+			);
+			name = Actor;
+			sourceTree = "<group>";
+		};
 		F3471E4E143D6E08001AA4C8 /* ArchiveFormat */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,6 +464,7 @@
 				F3C444D214035AE9003B5C9C /* Views */,
 				F3C444D514035BE5003B5C9C /* Sprite */,
 				F3C444D414035B50003B5C9C /* World logic */,
+				93A9866A17AA3189000F1B90 /* Actor */,
 				F3471E4E143D6E08001AA4C8 /* ArchiveFormat */,
 				F3E109AC143FD7AB005E3FE5 /* Edit */,
 			);
@@ -631,12 +645,6 @@
 				F3D6C7EA14CA2640003FE5B4 /* ActorUpdater.m */,
 				93732D8517A4982A00F1B5A7 /* PropagateMovementUpdater.h */,
 				93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */,
-				F3D6C7E514CA1B2F003FE5B4 /* Actor.h */,
-				F3D6C7E614CA1B2F003FE5B4 /* Actor.m */,
-				9386061C17A5ED8A00A544B5 /* PlayerActor.h */,
-				9386061D17A5ED8A00A544B5 /* PlayerActor.m */,
-				9386061F17A5ED9C00A544B5 /* BadGuyActor.h */,
-				9386062017A5ED9C00A544B5 /* BadGuyActor.m */,
 			);
 			name = "World logic";
 			sourceTree = "<group>";

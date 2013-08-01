@@ -3,15 +3,13 @@
 - test level: tower of babel. need to get the "distance from origin" thing figured out.
   - why can't we handle negatives in edit anyways? pretty sure play is fine. maybe we can replace the key-gen-requires-positive-coord thing (is that what's happening)? can use space partition collision detection and allow overlapping blocks :)
 
-- finish off wall jumping:
-  - I think it would be cool if when doing a walljump you "launched out" (i.e. get some opposing x velocity)
-    - should "deaden" the input signal during this time so it's like a mandatory reverse jump, this could limit infinite climbing (if we even want to do that...) at least write logic for it, can be tuned down later.
-
 - a hitless group connector. hitless blocks in general (background)
 
 - beams
 
 - sanity check: does dpad still listen during edit? seems like dpad is offcenter after editing, or did my hands just shift.
+
+- fix death state. gibs are weird, camera sometimes flies away, and actor's original block appears to still be hit testing (or did I fix that already?)
 
 - revisit how groups are instantiated/added to world and er.
 
@@ -19,10 +17,8 @@
 
 - button v1? also need horizontal button kits.
 
-- put it on new iPad (maybe? I sort of like the old one keeping me honest).
-
 - need a physics constants pass once most stuff is working
-- tweak air friction to less
+- tweak air friction to less (still valid?)
 
 - world layers
 
@@ -31,21 +27,14 @@
 
 // future
 
-- implement the restricted rect version of EWorldView drawToContext for better perf while drawing blocks. (still relevant?) (pretty sure I did this already)
-
 - core, low pri: handling of sprite and preset constants is pretty ugly. should make this more dynamic and compact.
-
 
 // edit. claim: investing in edit makes play exponentially more awesome.
 
 - TODO: putting these way down here makes them lower priority but they are not so, should interleave.
-
-- a better drag, part 2: I miss being able to drag-and-draw lots of blocks (removed this functionality when broke the unit grid). can we bring it back somehow? it's nice to have draw-on-touchEnd with cursor so you know what you're placing. but maybe if they touch and drag on an existing block of same preset, we enter special mode where we continuously drop blocks of that size as soon as we can fit them. there's some subtlety here around where the block is anchored to the finger touch point and how this interacts with free space check, probably simplifyable. maybe this isn't worth it and you just need to get used to the existing behavior.
 
 - cut/copy/paste. for copy, you've been picturing this intelligent edge trimming algorithm, but we can probably do without that for now and just trust author to make convenient copies (which handles 95% of actual use cases). i.e. drop blocks not entirely in copy region.
 
 - would be cool to have like 3 to 4 draw slots so I can rapidly choose between several presets, can be pre-pop'd too.
 
 - undo stack
-
-- edit view geometric mode. this would be cool for block size inspecting and perf savings on big levels.
