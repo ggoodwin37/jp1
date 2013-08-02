@@ -158,6 +158,8 @@ typedef enum TinyAutoLiftActorStateEnum TinyAutoLiftActorState;
     float m_timeRemainingInCurrentState;
     SpriteState *m_idleSpriteState;
     SpriteState *m_activeSpriteState;
+    Emu m_lastRecordedY;
+    float m_lastRecordedYTimeRemaining;
 }
 
 @end

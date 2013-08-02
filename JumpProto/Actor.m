@@ -581,6 +581,8 @@
         
         m_idleSpriteState = [[StaticSpriteState alloc] initWithSpriteName:@"tiny-autolift-0"];
         m_activeSpriteState = [[StaticSpriteState alloc] initWithSpriteName:@"tiny-autolift-1"];
+        
+        m_lastRecordedY = p.y + 123;  // trigger update first frame.
     }
     return self;
 }
@@ -677,18 +679,13 @@
 }
 
 
--(void)onTakeOff
-{
-}
-
-
 -(void)goNextState
 {
     switch( m_currentState )
     {
         case TinyAutoLiftActor_Trigged:
             m_currentState = TinyAutoLiftActor_Going;
-            [self onTakeOff];
+            // taking off (fire some sweet particle effects...one day)
             break;
             
         default:
@@ -699,11 +696,53 @@
 }
 
 
+-(BOOL)checkIfVerticalMotionStoppedWithDelta:(float)delta
+{
+    if( m_actorBlock == nil )
+    {
+        return NO;
+    }
+    Emu currentY = m_actorBlock.y;
+    if( currentY != m_lastRecordedY )
+    {
+        m_lastRecordedY = currentY;
+        m_lastRecordedYTimeRemaining = (m_currentState == TinyAutoLiftActor_Going ? TINYAUTOLIFT_RESETTIME : 0);
+        return NO;
+    }
+    m_lastRecordedYTimeRemaining -= delta;
+    return m_lastRecordedYTimeRemaining <= 0.f;
+}
+
+
 // override
 -(void)updateControlStateWithTimeDelta:(float)delta
 {
     [super updateControlStateWithTimeDelta:delta];
     
+    if( m_currentState == TinyAutoLiftActor_Idle )
+    {
+        return;
+    }
+
+    if( m_currentState == TinyAutoLiftActor_Coming || m_currentState == TinyAutoLiftActor_Going )
+    {
+        if( [self checkIfVerticalMotionStoppedWithDelta:delta] )
+        {
+            if( m_currentState == TinyAutoLiftActor_Going )
+            {
+                m_currentState = TinyAutoLiftActor_Coming;
+                m_lastRecordedY = m_lastRecordedY + 123;
+            }
+            else
+            {
+                m_currentState = TinyAutoLiftActor_Idle;
+                m_lastRecordedY = m_lastRecordedY - 123;
+            }
+            [m_actorBlock setV:EmuPointMake( 0, 0 )];
+            [self updateCurrentAnimStateForTinyAutoLift];
+        }
+    }
+
     // only trigged state needs time update
     if( m_currentState != TinyAutoLiftActor_Trigged )
     {
@@ -715,9 +754,6 @@
     {
         [self goNextState];
     }
-    
-    
-    // TODO: come up with a scheme for detecting when motion has stopped if GOING state.
 }
 
 
@@ -725,7 +761,7 @@
 -(void)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir
 {
     [super collidedInto:node inDir:dir];
-    
+
     if( m_currentState != TinyAutoLiftActor_Idle )
     {
         return;

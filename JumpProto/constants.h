@@ -111,8 +111,9 @@
 // tinyAutoLift values
 #define TINYAUTOLIFT_TRIGTIME  (0.20f)
 #define TINYAUTOLIFT_GOING_V   (15000)
-#define TINYAUTOLIFT_COMING_V  (1200)
-#define TINYAUTOLIFT_ACCEL     (45000)
+#define TINYAUTOLIFT_COMING_V  (-5000)
+#define TINYAUTOLIFT_ACCEL     (40000)
+#define TINYAUTOLIFT_RESETTIME (1.2f)
 
 // tiny-fuzz values
 #define TINYFUZZ_LR_ACCEL (40000)
