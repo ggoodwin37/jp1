@@ -565,3 +565,182 @@
 }
 
 @end
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// TinyAutoLiftActor
+
+@implementation TinyAutoLiftActor
+
+-(id)initAtStartingPoint:(EmuPoint)p
+{
+    if( self = [super initAtStartingPoint:p] )
+    {
+        m_lifeState = ActorLifeState_BeingBorn;  // this actor doesn't use the typical life cycle.
+        m_lifeStateTimer = 0.f;
+        m_currentState = TinyAutoLiftActor_Idle;
+        
+        m_idleSpriteState = [[StaticSpriteState alloc] initWithSpriteName:@"tiny-autolift-0"];
+        m_activeSpriteState = [[StaticSpriteState alloc] initWithSpriteName:@"tiny-autolift-1"];
+    }
+    return self;
+}
+
+
+-(void)dealloc
+{
+    [m_activeSpriteState release]; m_activeSpriteState = nil;
+    [m_idleSpriteState release]; m_idleSpriteState = nil;
+    [super dealloc];
+}
+
+
+-(void)updateCurrentAnimStateForTinyAutoLift
+{
+    if( m_actorBlock == nil )
+    {
+        return;
+    }
+    switch( m_currentState )
+    {
+        case TinyAutoLiftActor_Idle:
+        case TinyAutoLiftActor_Coming:
+            m_actorBlock.defaultSpriteState = m_idleSpriteState;
+            break;
+            
+        case TinyAutoLiftActor_Trigged:
+        case TinyAutoLiftActor_Going:
+            m_actorBlock.defaultSpriteState = m_activeSpriteState;
+            break;
+            
+        default:
+            NSLog( @"updateCurrentAnimStateForTinyAutoLift: unrecognized crumbles state." );
+            break;
+    }
+    m_actorBlock.defaultSpriteState.isFlipped = NO;
+}
+
+
+
+-(void)spawnActorBlock
+{
+    m_actorBlock = [[ActorBlock alloc] initAtPoint:m_startingPoint];
+    m_actorBlock.owningActor = self;
+    m_actorBlock.props.canMoveFreely = YES;
+    m_actorBlock.props.affectedByGravity = NO;
+    m_actorBlock.props.affectedByFriction = NO;
+    m_actorBlock.props.bounceDampFactor = 0.f;
+    m_actorBlock.props.initialVelocity = EmuPointMake( 0, 0 );
+    m_actorBlock.props.solidMask = BlockEdgeDirMask_Full;
+    m_actorBlock.props.xConveyor = 0.f;
+    m_actorBlock.props.hurtyMask = BlockEdgeDirMask_None;
+    m_actorBlock.props.isGoalBlock = NO;
+    m_actorBlock.props.isPlayerBlock = NO;
+    
+    // TODO: pipe original preset block size to here so we can have variable sized lifts.
+    m_actorBlock.state.d = EmuSizeMake( 4 * ONE_BLOCK_SIZE_Emu, 4 * ONE_BLOCK_SIZE_Emu );
+    
+    NSAssert( m_world != nil, @"need world's ER at spawn time" );
+    [m_world.elbowRoom addBlock:m_actorBlock];
+    
+    [self updateCurrentAnimStateForTinyAutoLift];
+}
+
+
+// override
+-(void)onBorn
+{
+    [self spawnActorBlock];
+    m_lifeState = ActorLifeState_Alive;  // actor remains alive indefinitely, even when the actorBlock is temporarily gone.
+}
+
+
+// override
+-(EmuPoint)getMotive
+{
+    if( m_currentState == TinyAutoLiftActor_Going )
+    {
+        return EmuPointMake( 0, TINYAUTOLIFT_GOING_V );
+    }
+    else if( m_currentState == TinyAutoLiftActor_Coming )
+    {
+        return EmuPointMake( 0, TINYAUTOLIFT_COMING_V );
+    }
+    return EmuPointMake( 0, 0 );
+}
+
+
+// override
+-(EmuPoint)getMotiveAccel
+{
+    return EmuPointMake( 0, TINYAUTOLIFT_ACCEL );
+}
+
+
+-(void)onTakeOff
+{
+}
+
+
+-(void)goNextState
+{
+    switch( m_currentState )
+    {
+        case TinyAutoLiftActor_Trigged:
+            m_currentState = TinyAutoLiftActor_Going;
+            [self onTakeOff];
+            break;
+            
+        default:
+            NSLog( @"goNextState: unrecognized tinyAutoLift state." );
+            break;
+    }
+    [self updateCurrentAnimStateForTinyAutoLift];
+}
+
+
+// override
+-(void)updateControlStateWithTimeDelta:(float)delta
+{
+    [super updateControlStateWithTimeDelta:delta];
+    
+    // only trigged state needs time update
+    if( m_currentState != TinyAutoLiftActor_Trigged )
+    {
+        return;
+    }
+    
+    m_timeRemainingInCurrentState -= delta;
+    if( m_timeRemainingInCurrentState <= 0.f )
+    {
+        [self goNextState];
+    }
+    
+    
+    // TODO: come up with a scheme for detecting when motion has stopped if GOING state.
+}
+
+
+// override
+-(void)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir
+{
+    [super collidedInto:node inDir:dir];
+    
+    if( m_currentState != TinyAutoLiftActor_Idle )
+    {
+        return;
+    }
+    
+    BOOL triggered;
+    // since this actor doesn't move while idle, we only get collision events from other SOs that
+    // moved into us. so this method will be getting called from their perspective,
+    // meaning we're actually listening for the Up direction to trigger us.
+    triggered = (dir == ERDirUp);
+    if( triggered )
+    {
+        m_currentState = TinyAutoLiftActor_Trigged;;
+        m_timeRemainingInCurrentState = TINYAUTOLIFT_TRIGTIME;
+        [self updateCurrentAnimStateForTinyAutoLift];
+    }
+}
+
+@end

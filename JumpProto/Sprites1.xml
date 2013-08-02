@@ -42,7 +42,7 @@
         <NextSprite name="tiny-crum-0" />
         <NextSprite name="tiny-crum-0-b" />
         <NextSprite name="tiny-hbeam-m-1" />
-        <NextSprite name="tiny-lift-0" />
+        <NextSprite name="tiny-autolift-0" />
         <NextSprite name="tiny-conveyor-2" />
         <NextSprite name="tiny-oneway-r" />
         
@@ -51,7 +51,7 @@
         <NextSprite name="tiny-crum-1" />
         <NextSprite name="tiny-crum-4" />
         <NextSprite />
-        <NextSprite name="tiny-lift-1" />
+        <NextSprite name="tiny-autolift-1" />
         <NextSprite name="tiny-conveyor-3" />
         <NextSprite name="tiny-oneway-d" />
         

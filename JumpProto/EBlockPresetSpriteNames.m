@@ -122,7 +122,7 @@
         case EBlockPreset_tiny_playerStart: return @"tiny-start-token";
         case EBlockPreset_tiny_bl_wallJump: return @"tiny-bl-walljump";
         case EBlockPreset_tiny_bl_exit: return @"tiny-exit";
-        case EBlockPreset_tiny_lift: return @"tiny-lift-0";
+        case EBlockPreset_tiny_autolift: return @"tiny-autolift-0";
         case EBlockPreset_tiny_mv_plat_l: return @"tiny-mv-plat-l-edithint";
         case EBlockPreset_tiny_mv_plat_r: return @"tiny-mv-plat-r-edithint";
         case EBlockPreset_tiny_btn1: return @"tiny-button-edithint";

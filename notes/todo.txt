@@ -1,5 +1,7 @@
 // misc
 
+- lift: pipe presetblock size down to autolift actor so we can have variable sized lifts.
+
 - test level: tower of babel. need to get the "distance from origin" thing figured out.
   - why can't we handle negatives in edit anyways? pretty sure play is fine. maybe we can replace the key-gen-requires-positive-coord thing (is that what's happening)? can use space partition collision detection and allow overlapping blocks :)
 
@@ -26,6 +28,9 @@
 
 
 // future
+
+- implement the restricted rect version of EWorldView drawToContext for better perf while drawing blocks.
+  - you already are culling to view rect in the main grid document drawer, but I think there's an optional separate version of the draw method that only updates a certain rect. then we can invalidate just specific parts of the screen when drawing/erasing, should make editing snappier (until the user pans/zooms).
 
 - core, low pri: handling of sprite and preset constants is pretty ugly. should make this more dynamic and compact.
 

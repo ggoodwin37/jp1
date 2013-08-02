@@ -244,7 +244,6 @@
             
         // TODOs
         case EBlockPreset_tiny_btn1:
-        case EBlockPreset_tiny_lift:
         case EBlockPreset_tiny_bl_ice:
             break;
             
@@ -494,7 +493,6 @@
         case EBlockPreset_tiny_spikes_d: return @"tiny-spikes-d";
         case EBlockPreset_tiny_bl_wallJump: return @"tiny-bl-walljump";
         case EBlockPreset_tiny_bl_exit: return @"tiny-exit";
-        case EBlockPreset_tiny_lift: return @"tiny-lift-0";
         case EBlockPreset_tiny_mv_plat_l: return @"tiny-mv-plat";
         case EBlockPreset_tiny_mv_plat_r: return @"tiny-mv-plat";
         case EBlockPreset_tiny_sprtiny_0: return @"tiny-sprtiny-0";
@@ -629,8 +627,8 @@
             
         // batch 2
         case EBlockPreset_tiny_crum:
-        case EBlockPreset_tiny_lift:
-        case EBlockPreset_tiny_btn1:
+        case EBlockPreset_tiny_autolift:
+        //case EBlockPreset_tiny_btn1:
         case EBlockPreset_tiny_creep_fuzz_l:
         case EBlockPreset_tiny_creep_fuzz_r:
         //case EBlockPreset_tiny_creep_martian:
@@ -675,6 +673,10 @@
             
         case EBlockPreset_tiny_crum:
             return [[[TinyCrumActor alloc] initAtStartingPoint:pStart] autorelease];
+            
+        case EBlockPreset_tiny_autolift:
+            return [[[TinyAutoLiftActor alloc] initAtStartingPoint:pStart] autorelease];
+            return nil;
             
         default:
             NSLog( @"don't know how to create actor for preset." );

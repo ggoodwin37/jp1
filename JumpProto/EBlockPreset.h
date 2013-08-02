@@ -94,7 +94,7 @@ enum EBlockPresetEnum
     EBlockPreset_tiny_playerStart,
     EBlockPreset_tiny_bl_wallJump,
     EBlockPreset_tiny_bl_exit,
-    EBlockPreset_tiny_lift,
+    EBlockPreset_tiny_autolift,
     EBlockPreset_tiny_mv_plat_l,
     EBlockPreset_tiny_mv_plat_r,
     EBlockPreset_tiny_btn1,

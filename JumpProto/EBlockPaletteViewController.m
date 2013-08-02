@@ -333,7 +333,7 @@
     PCL_ADD( EBlockPreset_tiny_oneway_d, @"oneway-down", @"" );
     PCL_ADD( EBlockPreset_tiny_crum, @"crumble", @"" );
     PCL_ADD( EBlockPreset_tiny_bl_wallJump, @"walljump", @"" );
-    PCL_ADD( EBlockPreset_tiny_lift, @"lift", @"" );
+    PCL_ADD( EBlockPreset_tiny_autolift, @"autolift", @"" );
     PCL_ADD( EBlockPreset_tiny_mv_plat_l, @"mvplat-left", @"" );
     PCL_ADD( EBlockPreset_tiny_mv_plat_r, @"mvplat-right", @"" );
     PCL_ADD( EBlockPreset_tiny_bl_ice, @"ice", @"" );

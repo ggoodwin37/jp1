@@ -139,3 +139,29 @@ typedef enum Crumbles1StateEnum Crumbles1State;
 }
 
 @end
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// TinyAutoLiftActor
+
+enum TinyAutoLiftActorStateEnum
+{
+    TinyAutoLiftActor_Idle,
+    TinyAutoLiftActor_Trigged,
+    TinyAutoLiftActor_Going,
+    TinyAutoLiftActor_Coming,
+};
+typedef enum TinyAutoLiftActorStateEnum TinyAutoLiftActorState;
+
+@interface TinyAutoLiftActor : Actor
+{
+    TinyAutoLiftActorState m_currentState;
+    float m_timeRemainingInCurrentState;
+    SpriteState *m_idleSpriteState;
+    SpriteState *m_activeSpriteState;
+}
+
+@end
+
+
+
+
