@@ -93,6 +93,7 @@
 @synthesize isAiHint, followsAiHints;
 @synthesize xConveyor = m_xConveyor;
 @synthesize springyMask;
+@synthesize immovable;
 
 -(id)init
 {
@@ -151,6 +152,7 @@
     self.isAiHint = other.isAiHint;
     self.followsAiHints = other.followsAiHints;
     self.isWallJumpable = other.isWallJumpable;
+    self.immovable = other.immovable;
     // lol is this even getting used anywhere?
 }
 
@@ -172,7 +174,8 @@
                 self.springyMask == other.springyMask &&
                 self.isAiHint == other.isAiHint &&
                 self.followsAiHints == other.followsAiHints &&
-                self.isWallJumpable == other.isWallJumpable
+                self.isWallJumpable == other.isWallJumpable &&
+                self.immovable == other.immovable
             );
 }
 

@@ -225,6 +225,7 @@
             block.props.initialVelocity = EmuPointMake( -MOVING_PLATFORM_RIGHT_MEDIUM_VX, 0.f );
             block.props.solidMask = BlockEdgeDirMask_Up | BlockEdgeDirMask_Left | BlockEdgeDirMask_Right;
             block.props.followsAiHints = YES;  // so it can bounce
+            block.props.immovable = YES;
             break;
         case EBlockPreset_tiny_mv_plat_r:
             block.props.canMoveFreely = YES;
@@ -232,6 +233,7 @@
             block.props.initialVelocity = EmuPointMake( MOVING_PLATFORM_RIGHT_MEDIUM_VX, 0.f );
             block.props.solidMask = BlockEdgeDirMask_Up | BlockEdgeDirMask_Left | BlockEdgeDirMask_Right;
             block.props.followsAiHints = YES;  // so it can bounce
+            block.props.immovable = YES;
             break;
             
         case EBlockPreset_tiny_aiBounceHint:

@@ -62,6 +62,7 @@
     m_actorBlock.props.affectedByGravity = YES;
     m_actorBlock.props.affectedByFriction = NO; // walking friction handled specially.
     m_actorBlock.props.followsAiHints = YES;
+    m_actorBlock.props.immovable = YES;  // some types of badguys may want to be moveable.
     
     // by default, badGuys are hurty on every edge except top edge (so player can stand on them). This can be overridden by subclasses.
     m_actorBlock.props.hurtyMask = BlockEdgeDirMask_Left | BlockEdgeDirMask_Right | BlockEdgeDirMask_Down;

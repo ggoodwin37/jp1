@@ -635,6 +635,7 @@
     m_actorBlock.props.hurtyMask = BlockEdgeDirMask_None;
     m_actorBlock.props.isGoalBlock = NO;
     m_actorBlock.props.isPlayerBlock = NO;
+    m_actorBlock.props.immovable = YES;  // can't be moved by other blocks.
     
     // TODO: pipe original preset block size to here so we can have variable sized lifts.
     m_actorBlock.state.d = EmuSizeMake( 4 * ONE_BLOCK_SIZE_Emu, 4 * ONE_BLOCK_SIZE_Emu );

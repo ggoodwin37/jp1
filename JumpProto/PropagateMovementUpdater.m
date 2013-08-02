@@ -250,7 +250,7 @@
             if( targetOffset != 0 )
             {
                 // don't push things on y if they aren't affected by gravity (e.g. floating platforms, which should stay floating).
-                if( xAxis || [thisAbutter getProps].affectedByGravity )
+                if( ![thisAbutter getProps].immovable && (xAxis || [thisAbutter getProps].affectedByGravity) )
                 {
                     [self doRecurseForNode:thisAbutter targetOffset:attTargetOffset isXAxis:xAxis isPerpProp:NO
                                   originSO:originSO groupPropStack:groupPropStack depth:(depth + 1)];
@@ -300,6 +300,9 @@
         
         // skip group elements since they'll be handled via owning group.
         if( [thisAbutter isGroupElement] ) continue;
+        
+        // some blocks just can't be pushed.
+        if( [thisAbutter getProps].immovable ) continue;
         
         // prevent multiple blocks from contributing up drag velocity to the same block by keeping
         // track of how much we've already applied this frame.
