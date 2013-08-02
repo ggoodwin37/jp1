@@ -10,20 +10,10 @@
 #import "constants.h"
 #import "BlockUpdater.h"
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////// ERSortHint
-
-@implementation ERSortHint
-
-@synthesize upHint, leftHint, rightHint, downHint;
-
-@end
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// BlockState
 
 @implementation BlockState
 
-@synthesize erSortHint;
 @synthesize vIntrinsic;
 
 
@@ -31,7 +21,6 @@
 {
     if( self = [super init] )
     {
-        self.erSortHint = [[ERSortHint alloc] init];
         self.vIntrinsic = EmuPointMake( 0, 0 );
     }
     return self;
@@ -40,7 +29,6 @@
 
 -(void)dealloc
 {
-    self.erSortHint = nil;
     [super dealloc];
 }
 

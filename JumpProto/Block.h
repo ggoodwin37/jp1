@@ -29,19 +29,6 @@ enum BlockEdgeDirMaskEnum
 typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////// ERSortHint
-@interface ERSortHint : NSObject
-{
-}
-
-@property (nonatomic, assign) int upHint;
-@property (nonatomic, assign) int leftHint;
-@property (nonatomic, assign) int rightHint;
-@property (nonatomic, assign) int downHint;
-
-@end
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// BlockState
 @interface BlockState : NSObject {
     EmuPoint m_p;
@@ -52,7 +39,6 @@ typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 @property (nonatomic, getter=getP, setter=setP:) EmuPoint p;
 @property (nonatomic, getter=getV, setter=setV:) EmuPoint v;
 @property (nonatomic, getter=getD, setter=setD:) EmuSize d;
-@property (nonatomic, retain) ERSortHint *erSortHint;
 @property (nonatomic, assign) EmuPoint vIntrinsic;
 
 -(void)setRect:(EmuRect)rect;
