@@ -143,6 +143,8 @@ typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 
 -(id)initWithRect:(EmuRect)rect spriteStateMap:(SpriteStateMap *)spriteStateMap;
 
+-(void)setAllSpritesTo:(SpriteState *)spriteState;
+
 @end
 
 
@@ -156,6 +158,7 @@ typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 @property (nonatomic, assign) Actor *owningActor;  // weak
 
 -(id)initAtPoint:(EmuPoint)p;
+-(id)initAtPoint:(EmuPoint)p spriteStateMap:(SpriteStateMap *)spriteStateMap;
 
 @end
 

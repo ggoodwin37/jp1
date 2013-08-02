@@ -571,7 +571,7 @@
 
 @implementation TinyAutoLiftActor
 
--(id)initAtStartingPoint:(EmuPoint)p
+-(id)initAtStartingPoint:(EmuPoint)p withSizeInUnits:(EmuPoint)sizeInUnits
 {
     if( self = [super initAtStartingPoint:p] )
     {
@@ -583,6 +583,8 @@
         m_activeSpriteState = [[StaticSpriteState alloc] initWithSpriteName:@"tiny-autolift-1"];
         
         m_lastRecordedY = p.y + 123;  // trigger update first frame.
+        
+        m_blockSizeInUnits = sizeInUnits;
     }
     return self;
 }
@@ -606,26 +608,30 @@
     {
         case TinyAutoLiftActor_Idle:
         case TinyAutoLiftActor_Coming:
-            m_actorBlock.defaultSpriteState = m_idleSpriteState;
+            [m_actorBlock setAllSpritesTo:m_idleSpriteState];
             break;
             
         case TinyAutoLiftActor_Trigged:
         case TinyAutoLiftActor_Going:
-            m_actorBlock.defaultSpriteState = m_activeSpriteState;
+            [m_actorBlock setAllSpritesTo:m_activeSpriteState];
             break;
             
         default:
             NSLog( @"updateCurrentAnimStateForTinyAutoLift: unrecognized crumbles state." );
             break;
     }
-    m_actorBlock.defaultSpriteState.isFlipped = NO;
 }
 
 
 
 -(void)spawnActorBlock
 {
-    m_actorBlock = [[ActorBlock alloc] initAtPoint:m_startingPoint];
+    // TODO: this assumes the sprite->world factor is 4, should actually check although it would have to be
+    //       the same for all sprites used by the actor I guess (true in this case).
+    CGSize spriteStateMapSize = CGSizeMake( m_blockSizeInUnits.x / 4, m_blockSizeInUnits.y / 4 );
+    
+    SpriteStateMap *spriteStateMap = [[[SpriteStateMap alloc] initWithSize:spriteStateMapSize] autorelease];
+    m_actorBlock = [[ActorBlock alloc] initAtPoint:m_startingPoint spriteStateMap:spriteStateMap];
     m_actorBlock.owningActor = self;
     m_actorBlock.props.canMoveFreely = YES;
     m_actorBlock.props.affectedByGravity = NO;
@@ -639,8 +645,7 @@
     m_actorBlock.props.isPlayerBlock = NO;
     m_actorBlock.props.immovable = YES;  // can't be moved by other blocks.
     
-    // TODO: pipe original preset block size to here so we can have variable sized lifts.
-    m_actorBlock.state.d = EmuSizeMake( 4 * ONE_BLOCK_SIZE_Emu, 4 * ONE_BLOCK_SIZE_Emu );
+    m_actorBlock.state.d = EmuSizeMake( m_blockSizeInUnits.x * ONE_BLOCK_SIZE_Emu, m_blockSizeInUnits.y * ONE_BLOCK_SIZE_Emu );
     
     NSAssert( m_world != nil, @"need world's ER at spawn time" );
     [m_world.elbowRoom addBlock:m_actorBlock];

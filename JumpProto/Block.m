@@ -436,9 +436,9 @@
 {
     int index = y * m_size.width + x;
     SpriteState *oldValue = m_data[index];
-    [oldValue release];
     m_data[index] = spriteState;
     [spriteState retain];
+    [oldValue release];
 }
 
 @end
@@ -479,6 +479,19 @@
     [self.spriteStateMap setSpriteStateAtX:0 y:0 to:spriteState];
 }
 
+
+-(void)setAllSpritesTo:(SpriteState *)spriteState
+{
+    CGSize size = self.spriteStateMap.size;
+    for( int j = 0; j < size.height; ++j )
+    {
+        for( int i = 0; i < size.width; ++i )
+        {
+            [self.spriteStateMap setSpriteStateAtX:i y:j to:spriteState];
+        }
+    }
+}
+
 @end
 
 
@@ -487,21 +500,27 @@
 
 @synthesize owningActor;
 
--(id)initAtPoint:(EmuPoint)p
+-(id)initAtPoint:(EmuPoint)p spriteStateMap:(SpriteStateMap *)spriteStateMap
 {
     EmuRect r = EmuRectMake( p.x, p.y, 0, 0 );  // size set later.
-    SpriteStateMap *spriteStateMap = [[[SpriteStateMap alloc] initWithSize:CGSizeMake( 1.f, 1.f )] autorelease];
     if( self = [super initWithRect:r spriteStateMap:spriteStateMap] )
     {
         self.owningActor = nil;  // weak
-
+        
         self.state.p = p;
         
         self.props.isActorBlock = YES;
         
         // subclasses or owning Actors should provide dimension and spriteState
     }
-    return self;    
+    return self;
+}
+
+
+-(id)initAtPoint:(EmuPoint)p
+{
+    SpriteStateMap *spriteStateMap = [[[SpriteStateMap alloc] initWithSize:CGSizeMake( 1.f, 1.f )] autorelease];
+    return [self initAtPoint:p spriteStateMap:spriteStateMap];
 }
 
 

@@ -657,6 +657,8 @@
     //       actor instead.
     pStart.y -= (4 * ONE_BLOCK_SIZE_Emu);
 
+    EmuPoint blockSizeInUnits = EmuPointMake( block.rect.size.width, block.rect.size.height );
+
     switch( block.preset )
     {
         case EBlockPreset_TestMeanieB:            
@@ -677,8 +679,7 @@
             return [[[TinyCrumActor alloc] initAtStartingPoint:pStart] autorelease];
             
         case EBlockPreset_tiny_autolift:
-            return [[[TinyAutoLiftActor alloc] initAtStartingPoint:pStart] autorelease];
-            return nil;
+            return [[[TinyAutoLiftActor alloc] initAtStartingPoint:pStart withSizeInUnits:blockSizeInUnits] autorelease];
             
         default:
             NSLog( @"don't know how to create actor for preset." );
