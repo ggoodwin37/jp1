@@ -7,7 +7,7 @@
 #import <OpenGLES/ES1/glext.h>
 
 #import "MainDrawController.h"
-#import "BackgroundLayerView.h"
+#import "ClearBufferLayerView.h"
 #import "TestLayerView.h"
 #import "TestSpriteSheetLayerView.h"
 #import "SpriteStateDrawUtil.h"
@@ -41,7 +41,7 @@
 -(void)initLayers
 {
 	// create required layers: fire n forget
-	BackgroundLayerView *backgroundLayerView = [[BackgroundLayerView alloc] init];
+	ClearBufferLayerView *clearBufferLayerView = [[ClearBufferLayerView alloc] init];
     //TestSpriteSheetLayerView *testLayerView = [[TestSpriteSheetLayerView alloc] init];
     
     // create required layers: retained
@@ -60,9 +60,9 @@
 	// add them to array
 	m_layerList = [[NSArray arrayWithObjects:
                     
-                    backgroundLayerView,
+                    clearBufferLayerView,
                     //testLayerView,
-                    m_worldView,
+                    //m_worldView,
                     m_globalButtonView,
                     m_dpadFeedbackLayerViewLeft,
                     m_dpadFeedbackLayerViewRight,
@@ -74,7 +74,7 @@
 
 	// release temp layers only (now owned by the list)
     //[testLayerView release];
-	[backgroundLayerView release];
+	[clearBufferLayerView release];
 }
 
 

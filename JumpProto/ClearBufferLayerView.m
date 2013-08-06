@@ -1,19 +1,19 @@
 //
-//  BackgroundLayerView.m
+//  ClearBufferLayerView.m
 //  BASICPROJECT
 //
 //  Created by gideong on 7/16/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "BackgroundLayerView.h"
+#import "ClearBufferLayerView.h"
 
-@interface BackgroundLayerView (private)
+@interface ClearBufferLayerView (private)
 
 
 @end
 
-@implementation BackgroundLayerView
+@implementation ClearBufferLayerView
 
 
 -(void)buildScene
@@ -27,9 +27,5 @@
 -(void)updateWithTimeDelta:(float)timeDelta
 {
 }
-
-
-
-
 
 @end

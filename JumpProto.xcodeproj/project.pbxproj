@@ -10,6 +10,7 @@
 		931D35B117A644210048B466 /* tiny-edit-hints.png in Resources */ = {isa = PBXBuildFile; fileRef = 931D35B017A644210048B466 /* tiny-edit-hints.png */; };
 		932DD07917974A3100375642 /* RectCoordBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 932DD07817974A3100375642 /* RectCoordBuffer.m */; };
 		9337102017A606E20080C6EB /* RandomNameGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9337101F17A606E20080C6EB /* RandomNameGenerator.m */; };
+		93630AA917B0D1BC00AA8D5D /* ClearBufferLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93630AA817B0D1BC00AA8D5D /* ClearBufferLayerView.m */; };
 		93732D8417A4327D00F1B5A7 /* ElbowRoomGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */; };
 		93732D8717A4982B00F1B5A7 /* PropagateMovementUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */; };
 		9386061417A5B86900A544B5 /* rob-16.png in Resources */ = {isa = PBXBuildFile; fileRef = 9386061017A5B86900A544B5 /* rob-16.png */; };
@@ -57,7 +58,6 @@
 		F37EEFC713CF3EE700AC418D /* JumpProtoTests.h in Resources */ = {isa = PBXBuildFile; fileRef = F37EEFC613CF3EE700AC418D /* JumpProtoTests.h */; };
 		F37EEFC913CF3EE700AC418D /* JumpProtoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFC813CF3EE700AC418D /* JumpProtoTests.m */; };
 		F37EEFF613CF411800AC418D /* AspectController.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFD313CF411800AC418D /* AspectController.m */; };
-		F37EEFF713CF411800AC418D /* BackgroundLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFD513CF411800AC418D /* BackgroundLayerView.m */; };
 		F37EEFF813CF411800AC418D /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = F37EEFD813CF411800AC418D /* EAGLView.m */; };
 		F37EEFF913CF411800AC418D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F37EEFDA13CF411800AC418D /* InfoPlist.strings */; };
 		F37EEFFA13CF411800AC418D /* JumpProtoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F37EEFDC13CF411800AC418D /* JumpProtoViewController.xib */; };
@@ -141,6 +141,8 @@
 		932DD07817974A3100375642 /* RectCoordBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RectCoordBuffer.m; sourceTree = "<group>"; };
 		9337101E17A606E20080C6EB /* RandomNameGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomNameGenerator.h; sourceTree = "<group>"; };
 		9337101F17A606E20080C6EB /* RandomNameGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomNameGenerator.m; sourceTree = "<group>"; };
+		93630AA717B0D1BC00AA8D5D /* ClearBufferLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearBufferLayerView.h; sourceTree = "<group>"; };
+		93630AA817B0D1BC00AA8D5D /* ClearBufferLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearBufferLayerView.m; sourceTree = "<group>"; };
 		93732D8217A4327D00F1B5A7 /* ElbowRoomGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElbowRoomGrid.h; sourceTree = "<group>"; };
 		93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElbowRoomGrid.m; sourceTree = "<group>"; };
 		93732D8517A4982A00F1B5A7 /* PropagateMovementUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropagateMovementUpdater.h; sourceTree = "<group>"; };
@@ -214,8 +216,6 @@
 		F37EEFC813CF3EE700AC418D /* JumpProtoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JumpProtoTests.m; sourceTree = "<group>"; };
 		F37EEFD213CF411800AC418D /* AspectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AspectController.h; sourceTree = "<group>"; };
 		F37EEFD313CF411800AC418D /* AspectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AspectController.m; sourceTree = "<group>"; };
-		F37EEFD413CF411800AC418D /* BackgroundLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundLayerView.h; sourceTree = "<group>"; };
-		F37EEFD513CF411800AC418D /* BackgroundLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundLayerView.m; sourceTree = "<group>"; };
 		F37EEFD613CF411800AC418D /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		F37EEFD713CF411800AC418D /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
 		F37EEFD813CF411800AC418D /* EAGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAGLView.m; sourceTree = "<group>"; };
@@ -560,8 +560,6 @@
 		F3C444D214035AE9003B5C9C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F37EEFD413CF411800AC418D /* BackgroundLayerView.h */,
-				F37EEFD513CF411800AC418D /* BackgroundLayerView.m */,
 				F37EEFD713CF411800AC418D /* EAGLView.h */,
 				F37EEFD813CF411800AC418D /* EAGLView.m */,
 				F37EEFE713CF411800AC418D /* LayerView.h */,
@@ -584,6 +582,8 @@
 				F3471E49143D4CF9001AA4C8 /* SpriteStateDrawUtil.m */,
 				932DD07717974A3100375642 /* RectCoordBuffer.h */,
 				932DD07817974A3100375642 /* RectCoordBuffer.m */,
+				93630AA717B0D1BC00AA8D5D /* ClearBufferLayerView.h */,
+				93630AA817B0D1BC00AA8D5D /* ClearBufferLayerView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -858,7 +858,6 @@
 				F37EEFAA13CF3EE700AC418D /* JumpProtoAppDelegate.m in Sources */,
 				F37EEFB013CF3EE700AC418D /* JumpProtoViewController.m in Sources */,
 				F37EEFF613CF411800AC418D /* AspectController.m in Sources */,
-				F37EEFF713CF411800AC418D /* BackgroundLayerView.m in Sources */,
 				F37EEFF813CF411800AC418D /* EAGLView.m in Sources */,
 				F37EEFFC13CF411800AC418D /* ES1Renderer.m in Sources */,
 				F37EEFFD13CF411800AC418D /* gutil.c in Sources */,
@@ -916,6 +915,7 @@
 				9386061E17A5ED8A00A544B5 /* PlayerActor.m in Sources */,
 				9386062117A5ED9C00A544B5 /* BadGuyActor.m in Sources */,
 				9337102017A606E20080C6EB /* RandomNameGenerator.m in Sources */,
+				93630AA917B0D1BC00AA8D5D /* ClearBufferLayerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

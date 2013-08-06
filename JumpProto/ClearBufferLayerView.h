@@ -1,5 +1,5 @@
 //
-//  BackgroundLayerView.h
+//  ClearBufferLayerView.h
 //  BASICPROJECT
 //
 //  Created by gideong on 7/16/10.
@@ -10,8 +10,8 @@
 #import "LayerView.h"
 
 
-@interface BackgroundLayerView : LayerView {
-
+@interface ClearBufferLayerView : LayerView {
+    
 }
 
 @end

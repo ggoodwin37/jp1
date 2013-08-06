@@ -20,6 +20,7 @@
 #define TIME_BETWEEN_WORLDUPDATE_SPEED_REPORTS (10.f)
 
 // avoid initial frame jitter by burning through a few frames without updating anything.
+// TODO: is this for real?
 #define BURN_FRAMES_ON_WORLD_RESET (5)
 
 //#define DEBUG_VIEW_STARTS_FULLSIZE
