@@ -292,3 +292,9 @@ I like the Jump Proto right now but I go through spells where I don't think anyt
 There was this pixel-ish iPhone game that has a constant run mechanic and only two buttons (run/throw rock). It was orders of magnitude more simple than what I have (gameplay wise) but it seemed to be moderately successful (was featured).
 
 Really need to figure out what to do with that second button.
+
+8-6
+
+Here's an idea for interactivity. Scrap the planned "items" functionality and instead introduce a "build mode" mechanic. There are "build hotspots" scattered around the level. When the player is standing inside one of these hotspots, they can tap the secondary button to switch to "build mode". In build mode, gravity-enabled blocks become draggable and even pick-up-able. While in build mode, time keeps running. The player can hold several blocks in their inventory and carry them between hotspots.
+
+This enables scenarios like: make a bridge, fix the machine, uncover the secret passage, block the enemy, transport the key, etc.
