@@ -266,7 +266,23 @@
     {
         return 0;
     }
+
+    // special case for things moving downward:
+    //   we'll also do a parallel recurse to abutters in the opposite direction, only if we are moving down.
+    //   this is a "pull" instead of a push. the reason we do this is to avoid the case where somebody
+    //   standing on top of us repeatedly falls from vy=0 until they bump into us (some distance below them).
+    //   only do this if the opposite parallel abutter is affected by gravity and if we aren't moving too fast.
+    //   if we are moving too fast, it's appropriate for them to fall from vy=0.
+    //   note: need to cache the up abutt list now (before moving), then recurse it after moving so the abutters
+    //   have room to move. this assumes that the cache doesn't change when we performMove.
+    //   in other words we have an assumption here that the cache is stale :(
+    NSArray *oppParaAbuttList = nil;
+    if( !perpProp && !xAxis && targetOffset < 0 && targetOffset > PULL_DOWN_THRESHOLD )
+    {
+        oppParaAbuttList = [m_worldFrameCache lazyGetAbuttListForSO:node inER:m_elbowRoom direction:ERDirUp];
+    }
     
+    // perform the actual move!
     Emu didMoveOffset = [self performMoveForNode:node targetOffset:targetOffset isXAxis:xAxis];
     
     // if we newly gain abutters, wait a frame before bouncing. This allows us to observe an "opposing motive"
@@ -282,12 +298,35 @@
         return 0;
     }
     
+    // did we save opposite parallel abutters from above, before performMove?
+    if( oppParaAbuttList != nil )
+    {
+        for( int i = 0; i < [oppParaAbuttList count]; ++i )
+        {
+            ASolidObject *thisAbutter = (ASolidObject *)[oppParaAbuttList objectAtIndex:i];
+            
+            // skip group elements since they'll be handled via owning group.
+            if( [thisAbutter isGroupElement] ) continue;
+            
+            if( targetOffset != 0 )
+            {
+                // don't pull things on y if they aren't affected by gravity.
+                if( [thisAbutter getProps].affectedByGravity )
+                {
+                    [self doRecurseForNode:thisAbutter targetOffset:didMoveOffset isXAxis:xAxis isPerpProp:NO
+                                  originSO:originSO groupPropStack:groupPropStack depth:(depth + 1)];
+                }
+            }
+        }
+    }
+    
     // special logic for x movement "dragging" things stacked on top.
     // doesn't apply to player because it's annoying.
     if( !xAxis || [node getProps].isPlayerBlock )
     {
         return didMoveOffset;
     }
+    
     Emu thisAbutterDidMove;
     NSArray *upAbuttList = [m_worldFrameCache lazyGetAbuttListForSO:node inER:m_elbowRoom direction:ERDirUp];
     for( int i = 0; i < [upAbuttList count]; ++i )
