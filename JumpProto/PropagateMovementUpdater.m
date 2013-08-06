@@ -201,7 +201,7 @@
 // parameter isPerpProp controls whether we are handling the perpendicular drag propagation
 //   (if so, avoid doing parallel propagation again to cut down on weird jittery effects...still not perfect)
 // param depth is unused for now.
--(Emu)doRecurseForNode:(ASolidObject *)node targetOffset:(Emu)targetOffset isXAxis:(BOOL)xAxis isPerpProp:(BOOL)perpProp
+-(Emu)doRecurseForNode:(ASolidObject *)node targetOffset:(Emu)targetOffset isXAxis:(BOOL)xAxis isPerpProp:(BOOL)perpProp isOppParaProp:(BOOL)oppParaProp
                                             originSO:(ASolidObject *)originSO groupPropStack:(NSMutableArray *)groupPropStack depth:(int)depth
 {
     if( ![node getProps].canMoveFreely )
@@ -225,7 +225,7 @@
     }
     
     BOOL didBounce = NO;
-    if( !perpProp )
+    if( !perpProp && !oppParaProp )
     {
         NSArray *paraAbuttList;
         ERDirection dir;
@@ -252,7 +252,7 @@
                 // don't push things on y if they aren't affected by gravity (e.g. floating platforms, which should stay floating).
                 if( ![thisAbutter getProps].immovable && (xAxis || [thisAbutter getProps].affectedByGravity) )
                 {
-                    [self doRecurseForNode:thisAbutter targetOffset:attTargetOffset isXAxis:xAxis isPerpProp:NO
+                    [self doRecurseForNode:thisAbutter targetOffset:attTargetOffset isXAxis:xAxis isPerpProp:NO isOppParaProp:NO
                                   originSO:originSO groupPropStack:groupPropStack depth:(depth + 1)];
                 }
             }
@@ -313,11 +313,17 @@
                 // don't pull things on y if they aren't affected by gravity.
                 if( [thisAbutter getProps].affectedByGravity )
                 {
-                    [self doRecurseForNode:thisAbutter targetOffset:didMoveOffset isXAxis:xAxis isPerpProp:NO
+                    [self doRecurseForNode:thisAbutter targetOffset:didMoveOffset isXAxis:xAxis isPerpProp:NO isOppParaProp:YES
                                   originSO:originSO groupPropStack:groupPropStack depth:(depth + 1)];
                 }
             }
         }
+    }
+    
+    // if we're in an opposite parallel recurse, we're done now.
+    if( oppParaProp )
+    {
+        return didMoveOffset;
     }
     
     // special logic for x movement "dragging" things stacked on top.
@@ -373,7 +379,7 @@
         
         if( moveOffsetDifference != 0 )
         {
-            thisAbutterDidMove = [self doRecurseForNode:thisAbutter targetOffset:moveOffsetDifference isXAxis:YES isPerpProp:YES
+            thisAbutterDidMove = [self doRecurseForNode:thisAbutter targetOffset:moveOffsetDifference isXAxis:YES isPerpProp:YES isOppParaProp:NO
                                                originSO:originSO groupPropStack:groupPropStack depth:(depth + 1)];
         }
     }
@@ -456,7 +462,7 @@
         [m_groupPropStack removeAllObjects];
         
         Emu targetOffset = (vSO.y + vOffset.y) * delta;
-        [self doRecurseForNode:solidObject targetOffset:targetOffset isXAxis:NO isPerpProp:NO originSO:solidObject groupPropStack:m_groupPropStack depth:0];
+        [self doRecurseForNode:solidObject targetOffset:targetOffset isXAxis:NO isPerpProp:NO isOppParaProp:NO originSO:solidObject groupPropStack:m_groupPropStack depth:0];
     }
     if( (vSO.x + vOffset.x) != 0 )
     {
@@ -464,7 +470,7 @@
         [self checkExemptGroupsForNode:solidObject forStack:m_groupPropStack];
         
         Emu targetOffset = (vSO.x + vOffset.x) * delta;
-        [self doRecurseForNode:solidObject targetOffset:targetOffset isXAxis:YES isPerpProp:NO originSO:solidObject groupPropStack:m_groupPropStack depth:0];
+        [self doRecurseForNode:solidObject targetOffset:targetOffset isXAxis:YES isPerpProp:NO isOppParaProp:NO originSO:solidObject groupPropStack:m_groupPropStack depth:0];
     }
 }
 
