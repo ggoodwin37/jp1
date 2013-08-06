@@ -88,19 +88,19 @@
 
 // shared badguy values
 #define BADGUY_NOTBORNYET_TIME (0.f)
-#define BADGUY_BEINGBORN_TIME (0.f)
-#define BADGUY_DYING_TIME (0.75f)
-#define BADGUY_JUMP_MAX_V (22400)
+#define BADGUY_BEINGBORN_TIME  (0.f)
+#define BADGUY_DYING_TIME      (0.75f)
+#define BADGUY_JUMP_MAX_V      (22400)
 
 // testMeanieB values
 #define TESTMEANIEB_LR_ACCEL (80000)
 #define TESTMEANIEB_LR_MAX_V (4000)
 
 // facebone values
-#define FACEBONE_CHILLTIME (0.6f)
-#define FACEBONE_FAKEOUT_CHANCE (0.3f)
-#define FACEBONE_PREJUMP_TIME (0.25f)
-#define FACEBONE_JUMPTIME (MAX_JUMP_DURATION * 2.f)
+#define FACEBONE_CHILLTIME       (0.6f)
+#define FACEBONE_FAKEOUT_CHANCE  (0.3f)
+#define FACEBONE_PREJUMP_TIME    (0.25f)
+#define FACEBONE_JUMPTIME        (MAX_JUMP_DURATION * 2.f)
 #define BADGUY_MAX_JUMP_DURATION (MAX_JUMP_DURATION);
 
 // crumbles1 values
@@ -113,7 +113,7 @@
 #define TINYAUTOLIFT_GOING_V   (15000)
 #define TINYAUTOLIFT_COMING_V  (-5000)
 #define TINYAUTOLIFT_ACCEL     (40000)
-#define TINYAUTOLIFT_RESETTIME (0.1f)
+#define TINYAUTOLIFT_RESETTIME (0.10f)
 
 // tiny-fuzz values
 #define TINYFUZZ_LR_ACCEL (40000)
@@ -127,5 +127,5 @@
 // misc world physics/prop values
 #define MOVING_PLATFORM_RIGHT_MEDIUM_VX ( 2560 )
 #define CONVEYOR_VX                     ( 3800 )
-#define PULL_DOWN_THRESHOLD             ( -10000 )
+#define PULL_DOWN_THRESHOLD             ( -180 )
 
