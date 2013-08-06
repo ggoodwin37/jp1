@@ -1,11 +1,11 @@
 // misc
 
+- a special case for downward pull propagation to help "lift reset" downward movement case.
+
 - test level: tower of babel. need to get the "distance from origin" thing figured out.
   - why can't we handle negatives in edit anyways? pretty sure play is fine. maybe we can replace the key-gen-requires-positive-coord thing (is that what's happening)? can use space partition collision detection and allow overlapping blocks :)
 
 - a hitless group connector. hitless blocks in general (background)
-
-- beams
 
 - sanity check: does dpad still listen during edit? seems like dpad is offcenter after editing, or did my hands just shift.
 
@@ -13,16 +13,16 @@
 
 - revisit how groups are instantiated/added to world and er.
 
-- drawing spriteStateMaps: base case is done, need to do edit support (tiling?) and consider handling non-integral case in play.
-
 - button v1? also need horizontal button kits.
 
 - need a physics constants pass once most stuff is working
-- tweak air friction to less (still valid?)
+- tweak air friction to less
 
 - world layers
 
 - z-index? can we use depth buffer? do layers cover this?
+
+- beams
 
 
 // future

@@ -282,3 +282,13 @@ x finish walljump opposing jump (including dead input logic).
 - lift actor.
 - add a few simple creeps.
 - how about a v1 of a (far) background scene? I like a starry night with a city skyline. Stick with ultra lowfi/pixellated look for now. Stars, moon, clouds. Render plain geometry where possible. What does parallax math look like? Collect timing info of course.
+
+8-5
+
+Absent a few days. RevelTouch/Tocata laid a bunch of people off and the rest of us now have to wait for an acquisition or nothing.
+
+I like the Jump Proto right now but I go through spells where I don't think anything fun can come of it. There aren't enough axes of freedom to make the gameplay as interesting as the vague concept in my head. Need something that will make the gameplay richer.
+
+There was this pixel-ish iPhone game that has a constant run mechanic and only two buttons (run/throw rock). It was orders of magnitude more simple than what I have (gameplay wise) but it seemed to be moderately successful (was featured).
+
+Really need to figure out what to do with that second button.
