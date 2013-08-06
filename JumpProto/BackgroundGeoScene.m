@@ -9,75 +9,94 @@
 #import "BackgroundGeoScene.h"
 
 // ------------------------
-@implementation BDNode
-@synthesize next, prev, data;
+@implementation BaseStrip
 
--(id)init {
-    if( self = [super init] ) {
-        self.next = nil;
-        self.prev = nil;
-        self.data = nil;
+@synthesize depth;
+
+-(id)initWithDepth:(float)depthIn
+{
+    if( self = [super init] )
+    {
+        self.depth = depthIn;
     }
     return self;
 }
 
--(void)dealloc {
-    self.next = nil;
-    self.prev = nil;
-    self.data = nil;
+
+-(void)dealloc
+{
     [super dealloc];
 }
 
-@end
 
+-(void)drawWithXOffs:(CGFloat)xOffs yOffs:(CGFloat)yOffs
+{
+}
 
-// ------------------------
-@implementation BDQueue
-/*
- @interface BDQueue {
- BDNode *m_ptr;
- }
- 
- -(void)reset;
- -(NSObject *) next;
-*/
-@end
-
-
-// ------------------------
-@implementation BaseStrip
-/*@interface BaseStrip
- @property (nonatomic, assign) float depth;
- -(id)initWithDepth:(float)depth;
- -(void)drawWithXOffs:(CGFloat)xOffs yOffs:(CGFloat)yOffs;
- 
- @end
-*/
 @end
 
 
 // ------------------------
 @implementation Test1Strip
-/*@interface BaseStrip
- @property (nonatomic, assign) float depth;
- -(id)initWithDepth:(float)depth;
- -(void)drawWithXOffs:(CGFloat)xOffs yOffs:(CGFloat)yOffs;
- 
- @end
- */
+
+-(id)initWithDepth:(float)depthIn
+{
+    if( self = [super initWithDepth:depthIn] )
+    {
+    }
+    return self;
+}
+
+
+-(void)dealloc
+{
+    [super dealloc];
+}
+
+
+// override
+-(void)drawWithXOffs:(CGFloat)xOffs yOffs:(CGFloat)yOffs
+{
+}
+
 @end
 
 
 // ------------------------
 @implementation StripScene
-/*
- @interface StripScene
- 
- -(void)addStrip:(BaseStrip *)strip;
- -(void)drawAllStripsWithXOffs:(Emu)xOffs yOffs:(Emu)yOffs;
- 
- @end
-*/
+
+-(id)init
+{
+    if( self = [super init] )
+    {
+        m_stripList = [[NSMutableArray arrayWithCapacity:16] retain];
+    }
+    return self;
+}
+
+
+-(void)dealloc
+{
+    [m_stripList release]; m_stripList = nil;
+    [super dealloc];
+}
+
+
+-(void)addStrip:(BaseStrip *)strip
+{
+    [m_stripList addObject:strip];
+}
+
+
+-(void)drawAllStripsWithXOffs:(Emu)xOffs yOffs:(Emu)yOffs
+{
+    for( int i = 0; i < [m_stripList count]; ++i )
+    {
+        //BaseStrip *thisStrip = (BaseStrip *)[m_stripList objectAtIndex:i];
+        // TODO
+    }
+}
+
 @end
 
 
@@ -89,20 +108,31 @@
 
 @implementation BackgroundGeoSceneLayerView
 
-/*
- @interface BackgroundGeoSceneLayerView : LayerView {
- StripScene *m_stripScene;
- 
- }
- 
- @end
- */
+-(id)init
+{
+    if( self = [super init] )
+    {
+        m_stripScene = [[StripScene alloc] init];
+    }
+    return self;
+}
+
+
+-(void)dealloc
+{
+    [m_stripScene release]; m_stripScene = nil;
+    [super dealloc];
+}
+
 
 -(void)buildScene
 {
-    // TODO: wouldn't mind seeing a gradient rectangle here instead. can't be that much slower.
-	glClearColor(0.1f, 0.1f, 0.3f, 1.0f);
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	//glClearColor(0.1f, 0.1f, 0.3f, 1.0f);
+	//glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+    
+    // TODO: hook up offsets.
+    [m_stripScene drawAllStripsWithXOffs:0 yOffs:0];
+    
 }
 
 
@@ -111,5 +141,3 @@
 }
 
 @end
-
-

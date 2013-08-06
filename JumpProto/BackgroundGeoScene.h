@@ -8,27 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "LayerView.h"
+#import "LinkedList.h"
 #import "Emu.h"
-
-
-// ------------------------
-@interface BDNode : NSObject
-
-@property (nonatomic, retain) BDNode *next;
-@property (nonatomic, retain) BDNode *prev;
-@property (nonatomic, retain) NSObject *data;
-
-@end
-
-
-// ------------------------
-@interface BDQueue : NSObject {
-    BDNode *m_ptr;
-}
-
--(void)reset;
--(NSObject *) next;
-@end
 
 
 // ------------------------
@@ -49,6 +30,9 @@
 
 // ------------------------
 @interface StripScene : NSObject
+{
+    NSMutableArray *m_stripList;
+}
 
 -(void)addStrip:(BaseStrip *)strip;
 -(void)drawAllStripsWithXOffs:(Emu)xOffs yOffs:(Emu)yOffs;
