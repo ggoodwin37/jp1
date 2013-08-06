@@ -14,6 +14,7 @@
 #import "DpadFeedbackLayerView.h"
 #import "WorldView.h"
 #import "GlobalButtonView.h"
+#import "BackgroundGeoScene.h"
 
 @interface MainDrawController : NSObject <ES1RenderDelegate>
 {
@@ -29,5 +30,6 @@
 @property (nonatomic, readonly) DpadFeedbackLayerView *dpadFeedbackLayerViewRight;
 @property (nonatomic, readonly) WorldView *worldView;
 @property (nonatomic, readonly) GlobalButtonView *globalButtonView;
+@property (nonatomic, readonly) BackgroundGeoSceneLayerView *geoSceneView;
 
 @end

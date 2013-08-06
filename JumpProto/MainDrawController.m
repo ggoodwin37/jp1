@@ -22,7 +22,7 @@
 
 @synthesize touchFeedbackLayer = m_touchFeedbackLayer, debugLogLayer = m_debugLogLayer,
             dpadFeedbackLayerViewLeft = m_dpadFeedbackLayerViewLeft, dpadFeedbackLayerViewRight = m_dpadFeedbackLayerViewRight,
-            worldView = m_worldView, globalButtonView = m_globalButtonView;
+            worldView = m_worldView, globalButtonView = m_globalButtonView, geoSceneView = m_geoSceneView;
 
 -(id)init
 {
@@ -41,8 +41,8 @@
 -(void)initLayers
 {
 	// create required layers: fire n forget
-	ClearBufferLayerView *clearBufferLayerView = [[ClearBufferLayerView alloc] init];
-    //TestSpriteSheetLayerView *testLayerView = [[TestSpriteSheetLayerView alloc] init];
+	ClearBufferLayerView *clearBufferLayerView = [[[ClearBufferLayerView alloc] init] autorelease];
+    //TestSpriteSheetLayerView *testLayerView = [[[TestSpriteSheetLayerView alloc] init] autorelease];
     
     // create required layers: retained
     m_touchFeedbackLayer = [[TouchFeedbackLayerView alloc] init];
@@ -56,12 +56,14 @@
     m_dpadFeedbackLayerViewRight = [[DpadFeedbackLayerView alloc] initWithBounds:rectRight forTouchZone:RightTouchZone];
     m_worldView = [[WorldView alloc] init];
     m_globalButtonView = [[GlobalButtonView alloc] init];
+    m_geoSceneView = [[BackgroundGeoSceneLayerView alloc] init];
 
 	// add them to array
 	m_layerList = [[NSArray arrayWithObjects:
                     
                     clearBufferLayerView,
                     //testLayerView,
+                    m_geoSceneView,
                     //m_worldView,
                     m_globalButtonView,
                     m_dpadFeedbackLayerViewLeft,
@@ -71,15 +73,12 @@
                     m_debugLogLayer,
 #endif                    
                     nil] retain];
-
-	// release temp layers only (now owned by the list)
-    //[testLayerView release];
-	[clearBufferLayerView release];
 }
 
 
 -(void)dealloc
 {
+    [m_geoSceneView release]; m_geoSceneView = nil;
     [m_globalButtonView release]; m_globalButtonView = nil;
 #ifdef DEBUG_LOG_LAYER_ACTIVE
     [m_debugLogLayer release]; m_debugLogLayer = nil;
