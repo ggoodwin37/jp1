@@ -326,6 +326,7 @@
 }
 
 
+// TODO: restricted rect version?
 -(void)drawGridDocumentToContext:(CGContextRef)context
 {
     if( self.document == nil )
@@ -728,13 +729,14 @@
     
     float xCenterWorld = self.worldRect.origin.x + (self.worldRect.size.width / 2.f);
     xCenterWorld -= xCenterDeltaWorld * factor;
-    float xNew = fmaxf( 0.f, xCenterWorld - (wNew / 2.f) );
-    xNew += xCenterDeltaWorld;
+    float xNew = xCenterWorld + xCenterDeltaWorld - (wNew / 2.f);
     
     float yCenterWorld = self.worldRect.origin.y + (self.worldRect.size.height / 2.f);
     yCenterWorld -= yCenterDeltaWorld * factor;
-    float yNew = fmaxf( 0.f, yCenterWorld - (hNew / 2.f) );
-    yNew += yCenterDeltaWorld;
+    float yNew = yCenterWorld + yCenterDeltaWorld - (hNew / 2.f);
+
+    xNew = fmaxf( xNew, 0.f );
+    yNew = fmaxf( yNew, 0.f );
 
     self.worldRect = CGRectMake( xNew, yNew, wNew, hNew );
 
@@ -748,8 +750,17 @@
     float deltaXWorld = self.worldRect.size.width  * (vector.x / self.frame.size.width );
     float deltaYWorld = self.worldRect.size.height * (vector.y / self.frame.size.height );
     
-    float xNew = fmaxf( 0.f, self.worldRect.origin.x - deltaXWorld );
-    float yNew = fmaxf( 0.f, self.worldRect.origin.y - deltaYWorld );
+    float xNewUnclipped = self.worldRect.origin.x - deltaXWorld;
+    float yNewUnclipped = self.worldRect.origin.y - deltaYWorld;
+    
+    float xNew = fmaxf( 0.f, xNewUnclipped );
+    float yNew = fmaxf( 0.f, yNewUnclipped );
+    
+    if( xNew != xNewUnclipped || yNew != yNewUnclipped )
+    {
+        NSLog( @"clipping edit view rect to a zero" );
+    }
+    
     self.worldRect = CGRectMake( xNew, yNew, self.worldRect.size.width, self.worldRect.size.height );
     
     [self setNeedsDisplay];

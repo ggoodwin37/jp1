@@ -688,6 +688,33 @@
 }
 
 
+// shifts the level back close to origin.
++(void)normalize:(AFLevel *)level
+{
+    float xMinValue, yMinValue;
+    
+    xMinValue = FLT_MAX;
+    yMinValue = FLT_MAX;
+    for( int i = 0; i < [level.blockList count]; ++i )
+    {
+        AFBlock *thisBlock = (AFBlock *)[level.blockList objectAtIndex:i];
+        
+        xMinValue = fminf( xMinValue, thisBlock.rect.origin.x );
+        yMinValue = fminf( yMinValue, thisBlock.rect.origin.y );
+    }
+    
+    for( int i = 0; i < [level.blockList count]; ++i )
+    {
+        AFBlock *thisBlock = (AFBlock *)[level.blockList objectAtIndex:i];
+        thisBlock.rect = CGRectMake( thisBlock.rect.origin.x - xMinValue,
+                                    thisBlock.rect.origin.y - yMinValue,
+                                    thisBlock.rect.size.width,
+                                    thisBlock.rect.size.height );
+    }
+    NSLog( @"readWorld: normalize offset was %f x %f", xMinValue, yMinValue );
+}
+
+
 +(void)readWorld:(World *)world fromAF:(AFLevel *)level
 {
     // assume [world reset] was called already.
@@ -872,7 +899,8 @@
         NSLog( @"  reading a block at %fx%f", thisAFBlock.rect.origin.x, thisAFBlock.rect.origin.y );
     }
 #endif
-
+    
+    [WorldArchiveUtil normalize:afLevel];
     [WorldArchiveUtil readWorld:world fromAF:afLevel];
     
 #ifdef LOG_BLOCK_DISK_ACTIVITY

@@ -4,12 +4,8 @@
 - revisit "move edit start away from origin", it still doesn't seem to be giving me as much space as I expect, unless my math is off.
 - gibs don't bounce right.
 
-- is there a class of bugs where our cached abutt list for the frame is stale because something has moved since it was cached? does this matter or does it just catch up next frame?
 
-- consistent crash on Davis's silly bassoon (max's level). I think this is an infinite recursion between two falling blocks due to the new down pull logic I added. should be a simple fix (but how clean of a fix I can't say...)
-    - this should be fixed now, need to verify later.
 
-come on, I know there's more bugs.
 
 // old
 
