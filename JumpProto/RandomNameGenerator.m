@@ -78,7 +78,7 @@
 
     int col0key = (month * 30 + day) * 6529;
     int col1key = second * 4567;
-    int col2key = (hour * 60 + minute) * 5189;
+    int col2key = (hour * 60 + minute * second) * 5189;
     
     int col0Index = col0key % [[RandomNameGenerator getCol0List] count];
     int col1Index = col1key % [[RandomNameGenerator getCol1List] count];

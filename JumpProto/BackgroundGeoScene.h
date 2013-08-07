@@ -18,7 +18,7 @@
 @property (nonatomic, assign) float depth;
 
 -(id)initWithDepth:(float)depth;
--(void)drawWithXOffs:(CGFloat)xOffs yOffs:(CGFloat)yOffs;
+-(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs;
 
 @end
 
@@ -35,7 +35,7 @@
 }
 
 -(void)addStrip:(BaseStrip *)strip;
--(void)drawAllStripsWithXOffs:(Emu)xOffs yOffs:(Emu)yOffs;
+-(void)drawAllStripsWithXOffs:(float)xOffs yOffs:(float)yOffs;
 
 @end
 

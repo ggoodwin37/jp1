@@ -29,7 +29,7 @@
 }
 
 
--(void)drawWithXOffs:(CGFloat)xOffs yOffs:(CGFloat)yOffs
+-(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs
 {
 }
 
@@ -55,7 +55,7 @@
 
 
 // override
--(void)drawWithXOffs:(CGFloat)xOffs yOffs:(CGFloat)yOffs
+-(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs
 {
 }
 
@@ -88,7 +88,7 @@
 }
 
 
--(void)drawAllStripsWithXOffs:(Emu)xOffs yOffs:(Emu)yOffs
+-(void)drawAllStripsWithXOffs:(float)xOffs yOffs:(float)yOffs
 {
     for( int i = 0; i < [m_stripList count]; ++i )
     {
