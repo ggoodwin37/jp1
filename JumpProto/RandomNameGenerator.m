@@ -76,6 +76,8 @@
     int hour = [dateComponents hour];
     int month = [dateComponents month];
 
+    // TODO: this is so ghetto, should have a RandomTable(size) class that handles this better.
+    //       it would be cool if this was actually deterministic though to give it flavor.
     int col0key = (month * 30 + day) * 6529;
     int col1key = second * 4567;
     int col2key = (hour * 60 + minute * second) * 5189;

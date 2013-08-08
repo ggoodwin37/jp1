@@ -41,3 +41,5 @@
 - would be cool to have like 3 to 4 draw slots so I can rapidly choose between several presets, can be pre-pop'd too.
 
 - undo stack
+
+- edit mode should be able to handle negative world coords. this is stupid, and requires several workarounds later that need to be removed: have to start the edit camera way far from origin so level has room to go up or left. then we normalize everything on play-load, which is slow and probably not even necessary. if we could simply use negative coords in edit this would be so much simpler and faster. I know there are a few fmaxf's here and there, but what is the real reason we can't use negative coords? is it just because they are used as keys in a table? negatives probably work with that anyways.
