@@ -24,26 +24,19 @@
 
 
 // ------------------------
-@interface Test1Strip : BaseStrip
-@end
-
-
-// ------------------------
-@interface StripScene : NSObject
+@interface BaseStripScene : NSObject
 {
     NSMutableArray *m_stripList;
 }
 
--(void)addStrip:(BaseStrip *)strip;
 -(void)drawAllStripsWithXOffs:(float)xOffs yOffs:(float)yOffs;
 
 @end
 
 
 // ------------------------
-
 @interface BackgroundGeoSceneLayerView : LayerView {
-    StripScene *m_stripScene;
+    BaseStripScene *m_stripScene;
     
 }
 

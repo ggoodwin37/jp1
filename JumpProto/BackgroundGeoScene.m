@@ -7,6 +7,8 @@
 //
 
 #import "BackgroundGeoScene.h"
+#import "RectCoordBuffer.h"
+
 
 // ------------------------
 @implementation BaseStrip
@@ -37,6 +39,9 @@
 
 
 // ------------------------
+@interface Test1Strip : BaseStrip
+@end
+
 @implementation Test1Strip
 
 -(id)initWithDepth:(float)depthIn
@@ -63,7 +68,7 @@
 
 
 // ------------------------
-@implementation StripScene
+@implementation BaseStripScene
 
 -(id)init
 {
@@ -82,12 +87,6 @@
 }
 
 
--(void)addStrip:(BaseStrip *)strip
-{
-    [m_stripList addObject:strip];
-}
-
-
 -(void)drawAllStripsWithXOffs:(float)xOffs yOffs:(float)yOffs
 {
     for( int i = 0; i < [m_stripList count]; ++i )
@@ -101,6 +100,22 @@
 
 
 // ------------------------
+@interface Test1StripScene : BaseStripScene
+@end
+
+@implementation Test1StripScene
+
+-(id)init
+{
+    if( self = [super init] )
+    {
+        [m_stripList addObject:[[[Test1Strip alloc] initWithDepth:1.f] autorelease]];
+    }
+    return self;
+}
+@end
+
+// ------------------------
 @interface BackgroundGeoSceneLayerView (private)
 
 
@@ -112,7 +127,8 @@
 {
     if( self = [super init] )
     {
-        m_stripScene = [[StripScene alloc] init];
+        // TODO: a subclass instead
+        m_stripScene = [[BaseStripScene alloc] init];
     }
     return self;
 }

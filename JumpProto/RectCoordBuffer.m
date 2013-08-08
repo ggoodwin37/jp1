@@ -14,7 +14,7 @@
 
 @implementation RectCoordBuffer
 
--(id)init
+-(id)initWithTexEnabled:(BOOL)texEnabled
 {
     if( self = [super init])
     {
@@ -26,6 +26,8 @@
         m_didBindTexYet = NO;
         m_boundTexName = 0;
         
+        m_texEnabled = texEnabled;
+
         size_t geoCoordBufSize = m_capacity * GEO_COORD_VAL_PER_FRAME * sizeof(GLfloat);
         m_geoCoordBuf = (GLfloat *)malloc( geoCoordBufSize );
         NSAssert( m_geoCoordBuf, @"Assume we can allocate geometry coordinate cache." );
@@ -36,10 +38,14 @@
             m_geoCoordBuf[i] = 0.f;
         }
 
-        size_t texCoordBufSize = m_capacity * TEX_COORD_VAL_PER_FRAME * sizeof(GLfloat);
-        m_texCoordBuf = (GLfloat *)malloc( texCoordBufSize );
-        NSAssert( m_texCoordBuf, @"Assume we can allocate texture coordinate cache." );
-        
+        if( m_texEnabled )
+        {
+            size_t texCoordBufSize = m_capacity * TEX_COORD_VAL_PER_FRAME * sizeof(GLfloat);
+            m_texCoordBuf = (GLfloat *)malloc( texCoordBufSize );
+            NSAssert( m_texCoordBuf, @"Assume we can allocate texture coordinate cache." );
+        }
+        else m_texCoordBuf = nil;
+            
         size_t colorBufSize = m_capacity * COLOR_VAL_PER_FRAME * sizeof(GLbyte);
         m_colorBuf = (GLbyte *)malloc( colorBufSize );
         NSAssert( m_colorBuf, @"Assume we can allocate color cache." );
@@ -93,6 +99,7 @@
 
 -(void)pushRectTexCoord2dBuf:(GLfloat *)buf
 {
+    NSAssert( m_texEnabled, @"You should only set texCoords when in texMode." );
     const int offs = m_currentFrame * TEX_COORD_VAL_PER_FRAME;
     GLfloat *targetPtr = m_texCoordBuf + offs;
     const size_t numBytes = TEX_COORD_VAL_PER_FRAME * sizeof( GLfloat );
@@ -111,6 +118,7 @@
 
 -(void)setTexName:(GLuint)name
 {
+    NSAssert( m_texEnabled, @"You should only set texName when in texMode." );
     if( !m_setTexNameYet )
     {
         m_currentTexName = name;
@@ -160,18 +168,21 @@
     glVertexPointer( 3, GL_FLOAT, 0, m_geoCoordBuf );
     glColorPointer( 4, GL_UNSIGNED_BYTE, 0, m_colorBuf );
     
-    BOOL needToBind = NO;
-    if( !m_didBindTexYet || m_boundTexName != m_currentTexName )
+    if( m_texEnabled )
     {
-        needToBind = YES;
+        BOOL needToBind = NO;
+        if( !m_didBindTexYet || m_boundTexName != m_currentTexName )
+        {
+            needToBind = YES;
+        }
+        if( needToBind )
+        {
+            glBindTexture( GL_TEXTURE_2D, m_currentTexName );
+            m_boundTexName = m_currentTexName;
+            m_didBindTexYet = YES;
+        }
+        glTexCoordPointer( 2, GL_FLOAT, 0, m_texCoordBuf );
     }
-    if( needToBind )
-    {
-        glBindTexture( GL_TEXTURE_2D, m_currentTexName );
-        m_boundTexName = m_currentTexName;
-        m_didBindTexYet = YES;
-    }
-    glTexCoordPointer( 2, GL_FLOAT, 0, m_texCoordBuf );
 
     glLoadIdentity();
     

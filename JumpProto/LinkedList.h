@@ -11,20 +11,20 @@
 // ------------------------
 @interface LLNode : NSObject
 
+// ownership starts with head and goes next. so next property is retain, but prev is assign (weak)
 @property (nonatomic, retain) LLNode *next;
+@property (nonatomic, assign) LLNode *prev;
 @property (nonatomic, retain) id data;
 
 @end
 
 
 // ------------------------
-@interface LinkedList : NSObject {
-    LLNode *m_ptr;
-    LLNode *m_head;
-}
+@interface LinkedList : NSObject 
+
+@property (nonatomic, readonly) LLNode *head;
+@property (nonatomic, readonly) LLNode *tail;
 
 -(void)enqueueData:(id)data;
 
--(void)reset;
--(id)next;
 @end
