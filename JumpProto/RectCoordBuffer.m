@@ -14,12 +14,11 @@
 
 @implementation RectCoordBuffer
 
--(id)initWithTexEnabled:(BOOL)texEnabled
+-(id)initWithTexEnabled:(BOOL)texEnabled capacity:(int)capacity
 {
     if( self = [super init])
     {
-        // TODO: tune this value down if possible
-        m_capacity = 30 * 20 * 2;  // guess at typical screen size (in sprites) is 30 * 20, times fudge factor.
+        m_capacity = capacity;
         m_currentFrame = 0;
         m_setTexNameYet = NO;
         m_currentTexName = 0;

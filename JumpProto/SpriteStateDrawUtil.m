@@ -78,7 +78,9 @@ static RectCoordBuffer *g_rectCoordBuffer = nil;
 {
     if( g_rectCoordBuffer == nil )
     {
-        g_rectCoordBuffer = [[RectCoordBuffer alloc] init];
+        // TODO: tune this value down if possible
+        int capacity = 30 * 20 * 2;  // guess at typical screen size (in sprites) is 30 * 20, times fudge factor.
+        g_rectCoordBuffer = [[RectCoordBuffer alloc] initWithTexEnabled:YES capacity:capacity];
     }
 }
 

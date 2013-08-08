@@ -30,7 +30,7 @@
     BOOL m_texEnabled;
 }
 
--(id)initWithTexEnabled:(BOOL)texEnabled;
+-(id)initWithTexEnabled:(BOOL)texEnabled capacity:(int)capacity;
 
 // these methods assume GL_TRIANGLES scheme
 -(void)pushRectGeoCoord2dX1:(GLfloat)x1 Y1:(GLfloat)y1 X2:(GLfloat)x2 Y2:(GLfloat)y2;  // actually results in 18 floats

@@ -39,15 +39,54 @@
 
 
 // ------------------------
-@interface Test1Strip : BaseStrip
+@interface RectBufStrip : BaseStrip
+{
+    RectCoordBuffer *m_rectCoordBuffer;
+}
+
+-(id)initWithDepth:(float)depthIn capacity:(int)capacity;
+
+@end
+
+@implementation RectBufStrip
+
+-(id)initWithDepth:(float)depthIn capacity:(int)capacity
+{
+    if( self = [super initWithDepth:depthIn] )
+    {
+        m_rectCoordBuffer = [[RectCoordBuffer alloc] initWithTexEnabled:NO capacity:capacity];
+    }
+    return self;
+}
+
+
+-(void)dealloc
+{
+    [m_rectCoordBuffer release]; m_rectCoordBuffer = nil;
+    [super dealloc];
+}
+
+
+// override
+-(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs
+{
+    // TODO
+}
+
+@end
+
+
+// ------------------------
+@interface Test1Strip : RectBufStrip
 @end
 
 @implementation Test1Strip
 
 -(id)initWithDepth:(float)depthIn
 {
-    if( self = [super initWithDepth:depthIn] )
+    if( self = [super initWithDepth:depthIn capacity:8] )
     {
+        // TODO: any old shit
     }
     return self;
 }
@@ -62,6 +101,7 @@
 // override
 -(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs
 {
+    // TODO: any old shit for now.
 }
 
 @end
@@ -91,8 +131,8 @@
 {
     for( int i = 0; i < [m_stripList count]; ++i )
     {
-        //BaseStrip *thisStrip = (BaseStrip *)[m_stripList objectAtIndex:i];
-        // TODO
+        BaseStrip *thisStrip = (BaseStrip *)[m_stripList objectAtIndex:i];
+        [thisStrip drawWithXOffs:xOffs yOffs:yOffs];  // TODO: some kind of coord transform required here
     }
 }
 
@@ -115,6 +155,7 @@
 }
 @end
 
+
 // ------------------------
 @interface BackgroundGeoSceneLayerView (private)
 
@@ -127,8 +168,7 @@
 {
     if( self = [super init] )
     {
-        // TODO: a subclass instead
-        m_stripScene = [[BaseStripScene alloc] init];
+        m_stripScene = [[Test1StripScene alloc] init];
     }
     return self;
 }

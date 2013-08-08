@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "LayerView.h"
-#import "LinkedList.h"
 #import "Emu.h"
 
 
