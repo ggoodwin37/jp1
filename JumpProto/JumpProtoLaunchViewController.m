@@ -59,6 +59,18 @@
 }
 
 
+// for testing background drawing.  TODO: remove this function.
+-(void)temp_autoPlayFirstLevel
+{
+    m_lastPickedLevelRow = 1;
+    JumpProtoViewController *jumpVC = [[JumpProtoViewController alloc] initWithNibName:@"JumpProtoViewController" bundle:nil];
+    jumpVC.dpadInput = self.dpadInput;
+    jumpVC.loadFromDisk = YES;
+    m_childViewController = jumpVC;
+    [self addChildViewWithTransition:NO];
+}
+
+
 -(void)awakeFromNib
 {
     // this is authority on current coordinate system, in terms of aspect ratio and pixels (used only where needed to interface with events).
@@ -74,6 +86,9 @@
     [self populateLevelPickerView];
     self.deleteArmedSwitch.on = NO;
     self.loadFromDiskSwitch.on = YES;
+    
+    // TODO REVERT: just load the first level without requiring any user input for testing purposes.
+    [self temp_autoPlayFirstLevel];
 }
 
 
