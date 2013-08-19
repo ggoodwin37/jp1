@@ -7,7 +7,6 @@
 //
 
 #import "BackgroundGeoScene.h"
-#import "RectCoordBuffer.h"
 
 
 // ------------------------
@@ -40,21 +39,21 @@
 
 // ------------------------
 @interface RectBufStrip : BaseStrip
-{
-    RectCoordBuffer *m_rectCoordBuffer;
-}
+@property (nonatomic, retain) RectCoordBuffer *rectBuf;
 
--(id)initWithDepth:(float)depthIn capacity:(int)capacity;
+-(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn;
 
 @end
 
 @implementation RectBufStrip
 
--(id)initWithDepth:(float)depthIn capacity:(int)capacity
+@synthesize rectBuf;
+
+-(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn;
 {
     if( self = [super initWithDepth:depthIn] )
     {
-        m_rectCoordBuffer = [[RectCoordBuffer alloc] initWithTexEnabled:NO capacity:capacity];
+        self.rectBuf = rectBufIn;
     }
     return self;
 }
@@ -62,15 +61,8 @@
 
 -(void)dealloc
 {
-    [m_rectCoordBuffer release]; m_rectCoordBuffer = nil;
+    self.rectBuf = nil;
     [super dealloc];
-}
-
-
-// override
--(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs
-{
-    // TODO
 }
 
 @end
@@ -82,9 +74,9 @@
 
 @implementation Test1Strip
 
--(id)initWithDepth:(float)depthIn
+-(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn;
 {
-    if( self = [super initWithDepth:depthIn capacity:8] )
+    if( self = [super initWithDepth:depthIn rectBuf:rectBufIn] )
     {
         // TODO: any old shit
     }
@@ -104,8 +96,6 @@
   // TODO: some kind of coord transform required here to account for depth?    
     
     
-    
-    
 }
 
 @end
@@ -113,11 +103,13 @@
 
 // ------------------------
 @implementation BaseStripScene
+@synthesize sharedRectBuf;
 
 -(id)init
 {
     if( self = [super init] )
     {
+        self.sharedRectBuf = [[[RectCoordBuffer alloc] initWithTexEnabled:NO capacity:128] autorelease];
         m_stripList = [[NSMutableArray arrayWithCapacity:16] retain];
     }
     return self;
@@ -127,6 +119,7 @@
 -(void)dealloc
 {
     [m_stripList release]; m_stripList = nil;
+    self.sharedRectBuf = nil;
     [super dealloc];
 }
 
@@ -138,6 +131,7 @@
         BaseStrip *thisStrip = (BaseStrip *)[m_stripList objectAtIndex:i];
         [thisStrip drawWithXOffs:xOffs yOffs:yOffs];
     }
+    [self.sharedRectBuf flush];
 }
 
 @end
@@ -153,10 +147,11 @@
 {
     if( self = [super init] )
     {
-        [m_stripList addObject:[[[Test1Strip alloc] initWithDepth:1.f] autorelease]];
+        [m_stripList addObject:[[[Test1Strip alloc] initWithDepth:1.f rectBuf:self.sharedRectBuf] autorelease]];
     }
     return self;
 }
+
 @end
 
 

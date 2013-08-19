@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "LayerView.h"
 #import "Emu.h"
+#import "RectCoordBuffer.h"
 
 
 // ------------------------
@@ -27,6 +28,7 @@
 {
     NSMutableArray *m_stripList;
 }
+@property (nonatomic, retain) RectCoordBuffer *sharedRectBuf;
 
 -(void)drawAllStripsWithXOffs:(float)xOffs yOffs:(float)yOffs;
 
