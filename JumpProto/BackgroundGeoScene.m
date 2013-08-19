@@ -101,7 +101,11 @@
 // override
 -(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs
 {
-    // TODO: any old shit for now.
+  // TODO: some kind of coord transform required here to account for depth?    
+    
+    
+    
+    
 }
 
 @end
@@ -132,7 +136,7 @@
     for( int i = 0; i < [m_stripList count]; ++i )
     {
         BaseStrip *thisStrip = (BaseStrip *)[m_stripList objectAtIndex:i];
-        [thisStrip drawWithXOffs:xOffs yOffs:yOffs];  // TODO: some kind of coord transform required here
+        [thisStrip drawWithXOffs:xOffs yOffs:yOffs];
     }
 }
 
@@ -169,6 +173,7 @@
     if( self = [super init] )
     {
         m_stripScene = [[Test1StripScene alloc] init];
+        m_fakeWorldOffset = CGPointMake( 0.f, 0.f );
     }
     return self;
 }
@@ -183,17 +188,21 @@
 
 -(void)buildScene
 {
-	//glClearColor(0.1f, 0.1f, 0.3f, 1.0f);
-	//glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-    
-    // TODO: hook up offsets.
-    [m_stripScene drawAllStripsWithXOffs:0 yOffs:0];
-    
+    // TODO: hook up real world offsets
+    [m_stripScene drawAllStripsWithXOffs:m_fakeWorldOffset.x yOffs:m_fakeWorldOffset.y];
 }
 
 
 -(void)updateWithTimeDelta:(float)timeDelta
 {
+    // fake movement: x increases unbounded, y bounces back and forth between two extremes.
+    const CGFloat xIncPerSecond = 10.f;   // TODO tune
+    static CGFloat yIncPerSecond = 10.f;  // TODO tune
+    const CGFloat yValueLimitAbs = 100.f; // TODO tune
+    CGFloat newX = timeDelta * xIncPerSecond + m_fakeWorldOffset.x;
+    CGFloat newY = timeDelta * yIncPerSecond + m_fakeWorldOffset.y;
+    if( fabsf( newY ) >= yValueLimitAbs ) yIncPerSecond = -yIncPerSecond;
+    m_fakeWorldOffset = CGPointMake( newX, newY );
 }
 
 @end

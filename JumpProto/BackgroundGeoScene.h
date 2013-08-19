@@ -36,6 +36,7 @@
 // ------------------------
 @interface BackgroundGeoSceneLayerView : LayerView {
     BaseStripScene *m_stripScene;
+    CGPoint m_fakeWorldOffset;
     
 }
 
