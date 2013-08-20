@@ -21,6 +21,10 @@
 #define foo 0
 #define bar 1
 
+#define FLOAT_INTERP( min, max, factor )  ((factor) * ((max) - (min)) + (min))
+// this only works if min and max are ints. TODO fix this so it can accept GLbytes.
+#define BYTE_INTERP( min, max, factor )   (GLbyte)((int)((factor) * (float)((max) - (min)) + (min)) & 0xff)
+
 float frand();
 long getUpTimeMs();
 

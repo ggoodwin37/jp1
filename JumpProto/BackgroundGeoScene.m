@@ -85,10 +85,9 @@
 {
     if( self = [super init] )
     {
-        // TODO randomly pick these on some distribution.
-        self.intensityFactor = 1.f;
-        self.altitudeFactor = 1.f;
-        self.paddingFactor = 1.f;
+        self.intensityFactor = frand();
+        self.altitudeFactor = self.intensityFactor;
+        self.paddingFactor = frand();
     }
     return self;
 }
@@ -113,11 +112,11 @@
     if( self = [super initWithDepth:depthIn rectBuf:rectBufIn] )
     {
         m_starList = [[LinkedList alloc] init];
-        m_maxDistanceBetweenStars = 5.f;
+        const int minNumStars = 30;
+        m_maxDistanceBetweenStars = [AspectController instance].xPixel / minNumStars;
         
         const size_t colorBufSize = 4 * 6 * sizeof(GLbyte);  // 6 points since we are using triangles mode.
         m_colorBuf = (GLbyte *)malloc( colorBufSize );
-        memset( m_colorBuf, 0xff, colorBufSize );  // TODO more interesting colors than pure white. can vary by star.
         
         float totalWidth = [AspectController instance].xPixel;
         float runningWidth = 0;
@@ -140,12 +139,25 @@
 }
 
 
+-(void)setSolidColorA:(GLbyte)a r:(GLbyte)r g:(GLbyte)g b:(GLbyte)b
+{
+    for( int i = 0; i < 6; ++i )
+    {
+        GLbyte *ptr = m_colorBuf + (i * 4);
+        ptr[0] = r;
+        ptr[1] = g;
+        ptr[2] = b;
+        ptr[3] = a;
+    }
+}
+
 // override
 -(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs
 {
     // TODO: some kind of coord transform required here to account for depth?
     // TODO: offset into list
-    float totalWidth = [AspectController instance].xPixel;
+    AspectController *ac = [AspectController instance];
+    float totalWidth = ac.xPixel;
     float runningWidth = 0.f;
     LLNode *currentNode = m_starList.head;
     
@@ -154,14 +166,31 @@
     {
         StarsV1El *thisEl = (StarsV1El *)currentNode.data;
         
-        // TODO: figure out correct x, y, size, color, etc.
         x = runningWidth;
-        y = 500.f;
-        w = 2.f;
-        h = 2.f;
         
+        const float yMin = 300.f;
+        const float yMax = 0.f;
+        y = ac.yPixel - FLOAT_INTERP(yMin, yMax, thisEl.altitudeFactor);
+        
+        const float sizeMin = 2.f;
+        const float sizeMax = 6.f;
+        w = FLOAT_INTERP(sizeMin, sizeMax, thisEl.intensityFactor);
+        h = w;
         [self.rectBuf pushRectGeoCoord2dX1:x Y1:y X2:(x + w) Y2:(y + h)];
+        
+        const int rMin = 0xff;
+        const int rMax = 0xff;
+        const int gMin = 0xff;
+        const int gMax = 0xff;
+        const int bMin = 0x00;
+        const int bMax = 0xff;
+        
+        [self setSolidColorA:0xff
+                           r:BYTE_INTERP(rMin, rMax, thisEl.intensityFactor)
+                           g:BYTE_INTERP(gMin, gMax, thisEl.intensityFactor)
+                           b:BYTE_INTERP(bMin, bMax, thisEl.intensityFactor)];
         [self.rectBuf pushRectColors2dBuf:m_colorBuf];
+        
         [self.rectBuf incPtr];
 
         runningWidth += thisEl.paddingFactor * m_maxDistanceBetweenStars;
@@ -267,6 +296,7 @@
 {
     if( self = [super init] )
     {
+        srandom(time(NULL));
         m_stripScene = [[Test1StripScene alloc] init];
         m_fakeWorldOffset = CGPointMake( 0.f, 0.f );
 
