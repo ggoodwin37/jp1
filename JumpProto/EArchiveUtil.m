@@ -46,59 +46,16 @@
 }
 
 
-+(void)normalize:(AFLevel *)level
-{
-    float xMinValue, yMinValue;
-    
-    xMinValue = FLT_MAX;
-    yMinValue = FLT_MAX;
-    for( int i = 0; i < [level.blockList count]; ++i )
-    {
-        AFBlock *thisBlock = (AFBlock *)[level.blockList objectAtIndex:i];
-        
-        xMinValue = fminf( xMinValue, thisBlock.rect.origin.x );
-        yMinValue = fminf( yMinValue, thisBlock.rect.origin.y );
-    }
-    
-    for( int i = 0; i < [level.blockList count]; ++i )
-    {
-        AFBlock *thisBlock = (AFBlock *)[level.blockList objectAtIndex:i];
-        thisBlock.rect = CGRectMake( thisBlock.rect.origin.x - xMinValue,
-                                     thisBlock.rect.origin.y - yMinValue,
-                                     thisBlock.rect.size.width,
-                                     thisBlock.rect.size.height );
-    }
-}
-
-
-+(void)applyGlobalTranslation:(CGPoint)p toLevel:(AFLevel *)level
-{
-    for( int i = 0; i < [level.blockList count]; ++i )
-    {
-        AFBlock *thisBlock = (AFBlock *)[level.blockList objectAtIndex:i];
-        thisBlock.rect = CGRectMake( thisBlock.rect.origin.x + p.x,
-                                     thisBlock.rect.origin.y + p.y,
-                                     thisBlock.rect.size.width,
-                                     thisBlock.rect.size.height );
-    }
-}
-
-
 +(void)transformAFLevelBeforeReadingToDoc:(AFLevel *)level
 {
     // AFs exist in "true" space (which is defined to be the same as opengl space).
     [EArchiveUtil yFlip:level];
-    [EArchiveUtil normalize:level];
-    
-    CGPoint translation = CGPointMake( 128.f, 128.f );   // a fair bit of padding on each axis
-    [EArchiveUtil applyGlobalTranslation:translation toLevel:level];
 }
 
 
 +(void)transformAFLevelAfterWritingFromDoc:(AFLevel *)level
 {
     [EArchiveUtil yFlip:level];
-    [EArchiveUtil normalize:level];
 }
 
 

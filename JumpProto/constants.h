@@ -48,6 +48,10 @@
 #define WORLD_MAX_X (INT_MAX)
 #define WORLD_MAX_Y (INT_MAX)
 
+// edit view doesn't do negative values :( so start at a large offset to allow levels to go left/up if needed.
+//  when play mode loads a level, blocks will all be normalized anyway.
+#define EDITVIEW_START_OFFSET (GRID_SIZE_Fl * 4 * 10000.f)
+
 // FlToEmu == 5.333
 
 #define TERMINAL_VELOCITY ( -20000 )

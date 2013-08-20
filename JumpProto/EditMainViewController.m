@@ -12,6 +12,7 @@
 #import "SpriteManager.h"
 #import "LevelUtil.h"
 #import "RandomNameGenerator.h"
+#import "constants.h"   // EDITVIEW_START_OFFSET
 
 @interface EditMainViewController (private)
 
@@ -106,7 +107,7 @@
     if( [markerList count] == 0 )
     {
         // since we don't allow negative values, start them pretty far from origin so they can build up/left a ways if they want.
-        return CGRectMake( 4096.f * yardstick, 4096.f * yardstick, w, h );
+        return CGRectMake( EDITVIEW_START_OFFSET, EDITVIEW_START_OFFSET, w, h );
     }
     
     int xMin = INT_MAX;
