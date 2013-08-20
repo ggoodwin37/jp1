@@ -7,7 +7,7 @@
 #import <OpenGLES/ES1/glext.h>
 
 #import "MainDrawController.h"
-#import "ClearBufferLayerView.h"
+#import "ColorRectLayerView.h"
 #import "TestLayerView.h"
 #import "TestSpriteSheetLayerView.h"
 #import "SpriteStateDrawUtil.h"
@@ -41,7 +41,7 @@
 -(void)initLayers
 {
 	// create required layers: fire n forget
-	ClearBufferLayerView *clearBufferLayerView = [[[ClearBufferLayerView alloc] init] autorelease];
+	ColorRectLayerView *colorRectLayerView = [[[ColorRectLayerView alloc] init] autorelease];
     //TestSpriteSheetLayerView *testLayerView = [[[TestSpriteSheetLayerView alloc] init] autorelease];
     
     // create required layers: retained
@@ -61,7 +61,7 @@
 	// add them to array
 	m_layerList = [[NSArray arrayWithObjects:
                     
-                    clearBufferLayerView,
+                    colorRectLayerView,
                     //testLayerView,
                     m_geoSceneView,
                     //m_worldView,

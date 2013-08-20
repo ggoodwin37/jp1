@@ -1,3 +1,4 @@
+// This file is currently unused.
 //
 //  ClearBufferLayerView.m
 //  BASICPROJECT
