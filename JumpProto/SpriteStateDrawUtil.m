@@ -27,24 +27,24 @@ static RectCoordBuffer *g_rectCoordBuffer = nil;
     glDisable( GL_TEXTURE_2D );
 #else
 	glEnable( GL_TEXTURE_2D );
-#endif
-    
     glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-    glEnableClientState( GL_COLOR_ARRAY );
-    glEnableClientState( GL_VERTEX_ARRAY );
-
-#if 1
+ #if 1
     // disable texture filtering, which gives us a super pixelated look.
     // This may look bad if we are scaling down, but I expect to only scale up.
-    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST ); 
-    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST ); 
-#else
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
+ #else
     // enable linear filtering. this makes each individual block look better when not at 1:1 scale,
     //  but creates "grid line" artifacts due to blending in blank padding pixels.
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+ #endif
+    
 #endif
     
+    glEnableClientState( GL_COLOR_ARRAY );
+    glEnableClientState( GL_VERTEX_ARRAY );
+
 #if 1
 	// normal blend func
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

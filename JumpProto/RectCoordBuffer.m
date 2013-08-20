@@ -187,7 +187,6 @@
     
     const size_t numIndicesToDraw = 6 * m_currentFrame;  // 2 triangles per frame
     glDrawArrays( GL_TRIANGLES, 0, numIndicesToDraw );
-
     m_currentFrame = 0;
 }
 

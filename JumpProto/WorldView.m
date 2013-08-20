@@ -70,9 +70,6 @@
         
         m_focalPoint = CGPointMake( x, y );
     }
-    
-    // TODO remove. this is here to give me a sense of the input values to parallax engine.
-    NSLog( @"camera focal point is %f x %f", m_focalPoint.x, m_focalPoint.y );
 }
 
 

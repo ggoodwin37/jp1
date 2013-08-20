@@ -30,6 +30,7 @@
 }
 @property (nonatomic, retain) RectCoordBuffer *sharedRectBuf;
 
+-(void)setupView;  // (protected)
 -(void)drawAllStripsWithXOffs:(float)xOffs yOffs:(float)yOffs;
 
 @end
