@@ -151,8 +151,9 @@
     float xOffsScaledNormalized = xOffsScaled - (m_totalListWidth * floorf( xOffsScaled / m_totalListWidth ) );
     
     // starting from head, burn through nodes until we've skipped over enough to meet the scaled, normalized offset.
-    float runningWidth = 0.f;
     LLNode *currentNode = m_elList.head;
+    BaseStripEl *firstEl = (BaseStripEl *)currentNode.data;
+    float runningWidth = -[firstEl getWidth];  // sloppy: make sure we draw the element at the edge in all cases.
     float nextWidth;  // this look-ahead allows us to draw slightly offscreen so els can come onscreen smoothly and incrementally.
     do
     {
@@ -438,9 +439,9 @@
         [m_stripList addObject:[[[StarsV1Strip alloc] initWithDepth:4.f rectBuf:self.sharedRectBuf] autorelease]];
 
         id altRectStrip1 = [[[AltRectStrip alloc] initWithDepth:2.f rectBuf:self.sharedRectBuf
-                                                  hwm:100.f hwx:120.f  lwm:80.f   lwx:130.f
-                                                  hhm:140.f hhx: 210.f lhm: 300.f lhx: 545.f
-                                                  r:0x50 g:0x50 b:0x50] autorelease];
+                                                            hwm:100.f hwx:120.f  lwm:80.f   lwx:130.f
+                                                            hhm:140.f hhx: 210.f lhm: 300.f lhx: 545.f
+                                                            r:0x50 g:0x50 b:0x50] autorelease];
         [m_stripList addObject:altRectStrip1];
 
         id altRectStrip2 = [[[AltRectStrip alloc] initWithDepth:1.5f rectBuf:self.sharedRectBuf
