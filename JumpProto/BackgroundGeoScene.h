@@ -10,10 +10,12 @@
 #import "LayerView.h"
 #import "Emu.h"
 #import "RectCoordBuffer.h"
+#import "WorldView.h"
 
 #define TIME_STRIPDRAW
 #define TIME_STRIPDRAW_REPORT_PERIOD (10.f)
 
+//#define FAKE_MOTION
 
 #define STRIP_DEPTH_MAX (100.f)
 
@@ -45,7 +47,10 @@
 // ------------------------
 @interface BackgroundGeoSceneLayerView : LayerView {
     BaseStripScene *m_stripScene;
+    WorldView *m_worldView;
+#ifdef FAKE_MOTION
     CGPoint m_fakeWorldOffset;
+#endif
     
 #ifdef TIME_STRIPDRAW
     float m_timer_timeUntilNextReport;
@@ -54,5 +59,7 @@
     long m_timer_start;
 #endif
 }
+
+-(id)initWithWorldView:(WorldView *)worldViewIn;
 
 @end

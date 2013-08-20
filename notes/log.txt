@@ -311,6 +311,6 @@ Idea: a little gargoyle monster that jumps like facebone, but spits little lava 
 
 x background y offset
 x cloud strips
-- hook up to world offset
+x hook up to world offset
 
 Then you can move on to some other stuff.

@@ -56,7 +56,7 @@
     m_dpadFeedbackLayerViewRight = [[DpadFeedbackLayerView alloc] initWithBounds:rectRight forTouchZone:RightTouchZone];
     m_worldView = [[WorldView alloc] init];
     m_globalButtonView = [[GlobalButtonView alloc] init];
-    m_geoSceneView = [[BackgroundGeoSceneLayerView alloc] init];
+    m_geoSceneView = [[BackgroundGeoSceneLayerView alloc] initWithWorldView:m_worldView];
 
 	// add them to array
 	m_layerList = [[NSArray arrayWithObjects:

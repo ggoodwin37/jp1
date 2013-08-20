@@ -97,6 +97,10 @@
                        viewWidth, viewHeight );
 }
 
+-(CGPoint)getFocalPoint
+{
+    return m_focalPoint;
+}
 
 @end
 
@@ -486,5 +490,10 @@ float smoothRatio( float inputRatio )
 #endif
 }
 
+
+-(CGPoint)getCameraFocalPoint
+{
+    return m_camera.focalPoint;
+}
 
 @end

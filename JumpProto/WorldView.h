@@ -18,6 +18,7 @@
     CGSize m_tolerance;
 }
 
+@property (nonatomic, readonly, getter=getFocalPoint) CGPoint focalPoint;
 // tolerance is how far the focal point can get from the player before moving.
 -(id)initWithTolerance:(CGSize)tolerance;
 
@@ -49,6 +50,7 @@
     
 }
 
+@property (nonatomic, readonly, getter=getCameraFocalPoint) CGPoint cameraFocalPoint;
 @property (nonatomic, assign) World *world;  // weak
 
 @end

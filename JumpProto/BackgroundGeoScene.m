@@ -453,14 +453,14 @@
 {
     // input value is any y value. output is mapped onto [0, 1);
     
-    const float centeringOffset = 0.f;  // adjust for any inherent imbalance in y values, e.g. if we only have positive coords.
+    const float centeringOffset = -5000.f;  // adjust for any inherent imbalance in y values, e.g. if we only have positive coords.
     float x = yUnmapped + centeringOffset;  // x as in "input" not "x axis"
 
     // normalize input "towards" [-1, 1] given some typical size of a level.
     //  this defines the total y-space parallax range. ideally this would be equal to the true range of live blocks
     //  for each level such that we had maximum range of motion across the level, but since we are smoothing the edges,
     //  this doesn't need to be exact.
-    const float typicalRange = 5000.f;
+    const float typicalRange = 7000.f;
     x = x / typicalRange;
     
     // smooth clipping function: y = x / sqrt( x * x + 1 )  (sigmoid function)
@@ -569,13 +569,17 @@
 
 @implementation BackgroundGeoSceneLayerView
 
--(id)init
+-(id)initWithWorldView:(WorldView *)worldViewIn;
 {
     if( self = [super init] )
     {
         srandom(time(NULL));
         m_stripScene = [[Test1StripScene alloc] init];
+        m_worldView = [worldViewIn retain];
+        
+#ifdef FAKE_MOTION
         m_fakeWorldOffset = CGPointMake( 0.f, 0.f );
+#endif
 
 #ifdef TIME_STRIPDRAW
         m_timer_timeUntilNextReport = TIME_STRIPDRAW_REPORT_PERIOD;
@@ -589,6 +593,7 @@
 
 -(void)dealloc
 {
+    [m_worldView release]; m_worldView = nil;
     [m_stripScene release]; m_stripScene = nil;
     [super dealloc];
 }
@@ -638,8 +643,19 @@
     [self stripDrawTimer_pre];
 #endif
 
-    // TODO: hook up real world offsets
-    [m_stripScene drawAllStripsWithXOffs:m_fakeWorldOffset.x yOffs:m_fakeWorldOffset.y];
+    float xOffs, yOffs;
+#ifdef FAKE_MOTION
+    xOffs = m_fakeWorldOffset.x;
+    yOffs = m_fakeWorldOffset.y;
+#else
+    CGPoint focalPoint = m_worldView.cameraFocalPoint;
+    const float xScale = 0.15f;
+    const float yScale = 1.f;
+    xOffs = focalPoint.x * xScale;
+    yOffs = focalPoint.y * yScale;
+    //NSLog(@"yOffs=%f", yOffs );
+#endif
+    [m_stripScene drawAllStripsWithXOffs:xOffs yOffs:yOffs];
 
 #ifdef TIME_STRIPDRAW
     [self stripDrawTimer_post];
@@ -649,15 +665,16 @@
 
 -(void)updateWithTimeDelta:(float)timeDelta
 {
+#ifdef FAKE_MOTION
     // fake movement: x increases unbounded, y bounces back and forth between two extremes.
     const CGFloat xIncPerSecond = 400.f;
-    //const CGFloat xIncPerSecond = 0.f;
     static CGFloat yIncPerSecond = 3500.f;
     const CGFloat yValueLimitAbs = 10000.f;
     CGFloat newX = timeDelta * xIncPerSecond + m_fakeWorldOffset.x;
     CGFloat newY = timeDelta * yIncPerSecond + m_fakeWorldOffset.y;
     if( fabsf( newY ) >= yValueLimitAbs ) yIncPerSecond = -yIncPerSecond;
     m_fakeWorldOffset = CGPointMake( newX, newY );
+#endif
     
 #ifdef TIME_STRIPDRAW
     m_timer_timeUntilNextReport -= timeDelta;
