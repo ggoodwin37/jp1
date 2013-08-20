@@ -88,7 +88,7 @@
     self.loadFromDiskSwitch.on = YES;
     
     // TODO REVERT: just load the first level without requiring any user input for testing purposes.
-    [self temp_autoPlayFirstLevel];
+    //[self temp_autoPlayFirstLevel];
 }
 
 

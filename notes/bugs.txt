@@ -3,9 +3,6 @@
 - trying to erase 2x2 blocks (instead of 4x4) seemed to not work in some cases.
 - gibs don't bounce right.
 
-- Dana's remote sledgehammer:
-  - some crumbles don't trigger?
-  - creeps stick together.
 - Conrad's vulgar anvil:
   - riding a lift with a crate and the player is not smooth.
 
