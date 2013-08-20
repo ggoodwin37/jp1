@@ -64,7 +64,7 @@
                     colorRectLayerView,
                     //testLayerView,
                     m_geoSceneView,
-                    //m_worldView,
+                    m_worldView,
                     m_globalButtonView,
                     m_dpadFeedbackLayerViewLeft,
                     m_dpadFeedbackLayerViewRight,
