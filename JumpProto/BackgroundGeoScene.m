@@ -145,8 +145,6 @@
 // override
 -(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs
 {
-    // TODO: consume yOffs. maybe this can be pre-normalized (i.e. already mashed into [-1, 1] in some non-linear mapping).
-    
     float xOffsScaled = [self scaleXForDepth:xOffs];
     float xOffsScaledNormalized = xOffsScaled - (m_totalListWidth * floorf( xOffsScaled / m_totalListWidth ) );
     
@@ -170,7 +168,7 @@
     while( runningWidth < totalWidth )
     {
         BaseStripEl *thisEl = (BaseStripEl *)currentNode.data;
-        [self drawOneEl:thisEl xOffs:runningWidth];
+        [self drawOneEl:thisEl xOffs:runningWidth yMapped:yOffs];
         
         runningWidth += [thisEl getWidth];
         currentNode = [m_elList nextOrWrap:currentNode];
@@ -178,7 +176,7 @@
 }
 
 
--(void)drawOneEl:(BaseStripEl *)el xOffs:(float)xOffs
+-(void)drawOneEl:(BaseStripEl *)el xOffs:(float)xOffs yMapped:(float)yMapped
 {
     NSAssert( NO, @"Don't call base version." );
 }
@@ -248,8 +246,10 @@
 
 
 // override
--(void)drawOneEl:(BaseStripEl *)el xOffs:(float)xOffs
+-(void)drawOneEl:(BaseStripEl *)el xOffs:(float)xOffs yMapped:(float)yMapped
 {
+    // yMapped not used for this strip type.
+    
     // TODO: consider pulling these values out as constants or ivars for perf.
     CGFloat x, y, w, h;
     
@@ -366,15 +366,14 @@
 
 
 // override
--(void)drawOneEl:(BaseStripEl *)el xOffs:(float)xOffs
+-(void)drawOneEl:(BaseStripEl *)el xOffs:(float)xOffs yMapped:(float)yMapped
 {
-    // TODO: need to handle y offset here (and in base and other child classes).
     AltRectStripEl *thisEl = (AltRectStripEl *)el;
     CGFloat x, y, w, h;
     x = xOffs;
     y = 0;
     w = thisEl.width;
-    h = thisEl.height;  // TODO: y offset affects this (not y, since we're y-goes-up)
+    h = thisEl.height * yMapped;  // TODO: fix this, need a sliding offset, not overall scale.
     [self.rectBuf pushRectGeoCoord2dX1:x Y1:y X2:(x + w) Y2:(y + h)];
     [self pushSolidColorA:0xff r:m_r g:m_g b:m_b];
     [self.rectBuf incPtr];
@@ -412,13 +411,37 @@
 }
 
 
+-(float)mapYOffs:(float)yUnmapped
+{
+    // input value is any y value. output is mapped onto [0, 1);
+    
+    const float centeringOffset = 0.f;  // adjust for any inherent imbalance in y values, e.g. if we only have positive coords.
+    float x = yUnmapped + centeringOffset;  // x as in "input" not "x axis"
+
+    // normalize input "towards" [-1, 1] given some typical size of a level.
+    //  this defines the total y-space parallax range. ideally this would be equal to the true range of live blocks
+    //  for each level such that we had maximum range of motion across the level, but since we are smoothing the edges,
+    //  this doesn't need to be exact.
+    const float typicalRange = 5000.f;
+    x = x / typicalRange;
+    
+    // smooth clipping function: y = x / sqrt( x * x + 1 )  (sigmoid function)
+    float result = x / sqrtf( x * x + 1.f );
+    result = (result + 1.f) / 2.f;  // [-1,1] -> [0, 1]
+    
+    NSLog( @"mapY: in=%f out=%f", yUnmapped, result );
+    return result;
+}
+
+
 -(void)drawAllStripsWithXOffs:(float)xOffs yOffs:(float)yOffs
 {
+    float unitY = [self mapYOffs:yOffs];
     [self setupView];
     for( int i = 0; i < [m_stripList count]; ++i )
     {
         BaseStrip *thisStrip = (BaseStrip *)[m_stripList objectAtIndex:i];
-        [thisStrip drawWithXOffs:xOffs yOffs:yOffs];
+        [thisStrip drawWithXOffs:xOffs yOffs:unitY];
     }
     [self.sharedRectBuf flush];
 }
@@ -446,7 +469,8 @@
 
         id altRectStrip2 = [[[AltRectStrip alloc] initWithDepth:1.5f rectBuf:self.sharedRectBuf
                                                             hwm:200.f hwx:240.f  lwm:80.f   lwx:130.f
-                                                            hhm:50.f hhx: 180.f lhm: 200.f lhx: 215.f  // TODO: this is faking depth affecting y :P
+                                                            //hhm:50.f hhx: 180.f lhm: 200.f lhx: 215.f  // TODO: this is faking depth affecting y :P
+                                                            hhm:140.f hhx: 210.f lhm: 300.f lhx: 545.f
                                                             r:0x60 g:0x60 b:0x60] autorelease];
         [m_stripList addObject:altRectStrip2];
     }
@@ -565,9 +589,10 @@
 -(void)updateWithTimeDelta:(float)timeDelta
 {
     // fake movement: x increases unbounded, y bounces back and forth between two extremes.
-    const CGFloat xIncPerSecond = 100.f;
-    static CGFloat yIncPerSecond = 10.f;  // TODO tune
-    const CGFloat yValueLimitAbs = 100.f; // TODO tune
+    //const CGFloat xIncPerSecond = 100.f;
+    const CGFloat xIncPerSecond = 0.f;
+    static CGFloat yIncPerSecond = 3500.f;
+    const CGFloat yValueLimitAbs = 10000.f;
     CGFloat newX = timeDelta * xIncPerSecond + m_fakeWorldOffset.x;
     CGFloat newY = timeDelta * yIncPerSecond + m_fakeWorldOffset.y;
     if( fabsf( newY ) >= yValueLimitAbs ) yIncPerSecond = -yIncPerSecond;
