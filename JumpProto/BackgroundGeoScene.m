@@ -320,25 +320,25 @@
 @interface AltRectStrip : RectBufStrip
 {
     // not even gonna try to explain this.
-    float m_hwm, m_hwx, m_lwm, m_lwx, m_hm, m_hx;
+    float m_hwm, m_hwx, m_lwm, m_lwx;
+    float m_hhm, m_hhx, m_lhm, m_lhx;
     GLbyte m_r, m_g, m_b;
     BOOL m_oddEven;
-    AltRectStripEl *m_lastCreated;
 }
 
--(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn  hwm:(float)hwmIn hwx:(float)hwxIn lwm:(float)lwmIn lwx:(float)lwxIn hm:(float)hmIn hx:(float)hxIn r:(GLbyte)rIn g:(GLbyte)gIn b:(GLbyte)bIn;
+-(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn hwm:(float)hwmIn hwx:(float)hwxIn lwm:(float)lwmIn lwx:(float)lwxIn hhm:(float)hhmIn hhx:(float)hhxIn lhm:(float)lhmIn lhx:(float)lhxIn r:(GLbyte)rIn g:(GLbyte)gIn b:(GLbyte)bIn;
 @end
 
 @implementation AltRectStrip
 
--(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn hwm:(float)hwmIn hwx:(float)hwxIn lwm:(float)lwmIn lwx:(float)lwxIn hm:(float)hmIn hx:(float)hxIn r:(GLbyte)rIn g:(GLbyte)gIn b:(GLbyte)bIn
+-(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn hwm:(float)hwmIn hwx:(float)hwxIn lwm:(float)lwmIn lwx:(float)lwxIn hhm:(float)hhmIn hhx:(float)hhxIn lhm:(float)lhmIn lhx:(float)lhxIn r:(GLbyte)rIn g:(GLbyte)gIn b:(GLbyte)bIn
 {
     if( self = [super initWithDepth:depthIn rectBuf:rectBufIn] )
     {
-        m_hwm = hwmIn; m_hwx = hwxIn; m_lwm = lwmIn; m_lwx = lwxIn; m_hm = hmIn; m_hx = hxIn;
+        m_hwm = hwmIn; m_hwx = hwxIn; m_lwm = lwmIn; m_lwx = lwxIn;
+        m_hhm = hhmIn; m_hhx = hhxIn; m_lhm = lhmIn; m_lhx = lhxIn;
         m_r = rIn; m_g = gIn; m_b = bIn;
         m_oddEven = NO;
-        m_lastCreated = nil;
         [self createListEls];
     }
     return self;
@@ -348,21 +348,18 @@
 -(BaseStripEl *)createOneEl
 {
     float targetW;
-    float yOffs = frandrange( m_hm, m_hx );
+    float targetH;
     if( m_oddEven )
     {
         targetW = frandrange( m_hwm, m_hwx );
-        yOffs = -yOffs;
-        
+        targetH = frandrange( m_hhm, m_hhx );
     } else {
         targetW = frandrange( m_lwm, m_lwx );
+        targetH = frandrange( m_lhm, m_lhx );
     }
     m_oddEven = !m_oddEven;
     
-    float targetH = m_lastCreated.height + yOffs;
-    
     AltRectStripEl *newEl = [[[AltRectStripEl alloc] initWithWidth:targetW height:targetH] autorelease];
-    m_lastCreated = newEl;
     return newEl;
 }
 
@@ -441,9 +438,16 @@
         [m_stripList addObject:[[[StarsV1Strip alloc] initWithDepth:4.f rectBuf:self.sharedRectBuf] autorelease]];
 
         id altRectStrip1 = [[[AltRectStrip alloc] initWithDepth:2.f rectBuf:self.sharedRectBuf
-                                                  hwm:100.f hwx:120.f lwm:20.f lwx:40.f hm:200.f hx:280.f
+                                                  hwm:100.f hwx:120.f  lwm:80.f   lwx:130.f
+                                                  hhm:140.f hhx: 210.f lhm: 300.f lhx: 545.f
                                                   r:0x50 g:0x50 b:0x50] autorelease];
         [m_stripList addObject:altRectStrip1];
+
+        id altRectStrip2 = [[[AltRectStrip alloc] initWithDepth:1.5f rectBuf:self.sharedRectBuf
+                                                            hwm:200.f hwx:240.f  lwm:80.f   lwx:130.f
+                                                            hhm:50.f hhx: 180.f lhm: 200.f lhx: 215.f  // TODO: this is faking depth affecting y :P
+                                                            r:0x60 g:0x60 b:0x60] autorelease];
+        [m_stripList addObject:altRectStrip2];
     }
     return self;
 }
