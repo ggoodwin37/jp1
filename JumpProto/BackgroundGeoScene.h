@@ -15,6 +15,8 @@
 #define TIME_STRIPDRAW_REPORT_PERIOD (10.f)
 
 
+#define STRIP_DEPTH_MAX (100.f)
+
 // ------------------------
 @interface BaseStrip : NSObject
 

@@ -35,7 +35,7 @@
 
 -(float)scaleXForDepth:(float)xIn
 {
-    return xIn / self.depth;
+    return xIn * (1.f - (self.depth / STRIP_DEPTH_MAX));
 }
 
 
@@ -248,26 +248,34 @@
 // override
 -(void)drawOneEl:(BaseStripEl *)el xOffs:(float)xOffs yMapped:(float)yMapped
 {
-    // yMapped not used for this strip type.
+    static BOOL initializedStatics = NO;
+    static float halfScreen, yRangeMin, yRangeMax, sizeMin, sizeMax;
+    static int rMin, rMax, gMin, gMax, bMin, bMax;
+    if( !initializedStatics )
+    {
+        // y ranges
+        initializedStatics = YES;
+        halfScreen = [AspectController instance].yPixel / 2.f;
+        yRangeMin = halfScreen * 0.9f;
+        yRangeMax = halfScreen * 1.1f;
+        
+        // size ranges
+        sizeMin = 2.f;
+        sizeMax = 6.f;
+
+        // color component ranges
+        rMin = 0xff;
+        rMax = 0xff;
+        gMin = 0xff;
+        gMax = 0xff;
+        bMin = 0x00;
+        bMax = 0xff;
+    }
     
-    // TODO: consider pulling these values out as constants or ivars for perf.
     CGFloat x, y, w, h;
     
-    // y coord ranges.
-    const float yMin = [AspectController instance].yPixel / 2.f;
+    const float yMin = FLOAT_INTERP(yRangeMin, yRangeMax, yMapped);
     const float yMax = 0.f;
-    
-    // size ranges
-    const float sizeMin = 2.f;
-    const float sizeMax = 6.f;
-    
-    // color component ranges
-    const int rMin = 0xff;
-    const int rMax = 0xff;
-    const int gMin = 0xff;
-    const int gMax = 0xff;
-    const int bMin = 0x00;
-    const int bMax = 0xff;
     
     StarsV1El *starsEl = (StarsV1El *)el;
     x = xOffs;
@@ -373,7 +381,20 @@
     x = xOffs;
     y = 0;
     w = thisEl.width;
-    h = thisEl.height * yMapped;  // TODO: fix this, need a sliding offset, not overall scale.
+    
+    // adjust height for depth and yMapped (based on worldY):
+    //  when we are at the bottom of the world, the deepest layers should be higher
+    //  as we approach the top of the world, the deepest layers and shallowest should converge around yMax (y-goes-up)
+    
+    const float minOffset = 100.f;
+    const float maxOffset = 650.f;
+    float depthFactor = self.depth / STRIP_DEPTH_MAX;
+    float offset = FLOAT_INTERP(minOffset, maxOffset, depthFactor);
+
+    float yFactor = 1.f - yMapped;
+    offset *= yFactor;
+    h = thisEl.height + offset;
+
     [self.rectBuf pushRectGeoCoord2dX1:x Y1:y X2:(x + w) Y2:(y + h)];
     [self pushSolidColorA:0xff r:m_r g:m_g b:m_b];
     [self.rectBuf incPtr];
@@ -461,19 +482,20 @@
     {
         id strip;
         
-        strip = [[[StarsV1Strip alloc] initWithDepth:4.f rectBuf:self.sharedRectBuf] autorelease];
+        strip = [[[StarsV1Strip alloc] initWithDepth:80.f rectBuf:self.sharedRectBuf] autorelease];
         [m_stripList addObject:strip];
 
-        strip = [[[AltRectStrip alloc] initWithDepth:2.f rectBuf:self.sharedRectBuf
-                                                            hwm:100.f hwx:120.f  lwm:80.f   lwx:130.f
-                                                            hhm:140.f hhx: 210.f lhm: 300.f lhx: 545.f
+        strip = [[[AltRectStrip alloc] initWithDepth:50.f rectBuf:self.sharedRectBuf
+                                                            //hwm:100.f hwx:120.f  lwm:80.f   lwx:130.f
+                                                            //hhm:40.f hhx: 50.f lhm: 300.f lhx: 400.f
+                                                 hwm:64.f hwx:64.f lwm:64.f lwx:64.f
+                                                 hhm:0.f hhx:64.f lhm:64.f lhx:128.f
                                                             r:0x50 g:0x50 b:0x50] autorelease];
         [m_stripList addObject:strip];
 
-        strip = [[[AltRectStrip alloc] initWithDepth:1.5f rectBuf:self.sharedRectBuf
-                                                            hwm:200.f hwx:240.f  lwm:80.f   lwx:130.f
-                                                            //hhm:50.f hhx: 180.f lhm: 200.f lhx: 215.f  // TODO: this is faking depth affecting y :P
-                                                            hhm:140.f hhx: 210.f lhm: 300.f lhx: 545.f
+        strip = [[[AltRectStrip alloc] initWithDepth:20.f rectBuf:self.sharedRectBuf
+                                                 hwm:64.f hwx:64.f lwm:64.f lwx:64.f
+                                                 hhm:0.f hhx:64.f lhm:64.f lhx:128.f
                                                             r:0x60 g:0x60 b:0x60] autorelease];
         [m_stripList addObject:strip];
     }
@@ -592,8 +614,8 @@
 -(void)updateWithTimeDelta:(float)timeDelta
 {
     // fake movement: x increases unbounded, y bounces back and forth between two extremes.
-    //const CGFloat xIncPerSecond = 100.f;
-    const CGFloat xIncPerSecond = 0.f;
+    const CGFloat xIncPerSecond = 400.f;
+    //const CGFloat xIncPerSecond = 0.f;
     static CGFloat yIncPerSecond = 3500.f;
     const CGFloat yValueLimitAbs = 10000.f;
     CGFloat newX = timeDelta * xIncPerSecond + m_fakeWorldOffset.x;
