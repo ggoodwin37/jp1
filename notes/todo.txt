@@ -2,14 +2,8 @@
 // near term
 
 - floating creeps
-- a hitless group connector. hitless blocks in general (background)
 
 - possible perf improvement: shared spritestates for non-actor anim blocks. example: a big castle with lots of spikes. no sense spinning up an animstate and paying to update it for each spike if they are all identical anyways. this only works if they are supposed to be identically in sync. profile first to verify suspicion that this scenario is expensive. I think it adds like 2 or 3 ms to world update for a moderate-large number of spikes.
-
-- geobackground v1, just to get parallax up and running.
-
-- test level: tower of babel. need to get the "distance from origin" thing figured out.
-  - why can't we handle negatives in edit anyways? pretty sure play is fine. maybe we can replace the key-gen-requires-positive-coord thing (is that what's happening)? can use space partition collision detection and allow overlapping blocks :)
 
 - sanity check: does dpad still listen during edit? seems like dpad is offcenter after editing, or did my hands just shift.
 
@@ -33,8 +27,10 @@
 - revisit how groups are instantiated/added to world and er. can probably be cleaned up, not essential.
 
 - world layers
+  o a hitless group connector. hitless blocks in general (background) (these won't be good unless we have a dedicated background layer or other mechanism for specifying z, since currently draw order is essentially random).
 
 - z-index? can we use depth buffer? do layers cover this?
+  - (I think layers cover this)
 
 - beams
 

@@ -299,10 +299,18 @@ Here's an idea for interactivity. Scrap the planned "items" functionality and in
 
 This enables scenarios like: make a bridge, fix the machine, uncover the secret passage, block the enemy, transport the key, etc.
 
-8-13
+8-19
 
 My usual pattern: hit a difficult spot and procrastinate for a few days. Or maybe what's really happening is that my subconscious is regrouping around the new concept so that a few days later I can just bang out the solution.
 
 Got the first background strip up and running (scrolling). Gonna add a few more.
 
 Idea: a little gargoyle monster that jumps like facebone, but spits little lava blocks at you. the lava blocks have physics and maybe cool down eventually to be handled. the gargoyle only spits out n blocks at a time (i.e. living in the level).
+
+8-20
+
+- background y offset
+- cloud strips
+- hook up to world offset
+
+Then you can move on to some other stuff.
