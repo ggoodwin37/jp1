@@ -11,6 +11,9 @@
 #import "Emu.h"
 #import "RectCoordBuffer.h"
 
+#define TIME_STRIPDRAW
+#define TIME_STRIPDRAW_REPORT_PERIOD (10.f)
+
 
 // ------------------------
 @interface BaseStrip : NSObject
@@ -41,6 +44,12 @@
     BaseStripScene *m_stripScene;
     CGPoint m_fakeWorldOffset;
     
+#ifdef TIME_STRIPDRAW
+    float m_timer_timeUntilNextReport;
+    int m_timer_timesDidDraw;
+    int m_timer_millisecondsSpentDrawing;
+    long m_timer_start;
+#endif
 }
 
 @end

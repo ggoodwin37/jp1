@@ -9,6 +9,7 @@
 #import "BackgroundGeoScene.h"
 #import "LinkedList.h"
 #import "AspectController.h"
+#include "gutil.h"
 
 
 // ------------------------
@@ -268,6 +269,12 @@
     {
         m_stripScene = [[Test1StripScene alloc] init];
         m_fakeWorldOffset = CGPointMake( 0.f, 0.f );
+
+#ifdef TIME_STRIPDRAW
+        m_timer_timeUntilNextReport = TIME_STRIPDRAW_REPORT_PERIOD;
+        m_timer_timesDidDraw = 0;
+        m_timer_millisecondsSpentDrawing = 0;
+#endif
     }
     return self;
 }
@@ -280,10 +287,56 @@
 }
 
 
+
+#ifdef TIME_STRIPDRAW
+// shamelessly c&p'd from worldView, should really extract this to something more reusable.
+
+-(void)stripDrawTimer_pre
+{
+    m_timer_start = getUpTimeMs();
+}
+
+
+-(void)stripDrawTimer_post
+{
+    int delta = (int)( getUpTimeMs() - m_timer_start );
+    if( delta < 0 )
+    {
+        NSLog( @"stripDrawTimer_post: wraparound case." );  // am I imagining this?
+        return;
+    }
+    
+    m_timer_millisecondsSpentDrawing += delta;
+    ++m_timer_timesDidDraw;
+    
+    if( m_timer_timeUntilNextReport <= 0.f )
+    {
+        if( m_timer_timesDidDraw > 0 && m_timer_millisecondsSpentDrawing > 0 )
+        {
+            float avgMs = ((float)m_timer_millisecondsSpentDrawing) / ((float)m_timer_timesDidDraw);
+            NSLog( @"BackgroundGeoScene draw avg: %fms.", avgMs );
+        }
+        m_timer_timeUntilNextReport = TIME_STRIPDRAW_REPORT_PERIOD;
+        m_timer_timesDidDraw = 0;
+        m_timer_millisecondsSpentDrawing = 0;
+    }
+    
+}
+#endif
+
+
 -(void)buildScene
 {
+#ifdef TIME_STRIPDRAW
+    [self stripDrawTimer_pre];
+#endif
+
     // TODO: hook up real world offsets
     [m_stripScene drawAllStripsWithXOffs:m_fakeWorldOffset.x yOffs:m_fakeWorldOffset.y];
+
+#ifdef TIME_STRIPDRAW
+    [self stripDrawTimer_post];
+#endif
 }
 
 
@@ -297,6 +350,10 @@
     CGFloat newY = timeDelta * yIncPerSecond + m_fakeWorldOffset.y;
     if( fabsf( newY ) >= yValueLimitAbs ) yIncPerSecond = -yIncPerSecond;
     m_fakeWorldOffset = CGPointMake( newX, newY );
+    
+#ifdef TIME_STRIPDRAW
+    m_timer_timeUntilNextReport -= timeDelta;
+#endif
 }
 
 @end
