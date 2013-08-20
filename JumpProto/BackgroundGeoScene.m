@@ -429,7 +429,7 @@
     float result = x / sqrtf( x * x + 1.f );
     result = (result + 1.f) / 2.f;  // [-1,1] -> [0, 1]
     
-    NSLog( @"mapY: in=%f out=%f", yUnmapped, result );
+    //NSLog( @"mapY: in=%f out=%f", yUnmapped, result );
     return result;
 }
 
@@ -459,20 +459,23 @@
 {
     if( self = [super init] )
     {
-        [m_stripList addObject:[[[StarsV1Strip alloc] initWithDepth:4.f rectBuf:self.sharedRectBuf] autorelease]];
+        id strip;
+        
+        strip = [[[StarsV1Strip alloc] initWithDepth:4.f rectBuf:self.sharedRectBuf] autorelease];
+        [m_stripList addObject:strip];
 
-        id altRectStrip1 = [[[AltRectStrip alloc] initWithDepth:2.f rectBuf:self.sharedRectBuf
+        strip = [[[AltRectStrip alloc] initWithDepth:2.f rectBuf:self.sharedRectBuf
                                                             hwm:100.f hwx:120.f  lwm:80.f   lwx:130.f
                                                             hhm:140.f hhx: 210.f lhm: 300.f lhx: 545.f
                                                             r:0x50 g:0x50 b:0x50] autorelease];
-        [m_stripList addObject:altRectStrip1];
+        [m_stripList addObject:strip];
 
-        id altRectStrip2 = [[[AltRectStrip alloc] initWithDepth:1.5f rectBuf:self.sharedRectBuf
+        strip = [[[AltRectStrip alloc] initWithDepth:1.5f rectBuf:self.sharedRectBuf
                                                             hwm:200.f hwx:240.f  lwm:80.f   lwx:130.f
                                                             //hhm:50.f hhx: 180.f lhm: 200.f lhx: 215.f  // TODO: this is faking depth affecting y :P
                                                             hhm:140.f hhx: 210.f lhm: 300.f lhx: 545.f
                                                             r:0x60 g:0x60 b:0x60] autorelease];
-        [m_stripList addObject:altRectStrip2];
+        [m_stripList addObject:strip];
     }
     return self;
 }
