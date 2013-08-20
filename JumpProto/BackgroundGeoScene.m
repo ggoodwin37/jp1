@@ -329,24 +329,26 @@
 @interface AltRectStrip : RectBufStrip
 {
     // not even gonna try to explain this.
+    BOOL m_topDown;
     float m_hwm, m_hwx, m_lwm, m_lwx;
     float m_hhm, m_hhx, m_lhm, m_lhx;
-    GLbyte m_r, m_g, m_b;
+    GLbyte m_r, m_g, m_b, m_a;
     BOOL m_oddEven;
 }
 
--(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn hwm:(float)hwmIn hwx:(float)hwxIn lwm:(float)lwmIn lwx:(float)lwxIn hhm:(float)hhmIn hhx:(float)hhxIn lhm:(float)lhmIn lhx:(float)lhxIn r:(GLbyte)rIn g:(GLbyte)gIn b:(GLbyte)bIn;
+-(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn topDown:(BOOL)topDownIn hwm:(float)hwmIn hwx:(float)hwxIn lwm:(float)lwmIn lwx:(float)lwxIn hhm:(float)hhmIn hhx:(float)hhxIn lhm:(float)lhmIn lhx:(float)lhxIn r:(GLbyte)rIn g:(GLbyte)gIn b:(GLbyte)bIn a:(GLbyte)aIn;
 @end
 
 @implementation AltRectStrip
 
--(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn hwm:(float)hwmIn hwx:(float)hwxIn lwm:(float)lwmIn lwx:(float)lwxIn hhm:(float)hhmIn hhx:(float)hhxIn lhm:(float)lhmIn lhx:(float)lhxIn r:(GLbyte)rIn g:(GLbyte)gIn b:(GLbyte)bIn
+-(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn topDown:(BOOL)topDownIn hwm:(float)hwmIn hwx:(float)hwxIn lwm:(float)lwmIn lwx:(float)lwxIn hhm:(float)hhmIn hhx:(float)hhxIn lhm:(float)lhmIn lhx:(float)lhxIn r:(GLbyte)rIn g:(GLbyte)gIn b:(GLbyte)bIn a:(GLbyte)aIn
 {
     if( self = [super initWithDepth:depthIn rectBuf:rectBufIn] )
     {
+        m_topDown = topDownIn;
         m_hwm = hwmIn; m_hwx = hwxIn; m_lwm = lwmIn; m_lwx = lwxIn;
         m_hhm = hhmIn; m_hhx = hhxIn; m_lhm = lhmIn; m_lhx = lhxIn;
-        m_r = rIn; m_g = gIn; m_b = bIn;
+        m_r = rIn; m_g = gIn; m_b = bIn; m_a = aIn;
         m_oddEven = NO;
         [self createListEls];
     }
@@ -385,20 +387,35 @@
     // adjust height for depth and yMapped (based on worldY):
     //  when we are at the bottom of the world, the deepest layers should be higher
     //  as we approach the top of the world, the deepest layers and shallowest should converge around yMax (y-goes-up)
-    
-    const float minOffset = 100.f;
-    const float maxOffset = 650.f;
+    //  this will be opposite for topdown mode.
+
+    const float minOffset = 50.f;
+    const float maxOffset = 450.f;
     float depthFactor = self.depth / STRIP_DEPTH_MAX;
     float offset = FLOAT_INTERP(minOffset, maxOffset, depthFactor);
-
-    float yFactor = 1.f - yMapped;
+    
+    float yFactor;
+    if( m_topDown )
+    {
+        yFactor = yMapped;
+    } else {
+        yFactor = 1.f - yMapped;
+    }
     offset *= yFactor;
     h = thisEl.height + offset;
-
+    
+    if( m_topDown )
+    {
+        y = [AspectController instance].yPixel - h;
+    }
+    
     [self.rectBuf pushRectGeoCoord2dX1:x Y1:y X2:(x + w) Y2:(y + h)];
-    [self pushSolidColorA:0xff r:m_r g:m_g b:m_b];
+    [self pushSolidColorA:m_a r:m_r g:m_g b:m_b];
     [self.rectBuf incPtr];
 }
+
+
+//    if( m_topDown )
 
 @end
 
@@ -482,22 +499,41 @@
     {
         id strip;
         
-        strip = [[[StarsV1Strip alloc] initWithDepth:80.f rectBuf:self.sharedRectBuf] autorelease];
+        // stars
+        strip = [[[StarsV1Strip alloc] initWithDepth:95.f rectBuf:self.sharedRectBuf] autorelease];
+        [m_stripList addObject:strip];
+        
+        // hills
+        strip = [[[AltRectStrip alloc] initWithDepth:75.f rectBuf:self.sharedRectBuf
+                                             topDown:NO
+                                                 hwm:128.f hwx:345.f lwm:90.f lwx:180.f
+                                                 hhm:100.f hhx:164.f lhm:100.f lhx:228.f
+                                                   r:0x10 g:0x80 b:0x10 a:0xff] autorelease];
         [m_stripList addObject:strip];
 
-        strip = [[[AltRectStrip alloc] initWithDepth:50.f rectBuf:self.sharedRectBuf
-                                                            //hwm:100.f hwx:120.f  lwm:80.f   lwx:130.f
-                                                            //hhm:40.f hhx: 50.f lhm: 300.f lhx: 400.f
-                                                 hwm:64.f hwx:64.f lwm:64.f lwx:64.f
-                                                 hhm:0.f hhx:64.f lhm:64.f lhx:128.f
-                                                            r:0x50 g:0x50 b:0x50] autorelease];
-        [m_stripList addObject:strip];
-
-        strip = [[[AltRectStrip alloc] initWithDepth:20.f rectBuf:self.sharedRectBuf
-                                                 hwm:64.f hwx:64.f lwm:64.f lwx:64.f
-                                                 hhm:0.f hhx:64.f lhm:64.f lhx:128.f
-                                                            r:0x60 g:0x60 b:0x60] autorelease];
-        [m_stripList addObject:strip];
+        // buildings
+        for( int i = 0; i < 2; ++i ) {
+            float depth = 50.f - (i * 10.f);
+            int c = 0x40 + (i * 12);
+            strip = [[[AltRectStrip alloc] initWithDepth:depth rectBuf:self.sharedRectBuf
+                                                 topDown:NO
+                                                     hwm:64.f hwx:64.f lwm:64.f lwx:64.f
+                                                     hhm:0.f hhx:64.f lhm:64.f lhx:128.f
+                                                       r:c g:c b:c a:0xff] autorelease];
+            [m_stripList addObject:strip];
+        }
+        
+        // clouds
+        for( int i = 0; i < 3; ++i ) {
+            float depth = 20.f - (i * 10.f);
+            int c = 0x70 + (i * 12);
+            strip = [[[AltRectStrip alloc] initWithDepth:depth rectBuf:self.sharedRectBuf
+                                                 topDown:YES
+                                                     hwm:300.f hwx:400.f lwm:200.f lwx:300.f
+                                                     hhm:0.f hhx:100.f lhm:0.f lhx:100.f
+                                                       r:c g:c b:c a:0x40] autorelease];
+            [m_stripList addObject:strip];
+        }
     }
     return self;
 }
