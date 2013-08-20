@@ -112,7 +112,7 @@
     if( self = [super initWithDepth:depthIn rectBuf:rectBufIn] )
     {
         m_starList = [[LinkedList alloc] init];
-        const int minNumStars = 30;
+        const int minNumStars = 60;
         m_maxDistanceBetweenStars = [AspectController instance].xPixel / minNumStars;
         
         const size_t colorBufSize = 4 * 6 * sizeof(GLbyte);  // 6 points since we are using triangles mode.
@@ -168,7 +168,7 @@
         
         x = runningWidth;
         
-        const float yMin = 300.f;
+        const float yMin = [AspectController instance].yPixel / 2.f;
         const float yMax = 0.f;
         y = ac.yPixel - FLOAT_INTERP(yMin, yMax, thisEl.altitudeFactor);
         
