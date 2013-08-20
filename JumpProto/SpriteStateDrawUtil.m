@@ -9,6 +9,8 @@
 #import "SpriteStateDrawUtil.h"
 #import "RectCoordBuffer.h"
 
+//#define DISABLE_SPRITES
+
 @implementation SpriteStateDrawUtil
 
 static RectCoordBuffer *g_rectCoordBuffer = nil;
@@ -21,7 +23,12 @@ static RectCoordBuffer *g_rectCoordBuffer = nil;
 
 +(void)setupForSpriteDrawing
 {
+#ifdef DISABLE_SPRITES
+    glDisable( GL_TEXTURE_2D );
+#else
 	glEnable( GL_TEXTURE_2D );
+#endif
+    
     glEnableClientState( GL_TEXTURE_COORD_ARRAY );
     glEnableClientState( GL_COLOR_ARRAY );
     glEnableClientState( GL_VERTEX_ARRAY );
@@ -68,8 +75,10 @@ static RectCoordBuffer *g_rectCoordBuffer = nil;
     }
 
     [g_rectCoordBuffer pushRectGeoCoord2dX1:x1 Y1:y1 X2:x2 Y2:y2];
+#ifndef DISABLE_SPRITES
     [g_rectCoordBuffer pushRectTexCoord2dBuf:spriteState.texCoords];
-    [g_rectCoordBuffer setTexName:spriteState.texSheet];
+    [g_rectCoordBuffer setTexName:spriteState.texSheet];  // can flush, so needs to happen last for this rect.
+#endif
     [g_rectCoordBuffer incPtr];
 }
 
@@ -80,7 +89,11 @@ static RectCoordBuffer *g_rectCoordBuffer = nil;
     {
         // TODO: tune this value down if possible
         int capacity = 30 * 20 * 2;  // guess at typical screen size (in sprites) is 30 * 20, times fudge factor.
-        g_rectCoordBuffer = [[RectCoordBuffer alloc] initWithTexEnabled:YES capacity:capacity];
+        BOOL enableSprites = YES;
+#ifdef DISABLE_SPRITES
+        enableSprites = NO;
+#endif
+        g_rectCoordBuffer = [[RectCoordBuffer alloc] initWithTexEnabled:enableSprites capacity:capacity];
     }
 }
 
