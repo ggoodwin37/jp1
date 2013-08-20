@@ -33,6 +33,12 @@
 }
 
 
+-(float)scaleXForDepth:(float)xIn
+{
+    return xIn / self.depth;
+}
+
+
 -(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs
 {
 }
@@ -101,6 +107,7 @@
     GLbyte *m_colorBuf;
     LinkedList *m_starList;
     float m_maxDistanceBetweenStars;
+    float m_totalListWidth;  // how wide (in screen coords) is one walk down the list?
     
 }
 @end
@@ -119,12 +126,12 @@
         m_colorBuf = (GLbyte *)malloc( colorBufSize );
         
         float totalWidth = [AspectController instance].xPixel;
-        float runningWidth = 0;
-        while( runningWidth < totalWidth )
+        m_totalListWidth = 0;
+        while( m_totalListWidth < totalWidth )
         {
             StarsV1El *thisEl = [[[StarsV1El alloc] init] autorelease];
             [m_starList enqueueData:thisEl];
-            runningWidth += thisEl.paddingFactor * m_maxDistanceBetweenStars;
+            m_totalListWidth += thisEl.paddingFactor * m_maxDistanceBetweenStars;
         }
     }
     return self;
@@ -154,36 +161,53 @@
 // override
 -(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs
 {
-    // TODO: some kind of coord transform required here to account for depth?
-    // TODO: offset into list
-    AspectController *ac = [AspectController instance];
-    float totalWidth = ac.xPixel;
+    // TODO: consume yOffs. maybe this can be pre-normalized (i.e. already mashed into [-1, 1] in some non-linear mapping).
+    
+    float xOffsScaled = [self scaleXForDepth:xOffs];
+    float xOffsScaledNormalized = xOffsScaled - (m_totalListWidth * floorf( xOffsScaled / m_totalListWidth ) );
+    
+    // starting from head, burn through nodes until we've skipped over enough to meet the scaled, normalized offset.
     float runningWidth = 0.f;
     LLNode *currentNode = m_starList.head;
+    float nextWidth;  // this look-ahead allows us to draw slightly offscreen so stars can come onscreen smoothly and incrementally.
+    do
+    {
+        StarsV1El *thisEl = (StarsV1El *)currentNode.data;
+        runningWidth += thisEl.paddingFactor * m_maxDistanceBetweenStars;
+        currentNode = currentNode.next ? currentNode.next : m_starList.head;
+        nextWidth = ((StarsV1El *)currentNode.data).paddingFactor * m_maxDistanceBetweenStars;  // lookahead to next width.
+    } while( runningWidth + nextWidth < xOffsScaledNormalized );
+    runningWidth -= xOffsScaledNormalized;
     
+    AspectController *ac = [AspectController instance];
+    float totalWidth = ac.xPixel;
     CGFloat x, y, w, h;
+
+    // y coord ranges.
+    const float yMin = ac.yPixel / 2.f;
+    const float yMax = 0.f;
+
+    // size ranges
+    const float sizeMin = 2.f;
+    const float sizeMax = 6.f;
+    
+    // color component ranges
+    const int rMin = 0xff;
+    const int rMax = 0xff;
+    const int gMin = 0xff;
+    const int gMax = 0xff;
+    const int bMin = 0x00;
+    const int bMax = 0xff;
+
     while( runningWidth < totalWidth )
     {
         StarsV1El *thisEl = (StarsV1El *)currentNode.data;
         
         x = runningWidth;
-        
-        const float yMin = [AspectController instance].yPixel / 2.f;
-        const float yMax = 0.f;
         y = ac.yPixel - FLOAT_INTERP(yMin, yMax, thisEl.altitudeFactor);
-        
-        const float sizeMin = 2.f;
-        const float sizeMax = 6.f;
         w = FLOAT_INTERP(sizeMin, sizeMax, thisEl.intensityFactor);
         h = w;
         [self.rectBuf pushRectGeoCoord2dX1:x Y1:y X2:(x + w) Y2:(y + h)];
-        
-        const int rMin = 0xff;
-        const int rMax = 0xff;
-        const int gMin = 0xff;
-        const int gMax = 0xff;
-        const int bMin = 0x00;
-        const int bMax = 0xff;
         
         [self setSolidColorA:0xff
                            r:BYTE_INTERP(rMin, rMax, thisEl.intensityFactor)
@@ -196,8 +220,6 @@
         runningWidth += thisEl.paddingFactor * m_maxDistanceBetweenStars;
         currentNode = currentNode.next ? currentNode.next : m_starList.head;
     }
-    
-    
 }
 
 @end
@@ -256,7 +278,7 @@
 {
     if( self = [super init] )
     {
-        [m_stripList addObject:[[[StarsV1Strip alloc] initWithDepth:1.f rectBuf:self.sharedRectBuf] autorelease]];
+        [m_stripList addObject:[[[StarsV1Strip alloc] initWithDepth:4.f rectBuf:self.sharedRectBuf] autorelease]];
     }
     return self;
 }
@@ -373,7 +395,7 @@
 -(void)updateWithTimeDelta:(float)timeDelta
 {
     // fake movement: x increases unbounded, y bounces back and forth between two extremes.
-    const CGFloat xIncPerSecond = 10.f;   // TODO tune
+    const CGFloat xIncPerSecond = 100.f;
     static CGFloat yIncPerSecond = 10.f;  // TODO tune
     const CGFloat yValueLimitAbs = 100.f; // TODO tune
     CGFloat newX = timeDelta * xIncPerSecond + m_fakeWorldOffset.x;

@@ -21,6 +21,7 @@
 @property (nonatomic, assign) float depth;
 
 -(id)initWithDepth:(float)depth;
+-(float)scaleXForDepth:(float)xIn;
 -(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs;
 
 @end
