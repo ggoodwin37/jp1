@@ -135,6 +135,47 @@
     [self.rectBuf pushRectColors2dBuf:m_colorBuf];
 }
 
+
+// override
+-(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs
+{
+    // TODO: consume yOffs. maybe this can be pre-normalized (i.e. already mashed into [-1, 1] in some non-linear mapping).
+    
+    float xOffsScaled = [self scaleXForDepth:xOffs];
+    float xOffsScaledNormalized = xOffsScaled - (m_totalListWidth * floorf( xOffsScaled / m_totalListWidth ) );
+    
+    // starting from head, burn through nodes until we've skipped over enough to meet the scaled, normalized offset.
+    float runningWidth = 0.f;
+    LLNode *currentNode = m_elList.head;
+    float nextWidth;  // this look-ahead allows us to draw slightly offscreen so els can come onscreen smoothly and incrementally.
+    do
+    {
+        BaseStripEl *thisEl = (BaseStripEl *)currentNode.data;
+        runningWidth += [thisEl getWidth];
+        currentNode = [m_elList nextOrWrap:currentNode];
+        BaseStripEl *nextEl = (BaseStripEl *)currentNode.data;  // currentNode has already been inc'd.
+        nextWidth = [nextEl getWidth];  // lookahead to next margin.
+    } while( runningWidth + nextWidth < xOffsScaledNormalized );
+    runningWidth -= xOffsScaledNormalized;
+    
+    AspectController *ac = [AspectController instance];
+    float totalWidth = ac.xPixel;
+    while( runningWidth < totalWidth )
+    {
+        BaseStripEl *thisEl = (BaseStripEl *)currentNode.data;
+        [self drawOneEl:thisEl xOffs:runningWidth];
+        
+        runningWidth += [thisEl getWidth];
+        currentNode = [m_elList nextOrWrap:currentNode];
+    }
+}
+
+
+-(void)drawOneEl:(BaseStripEl *)el xOffs:(float)xOffs
+{
+    NSAssert( NO, @"Don't call base version." );
+}
+
 @end
 
 
@@ -190,35 +231,15 @@
 
 
 // override
--(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs
+-(void)drawOneEl:(BaseStripEl *)el xOffs:(float)xOffs
 {
-    // TODO: consume yOffs. maybe this can be pre-normalized (i.e. already mashed into [-1, 1] in some non-linear mapping).
-    
-    float xOffsScaled = [self scaleXForDepth:xOffs];
-    float xOffsScaledNormalized = xOffsScaled - (m_totalListWidth * floorf( xOffsScaled / m_totalListWidth ) );
-    
-    // starting from head, burn through nodes until we've skipped over enough to meet the scaled, normalized offset.
-    float runningWidth = 0.f;
-    LLNode *currentNode = m_elList.head;
-    float nextWidth;  // this look-ahead allows us to draw slightly offscreen so stars can come onscreen smoothly and incrementally.
-    do
-    {
-        StarsV1El *thisEl = (StarsV1El *)currentNode.data;
-        runningWidth += [thisEl getWidth];
-        currentNode = [m_elList nextOrWrap:currentNode];
-        StarsV1El *nextEl = (StarsV1El *)currentNode.data;  // currentNode has already been inc'd.
-        nextWidth = [nextEl getWidth];  // lookahead to next margin.
-    } while( runningWidth + nextWidth < xOffsScaledNormalized );
-    runningWidth -= xOffsScaledNormalized;
-    
-    AspectController *ac = [AspectController instance];
-    float totalWidth = ac.xPixel;
+    // TODO: consider pulling these values out as constants or ivars for perf.
     CGFloat x, y, w, h;
-
+    
     // y coord ranges.
-    const float yMin = ac.yPixel / 2.f;
+    const float yMin = [AspectController instance].yPixel / 2.f;
     const float yMax = 0.f;
-
+    
     // size ranges
     const float sizeMin = 2.f;
     const float sizeMax = 6.f;
@@ -230,27 +251,20 @@
     const int gMax = 0xff;
     const int bMin = 0x00;
     const int bMax = 0xff;
-
-    while( runningWidth < totalWidth )
-    {
-        StarsV1El *thisEl = (StarsV1El *)currentNode.data;
-        
-        x = runningWidth;
-        y = ac.yPixel - FLOAT_INTERP(yMin, yMax, thisEl.altitudeFactor);
-        w = FLOAT_INTERP(sizeMin, sizeMax, thisEl.intensityFactor);
-        h = w;
-        [self.rectBuf pushRectGeoCoord2dX1:x Y1:y X2:(x + w) Y2:(y + h)];
-        
-        [self pushSolidColorA:0xff
-                           r:BYTE_INTERP(rMin, rMax, thisEl.intensityFactor)
-                           g:BYTE_INTERP(gMin, gMax, thisEl.intensityFactor)
-                           b:BYTE_INTERP(bMin, bMax, thisEl.intensityFactor)];
-        
-        [self.rectBuf incPtr];
-
-        runningWidth += [thisEl getWidth];
-        currentNode = [m_elList nextOrWrap:currentNode];
-    }
+    
+    StarsV1El *starsEl = (StarsV1El *)el;
+    x = xOffs;
+    y = [AspectController instance].yPixel - FLOAT_INTERP(yMin, yMax, starsEl.altitudeFactor);
+    w = FLOAT_INTERP(sizeMin, sizeMax, starsEl.intensityFactor);
+    h = w;
+    [self.rectBuf pushRectGeoCoord2dX1:x Y1:y X2:(x + w) Y2:(y + h)];
+    
+    [self pushSolidColorA:0xff
+                        r:BYTE_INTERP(rMin, rMax, starsEl.intensityFactor)
+                        g:BYTE_INTERP(gMin, gMax, starsEl.intensityFactor)
+                        b:BYTE_INTERP(bMin, bMax, starsEl.intensityFactor)];
+    
+    [self.rectBuf incPtr];
 }
 
 @end
