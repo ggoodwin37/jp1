@@ -88,15 +88,7 @@
         self.rectBuf = rectBufIn;
 
         m_elList = [[LinkedList alloc] init];
-        
-        float totalWidth = [AspectController instance].xPixel;
         m_totalListWidth = 0;
-        while( m_totalListWidth < totalWidth )
-        {
-            BaseStripEl *thisEl = [self createOneEl];
-            [m_elList enqueueData:thisEl];
-            m_totalListWidth += [thisEl getWidth];
-        }
 
         const size_t colorBufSize = 4 * 6 * sizeof(GLbyte);  // 6 points since we are using triangles mode.
         m_colorBuf = (GLbyte *)malloc( colorBufSize );
@@ -112,6 +104,20 @@
     [m_elList release]; m_elList = nil;
     self.rectBuf = nil;
     [super dealloc];
+}
+
+
+// call this during subclass init. This gives subclass a chance to set instance state first.
+-(void)createListEls
+{
+    m_totalListWidth = 0;
+    float totalWidth = [AspectController instance].xPixel;
+    while( m_totalListWidth < totalWidth )
+    {
+        BaseStripEl *thisEl = [self createOneEl];
+        [m_elList enqueueData:thisEl];
+        m_totalListWidth += [thisEl getWidth];
+    }
 }
 
 
@@ -220,6 +226,16 @@
 
 @implementation StarsV1Strip
 
+-(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn
+{
+    if( self = [super initWithDepth:depthIn rectBuf:rectBufIn] )
+    {
+        [self createListEls];
+    }
+    return self;
+}
+
+
 // override
 -(BaseStripEl *)createOneEl
 {
@@ -264,6 +280,105 @@
                         g:BYTE_INTERP(gMin, gMax, starsEl.intensityFactor)
                         b:BYTE_INTERP(bMin, bMax, starsEl.intensityFactor)];
     
+    [self.rectBuf incPtr];
+}
+
+@end
+
+
+// ------------------------
+// helper element representing a single drawable el used by AltRectStrip
+@interface AltRectStripEl : BaseStripEl
+@property (nonatomic, assign) float width;
+@property (nonatomic, assign) float height;
+
+@end
+
+@implementation AltRectStripEl
+
+-(id)initWithWidth:(float)widthIn height:(float)heightIn
+{
+    if( self = [super init] )
+    {
+        self.width = widthIn;
+        self.height = heightIn;
+    }
+    return self;
+}
+
+
+// override
+-(float)getWidth
+{
+    return self.width;
+}
+
+@end
+
+
+// ------------------------
+@interface AltRectStrip : RectBufStrip
+{
+    // not even gonna try to explain this.
+    float m_hwm, m_hwx, m_lwm, m_lwx, m_hm, m_hx;
+    GLbyte m_r, m_g, m_b;
+    BOOL m_oddEven;
+    AltRectStripEl *m_lastCreated;
+}
+
+-(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn  hwm:(float)hwmIn hwx:(float)hwxIn lwm:(float)lwmIn lwx:(float)lwxIn hm:(float)hmIn hx:(float)hxIn r:(GLbyte)rIn g:(GLbyte)gIn b:(GLbyte)bIn;
+@end
+
+@implementation AltRectStrip
+
+-(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn hwm:(float)hwmIn hwx:(float)hwxIn lwm:(float)lwmIn lwx:(float)lwxIn hm:(float)hmIn hx:(float)hxIn r:(GLbyte)rIn g:(GLbyte)gIn b:(GLbyte)bIn
+{
+    if( self = [super initWithDepth:depthIn rectBuf:rectBufIn] )
+    {
+        m_hwm = hwmIn; m_hwx = hwxIn; m_lwm = lwmIn; m_lwx = lwxIn; m_hm = hmIn; m_hx = hxIn;
+        m_r = rIn; m_g = gIn; m_b = bIn;
+        m_oddEven = NO;
+        m_lastCreated = nil;
+        [self createListEls];
+    }
+    return self;
+}
+
+// override
+-(BaseStripEl *)createOneEl
+{
+    float targetW;
+    float yOffs = frandrange( m_hm, m_hx );
+    if( m_oddEven )
+    {
+        targetW = frandrange( m_hwm, m_hwx );
+        yOffs = -yOffs;
+        
+    } else {
+        targetW = frandrange( m_lwm, m_lwx );
+    }
+    m_oddEven = !m_oddEven;
+    
+    float targetH = m_lastCreated.height + yOffs;
+    
+    AltRectStripEl *newEl = [[[AltRectStripEl alloc] initWithWidth:targetW height:targetH] autorelease];
+    m_lastCreated = newEl;
+    return newEl;
+}
+
+
+// override
+-(void)drawOneEl:(BaseStripEl *)el xOffs:(float)xOffs
+{
+    // TODO: need to handle y offset here (and in base and other child classes).
+    AltRectStripEl *thisEl = (AltRectStripEl *)el;
+    CGFloat x, y, w, h;
+    x = xOffs;
+    y = 0;
+    w = thisEl.width;
+    h = thisEl.height;  // TODO: y offset affects this (not y, since we're y-goes-up)
+    [self.rectBuf pushRectGeoCoord2dX1:x Y1:y X2:(x + w) Y2:(y + h)];
+    [self pushSolidColorA:0xff r:m_r g:m_g b:m_b];
     [self.rectBuf incPtr];
 }
 
@@ -324,6 +439,11 @@
     if( self = [super init] )
     {
         [m_stripList addObject:[[[StarsV1Strip alloc] initWithDepth:4.f rectBuf:self.sharedRectBuf] autorelease]];
+
+        id altRectStrip1 = [[[AltRectStrip alloc] initWithDepth:2.f rectBuf:self.sharedRectBuf
+                                                  hwm:100.f hwx:120.f lwm:20.f lwx:40.f hm:200.f hx:280.f
+                                                  r:0x50 g:0x50 b:0x50] autorelease];
+        [m_stripList addObject:altRectStrip1];
     }
     return self;
 }
