@@ -82,18 +82,18 @@
 @interface StarsV1El : NSObject
 @property (nonatomic, assign) float intensityFactor;
 @property (nonatomic, assign) float altitudeFactor;
-@property (nonatomic, assign) float paddingFactor;
+@property (nonatomic, assign) float rightMargin;
 @end
 
 @implementation StarsV1El
 
--(id)init
+-(id)initWithRightMargin:(float)rightMarginIn
 {
     if( self = [super init] )
     {
         self.intensityFactor = frand();
         self.altitudeFactor = self.intensityFactor;
-        self.paddingFactor = frand();
+        self.rightMargin = rightMarginIn;
     }
     return self;
 }
@@ -106,7 +106,6 @@
 {
     GLbyte *m_colorBuf;
     LinkedList *m_starList;
-    float m_maxDistanceBetweenStars;
     float m_totalListWidth;  // how wide (in screen coords) is one walk down the list?
     
 }
@@ -120,7 +119,7 @@
     {
         m_starList = [[LinkedList alloc] init];
         const int minNumStars = 60;
-        m_maxDistanceBetweenStars = [AspectController instance].xPixel / minNumStars;
+        float maxDistanceBetweenStars = [AspectController instance].xPixel / minNumStars;
         
         const size_t colorBufSize = 4 * 6 * sizeof(GLbyte);  // 6 points since we are using triangles mode.
         m_colorBuf = (GLbyte *)malloc( colorBufSize );
@@ -129,9 +128,10 @@
         m_totalListWidth = 0;
         while( m_totalListWidth < totalWidth )
         {
-            StarsV1El *thisEl = [[[StarsV1El alloc] init] autorelease];
+            float thisMargin = frand() * maxDistanceBetweenStars;
+            StarsV1El *thisEl = [[[StarsV1El alloc] initWithRightMargin:thisMargin] autorelease];
             [m_starList enqueueData:thisEl];
-            m_totalListWidth += thisEl.paddingFactor * m_maxDistanceBetweenStars;
+            m_totalListWidth += thisMargin;
         }
     }
     return self;
@@ -173,9 +173,10 @@
     do
     {
         StarsV1El *thisEl = (StarsV1El *)currentNode.data;
-        runningWidth += thisEl.paddingFactor * m_maxDistanceBetweenStars;
+        runningWidth += thisEl.rightMargin;
         currentNode = currentNode.next ? currentNode.next : m_starList.head;
-        nextWidth = ((StarsV1El *)currentNode.data).paddingFactor * m_maxDistanceBetweenStars;  // lookahead to next width.
+        StarsV1El *nextEl = (StarsV1El *)currentNode.data;  // currentNode has already been inc'd.
+        nextWidth = nextEl.rightMargin;  // lookahead to next margin.
     } while( runningWidth + nextWidth < xOffsScaledNormalized );
     runningWidth -= xOffsScaledNormalized;
     
@@ -217,7 +218,7 @@
         
         [self.rectBuf incPtr];
 
-        runningWidth += thisEl.paddingFactor * m_maxDistanceBetweenStars;
+        runningWidth += thisEl.rightMargin;
         currentNode = currentNode.next ? currentNode.next : m_starList.head;
     }
 }

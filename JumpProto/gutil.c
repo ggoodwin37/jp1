@@ -13,10 +13,17 @@
 // assume main() or somewhere has a line like:
 //  srandom(time(NULL));
 
-inline float frand()
+float frand()
 {
-	return ((float)(random() & 0x0fff)) / ((float)0x1000);
+	return ((float)(random() & 0x0fff)) / ((float)0xfff);
 }
+
+float frandrange(float minIncl, float maxIncl )
+{
+    float offs = frand() * (maxIncl - minIncl);
+    return minIncl + offs;
+}
+
 
 // usage note: this appears to wrap around fairly often, on the order of minutes. Whenever this is used
 //  should check for unexpected wraps.

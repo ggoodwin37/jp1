@@ -26,6 +26,7 @@
 #define BYTE_INTERP( min, max, factor )   (GLbyte)((int)((factor) * (float)((max) - (min)) + (min)) & 0xff)
 
 float frand();
+float frandrange(float minIncl, float maxIncl );
 long getUpTimeMs();
 
 // there must be a library somewhere for these.
