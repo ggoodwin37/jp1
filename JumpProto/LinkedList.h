@@ -26,5 +26,6 @@
 @property (nonatomic, readonly) LLNode *tail;
 
 -(void)enqueueData:(id)data;
+-(LLNode *)nextOrWrap:(LLNode *)node;
 
 @end

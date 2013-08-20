@@ -47,7 +47,10 @@
 
 
 // ------------------------
-@interface RectBufStrip : BaseStrip
+@interface RectBufStrip : BaseStrip {
+    GLbyte *m_colorBuf;
+}
+
 @property (nonatomic, retain) RectCoordBuffer *rectBuf;
 
 -(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn;
@@ -63,6 +66,10 @@
     if( self = [super initWithDepth:depthIn] )
     {
         self.rectBuf = rectBufIn;
+
+        const size_t colorBufSize = 4 * 6 * sizeof(GLbyte);  // 6 points since we are using triangles mode.
+        m_colorBuf = (GLbyte *)malloc( colorBufSize );
+        
     }
     return self;
 }
@@ -70,8 +77,23 @@
 
 -(void)dealloc
 {
+    free( m_colorBuf ); m_colorBuf = nil;
     self.rectBuf = nil;
     [super dealloc];
+}
+
+
+-(void)pushSolidColorA:(GLbyte)a r:(GLbyte)r g:(GLbyte)g b:(GLbyte)b
+{
+    for( int i = 0; i < 6; ++i )
+    {
+        GLbyte *ptr = m_colorBuf + (i * 4);
+        ptr[0] = r;
+        ptr[1] = g;
+        ptr[2] = b;
+        ptr[3] = a;
+    }
+    [self.rectBuf pushRectColors2dBuf:m_colorBuf];
 }
 
 @end
@@ -104,8 +126,7 @@
 // ------------------------
 @interface StarsV1Strip : RectBufStrip
 {
-    GLbyte *m_colorBuf;
-    LinkedList *m_starList;
+    LinkedList *m_elList;
     float m_totalListWidth;  // how wide (in screen coords) is one walk down the list?
     
 }
@@ -117,12 +138,9 @@
 {
     if( self = [super initWithDepth:depthIn rectBuf:rectBufIn] )
     {
-        m_starList = [[LinkedList alloc] init];
+        m_elList = [[LinkedList alloc] init];
         const int minNumStars = 60;
         float maxDistanceBetweenStars = [AspectController instance].xPixel / minNumStars;
-        
-        const size_t colorBufSize = 4 * 6 * sizeof(GLbyte);  // 6 points since we are using triangles mode.
-        m_colorBuf = (GLbyte *)malloc( colorBufSize );
         
         float totalWidth = [AspectController instance].xPixel;
         m_totalListWidth = 0;
@@ -130,7 +148,7 @@
         {
             float thisMargin = frand() * maxDistanceBetweenStars;
             StarsV1El *thisEl = [[[StarsV1El alloc] initWithRightMargin:thisMargin] autorelease];
-            [m_starList enqueueData:thisEl];
+            [m_elList enqueueData:thisEl];
             m_totalListWidth += thisMargin;
         }
     }
@@ -140,23 +158,10 @@
 
 -(void)dealloc
 {
-    free( m_colorBuf ); m_colorBuf = nil;
-    [m_starList release]; m_starList = nil;
+    [m_elList release]; m_elList = nil;
     [super dealloc];
 }
 
-
--(void)setSolidColorA:(GLbyte)a r:(GLbyte)r g:(GLbyte)g b:(GLbyte)b
-{
-    for( int i = 0; i < 6; ++i )
-    {
-        GLbyte *ptr = m_colorBuf + (i * 4);
-        ptr[0] = r;
-        ptr[1] = g;
-        ptr[2] = b;
-        ptr[3] = a;
-    }
-}
 
 // override
 -(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs
@@ -168,13 +173,13 @@
     
     // starting from head, burn through nodes until we've skipped over enough to meet the scaled, normalized offset.
     float runningWidth = 0.f;
-    LLNode *currentNode = m_starList.head;
+    LLNode *currentNode = m_elList.head;
     float nextWidth;  // this look-ahead allows us to draw slightly offscreen so stars can come onscreen smoothly and incrementally.
     do
     {
         StarsV1El *thisEl = (StarsV1El *)currentNode.data;
         runningWidth += thisEl.rightMargin;
-        currentNode = currentNode.next ? currentNode.next : m_starList.head;
+        currentNode = [m_elList nextOrWrap:currentNode];
         StarsV1El *nextEl = (StarsV1El *)currentNode.data;  // currentNode has already been inc'd.
         nextWidth = nextEl.rightMargin;  // lookahead to next margin.
     } while( runningWidth + nextWidth < xOffsScaledNormalized );
@@ -210,16 +215,15 @@
         h = w;
         [self.rectBuf pushRectGeoCoord2dX1:x Y1:y X2:(x + w) Y2:(y + h)];
         
-        [self setSolidColorA:0xff
+        [self pushSolidColorA:0xff
                            r:BYTE_INTERP(rMin, rMax, thisEl.intensityFactor)
                            g:BYTE_INTERP(gMin, gMax, thisEl.intensityFactor)
                            b:BYTE_INTERP(bMin, bMax, thisEl.intensityFactor)];
-        [self.rectBuf pushRectColors2dBuf:m_colorBuf];
         
         [self.rectBuf incPtr];
 
         runningWidth += thisEl.rightMargin;
-        currentNode = currentNode.next ? currentNode.next : m_starList.head;
+        currentNode = [m_elList nextOrWrap:currentNode];
     }
 }
 

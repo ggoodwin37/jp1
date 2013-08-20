@@ -76,4 +76,10 @@
     m_tail = newNode;  // weak
 }
 
+
+-(LLNode *)nextOrWrap:(LLNode *)node
+{
+    return node.next ? node.next : m_head;
+}
+
 @end
