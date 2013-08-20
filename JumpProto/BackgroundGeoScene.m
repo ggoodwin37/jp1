@@ -47,8 +47,28 @@
 
 
 // ------------------------
+// helper element representing a base element in a strip list of elements to draw.
+@interface BaseStripEl : NSObject
+
+-(float)getWidth;
+
+@end
+
+@implementation BaseStripEl
+
+-(float)getWidth
+{
+    NSAssert( NO, @"Don't call base version." );
+    return 0.f;
+}
+@end
+
+
+// ------------------------
 @interface RectBufStrip : BaseStrip {
     GLbyte *m_colorBuf;
+    LinkedList *m_elList;
+    float m_totalListWidth;  // how wide (in screen coords) is one walk down the list?
 }
 
 @property (nonatomic, retain) RectCoordBuffer *rectBuf;
@@ -67,6 +87,17 @@
     {
         self.rectBuf = rectBufIn;
 
+        m_elList = [[LinkedList alloc] init];
+        
+        float totalWidth = [AspectController instance].xPixel;
+        m_totalListWidth = 0;
+        while( m_totalListWidth < totalWidth )
+        {
+            BaseStripEl *thisEl = [self createOneEl];
+            [m_elList enqueueData:thisEl];
+            m_totalListWidth += [thisEl getWidth];
+        }
+
         const size_t colorBufSize = 4 * 6 * sizeof(GLbyte);  // 6 points since we are using triangles mode.
         m_colorBuf = (GLbyte *)malloc( colorBufSize );
         
@@ -78,8 +109,16 @@
 -(void)dealloc
 {
     free( m_colorBuf ); m_colorBuf = nil;
+    [m_elList release]; m_elList = nil;
     self.rectBuf = nil;
     [super dealloc];
+}
+
+
+-(BaseStripEl *)createOneEl
+{
+    NSAssert( NO, @"Don't call base version.");
+    return nil;
 }
 
 
@@ -101,10 +140,11 @@
 
 // ------------------------
 // helper element representing a single drawable star used by StarsV1Strip
-@interface StarsV1El : NSObject
+@interface StarsV1El : BaseStripEl
 @property (nonatomic, assign) float intensityFactor;
 @property (nonatomic, assign) float altitudeFactor;
 @property (nonatomic, assign) float rightMargin;
+
 @end
 
 @implementation StarsV1El
@@ -120,46 +160,32 @@
     return self;
 }
 
+
+// override
+-(float)getWidth
+{
+    return self.rightMargin;
+}
+
 @end
 
 
 // ------------------------
 @interface StarsV1Strip : RectBufStrip
 {
-    LinkedList *m_elList;
-    float m_totalListWidth;  // how wide (in screen coords) is one walk down the list?
     
 }
 @end
 
 @implementation StarsV1Strip
 
--(id)initWithDepth:(float)depthIn rectBuf:(RectCoordBuffer *)rectBufIn;
+// override
+-(BaseStripEl *)createOneEl
 {
-    if( self = [super initWithDepth:depthIn rectBuf:rectBufIn] )
-    {
-        m_elList = [[LinkedList alloc] init];
-        const int minNumStars = 60;
-        float maxDistanceBetweenStars = [AspectController instance].xPixel / minNumStars;
-        
-        float totalWidth = [AspectController instance].xPixel;
-        m_totalListWidth = 0;
-        while( m_totalListWidth < totalWidth )
-        {
-            float thisMargin = frand() * maxDistanceBetweenStars;
-            StarsV1El *thisEl = [[[StarsV1El alloc] initWithRightMargin:thisMargin] autorelease];
-            [m_elList enqueueData:thisEl];
-            m_totalListWidth += thisMargin;
-        }
-    }
-    return self;
-}
-
-
--(void)dealloc
-{
-    [m_elList release]; m_elList = nil;
-    [super dealloc];
+    const int minNumStars = 60;
+    float maxDistanceBetweenStars = [AspectController instance].xPixel / minNumStars;
+    float thisMargin = frand() * maxDistanceBetweenStars;
+    return [[[StarsV1El alloc] initWithRightMargin:thisMargin] autorelease];
 }
 
 
@@ -178,10 +204,10 @@
     do
     {
         StarsV1El *thisEl = (StarsV1El *)currentNode.data;
-        runningWidth += thisEl.rightMargin;
+        runningWidth += [thisEl getWidth];
         currentNode = [m_elList nextOrWrap:currentNode];
         StarsV1El *nextEl = (StarsV1El *)currentNode.data;  // currentNode has already been inc'd.
-        nextWidth = nextEl.rightMargin;  // lookahead to next margin.
+        nextWidth = [nextEl getWidth];  // lookahead to next margin.
     } while( runningWidth + nextWidth < xOffsScaledNormalized );
     runningWidth -= xOffsScaledNormalized;
     
@@ -222,7 +248,7 @@
         
         [self.rectBuf incPtr];
 
-        runningWidth += thisEl.rightMargin;
+        runningWidth += [thisEl getWidth];
         currentNode = [m_elList nextOrWrap:currentNode];
     }
 }
