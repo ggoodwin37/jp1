@@ -105,9 +105,11 @@
         case EBlockPreset_tiny_bl_stretch: return @"tiny-bl-stretch-m";
         case EBlockPreset_tiny_bl_turf1: return @"tiny-bl-turf1-m";
         case EBlockPreset_tiny_bl_turf2: return @"tiny-bl-turf2-m";
+        case EBlockPreset_tiny_avPlain: return @"tiny-av-plain-1_0";
         case EBlockPreset_tiny_cr_1: return @"tiny-cr-1";
         case EBlockPreset_tiny_cr_2: return @"tiny-cr-2";
         case EBlockPreset_tiny_bigcr: return @"tiny-bigcr";
+        case EBlockPreset_tiny_avCrate: return @"tiny-av-crate-1_0";
         case EBlockPreset_tiny_conveyor_l: return @"tiny-conveyor-l-edithint";
         case EBlockPreset_tiny_conveyor_r: return @"tiny-conveyor-r-edithint";
         case EBlockPreset_tiny_oneway_u: return @"tiny-oneway-u";

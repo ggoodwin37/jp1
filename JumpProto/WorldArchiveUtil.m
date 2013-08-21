@@ -163,6 +163,7 @@
         case EBlockPreset_tiny_bl_stretch:
         case EBlockPreset_tiny_bl_turf1:
         case EBlockPreset_tiny_bl_turf2:
+        case EBlockPreset_tiny_avPlain:
         case EBlockPreset_tiny_sprtiny_0:
         case EBlockPreset_tiny_sprtiny_1:
         case EBlockPreset_tiny_sprtiny_2:
@@ -175,6 +176,7 @@
         case EBlockPreset_tiny_cr_1:
         case EBlockPreset_tiny_cr_2:
         case EBlockPreset_tiny_bigcr:
+        case EBlockPreset_tiny_avCrate:
             block.props.canMoveFreely = YES;
             block.props.affectedByGravity = YES;
             block.props.affectedByFriction = YES;
@@ -470,6 +472,9 @@
                 return @"tiny-bl-turf1-m";
             }
 
+        case EBlockPreset_tiny_avPlain:
+            return [NSString stringWithFormat:@"tiny-av-plain-1_%lx", (fourWayAVCode & 0x0f)];
+
         case EBlockPreset_tiny_bl_turf2:
             if( ! (fourWayAVCode & AutoVariationMask_U) )
             {
@@ -483,6 +488,10 @@
         case EBlockPreset_tiny_cr_1: return @"tiny-cr-1";
         case EBlockPreset_tiny_cr_2: return @"tiny-cr-2";
         case EBlockPreset_tiny_bigcr: return @"tiny-bigcr";
+            
+        case EBlockPreset_tiny_avCrate:
+            return [NSString stringWithFormat:@"tiny-av-crate-1_%lx", (fourWayAVCode & 0x0f)];
+            
         case EBlockPreset_tiny_conveyor_l: return @"tiny-conveyor-l";
         case EBlockPreset_tiny_conveyor_r: return @"tiny-conveyor-r";
         case EBlockPreset_tiny_oneway_u: return @"tiny-oneway-u";

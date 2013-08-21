@@ -122,6 +122,8 @@
 
         // batch 2
         case EBlockPreset_tiny_bl_stretch:
+        case EBlockPreset_tiny_avPlain:
+        case EBlockPreset_tiny_avCrate:
             return YES;
             
         default:

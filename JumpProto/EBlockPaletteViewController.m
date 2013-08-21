@@ -316,12 +316,14 @@
     PCL_ADD( EBlockPreset_tiny_bl_stretch, @"bl-stretch", @"" );
     PCL_ADD( EBlockPreset_tiny_bl_turf1, @"bl-turf1", @"" );
     PCL_ADD( EBlockPreset_tiny_bl_turf2, @"bl-turf2", @"" );
+    PCL_ADD( EBlockPreset_tiny_avPlain, @"bl-avPlain", @"" );
     PCL_CATDONE();
     
     PCL_CAT( @"crates" );
     PCL_ADD( EBlockPreset_tiny_cr_1, @"crate1", @"" );
     PCL_ADD( EBlockPreset_tiny_cr_2, @"crate2", @"" );
     PCL_ADD( EBlockPreset_tiny_bigcr, @"bigcrate", @"" );
+    PCL_ADD( EBlockPreset_tiny_avCrate, @"avCrate", @"" );
     PCL_CATDONE();
     
     PCL_CAT( @"flow" );
