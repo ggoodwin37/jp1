@@ -24,6 +24,8 @@
 		9386061E17A5ED8A00A544B5 /* PlayerActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9386061D17A5ED8A00A544B5 /* PlayerActor.m */; };
 		9386062117A5ED9C00A544B5 /* BadGuyActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9386062017A5ED9C00A544B5 /* BadGuyActor.m */; };
 		93A736BC17580FEE0059C2C9 /* EBlockMRUList.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */; };
+		93AD0DC517C45ECE008C41A0 /* tiny-av-crate-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 93AD0DC317C45ECE008C41A0 /* tiny-av-crate-1.png */; };
+		93AD0DC617C45ECE008C41A0 /* tiny-av-plain-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 93AD0DC417C45ECE008C41A0 /* tiny-av-plain-1.png */; };
 		93E01FCC17C31CCD00708802 /* ColorRectLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E01FCB17C31CCD00708802 /* ColorRectLayerView.m */; };
 		F305ECE91623E1FB00E153FB /* blAlgae.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE61623E1FB00E153FB /* blAlgae.png */; };
 		F305ECEA1623E1FB00E153FB /* blavQik.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE71623E1FB00E153FB /* blavQik.png */; };
@@ -166,6 +168,8 @@
 		9386062017A5ED9C00A544B5 /* BadGuyActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadGuyActor.m; sourceTree = "<group>"; };
 		93A736BA17580FEE0059C2C9 /* EBlockMRUList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBlockMRUList.h; sourceTree = "<group>"; };
 		93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBlockMRUList.m; sourceTree = "<group>"; };
+		93AD0DC317C45ECE008C41A0 /* tiny-av-crate-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-av-crate-1.png"; path = "images/tiny-av-crate-1.png"; sourceTree = "<group>"; };
+		93AD0DC417C45ECE008C41A0 /* tiny-av-plain-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-av-plain-1.png"; path = "images/tiny-av-plain-1.png"; sourceTree = "<group>"; };
 		93E01FCA17C31CCC00708802 /* ColorRectLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorRectLayerView.h; sourceTree = "<group>"; };
 		93E01FCB17C31CCD00708802 /* ColorRectLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorRectLayerView.m; sourceTree = "<group>"; };
 		F305ECE61623E1FB00E153FB /* blAlgae.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blAlgae.png; path = images/blAlgae.png; sourceTree = "<group>"; };
@@ -394,6 +398,8 @@
 		9386060F17A5B84F00A544B5 /* batch2 */ = {
 			isa = PBXGroup;
 			children = (
+				93AD0DC317C45ECE008C41A0 /* tiny-av-crate-1.png */,
+				93AD0DC417C45ECE008C41A0 /* tiny-av-plain-1.png */,
 				931D35B017A644210048B466 /* tiny-edit-hints.png */,
 				9386061817A5BA6E00A544B5 /* Anims1.xml */,
 				9386061917A5BA6E00A544B5 /* Sprites1.xml */,
@@ -834,6 +840,8 @@
 				9386061A17A5BA6E00A544B5 /* Anims1.xml in Resources */,
 				9386061B17A5BA6E00A544B5 /* Sprites1.xml in Resources */,
 				931D35B117A644210048B466 /* tiny-edit-hints.png in Resources */,
+				93AD0DC517C45ECE008C41A0 /* tiny-av-crate-1.png in Resources */,
+				93AD0DC617C45ECE008C41A0 /* tiny-av-plain-1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
