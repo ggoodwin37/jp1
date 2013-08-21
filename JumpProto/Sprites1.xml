@@ -169,4 +169,44 @@
         <NextSprite name="rob16-gib-3" />
     </SpriteDefRun>
     
+    <!-- av plain 1 -->
+    <SpriteDefRun resourceName="tiny-av-plain-1" xStart="0" yStart="0" xEnd="32" spriteWidth="8" spriteHeight="8">
+        <NextSprite name="tiny-av-plain-1_0" />
+        <NextSprite name="tiny-av-plain-1_1" />
+        <NextSprite name="tiny-av-plain-1_2" />
+        <NextSprite name="tiny-av-plain-1_3" />
+        <NextSprite name="tiny-av-plain-1_4" />
+        <NextSprite name="tiny-av-plain-1_5" />
+        <NextSprite name="tiny-av-plain-1_6" />
+        <NextSprite name="tiny-av-plain-1_7" />
+        <NextSprite name="tiny-av-plain-1_8" />
+        <NextSprite name="tiny-av-plain-1_9" />
+        <NextSprite name="tiny-av-plain-1_a" />
+        <NextSprite name="tiny-av-plain-1_b" />
+        <NextSprite name="tiny-av-plain-1_c" />
+        <NextSprite name="tiny-av-plain-1_d" />
+        <NextSprite name="tiny-av-plain-1_e" />
+        <NextSprite name="tiny-av-plain-1_f" />
+    </SpriteDefRun>
+    
+    <!-- av crate 1 -->
+    <SpriteDefRun resourceName="tiny-av-crate-1" xStart="0" yStart="0" xEnd="32" spriteWidth="8" spriteHeight="8">
+        <NextSprite name="tiny-av-crate-1_0" />
+        <NextSprite name="tiny-av-crate-1_1" />
+        <NextSprite name="tiny-av-crate-1_2" />
+        <NextSprite name="tiny-av-crate-1_3" />
+        <NextSprite name="tiny-av-crate-1_4" />
+        <NextSprite name="tiny-av-crate-1_5" />
+        <NextSprite name="tiny-av-crate-1_6" />
+        <NextSprite name="tiny-av-crate-1_7" />
+        <NextSprite name="tiny-av-crate-1_8" />
+        <NextSprite name="tiny-av-crate-1_9" />
+        <NextSprite name="tiny-av-crate-1_a" />
+        <NextSprite name="tiny-av-crate-1_b" />
+        <NextSprite name="tiny-av-crate-1_c" />
+        <NextSprite name="tiny-av-crate-1_d" />
+        <NextSprite name="tiny-av-crate-1_e" />
+        <NextSprite name="tiny-av-crate-1_f" />
+    </SpriteDefRun>
+    
 </SpriteDefs>
