@@ -110,18 +110,30 @@
         <NextSprite name="tiny-exit" />
     </SpriteDefRun>
     
-    <SpriteDefRun resourceName="tiny-creeps-1.png" xStart="0" yStart="0" xEnd="48" spriteWidth="16" spriteHeight="16">
+    <SpriteDefRun resourceName="tiny-creeps-1.png" xStart="0" yStart="0" xEnd="80" spriteWidth="16" spriteHeight="16">
         <NextSprite name="tiny-creep-fuzz-0"/>
         <NextSprite name="tiny-creep-fuzz-1"/>
         <NextSprite name="tiny-creep-fuzz-reversed"/>
+        <NextSprite />
+        <NextSprite />
         <NextSprite name="tiny-creep-martian-0" />
         <NextSprite name="tiny-creep-martian-1" />
+        <NextSprite name="tiny-creep-mine"/>
+        <NextSprite />
         <NextSprite />
         <NextSprite name="tiny-creep-mosquito-0" />
         <NextSprite name="tiny-creep-mosquito-1" />
-        <NextSprite />
+        <NextSprite name="tiny-creep-radbird-0"/>
+        <NextSprite name="tiny-creep-radbird-1"/>
+        <NextSprite name="tiny-creep-radbird-reversed"/>
         <NextSprite name="tiny-creep-jelly-0" />
         <NextSprite name="tiny-creep-jelly-1" />
+    </SpriteDefRun>
+    
+    <!-- radbird projectiles -->
+    <SpriteDefRun resourceName="tiny-creeps-1.png" xStart="64" yStart="32" xEnd="72" spriteWidth="4" spriteHeight="4" worldWidth="2" worldHeight="2">
+        <NextSprite name="tiny-creep-radbird-bullet-0"/>
+        <NextSprite name="tiny-creep-radbird-bullet-1"/>
     </SpriteDefRun>
 
     <SpriteDefRun resourceName="tiny-edit-hints.png" xStart="0" yStart="0" xEnd="64" spriteWidth="8" spriteHeight="8">
