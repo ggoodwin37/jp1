@@ -317,5 +317,7 @@ Then you can move on to some other stuff.
 
 - add mine
 - add jellyfish. u/d and l/r variations would be cool.
-- add cricket dudes.
-- add radbird (l/r variations).
+  - or: a state machine jellyfish that goes up until it hits something, then turns right, then turns down, then turns left. right hand and left hand versions.
+- add cricket dudes (future?).
+- add radbird (l/r variations) (future?).
+

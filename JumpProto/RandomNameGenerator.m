@@ -48,8 +48,9 @@
                   @"keen", @"spacious", @"frugal", @"calculating", @"compact", @"bargain", @"generic", @"lewd", @"trustworthy", @"valiant",
                   @"stout", @"rotten", @"fragrant", @"responsive", @"silly", @"softspoken", @"precious", @"pithy", @"remote", @"tilted",
                   @"nasty", @"ugly", @"synthetic", @"atrophied", @"burlesque", @"small", @"large", @"giant", @"grandiose", @"dubious",
-                  @"affected", @"complacent", @"old-fashioned", @"obscene", @"reinforced", @"streamlined", @"aerodynamic", @"ponderous", @"abyssmal", @"unusual",
-                  @"flat", @"pointy", @"spooky", @"boring", @"circuitous", @"straightforward", @"embarassing", @"garden-variety", @"contagious", @"subterranean",
+                  @"affected", @"complacent", @"old-fashioned", @"obscene", @"reinforced", @"streamlined", @"aerodynamic", @"ponderous",
+                  @"abyssmal", @"unusual", @"flat", @"pointy", @"spooky", @"boring", @"circuitous", @"straightforward", @"embarassing",
+                  @"garden-variety", @"contagious", @"subterranean",
                   nil] retain];
     };
     return list1;
