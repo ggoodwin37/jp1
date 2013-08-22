@@ -17,6 +17,7 @@
     return p;
 }
 
+//                  @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",
 
 +(NSArray *)getCol0List
 {
@@ -26,7 +27,11 @@
         list0 = [[NSArray arrayWithObjects: @"Harold", @"Harvey", @"Maude", @"Ellen", @"Fritz", @"Ogden", @"Jorge", @"Jesus", @"Mia", @"Davis",
                   @"Gatsby", @"Riordan", @"Jordan", @"Fitzpatrick", @"Smedley", @"Dr. Biggs", @"Templeton", @"Jarvis", @"Conrad", @"Joe",
                   @"Boris", @"Wendy", @"Carlos", @"Dana", @"Patrick", @"Patricia", @"Gladys", @"Phillis", @"Theresa", @"Lois",
-                  @"Gunnar", @"Blupus", @"Your Mom", @"Russel", @"Jove", @"Conroy", @"Lolita", @"Andrew", @"Nancy",@"Claude", nil ] retain];
+                  @"Gunnar", @"Blupus", @"Your Mom", @"Russel", @"Jove", @"Conroy", @"Lolita", @"Andrew", @"Nancy",@"Claude",
+                  @"Evan", @"Bradley", @"Your Dad", @"Einstein", @"Snake McCoy", @"Jorgenson", @"Fred", @"Old Man Keane", @"Harry", @"Roland",
+                  @"Andrea", @"Rosie", @"Irwin", @"The Janitor", @"The Baker", @"The Professional", @"Oscar", @"Ms. Fizz", @"Nero", @"Victor",
+                  @"Gandalf", @"Mr. Gein", @"Zachary", @"Prometheus", @"Stuart", @"Dr. Wobble", @"Your Brother", @"Finnegan", @"Monty", @"Zoe",
+                  nil ] retain];
     };
     return list0;
 }
@@ -42,6 +47,9 @@
                   @"mobile", @"unambiguous", @"traiterous", @"hot", @"unhappy", @"disciplined", @"amorous", @"stealthy", @"subtle", @"vulgar",
                   @"keen", @"spacious", @"frugal", @"calculating", @"compact", @"bargain", @"generic", @"lewd", @"trustworthy", @"valiant",
                   @"stout", @"rotten", @"fragrant", @"responsive", @"silly", @"softspoken", @"precious", @"pithy", @"remote", @"tilted",
+                  @"nasty", @"ugly", @"synthetic", @"atrophied", @"burlesque", @"small", @"large", @"giant", @"grandiose", @"dubious",
+                  @"affected", @"complacent", @"old-fashioned", @"obscene", @"reinforced", @"streamlined", @"aerodynamic", @"ponderous", @"abyssmal", @"unusual",
+                  @"flat", @"pointy", @"spooky", @"boring", @"circuitous", @"straightforward", @"embarassing", @"garden-variety", @"contagious", @"subterranean",
                   nil] retain];
     };
     return list1;
@@ -58,6 +66,9 @@
                   @"hairpiece", @"timepiece", @"beehive", @"antique", @"dromedary", @"bassoon", @"artillery", @"gaslamp", @"carriage", @"encore",
                   @"teakettle", @"saucepan", @"mast", @"boutique", @"saloon", @"dirigible", @"contraption", @"tantrum", @"contraceptive", @"snowplow",
                   @"chainsaw", @"parachute", @"greenhouse", @"beanie", @"slingshot", @"sledgehammer", @"anvil", @"petticoat", @"jewelry", @"tornado",
+                  @"boulder", @"castle", @"lighthouse", @"school", @"college", @"treehouse", @"quarry", @"bunker", @"tenement", @"mansion",
+                  @"attic", @"compound", @"suite", @"campus", @"airplane", @"riverbed", @"hillside", @"amphitheater", @"library", @"street",
+                  @"route", @"beach", @"reef", @"moon", @"planetoid", @"mall", @"forest", @"skyline", @"crypt", @"labyrinth",
                   nil] retain];
     };
     return list2;

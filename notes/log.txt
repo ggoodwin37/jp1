@@ -314,3 +314,8 @@ x cloud strips
 x hook up to world offset
 
 Then you can move on to some other stuff.
+
+- add mine
+- add jellyfish. u/d and l/r variations would be cool.
+- add cricket dudes.
+- add radbird (l/r variations).
