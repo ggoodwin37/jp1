@@ -16,6 +16,8 @@
 
 - investigate build mode, being the secondary button mode that allows you to directly manipulate the level within designated hotspots.
 
+- scenario: pushing a crate while standing on a wide moving platform. nothing happens, something to do with not doing parallel prop more than once for a given block. I think this might be an intentional recursion stop, maybe adding a depth parameter to allow a few more recursions would benefit gameplay. downside is that big stacks of crates might misbehave.
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // future
 
