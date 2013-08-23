@@ -30,6 +30,7 @@
 @property (nonatomic, assign) Emu gravityTallyForFrameSoFar;
 @property (nonatomic, assign) ASolidObject *gravityTallyOwningSO;  // weak
 @property (nonatomic, assign) BOOL newAbuttersThisFrame;
+@property (nonatomic, assign) BOOL didBounceThisFrame;
 
 -(void)copyAbuttingBlocksFromElbowRoom:(NSObject<IElbowRoom> *)er forDirection:(ERDirection)dir;
 -(void)removeAbuttersForGroup:(BlockGroup *)group forDirection:(ERDirection)dir;
@@ -57,5 +58,6 @@
 -(void)resetForSO:(ASolidObject *)solidObject;
 
 -(NSArray *)lazyGetAbuttListForSO:(ASolidObject *)solidObject inER:(NSObject<IElbowRoom> *)er direction:(ERDirection)dir;
+-(void)tryBounceNode:(ASolidObject *)node onXAxis:(BOOL)xAxis;
 
 @end

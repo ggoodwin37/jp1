@@ -297,13 +297,9 @@
 
     // world state updaters
 
-    // TODO: verify that this isn't needed anymore, then remove it completely. This was causing
-    //       double bounces for motive blocks (monsters sticking together). Bounce seems to happen
-    //       correctly without this via the mechanism in propagateMovement. Need to do some archeology
-    //       to see if there was a particular case that needed this.
-    //updater = [[OpposingMotiveUpdater alloc] initWithElbowRoom:m_elbowRoom frameCache:m_worldFrameCache];
-    //[m_worldStateBlockUpdaters addObject:updater];
-    //[updater release];
+    updater = [[OpposingMotiveUpdater alloc] initWithElbowRoom:m_elbowRoom frameCache:m_worldFrameCache];
+    [m_worldStateBlockUpdaters addObject:updater];
+    [updater release];
     
     updater = [[ApplyMotiveUpdater alloc] initWithElbowRoom:m_elbowRoom frameCache:m_worldFrameCache];
     [m_frameStateBlockUpdaters addObject:updater];

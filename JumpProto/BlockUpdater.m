@@ -301,7 +301,7 @@
         {
             // note: assume that the opposee will take care of this check from its perspective, during its turn.
             BOOL xAxis = (dir == ERDirLeft || dir == ERDirRight);
-            [solidObject bouncedOnXAxis:xAxis];
+            [m_worldFrameCache tryBounceNode:solidObject onXAxis:xAxis];
             return;  // only bounce at most once per frame.
         }
     }

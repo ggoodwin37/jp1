@@ -319,5 +319,12 @@ Then you can move on to some other stuff.
 - add jellyfish. u/d and l/r variations would be cool.
   - or: a state machine jellyfish that goes up until it hits something, then turns right, then turns down, then turns left. right hand and left hand versions.
 - add cricket dudes (future?).
-- add radbird (l/r variations) (future?).
+o add radbird (l/r variations) (future?).
+
+8-22
+
+Idea: bombs. Wouldn't be very hard to implement and would add lots of scenarios. How do bombs get lit?
+Idea: a moving platform that has state machine rules like the jellyfish I mentioned earlier. Basically a flying block with an interesting deterministic flight pattern.
+
+I'm not really in love with the radbird idea, it seemed cool at the time but not really cost to benefit ratio right now.
 

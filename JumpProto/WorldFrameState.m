@@ -13,7 +13,7 @@
 
 @implementation WorldFrameCacheEntry
 
-@synthesize gravityTallyForFrameSoFar, gravityTallyOwningSO, newAbuttersThisFrame;
+@synthesize gravityTallyForFrameSoFar, gravityTallyOwningSO, newAbuttersThisFrame, didBounceThisFrame;
 
 -(id)init
 {
@@ -31,6 +31,7 @@
         self.gravityTallyForFrameSoFar = 0;
         self.gravityTallyOwningSO = nil;
         self.newAbuttersThisFrame = NO;
+        self.didBounceThisFrame = NO;
     }
     return self;
 }
@@ -271,6 +272,7 @@
     thisEntry.gravityTallyForFrameSoFar = 0;
     thisEntry.gravityTallyOwningSO = nil;
     thisEntry.newAbuttersThisFrame = NO;
+    thisEntry.didBounceThisFrame = NO;
 }
 
 
@@ -319,5 +321,15 @@
     return [cacheEntry getAbuttListForDirection:dir];
 }
 
+
+-(void)tryBounceNode:(ASolidObject *)node onXAxis:(BOOL)xAxis
+{
+    WorldFrameCacheEntry *cacheEntry = [self ensureEntryForSO:node];
+    if( !cacheEntry.didBounceThisFrame )
+    {
+        [node bouncedOnXAxis:xAxis];
+        cacheEntry.didBounceThisFrame = YES;
+    }
+}
 
 @end

@@ -291,7 +291,7 @@
     {
         if( !didBounce )
         {
-            [node bouncedOnXAxis:xAxis];
+            [m_worldFrameCache tryBounceNode:node onXAxis:xAxis];
         }
         
         // no movement, so nothing to propagate to perpendicular.
@@ -390,9 +390,13 @@
 
 // handle fixed (non-accelerating, non-accumulating) velocity adjustments here.
 // main example is conveyors.
-// TODO: moving platforms currently are affected by conveyors, probably need a props.affectByGravity check in here.
 -(EmuPoint)getVOffsetForSO:(ASolidObject *)solidObject
 {
+    if( ![solidObject getProps].affectedByGravity )
+    {
+        return EmuPointMake( 0, 0 );
+    }
+    
     // check for conveyor abutters.
     Emu xConveyorContribution = 0;
     NSArray *downAbutters = [m_worldFrameCache lazyGetAbuttListForSO:solidObject inER:m_elbowRoom direction:ERDirDown];
