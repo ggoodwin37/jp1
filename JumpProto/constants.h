@@ -124,6 +124,9 @@
 #define TINYFUZZ_LR_ACCEL (40000)
 #define TINYFUZZ_LR_MAX_V (2500)
 
+// tiny-jelly values
+#define TINYJELLY_V (2200)
+
 #define SPRING_VY (30000)
 
 #define PLAYER_DEAD_GIB_COUNT  (15)

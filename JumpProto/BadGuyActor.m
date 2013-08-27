@@ -396,6 +396,44 @@
 }
 
 
-// TODO
+// override
+-(void)setPropsForActorBlock
+{
+    [super setPropsForActorBlock];
+    m_actorBlock.props.affectedByGravity = NO;
+    m_actorBlock.props.hurtyMask = BlockEdgeDirMask_Full;
+    
+    int sign = m_facingPositive ? 1 : -1;
+    Emu xComponent = m_xAxis ? (sign * TINYJELLY_V) : 0;
+    Emu yComponent = m_xAxis ? 0 : (sign * TINYJELLY_V);
+    [m_actorBlock setV:EmuPointMake(xComponent, yComponent) ];
+}
+
+
+// override
+-(void)updateCurrentAnimState
+{
+    [super updateCurrentAnimState];
+    
+    static const float animDur = 0.5f;
+    if( m_actorBlock != nil )
+    {
+        NSString *animName = @"tiny-creep-jelly-wobble";
+        m_actorBlock.defaultSpriteState = [[[AnimSpriteState alloc] initWithAnimName:animName animDur:animDur] autorelease];
+    }
+}
+
+
+// override
+-(void)bouncedOnXAxis:(BOOL)xAxis
+{
+    [super bouncedOnXAxis:xAxis];
+    if( xAxis != m_xAxis ) return;  // if we bounced on the other axis than our primary motion axis, do nothing.
+    
+    EmuPoint oldV = [m_actorBlock getV];
+    Emu xComponent = m_xAxis ? -oldV.x : 0;
+    Emu yComponent = m_xAxis ? 0 : -oldV.y;
+    [m_actorBlock setV:EmuPointMake(xComponent, yComponent) ];
+}
 
 @end

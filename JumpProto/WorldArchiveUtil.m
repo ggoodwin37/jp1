@@ -261,8 +261,6 @@
         // TODO creeps
         case EBlockPreset_tiny_creep_martian:
         case EBlockPreset_tiny_creep_mosquito:
-        case EBlockPreset_tiny_creep_jelly_LR:
-        case EBlockPreset_tiny_creep_jelly_UD:
             block.props.hurtyMask = BlockEdgeDirMask_Full;
             break;
             
