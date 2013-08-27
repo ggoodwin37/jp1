@@ -373,3 +373,29 @@
 }
 
 @end
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// TinyJellyActor
+
+@implementation TinyJellyActor
+
+-(id)initAtStartingPoint:(EmuPoint)p onXAxis:(BOOL)xAxis
+{
+    if( self = [super initAtStartingPoint:p] )
+    {
+        m_xAxis = xAxis;
+        m_facingPositive = YES;
+    }
+    return self;
+}
+
+
+-(void)dealloc
+{
+    [super dealloc];
+}
+
+
+// TODO
+
+@end

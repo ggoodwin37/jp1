@@ -261,7 +261,8 @@
         // TODO creeps
         case EBlockPreset_tiny_creep_martian:
         case EBlockPreset_tiny_creep_mosquito:
-        case EBlockPreset_tiny_creep_jelly:
+        case EBlockPreset_tiny_creep_jelly_LR:
+        case EBlockPreset_tiny_creep_jelly_UD:
             block.props.hurtyMask = BlockEdgeDirMask_Full;
             break;
             
@@ -528,7 +529,6 @@
 
         case EBlockPreset_tiny_creep_martian: //return @"tiny-creep-martian-0";
         case EBlockPreset_tiny_creep_mosquito: //return @"tiny-creep-mosquito-0";
-        case EBlockPreset_tiny_creep_jelly: //return @"tiny-creep-jelly-0";
             return nil; // TODO: actors
             
         case EBlockPreset_tiny_redblu_red: return @"tiny-redblu-red-off";  // pretends initial blu-is-on state
@@ -644,7 +644,8 @@
         case EBlockPreset_tiny_creep_fuzz_r:
         //case EBlockPreset_tiny_creep_martian:
         //case EBlockPreset_tiny_creep_mosquito:
-        //case EBlockPreset_tiny_creep_jelly:
+        case EBlockPreset_tiny_creep_jelly_LR:
+        case EBlockPreset_tiny_creep_jelly_UD:
             return YES;
 
         case EBlockPreset_tiny_playerStart:
@@ -689,6 +690,11 @@
             
         case EBlockPreset_tiny_autolift:
             return [[[TinyAutoLiftActor alloc] initAtStartingPoint:pStart withSizeInUnits:blockSizeInUnits] autorelease];
+            
+        case EBlockPreset_tiny_creep_jelly_LR:
+            return [[[TinyJellyActor alloc] initAtStartingPoint:pStart onXAxis:YES] autorelease];
+        case EBlockPreset_tiny_creep_jelly_UD:
+            return [[[TinyJellyActor alloc] initAtStartingPoint:pStart onXAxis:NO] autorelease];
             
         default:
             NSLog( @"don't know how to create actor for preset." );

@@ -64,3 +64,16 @@ typedef enum FaceboneStateEnum FaceboneState;
 @end
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// TinyJellyActor
+
+@interface TinyJellyActor : BadGuyActor
+{
+    BOOL m_xAxis;
+    BOOL m_facingPositive;
+}
+
+-(id)initAtStartingPoint:(EmuPoint)p onXAxis:(BOOL)xAxis;
+
+@end
+
+
