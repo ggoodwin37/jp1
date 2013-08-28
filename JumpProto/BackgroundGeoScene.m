@@ -13,6 +13,17 @@
 
 
 // ------------------------
+@interface BaseStrip : NSObject
+
+@property (nonatomic, assign) float depth;
+
+-(id)initWithDepth:(float)depth;
+-(float)scaleXForDepth:(float)xIn;
+-(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs;
+
+@end
+
+
 @implementation BaseStrip
 
 @synthesize depth;
@@ -69,6 +80,7 @@
     GLbyte *m_colorBuf;
     LinkedList *m_elList;
     float m_totalListWidth;  // how wide (in screen coords) is one walk down the list?
+    float m_inherentOffset;  // shift this layer to avoid lining up with others. could be used for animation in future.
 }
 
 @property (nonatomic, retain) RectCoordBuffer *rectBuf;
@@ -92,7 +104,6 @@
 
         const size_t colorBufSize = 4 * 6 * sizeof(GLbyte);  // 6 points since we are using triangles mode.
         m_colorBuf = (GLbyte *)malloc( colorBufSize );
-        
     }
     return self;
 }
@@ -118,6 +129,7 @@
         [m_elList enqueueData:thisEl];
         m_totalListWidth += [thisEl getWidth];
     }
+    m_inherentOffset = frandrange( 0.f, m_totalListWidth );  // apply a random offset for now.
 }
 
 
@@ -145,7 +157,7 @@
 // override
 -(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs
 {
-    float xOffsScaled = [self scaleXForDepth:xOffs];
+    float xOffsScaled = [self scaleXForDepth:(xOffs + m_inherentOffset)];
     float xOffsScaledNormalized = xOffsScaled - (m_totalListWidth * floorf( xOffsScaled / m_totalListWidth ) );
     
     // starting from head, burn through nodes until we've skipped over enough to meet the scaled, normalized offset.

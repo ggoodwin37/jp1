@@ -20,18 +20,6 @@
 #define STRIP_DEPTH_MAX (100.f)
 
 // ------------------------
-@interface BaseStrip : NSObject
-
-@property (nonatomic, assign) float depth;
-
--(id)initWithDepth:(float)depth;
--(float)scaleXForDepth:(float)xIn;
--(void)drawWithXOffs:(float)xOffs yOffs:(float)yOffs;
-
-@end
-
-
-// ------------------------
 @interface BaseStripScene : NSObject
 {
     NSMutableArray *m_stripList;

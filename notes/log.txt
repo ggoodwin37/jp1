@@ -328,6 +328,11 @@ Idea: a moving platform that has state machine rules like the jellyfish I mentio
 
 I'm not really in love with the radbird idea, it seemed cool at the time but not really cost to benefit ratio right now.
 
-8-27
+8-28
 
-Idea: some concept of groups sharing properties. example if I group a floating platform with a bunch of crates, I should be able to make a floating platform that moves the crates along with it.
+shortlist todos:
+- background strip offsets
+- push block on platform propagate case. what will break if we just remove this check? large crate stacks? that's not even a super interesting scenario.
+- add mine
+- implement button actor. the event firing part will just no-op for now, but can get all the physics worked out now, so we'll be ready to test event stuff once it starts coming online.
+- start looking at background layers. design. I think this will be a prerequisite for event stuff.
