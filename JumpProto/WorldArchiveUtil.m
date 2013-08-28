@@ -264,6 +264,13 @@
             block.props.hurtyMask = BlockEdgeDirMask_Full;
             break;
             
+        case EBlockPreset_tiny_mineCrate:
+            block.props.canMoveFreely = YES;
+            block.props.affectedByGravity = YES;
+            block.props.affectedByFriction = YES;
+            block.props.hurtyMask = BlockEdgeDirMask_Full;
+            break;
+            
         default:
             break;
     }
@@ -533,6 +540,7 @@
         case EBlockPreset_tiny_redblu_blu: return @"tiny-redblu-blu-on";
         case EBlockPreset_tiny_bl_ice: return @"tiny-bl-ice";
         case EBlockPreset_tiny_aiBounceHint: return nil;
+        case EBlockPreset_tiny_mineCrate: return @"tiny-creep-mine";
   
         default:
             return nil;

@@ -353,6 +353,7 @@
     PCL_ADD( EBlockPreset_tiny_creep_mosquito, @"mosquito", @"" );
     PCL_ADD( EBlockPreset_tiny_creep_jelly_LR, @"jellyLR", @"" );
     PCL_ADD( EBlockPreset_tiny_creep_jelly_UD, @"jellyUD", @"" );
+    PCL_ADD( EBlockPreset_tiny_mineCrate, @"mineCrate", @"" );
     
     // leave these out for now, useless without beam logic which is a long way off.
     //PCL_ADD( EBlockPreset_tiny_hbeam_emitter_l, @"hbeam-left", @"" );
