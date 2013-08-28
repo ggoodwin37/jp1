@@ -224,6 +224,7 @@
         [groupPropStack addObject:[NSNumber numberWithUnsignedInt:thisGroup.groupId]];
     }
     
+    // handle parallel propagation
     BOOL didBounce = NO;
     if( !perpProp && !oppParaProp )
     {
@@ -333,6 +334,7 @@
         return didMoveOffset;
     }
     
+    // handle perpendicular propagation
     Emu thisAbutterDidMove;
     NSArray *upAbuttList = [m_worldFrameCache lazyGetAbuttListForSO:node inER:m_elbowRoom direction:ERDirUp];
     for( int i = 0; i < [upAbuttList count]; ++i )

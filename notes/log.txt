@@ -331,7 +331,7 @@ I'm not really in love with the radbird idea, it seemed cool at the time but not
 8-28
 
 shortlist todos:
-- background strip offsets
+x background strip offsets
 - push block on platform propagate case. what will break if we just remove this check? large crate stacks? that's not even a super interesting scenario.
 - add mine
 - implement button actor. the event firing part will just no-op for now, but can get all the physics worked out now, so we'll be ready to test event stuff once it starts coming online.
