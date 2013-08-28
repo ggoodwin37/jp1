@@ -241,6 +241,7 @@
             paraAbuttList = [m_worldFrameCache lazyGetAbuttListForSO:node inER:m_elbowRoom direction:dir];
         }
         Emu attTargetOffset = targetOffset * 1;  // future: some attenuation here?
+        
         for( int i = 0; i < [paraAbuttList count]; ++i )
         {
             ASolidObject *thisAbutter = (ASolidObject *)[paraAbuttList objectAtIndex:i];
@@ -285,6 +286,28 @@
     
     // perform the actual move!
     Emu didMoveOffset = [self performMoveForNode:node targetOffset:targetOffset isXAxis:xAxis];
+    
+    // cheesy: recurse again if we just bumped into something without completing our desired move (for player only).
+    //         this helps situations where we can't push a block while riding a conveyor or platform since the
+    //         block doesn't register as an abutter if it moves away from us slightly mid-frame.
+    if( didMoveOffset != targetOffset && didMoveOffset != 0 && targetOffset != 0 && [node getProps].isPlayerBlock )
+    {
+        // nuke cached abutters since we probably have new ones now.
+        ERDirection dir;
+        if( targetOffset > 0 )
+        {
+            dir = xAxis ? ERDirRight : ERDirUp;
+        }
+        else
+        {
+            dir = xAxis ? ERDirLeft : ERDirDown;
+        }
+        [[m_worldFrameCache ensureEntryForSO:node] clearAbuttListForDirection:dir];
+
+        Emu remainder = targetOffset - didMoveOffset;
+        return [self doRecurseForNode:node targetOffset:remainder isXAxis:xAxis isPerpProp:perpProp
+                 isOppParaProp:oppParaProp originSO:originSO groupPropStack:groupPropStack depth:(depth + 1)];
+    }
     
     // if we newly gain abutters, wait a frame before bouncing. This allows us to observe an "opposing motive"
     //  bounce with higher priority (by checking earlier next frame than "true" bounce).

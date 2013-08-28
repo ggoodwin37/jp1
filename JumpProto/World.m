@@ -399,14 +399,6 @@
         }
 
         // the player's block is not in the worldSO list so update it now.
-        // note: it's preferable to do this last because this gives us the best chance of
-        //        registering abutting blocks against the player. this allows us to e.g.
-        //        push a crate forward on a conveyor. if player was updated first, the
-        //        moving crate would move away from the player mid-frame, so the abutter
-        //        check at start of a frame won't see the block abutting the player, so we
-        //        can't push it. There's probably a more general solution out there somewhere
-        //        and this won't fix some cases where non-player blocks are supposed to push
-        //        other non-player, moving blocks.
         if( updatePlayer && m_playerActor.actorBlock != nil )
         {
             [thisUpdater updateSolidObject:m_playerActor.actorBlock withTimeDelta:timeDelta];
