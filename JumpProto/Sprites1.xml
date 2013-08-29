@@ -74,12 +74,22 @@
         <NextSprite />
     </SpriteDefRun>
 
-    <!-- button kit 4x4 -->
+    <!-- event lights 4x4 -->
     <SpriteDefRun resourceName="tiny-debut-1.png" xStart="40" yStart="16" xEnd="48" spriteWidth="4" spriteHeight="4" worldWidth="2" worldHeight="2">
         <NextSprite name="tiny-light1-off" />
-        <NextSprite name="tiny-btn1-plate" />
-        <NextSprite name="tiny-btn1-rod" />
+        <NextSprite />
+        <NextSprite />
         <NextSprite name="tiny-light1-on" />
+    </SpriteDefRun>
+    
+    <!-- button plate: 4x2 -->
+    <SpriteDefRun resourceName="tiny-debut-1.png" xStart="44" yStart="18" xEnd="48" spriteWidth="4" spriteHeight="2" worldWidth="2" worldHeight="1">
+        <NextSprite name="tiny-btn1-plate" />
+    </SpriteDefRun>
+    
+    <!-- button trigger: 2x4 -->
+    <SpriteDefRun resourceName="tiny-debut-1.png" xStart="41" yStart="20" xEnd="43" spriteWidth="2" spriteHeight="4" worldWidth="1" worldHeight="2">
+        <NextSprite name="tiny-btn1-trigger" />
     </SpriteDefRun>
     
     <!-- supertiny kit 4x4 -->

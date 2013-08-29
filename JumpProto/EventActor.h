@@ -11,6 +11,21 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// TinyBtn1Actor
 
-@interface TinyBtn1Actor : Actor
+enum TinyBtn1StateEnum
+{
+    TinyBtn1State_Resting,
+    TinyBtn1State_Triggered,
+    TinyBtn1State_Resetting,
+};
+typedef enum TinyBtn1StateEnum TinyBtn1State;
+
+@interface TinyBtn1Actor : Actor {
+    TinyBtn1State m_currentState;
+    float m_timeRemainingInCurrentState;
+    
+    ActorBlock *m_stopperBlock;
+    ActorBlock *m_triggerBlock;
+    ActorBlock *m_plateBlock;
+}
 
 @end

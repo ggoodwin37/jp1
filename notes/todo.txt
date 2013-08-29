@@ -10,8 +10,15 @@
 
 - investigate build mode, being the secondary button mode that allows you to directly manipulate the level within designated hotspots.
 
+- consider changing propagate logic such that you have to be standing on solid ground in order to push something. this is slightly more realistic and also increases the playability of blocks (now we can use them as one-way-doors, etc.)
+
+- spikes shouldn't kill you if there is also at least one non-hurty downAbutter. likewise for other triggers (springs, goal, etc) in all directions. this might actually be hard to implement since we tend to do collision checks on a block-by-block basis.
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // future
+
+-player and creeps (and herds) should be able to step up small blocks. how hard is this to implement? it doesnt happen instantaneously. bounces shouldnt trigger. what about pushing crates, probably shouldnt be able to step up while pushing a crate (and that's impossible to implement well).
 
 - implement the restricted rect version of EWorldView drawToContext for better perf while drawing blocks.
   - you already are culling to view rect in the main grid document drawer, but I think there's an optional separate version of the draw method that only updates a certain rect. then we can invalidate just specific parts of the screen when drawing/erasing, should make editing snappier (until the user pans/zooms).
