@@ -151,6 +151,8 @@
         <NextSprite name="tiny-redblu-red-on" />
         <NextSprite name="tiny-redblu-blu-off" />
         <NextSprite name="tiny-redblu-blu-on" />
+        <NextSprite />
+        <NextSprite name="tiny-spring-up" />
     </SpriteDefRun>
     <SpriteDefRun resourceName="tiny-2.png" xStart="32" yStart="0" xEnd="40" spriteWidth="4" spriteHeight="4">
         <NextSprite name="tiny-redblu-btn-red-plate" />

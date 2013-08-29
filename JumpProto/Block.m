@@ -341,8 +341,7 @@
         if( ([other getProps].springyMask & otherMask) > 0 )
         {
             EmuPoint oldV = [self getV];
-            Emu vy = MIN( SPRING_VY, oldV.y + SPRING_VY );
-            EmuPoint newV = EmuPointMake( oldV.x, vy );
+            EmuPoint newV = EmuPointMake( oldV.x, SPRING_VY );
             [self setV:newV];
             didBounce = YES;
         }

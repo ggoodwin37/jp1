@@ -340,6 +340,7 @@
     PCL_ADD( EBlockPreset_tiny_mv_plat_r, @"mvplat-right", @"" );
     PCL_ADD( EBlockPreset_tiny_bl_ice, @"ice", @"" );
     PCL_ADD( EBlockPreset_tiny_aiBounceHint, @"ai-bounce", @"" );
+    PCL_ADD( EBlockPreset_tiny_springUp, @"spring-up", @"" );
     PCL_CATDONE();
     
     PCL_CAT( @"creeps/ouch" );

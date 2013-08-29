@@ -270,7 +270,11 @@
             block.props.affectedByFriction = YES;
             block.props.hurtyMask = BlockEdgeDirMask_Full;
             break;
-            
+
+        case EBlockPreset_tiny_springUp:
+            block.props.springyMask = BlockEdgeDirMask_Up;
+            break;
+
         default:
             break;
     }
@@ -541,6 +545,7 @@
         case EBlockPreset_tiny_bl_ice: return @"tiny-bl-ice";
         case EBlockPreset_tiny_aiBounceHint: return nil;
         case EBlockPreset_tiny_mineCrate: return @"tiny-creep-mine";
+        case EBlockPreset_tiny_springUp: return @"tiny-spring-up";  // TODO: consider converting this to an actor so we can do a "boing" effect.
   
         default:
             return nil;

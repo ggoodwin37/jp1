@@ -145,6 +145,7 @@
         case EBlockPreset_tiny_bl_ice: return @"tiny-bl-ice";
         case EBlockPreset_tiny_aiBounceHint: return @"tiny-ai-bounce-edithint";
         case EBlockPreset_tiny_mineCrate: return @"tiny-creep-mine";
+        case EBlockPreset_tiny_springUp: return @"tiny-spring-up";
             
         default:
             return @"icon_close";  // TODO: better "unknown" tile?

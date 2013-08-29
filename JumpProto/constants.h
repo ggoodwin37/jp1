@@ -135,5 +135,5 @@
 // misc world physics/prop values
 #define MOVING_PLATFORM_RIGHT_MEDIUM_VX ( 2560 )
 #define CONVEYOR_VX                     ( 3800 )
-#define PULL_DOWN_THRESHOLD             ( -180 )
+#define PULL_DOWN_THRESHOLD             ( -380 )
 
