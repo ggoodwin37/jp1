@@ -39,24 +39,40 @@
 
 -(void)spawnActorBlocks
 {
-    // each button owns three blocks: the stopper, trigger, and plate.
+    // each button owns four blocks: the bottom, the stopper, the trigger, and the plate.
+    // some values have an offset of 1 so that the trigger block doesn't get fouled up on the level block beneath the button.
+    
+    EmuPoint bottomPoint = EmuPointMake( m_startingPoint.x + (3 * ONE_BLOCK_SIZE_Emu / 2), m_startingPoint.y - (3 * ONE_BLOCK_SIZE_Emu) );
+    m_bottomBlock = [[ActorBlock alloc] initAtPoint:bottomPoint];
+    m_bottomBlock.state.d = EmuSizeMake( 1 * ONE_BLOCK_SIZE_Emu, 1 * ONE_BLOCK_SIZE_Emu );
+    m_bottomBlock.owningActor = self;
+    m_bottomBlock.props.canMoveFreely = NO;
+    m_bottomBlock.props.affectedByGravity = NO;
+    m_bottomBlock.props.affectedByFriction = NO;
+    m_bottomBlock.props.solidMask = BlockEdgeDirMask_Up;
+    //m_bottomBlock.defaultSpriteState = nil;  // bottom block doesn't have a visual representation.
+    m_bottomBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"tiny-btn1-plate"] autorelease];  // TEST
+    [m_actorBlockList addObject:m_bottomBlock];
+    [m_world.elbowRoom addBlock:m_bottomBlock];
+
     EmuPoint stopperPoint = EmuPointMake( m_startingPoint.x + ONE_BLOCK_SIZE_Emu, m_startingPoint.y - ONE_BLOCK_SIZE_Emu );
     m_stopperBlock = [[ActorBlock alloc] initAtPoint:stopperPoint];
-    m_stopperBlock.state.d = EmuSizeMake( 2 * ONE_BLOCK_SIZE_Emu, 1 * ONE_BLOCK_SIZE_Emu );
+    m_stopperBlock.state.d = EmuSizeMake( 2 * ONE_BLOCK_SIZE_Emu, 1 * ONE_BLOCK_SIZE_Emu - 1 );
     m_stopperBlock.owningActor = self;
     m_stopperBlock.props.canMoveFreely = YES;
     m_stopperBlock.props.immovable = YES;
     m_stopperBlock.props.affectedByGravity = NO;
     m_stopperBlock.props.affectedByFriction = NO;
     m_stopperBlock.props.initialVelocity = EmuPointMake( 0, 0 );
-    m_stopperBlock.props.solidMask = BlockEdgeDirMask_Up;
-    m_stopperBlock.defaultSpriteState = nil;  // stopper block doesn't have a visual representation.
+    m_stopperBlock.props.solidMask = BlockEdgeDirMask_Up | BlockEdgeDirMask_Down;
+    //m_stopperBlock.defaultSpriteState = nil;  // stopper block doesn't have a visual representation.
+    m_stopperBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"tiny-btn1-plate"] autorelease];  // TEST
     [m_actorBlockList addObject:m_stopperBlock];
     [m_world.elbowRoom addBlock:m_stopperBlock];
     
-    EmuPoint triggerPoint = EmuPointMake( m_startingPoint.x + (3 * ONE_BLOCK_SIZE_Emu / 2), m_startingPoint.y );
+    EmuPoint triggerPoint = EmuPointMake( m_startingPoint.x + (3 * ONE_BLOCK_SIZE_Emu / 2), m_startingPoint.y - 1 );
     m_triggerBlock = [[ActorBlock alloc] initAtPoint:triggerPoint];
-    m_triggerBlock.state.d = EmuSizeMake( 1 * ONE_BLOCK_SIZE_Emu, 2 * ONE_BLOCK_SIZE_Emu );
+    m_triggerBlock.state.d = EmuSizeMake( 1 * ONE_BLOCK_SIZE_Emu, 2 * ONE_BLOCK_SIZE_Emu + 1 );
     m_triggerBlock.owningActor = self;
     m_triggerBlock.props.canMoveFreely = YES;
     m_triggerBlock.props.immovable = YES;
@@ -68,9 +84,9 @@
     [m_actorBlockList addObject:m_triggerBlock];
     [m_world.elbowRoom addBlock:m_triggerBlock];
 
-    EmuPoint platePoint = EmuPointMake( m_startingPoint.x + (1 * ONE_BLOCK_SIZE_Emu), m_startingPoint.y );
+    EmuPoint platePoint = EmuPointMake( m_startingPoint.x + (1 * ONE_BLOCK_SIZE_Emu), m_startingPoint.y - 1 );
     m_plateBlock = [[ActorBlock alloc] initAtPoint:platePoint];
-    m_plateBlock.state.d = EmuSizeMake( 2 * ONE_BLOCK_SIZE_Emu, 1 * ONE_BLOCK_SIZE_Emu );
+    m_plateBlock.state.d = EmuSizeMake( 2 * ONE_BLOCK_SIZE_Emu, 1 * ONE_BLOCK_SIZE_Emu + 1 );
     m_plateBlock.owningActor = self;
     m_plateBlock.props.canMoveFreely = NO;
     m_plateBlock.props.affectedByGravity = NO;
@@ -87,36 +103,6 @@
 {
     [self spawnActorBlocks];
     m_lifeState = ActorLifeState_Alive;  // actor remains alive indefinitely, even when the actorBlock is temporarily gone.
-}
-
-
--(void)goNextState
-{
-//    switch( m_currentState )
-//    {
-//        case Crumbles1State_Crumbling:
-//            m_currentState = Crumbles1State_Gone;
-//            m_timeRemainingInCurrentState = CRUMBLES1_GONETIME;
-//            [self onGone];
-//            break;
-//        case Crumbles1State_Gone:
-//            m_currentState = Crumbles1State_Reappearing;
-//            m_timeRemainingInCurrentState = CRUMBLES1_REAPPEARTIME;
-//            [self onReappear];
-//            break;
-//        case Crumbles1State_Reappearing:
-//            m_currentState = Crumbles1State_Chillin;
-//            break;
-//            
-//        case Crumbles1State_Chillin:
-//            NSAssert( NO, @"no state updates for Chillin" );
-//            break;
-//            
-//        default:
-//            NSLog( @"goNextState: unrecognized crumbles state." );
-//            break;
-//    }
-//    [self updateCurrentAnimStateForCrumbles1];
 }
 
 
@@ -139,11 +125,32 @@
     NSAssert( m_currentState == TinyBtn1State_Resetting, @"Assume we must be in resetting state since we already checked the others." );
 
     // TODO
-//    m_timeRemainingInCurrentState -= delta;
-//    if( m_timeRemainingInCurrentState <= 0.f )
-//    {
-//        [self goNextState];
-//    }
+}
+
+
+-(void)updateForCurrentState
+{
+    if( m_currentState == TinyBtn1State_Resting )
+    {
+        return;
+    }
+    if( m_currentState == TinyBtn1State_Triggered )
+    {
+        // set stopper block to down velocity.
+        const Emu stopperDown = -3000;
+        [m_stopperBlock setV:EmuPointMake( 0, stopperDown )];
+        return;
+    }
+    if( m_currentState == TinyBtn1State_Resetting )
+    {
+        // TODO
+    }
+}
+
+-(void)onTriggered
+{
+    NSLog( @"A button was triggered!" );
+    // TODO: plug in gigantic event system here.
 }
 
 
@@ -166,28 +173,13 @@
         // only care about collisions on the trigger block.
         return;
     }
-    NSLog( @"tiny-btn1 collidedInto triggerBlock!" );
-    
-    
-    
-//    BOOL triggered;
-//#if 0
-//    // since crumbles doesn't move, we only get collision events from other SOs that
-//    // moved into us. so this method will be getting called from their perspective,
-//    // meaning we're actually listening for the Up direction to trigger us.
-//    triggered = (dir == ERDirUp);
-//#else
-//    // on second thought, just trigger it from any direction.
-//    triggered = YES;
-//#endif
-//    if( triggered )
-//    {
-//        m_currentState = Crumbles1State_Crumbling;
-//        m_timeRemainingInCurrentState = CRUMBLES1_CRUMBLETIME;
-//        [self updateCurrentAnimStateForCrumbles1];
-//    }
+
+    // hook into the event system.
+    [self onTriggered];
+
+    // handle the details of this actor's behavior.
+    m_currentState = TinyAutoLiftActor_Trigged;
+    [self updateForCurrentState];
 }
-
-
 
 @end
