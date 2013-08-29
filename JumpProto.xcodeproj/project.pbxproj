@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		931D35B117A644210048B466 /* tiny-edit-hints.png in Resources */ = {isa = PBXBuildFile; fileRef = 931D35B017A644210048B466 /* tiny-edit-hints.png */; };
+		932CBA7B17CEDD5900A2D7DD /* EventActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 932CBA7A17CEDD5900A2D7DD /* EventActor.m */; };
 		932DD07917974A3100375642 /* RectCoordBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 932DD07817974A3100375642 /* RectCoordBuffer.m */; };
 		9337102017A606E20080C6EB /* RandomNameGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9337101F17A606E20080C6EB /* RandomNameGenerator.m */; };
 		9359C28217B176C900AA0B15 /* LinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9359C28117B176C900AA0B15 /* LinkedList.m */; };
@@ -142,6 +143,8 @@
 /* Begin PBXFileReference section */
 		930FFDF717A3574A00735149 /* IElbowRoom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IElbowRoom.h; sourceTree = "<group>"; };
 		931D35B017A644210048B466 /* tiny-edit-hints.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-edit-hints.png"; path = "images/tiny-edit-hints.png"; sourceTree = "<group>"; };
+		932CBA7917CEDD5900A2D7DD /* EventActor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventActor.h; sourceTree = "<group>"; };
+		932CBA7A17CEDD5900A2D7DD /* EventActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventActor.m; sourceTree = "<group>"; };
 		932DD07717974A3100375642 /* RectCoordBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RectCoordBuffer.h; sourceTree = "<group>"; };
 		932DD07817974A3100375642 /* RectCoordBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RectCoordBuffer.m; sourceTree = "<group>"; };
 		9337101E17A606E20080C6EB /* RandomNameGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomNameGenerator.h; sourceTree = "<group>"; };
@@ -420,6 +423,8 @@
 				9386061D17A5ED8A00A544B5 /* PlayerActor.m */,
 				9386061F17A5ED9C00A544B5 /* BadGuyActor.h */,
 				9386062017A5ED9C00A544B5 /* BadGuyActor.m */,
+				932CBA7917CEDD5900A2D7DD /* EventActor.h */,
+				932CBA7A17CEDD5900A2D7DD /* EventActor.m */,
 			);
 			name = Actor;
 			sourceTree = "<group>";
@@ -942,6 +947,7 @@
 				93630AAC17B0D2EA00AA8D5D /* BackgroundGeoScene.m in Sources */,
 				9359C28217B176C900AA0B15 /* LinkedList.m in Sources */,
 				93E01FCC17C31CCD00708802 /* ColorRectLayerView.m in Sources */,
+				932CBA7B17CEDD5900A2D7DD /* EventActor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

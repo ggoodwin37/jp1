@@ -1,0 +1,16 @@
+//
+//  EventActor.h
+//  JumpProto
+//
+//  Created by Gideon iOS on 8/28/13.
+//
+//
+
+#import <Foundation/Foundation.h>
+#import "Actor.h"
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// TinyBtn1Actor
+
+@interface TinyBtn1Actor : Actor
+
+@end

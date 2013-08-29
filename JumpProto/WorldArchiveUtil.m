@@ -13,6 +13,7 @@
 #import "Emu.h"
 #import "LevelUtil.h"
 #import "BadGuyActor.h"
+#import "EventActor.h"
 
 @implementation WorldArchiveUtil
 
@@ -702,9 +703,7 @@
             return [[[TinyJellyActor alloc] initAtStartingPoint:pStart onXAxis:NO] autorelease];
             
         case EBlockPreset_tiny_btn1:
-            // TODO
-            //return [[[TinyBtn1Actor alloc] initAtStartingPoint:pStart] autorelease];
-            return nil;
+            return [[[TinyBtn1Actor alloc] initAtStartingPoint:pStart] autorelease];
             
         default:
             NSLog( @"don't know how to create actor for preset." );
