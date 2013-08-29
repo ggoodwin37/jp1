@@ -6,8 +6,6 @@
 - Conrad's vulgar anvil:
   - riding a lift with a crate and the player is not smooth.
 
-- pushing a crate on a moving platform is weird (related to opposing motive updater I removed for a different reason...)
-
 
 // old
 

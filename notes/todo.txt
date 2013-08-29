@@ -1,8 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // near term
 
-- bg: need to add concept of offset per strip. this will allow us to stagger layers and also be animatable for moving clouds etc.
-
 - fix death state. gibs are weird, camera sometimes flies away, and actor's original block appears to still be hit testing (or did I fix that already?)
 
 - button v1? also need horizontal button kits.
@@ -11,8 +9,6 @@
 - tweak air friction to less
 
 - investigate build mode, being the secondary button mode that allows you to directly manipulate the level within designated hotspots.
-
-- scenario: pushing a crate while standing on a wide moving platform. nothing happens, something to do with not doing parallel prop more than once for a given block. I think this might be an intentional recursion stop, maybe adding a depth parameter to allow a few more recursions would benefit gameplay. downside is that big stacks of crates might misbehave.
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // future
