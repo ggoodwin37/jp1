@@ -39,8 +39,7 @@ typedef enum ActorLifeStateEnum ActorLifeState;
 {
 @public
     World *m_world;
-    NSArray *m_actorBlockList;
-    ActorBlock *m_actorBlock;
+    NSMutableArray *m_actorBlockList;
     ActorLifeState m_lifeState;   // lifestate of the actor, not same as state of the block
     float m_lifeStateTimer;
     EmuPoint m_startingPoint;
@@ -53,6 +52,8 @@ typedef enum ActorLifeStateEnum ActorLifeState;
 @property (nonatomic, assign) float lifeStateTimer;
 
 -(id)initAtStartingPoint:(EmuPoint)p;
+
+-(ActorBlock *)getDefaultActorBlock;
 
 -(void)updateLifeStateWithTimeDelta:(float)delta;
 

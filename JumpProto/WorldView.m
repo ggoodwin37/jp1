@@ -228,7 +228,7 @@ float smoothRatio( float inputRatio )
 
 -(CGRect)setupCurrentView
 {
-    ActorBlock *playerBlock = [[m_world getPlayerActor].actorBlockList objectAtIndex:0];
+    ActorBlock *playerBlock = [[m_world getPlayerActor] getDefaultActorBlock];
     if( playerBlock != nil )
     {
         [m_camera updateWithActorBlock:playerBlock minY:m_world.yBottom];
@@ -295,7 +295,7 @@ float smoothRatio( float inputRatio )
 
 -(void)drawPlayerDying_cheezy1:(PlayerActor *)playerActor
 {
-    ActorBlock *playerActorBlock = [playerActor.actorBlockList objectAtIndex:0];
+    ActorBlock *playerActorBlock = [playerActor getDefaultActorBlock];
     // just do a cheezy zoom-in thingie for now.
     NSAssert( playerActor.lifeState == ActorLifeState_Dying, @"drawPlayerDying_cheezy1: unexpected life state." );
     NSAssert( playerActorBlock != nil, @"need player's actorBlock" );
@@ -317,7 +317,7 @@ float smoothRatio( float inputRatio )
 
 -(void)drawPlayerWinning_cheezy1:(PlayerActor *)playerActor
 {
-    ActorBlock *playerActorBlock = [playerActor.actorBlockList objectAtIndex:0];
+    ActorBlock *playerActorBlock = [playerActor getDefaultActorBlock];
     // just do a cheezy zoom-in thingie for now.
     NSAssert( playerActor.lifeState == ActorLifeState_Winning, @"drawPlayerWinning_cheezy1: unexpected life state." );
     NSAssert( playerActorBlock != nil, @"need player's actorBlock" );
@@ -449,7 +449,7 @@ float smoothRatio( float inputRatio )
     switch( playerLifeState )
     {
         case ActorLifeState_Alive:
-            playerActorBlock = [[m_world getPlayerActor].actorBlockList objectAtIndex:0];
+            playerActorBlock = [[m_world getPlayerActor] getDefaultActorBlock];
             if( playerActorBlock != nil )
             {
                 [self tryDrawOneSpriteBlock:playerActorBlock withViewRect:viewRect];

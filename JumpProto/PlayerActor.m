@@ -23,7 +23,6 @@
     if( self = [super initAtStartingPoint:startingPoint] )
     {
         m_eventQueue = [[NSMutableArray arrayWithCapacity:5] retain];
-        m_actorBlock = nil;
         
         m_walkAccel = PLAYERINPUT_LR_ACCEL;
         m_walkMaxV = PLAYERINPUT_LR_MAX_V;
@@ -64,12 +63,13 @@
 
 -(void)updateCurrentAnimStateForPlayer
 {
-    if( m_actorBlock == nil )
+    ActorBlock *actorBlock = [self getDefaultActorBlock];
+    if( actorBlock == nil )
     {
         return;
     }
 
-    BOOL isFlipped = m_actorBlock.defaultSpriteState.isFlipped;
+    BOOL isFlipped = actorBlock.defaultSpriteState.isFlipped;
     SpriteState *targetState = nil;
     
     // I almost wanted to reuse this code but it's only used in a few places,
@@ -99,10 +99,10 @@
     }
     // else don't change.
     
-    NSArray *downAbutters =  [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirDown];
+    NSArray *downAbutters =  [m_world.frameCache lazyGetAbuttListForSO:actorBlock inER:m_world.elbowRoom direction:ERDirDown];
     if( [downAbutters count] == 0 ) { // mid-air
         if( lSignal ) {
-            NSArray *leftAbutters =  [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirLeft];
+            NSArray *leftAbutters =  [m_world.frameCache lazyGetAbuttListForSO:actorBlock inER:m_world.elbowRoom direction:ERDirLeft];
             for( int i = 0; i < [leftAbutters count]; ++i ) {
                 ASolidObject *thisSO = (ASolidObject *)[leftAbutters objectAtIndex:i];
                 if( [thisSO getProps].isWallJumpable ) {
@@ -112,7 +112,7 @@
             }
             
         } else if( rSignal ) {
-            NSArray *rightAbutters =  [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirRight];
+            NSArray *rightAbutters =  [m_world.frameCache lazyGetAbuttListForSO:actorBlock inER:m_world.elbowRoom direction:ERDirRight];
             for( int i = 0; i < [rightAbutters count]; ++i ) {
                 ASolidObject *thisSO = (ASolidObject *)[rightAbutters objectAtIndex:i];
                 if( [thisSO getProps].isWallJumpable ) {
@@ -122,7 +122,7 @@
             }
         }
         if( targetState == nil ) { // didn't find one yet
-            Emu vY = [m_actorBlock getV].y;
+            Emu vY = [actorBlock getV].y;
             if( vY > 0 ) {
                 targetState = m_jumpUpSpriteState;
             } else {
@@ -137,8 +137,8 @@
         }
     }
     
-    m_actorBlock.defaultSpriteState = targetState;
-    m_actorBlock.defaultSpriteState.isFlipped = isFlipped;
+    actorBlock.defaultSpriteState = targetState;
+    actorBlock.defaultSpriteState.isFlipped = isFlipped;
 }
 
 
@@ -210,19 +210,21 @@
     NSLog( @"playerActor: onBorn" );
     m_lifeState = ActorLifeState_Alive;
     
-    m_actorBlock = [[ActorBlock alloc] initAtPoint:m_startingPoint];
-    m_actorBlock.props.canMoveFreely = YES;
-    m_actorBlock.props.affectedByGravity = YES;
-    m_actorBlock.props.affectedByFriction = YES;  // TODO: we used to handle this separately, still needed?
-    m_actorBlock.props.isPlayerBlock = YES;
+    ActorBlock *actorBlock = [[ActorBlock alloc] initAtPoint:m_startingPoint];
+    [m_actorBlockList addObject:actorBlock];
     
-    NSLog( @"created player's actorBlock, token=%u", (unsigned int)[m_actorBlock getProps].token );
+    actorBlock.props.canMoveFreely = YES;
+    actorBlock.props.affectedByGravity = YES;
+    actorBlock.props.affectedByFriction = YES;  // TODO: we used to handle this separately, still needed?
+    actorBlock.props.isPlayerBlock = YES;
     
-    m_actorBlock.owningActor = self;
-    m_actorBlock.state.d = EmuSizeMake( PLAYER_WIDTH, PLAYER_HEIGHT );
+    NSLog( @"created player's actorBlock, token=%u", (unsigned int)[actorBlock getProps].token );
+    
+    actorBlock.owningActor = self;
+    actorBlock.state.d = EmuSizeMake( PLAYER_WIDTH, PLAYER_HEIGHT );
     
     // must come after dimensions have been set.
-    [m_world.elbowRoom addBlock:m_actorBlock];
+    [m_world.elbowRoom addBlock:actorBlock];
     
     [self updateCurrentAnimStateForPlayer];
 }
@@ -238,11 +240,12 @@
 -(void)spawnGibsOnDeath
 {
     m_isGibbed = YES;
+    ActorBlock *actorBlock = [self getDefaultActorBlock];
     
     const EmuSize gibSize = EmuSizeMake( ONE_BLOCK_SIZE_Emu * 2, ONE_BLOCK_SIZE_Emu * 2 );
     for( int i = 0; i < PLAYER_DEAD_GIB_COUNT; ++i )
     {
-        EmuRect thisRect = EmuRectMake( m_actorBlock.x, m_actorBlock.y, gibSize.width, gibSize.height );
+        EmuRect thisRect = EmuRectMake( actorBlock.x, actorBlock.y, gibSize.width, gibSize.height );
         
         NSString *thisSpriteDefName = [self getRandomGibName];
         SpriteState *thisSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:thisSpriteDefName] autorelease];
@@ -309,13 +312,12 @@
 {
     NSLog( @"playerActor: onWon" );
     m_lifeState = ActorLifeState_Won;
+    [m_actorBlockList removeObjectAtIndex:0];
     
-    m_actorBlock = nil;
     if( m_world != nil )
     {
         [m_world onPlayerWon];
     }
-    
 }
 
 
@@ -374,10 +376,11 @@
             rSignal = m_isDirRightPressed;
         }
         
+        ActorBlock *actorBlock = [self getDefaultActorBlock];
         BOOL stillWallJumping = NO;
         if( lSignal )
         {
-            NSArray *abutters = [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirLeft];
+            NSArray *abutters = [m_world.frameCache lazyGetAbuttListForSO:actorBlock inER:m_world.elbowRoom direction:ERDirLeft];
             for( int i = 0; i < [abutters count]; ++i )
             {
                 ASolidObject *thisSO = (ASolidObject *)[abutters objectAtIndex:i];
@@ -390,7 +393,7 @@
         }
         else if( rSignal )
         {
-            NSArray *abutters = [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirRight];
+            NSArray *abutters = [m_world.frameCache lazyGetAbuttListForSO:actorBlock inER:m_world.elbowRoom direction:ERDirRight];
             for( int i = 0; i < [abutters count]; ++i )
             {
                 ASolidObject *thisSO = (ASolidObject *)[abutters objectAtIndex:i];

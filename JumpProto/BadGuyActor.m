@@ -18,18 +18,10 @@
 {
     if( self = [super initAtStartingPoint:p] )
     {
-        m_actorBlock = nil;
         m_lifeState = ActorLifeState_NotBornYet;
         m_lifeStateTimer = BADGUY_NOTBORNYET_TIME;
     }
     return self;
-}
-
-
--(void)dealloc
-{
-    [super dealloc];
-    NSAssert( m_actorBlock == nil, @"expected actorBlock to get cleared." );
 }
 
 
@@ -58,14 +50,15 @@
 
 -(void)setPropsForActorBlock
 {
-    m_actorBlock.props.canMoveFreely = YES;
-    m_actorBlock.props.affectedByGravity = YES;
-    m_actorBlock.props.affectedByFriction = NO; // walking friction handled specially.
-    m_actorBlock.props.followsAiHints = YES;
-    m_actorBlock.props.immovable = YES;  // some types of badguys may want to be moveable.
+    ActorBlock *actorBlock = [self getDefaultActorBlock];
+    actorBlock.props.canMoveFreely = YES;
+    actorBlock.props.affectedByGravity = YES;
+    actorBlock.props.affectedByFriction = NO; // walking friction handled specially.
+    actorBlock.props.followsAiHints = YES;
+    actorBlock.props.immovable = YES;  // some types of badguys may want to be moveable.
     
     // by default, badGuys are hurty on every edge except top edge (so player can stand on them). This can be overridden by subclasses.
-    m_actorBlock.props.hurtyMask = BlockEdgeDirMask_Left | BlockEdgeDirMask_Right | BlockEdgeDirMask_Down;
+    actorBlock.props.hurtyMask = BlockEdgeDirMask_Left | BlockEdgeDirMask_Right | BlockEdgeDirMask_Down;
 }
 
 
@@ -76,14 +69,16 @@
     
     m_lifeState = ActorLifeState_Alive;
     
-    m_actorBlock = [[ActorBlock alloc] initAtPoint:m_startingPoint];
-    m_actorBlock.owningActor = self;
-    m_actorBlock.state.d = [self getActorBlockSize];
+    ActorBlock *actorBlock = [[ActorBlock alloc] initAtPoint:m_startingPoint];
+    [m_actorBlockList addObject:actorBlock];
+    
+    actorBlock.owningActor = self;
+    actorBlock.state.d = [self getActorBlockSize];
     
     [self setPropsForActorBlock];
     
     // must come after dimensions have been set.
-    [m_world.elbowRoom addBlock:m_actorBlock];
+    [m_world.elbowRoom addBlock:actorBlock];
     
     [self updateCurrentAnimState];
 }
@@ -97,12 +92,11 @@
     m_lifeState = ActorLifeState_Dying;
     m_lifeStateTimer = BADGUY_DYING_TIME;
     
+    ActorBlock *actorBlock = [self getDefaultActorBlock];
     // remove the ER representation of this actor so that we don't continue to clip during death
-    NSAssert( m_actorBlock != nil, @"need actorBlock removed from ER." );
-    [m_world.elbowRoom removeBlock:m_actorBlock];
-    
-    [m_actorBlock release];
-    m_actorBlock = nil;  // don't allow world to continue to update our block.
+    NSAssert( actorBlock != nil, @"need actorBlock removed from ER." );
+    [m_world.elbowRoom removeBlock:actorBlock];
+    [m_actorBlockList removeObjectAtIndex:0];
 }
 
 
@@ -168,9 +162,10 @@
     [super updateCurrentAnimState];
     
     static const float runningAnimDur = 0.5f;
-    if( m_actorBlock != nil )
+    ActorBlock *actorBlock = [self getDefaultActorBlock];
+    if( actorBlock != nil )
     {
-        m_actorBlock.defaultSpriteState = [[[AnimSpriteState alloc] initWithAnimName:[self getAnimDefName] animDur:runningAnimDur] autorelease];
+        actorBlock.defaultSpriteState = [[[AnimSpriteState alloc] initWithAnimName:[self getAnimDefName] animDur:runningAnimDur] autorelease];
     }
 }
 
@@ -194,13 +189,13 @@
     {
         m_walkingLeft = YES;
         m_walkingRight = NO;
-        m_actorBlock.defaultSpriteState.isFlipped = YES;
+        [self getDefaultActorBlock].defaultSpriteState.isFlipped = YES;
     }
     else
     {
         m_walkingLeft = NO;
         m_walkingRight = YES;
-        m_actorBlock.defaultSpriteState.isFlipped = NO;
+        [self getDefaultActorBlock].defaultSpriteState.isFlipped = NO;
     }
 }
 
@@ -218,10 +213,11 @@
     // zero the bounced velocity component so that we have a chance to accelerate in the
     // new direction before bouncing again.
     // future: it's actually more realisitic for this to just flip sign sometimes (think bouncing ball)
-    EmuPoint oldV = [m_actorBlock getV];
+    ActorBlock *actorBlock = [self getDefaultActorBlock];
+    EmuPoint oldV = [actorBlock getV];
     Emu xComponent = xAxis ? 0 : oldV.x;
     Emu yComponent = xAxis ? oldV.y : 0;
-    [m_actorBlock setV:EmuPointMake(xComponent, yComponent) ];
+    [actorBlock setV:EmuPointMake(xComponent, yComponent) ];
 }
 
 @end
@@ -284,7 +280,8 @@
 {
     [super updateCurrentAnimState];
     
-    if( m_actorBlock == nil )
+    ActorBlock *actorBlock = [self getDefaultActorBlock];
+    if( actorBlock == nil )
     {
         return;
     }
@@ -295,12 +292,12 @@
     {
         case FaceboneState_Chillin:
         case FaceboneState_Jumping:
-            m_actorBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"badguy_faceBone0"] autorelease];
+            actorBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"badguy_faceBone0"] autorelease];
             break;
             
         case FaceboneState_FakeOut:
         case FaceboneState_GettingReadyToJump:
-            m_actorBlock.defaultSpriteState = [[[AnimSpriteState alloc] initWithAnimName:@"faceBoneMenace" animDur:menaceAnimDur] autorelease];
+            actorBlock.defaultSpriteState = [[[AnimSpriteState alloc] initWithAnimName:@"faceBoneMenace" animDur:menaceAnimDur] autorelease];
             break;
             
         default:
@@ -308,9 +305,9 @@
             break;
     }
     
-    ActorBlock *playerActorBlock = [[m_world getPlayerActor].actorBlockList objectAtIndex:0];
-    BOOL playerToLeft = playerActorBlock.x < m_actorBlock.x;
-    m_actorBlock.defaultSpriteState.isFlipped = playerToLeft;
+    ActorBlock *playerActorBlock = [[m_world getPlayerActor] getDefaultActorBlock];
+    BOOL playerToLeft = playerActorBlock.x < actorBlock.x;
+    actorBlock.defaultSpriteState.isFlipped = playerToLeft;
 }
 
 // override
@@ -401,13 +398,14 @@
 -(void)setPropsForActorBlock
 {
     [super setPropsForActorBlock];
-    m_actorBlock.props.affectedByGravity = NO;
-    m_actorBlock.props.hurtyMask = BlockEdgeDirMask_Full;
+    ActorBlock *actorBlock = [self getDefaultActorBlock];
+    actorBlock.props.affectedByGravity = NO;
+    actorBlock.props.hurtyMask = BlockEdgeDirMask_Full;
     
     int sign = m_facingPositive ? 1 : -1;
     Emu xComponent = m_xAxis ? (sign * TINYJELLY_V) : 0;
     Emu yComponent = m_xAxis ? 0 : (sign * TINYJELLY_V);
-    [m_actorBlock setV:EmuPointMake(xComponent, yComponent) ];
+    [actorBlock setV:EmuPointMake(xComponent, yComponent) ];
 }
 
 
@@ -417,10 +415,11 @@
     [super updateCurrentAnimState];
     
     static const float animDur = 0.5f;
-    if( m_actorBlock != nil )
+    ActorBlock *actorBlock = [self getDefaultActorBlock];
+    if( actorBlock != nil )
     {
         NSString *animName = @"tiny-creep-jelly-wobble";
-        m_actorBlock.defaultSpriteState = [[[AnimSpriteState alloc] initWithAnimName:animName animDur:animDur] autorelease];
+        actorBlock.defaultSpriteState = [[[AnimSpriteState alloc] initWithAnimName:animName animDur:animDur] autorelease];
     }
 }
 
@@ -431,10 +430,11 @@
     [super bouncedOnXAxis:xAxis];
     if( xAxis != m_xAxis ) return;  // if we bounced on the other axis than our primary motion axis, do nothing.
     
-    EmuPoint oldV = [m_actorBlock getV];
+    ActorBlock *actorBlock = [self getDefaultActorBlock];
+    EmuPoint oldV = [actorBlock getV];
     Emu xComponent = m_xAxis ? -oldV.x : 0;
     Emu yComponent = m_xAxis ? 0 : -oldV.y;
-    [m_actorBlock setV:EmuPointMake(xComponent, yComponent) ];
+    [actorBlock setV:EmuPointMake(xComponent, yComponent) ];
 }
 
 @end

@@ -31,7 +31,7 @@
         m_lifeState = ActorLifeState_None;
         m_lifeStateTimer = 0.f;
         
-        m_actorBlockList = nil;
+        m_actorBlockList = [[NSMutableArray arrayWithCapacity:4] retain];
     }
     return self;
 }
@@ -41,8 +41,13 @@
 {
     m_world = nil;
     [m_actorBlockList release]; m_actorBlockList = nil;
-    [m_actorBlock release]; m_actorBlock = nil;
     [super dealloc];
+}
+
+
+-(ActorBlock *)getDefaultActorBlock
+{
+    return [m_actorBlockList count] == 0 ? nil : [m_actorBlockList objectAtIndex:0];
 }
 
 
@@ -240,7 +245,9 @@
 {
     [super updateForJumpingStateWithTimeDelta:delta];
     
-    if( m_actorBlock == nil )
+    ActorBlock *actorBlock = [self getDefaultActorBlock];
+    
+    if( actorBlock == nil )
     {
         return;
     }
@@ -256,7 +263,7 @@
     }
     
     // if they are standing on solid ground, reset the jump counter
-    NSArray *downEdgeList = [m_world.frameCache lazyGetAbuttListForSO:m_actorBlock inER:m_world.elbowRoom direction:ERDirDown];
+    NSArray *downEdgeList = [m_world.frameCache lazyGetAbuttListForSO:actorBlock inER:m_world.elbowRoom direction:ERDirDown];
     BOOL fOnGround = ( [downEdgeList count] > 0 );
     if( fOnGround )
     {
@@ -377,7 +384,8 @@
 
 -(void)updateCurrentAnimStateForCrumbles1
 {
-    if( m_actorBlock == nil )
+    ActorBlock *actorBlock = [self getDefaultActorBlock];
+    if( actorBlock == nil )
     {
         return;
     }
@@ -388,12 +396,12 @@
     switch( m_currentState )
     {
         case Crumbles1State_Chillin:
-            m_actorBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:spriteResourceName] autorelease];
+            actorBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:spriteResourceName] autorelease];
             break;
 
         case Crumbles1State_Crumbling:
             animSpriteState = [[[AnimSpriteState alloc] initWithAnimName:spriteResourceName animDur:CRUMBLES1_CRUMBLETIME] autorelease];
-            m_actorBlock.defaultSpriteState = animSpriteState;
+            actorBlock.defaultSpriteState = animSpriteState;
             animSpriteState.wrap = NO;
             break;
             
@@ -403,7 +411,7 @@
             
         case Crumbles1State_Reappearing:
             animSpriteState = [[[AnimSpriteState alloc] initWithAnimName:spriteResourceName animDur:CRUMBLES1_REAPPEARTIME] autorelease];
-            m_actorBlock.defaultSpriteState = animSpriteState;
+            actorBlock.defaultSpriteState = animSpriteState;
             animSpriteState.wrap = NO;
             break;
 
@@ -411,30 +419,32 @@
             NSLog( @"updateCurrentAnimStateForCrumbles1: unrecognized crumbles state." );
             break;
     }
-    m_actorBlock.defaultSpriteState.isFlipped = NO;
+    actorBlock.defaultSpriteState.isFlipped = NO;
 }
 
 
 -(void)spawnActorBlock
 {
-    m_actorBlock = [[ActorBlock alloc] initAtPoint:m_startingPoint];
-    m_actorBlock.owningActor = self;
-    m_actorBlock.props.canMoveFreely = NO;
-    m_actorBlock.props.affectedByGravity = NO;
-    m_actorBlock.props.affectedByFriction = NO;
-    m_actorBlock.props.bounceDampFactor = 0.f;    
-    m_actorBlock.props.initialVelocity = EmuPointMake( 0, 0 );
-    m_actorBlock.props.solidMask = BlockEdgeDirMask_Full;
-    m_actorBlock.props.xConveyor = 0.f;
-    m_actorBlock.props.hurtyMask = BlockEdgeDirMask_None;
-    m_actorBlock.props.isGoalBlock = NO;
-    m_actorBlock.props.isPlayerBlock = NO;
+    ActorBlock *actorBlock = [[ActorBlock alloc] initAtPoint:m_startingPoint];
+    [m_actorBlockList addObject:actorBlock];
+    
+    actorBlock.owningActor = self;
+    actorBlock.props.canMoveFreely = NO;
+    actorBlock.props.affectedByGravity = NO;
+    actorBlock.props.affectedByFriction = NO;
+    actorBlock.props.bounceDampFactor = 0.f;    
+    actorBlock.props.initialVelocity = EmuPointMake( 0, 0 );
+    actorBlock.props.solidMask = BlockEdgeDirMask_Full;
+    actorBlock.props.xConveyor = 0.f;
+    actorBlock.props.hurtyMask = BlockEdgeDirMask_None;
+    actorBlock.props.isGoalBlock = NO;
+    actorBlock.props.isPlayerBlock = NO;
 
-    m_actorBlock.state.d = EmuSizeMake( 4 * ONE_BLOCK_SIZE_Emu, 4 * ONE_BLOCK_SIZE_Emu );
+    actorBlock.state.d = EmuSizeMake( 4 * ONE_BLOCK_SIZE_Emu, 4 * ONE_BLOCK_SIZE_Emu );
 
-    NSAssert( m_actorBlock.state.d.width != 0 && m_actorBlock.state.d.height != 0, @"must come after dimensions have been set" );
+    NSAssert( actorBlock.state.d.width != 0 && actorBlock.state.d.height != 0, @"must come after dimensions have been set" );
     NSAssert( m_world != nil, @"need world's ER at spawn time" );
-    [m_world.elbowRoom addBlock:m_actorBlock];
+    [m_world.elbowRoom addBlock:actorBlock];
     
     [self updateCurrentAnimStateForCrumbles1];
 }
@@ -450,9 +460,10 @@
 
 -(void)onGone
 {
-    [m_world.elbowRoom removeBlock:m_actorBlock];
-    m_actorBlock.defaultSpriteState = nil;
-    [m_actorBlock release]; m_actorBlock = nil;
+    ActorBlock *actorBlock = [self getDefaultActorBlock];
+    [m_world.elbowRoom removeBlock:actorBlock];
+    actorBlock.defaultSpriteState = nil;
+    [m_actorBlockList removeObjectAtIndex:0];
 }
 
 
@@ -603,7 +614,8 @@
 
 -(void)updateCurrentAnimStateForTinyAutoLift
 {
-    if( m_actorBlock == nil )
+    ActorBlock *actorBlock = [self getDefaultActorBlock];
+    if( actorBlock == nil )
     {
         return;
     }
@@ -611,12 +623,12 @@
     {
         case TinyAutoLiftActor_Idle:
         case TinyAutoLiftActor_Coming:
-            [m_actorBlock setAllSpritesTo:m_idleSpriteState];
+            [actorBlock setAllSpritesTo:m_idleSpriteState];
             break;
             
         case TinyAutoLiftActor_Trigged:
         case TinyAutoLiftActor_Going:
-            [m_actorBlock setAllSpritesTo:m_activeSpriteState];
+            [actorBlock setAllSpritesTo:m_activeSpriteState];
             break;
             
         default:
@@ -632,26 +644,28 @@
     // TODO: this assumes the sprite->world factor is 4, should actually check although it would have to be
     //       the same for all sprites used by the actor I guess (true in this case).
     CGSize spriteStateMapSize = CGSizeMake( m_blockSizeInUnits.x / 4, m_blockSizeInUnits.y / 4 );
-    
+
     SpriteStateMap *spriteStateMap = [[[SpriteStateMap alloc] initWithSize:spriteStateMapSize] autorelease];
-    m_actorBlock = [[ActorBlock alloc] initAtPoint:m_startingPoint spriteStateMap:spriteStateMap];
-    m_actorBlock.owningActor = self;
-    m_actorBlock.props.canMoveFreely = YES;
-    m_actorBlock.props.affectedByGravity = NO;
-    m_actorBlock.props.affectedByFriction = NO;
-    m_actorBlock.props.bounceDampFactor = 0.f;
-    m_actorBlock.props.initialVelocity = EmuPointMake( 0, 0 );
-    m_actorBlock.props.solidMask = BlockEdgeDirMask_Full;
-    m_actorBlock.props.xConveyor = 0.f;
-    m_actorBlock.props.hurtyMask = BlockEdgeDirMask_None;
-    m_actorBlock.props.isGoalBlock = NO;
-    m_actorBlock.props.isPlayerBlock = NO;
-    m_actorBlock.props.immovable = YES;  // can't be moved by other blocks.
+    ActorBlock *actorBlock = [[ActorBlock alloc] initAtPoint:m_startingPoint spriteStateMap:spriteStateMap];
+    [m_actorBlockList addObject:actorBlock];
     
-    m_actorBlock.state.d = EmuSizeMake( m_blockSizeInUnits.x * ONE_BLOCK_SIZE_Emu, m_blockSizeInUnits.y * ONE_BLOCK_SIZE_Emu );
+    actorBlock.owningActor = self;
+    actorBlock.props.canMoveFreely = YES;
+    actorBlock.props.affectedByGravity = NO;
+    actorBlock.props.affectedByFriction = NO;
+    actorBlock.props.bounceDampFactor = 0.f;
+    actorBlock.props.initialVelocity = EmuPointMake( 0, 0 );
+    actorBlock.props.solidMask = BlockEdgeDirMask_Full;
+    actorBlock.props.xConveyor = 0.f;
+    actorBlock.props.hurtyMask = BlockEdgeDirMask_None;
+    actorBlock.props.isGoalBlock = NO;
+    actorBlock.props.isPlayerBlock = NO;
+    actorBlock.props.immovable = YES;  // can't be moved by other blocks.
+    
+    actorBlock.state.d = EmuSizeMake( m_blockSizeInUnits.x * ONE_BLOCK_SIZE_Emu, m_blockSizeInUnits.y * ONE_BLOCK_SIZE_Emu );
     
     NSAssert( m_world != nil, @"need world's ER at spawn time" );
-    [m_world.elbowRoom addBlock:m_actorBlock];
+    [m_world.elbowRoom addBlock:actorBlock];
     
     [self updateCurrentAnimStateForTinyAutoLift];
 }
@@ -706,11 +720,12 @@
 
 -(BOOL)checkIfVerticalMotionStoppedWithDelta:(float)delta
 {
-    if( m_actorBlock == nil )
+    ActorBlock *actorBlock = [self getDefaultActorBlock];
+    if( actorBlock == nil )
     {
         return NO;
     }
-    Emu currentY = m_actorBlock.y;
+    Emu currentY = actorBlock.y;
     if( currentY != m_lastRecordedY )
     {
         m_lastRecordedY = currentY;
@@ -746,7 +761,7 @@
                 m_currentState = TinyAutoLiftActor_Idle;
                 m_lastRecordedY = m_lastRecordedY - 123;
             }
-            [m_actorBlock setV:EmuPointMake( 0, 0 )];
+            [[self getDefaultActorBlock] setV:EmuPointMake( 0, 0 )];
             [self updateCurrentAnimStateForTinyAutoLift];
         }
     }

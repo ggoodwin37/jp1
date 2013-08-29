@@ -411,7 +411,7 @@
         // the player's block is not in the worldSO list so update it now.
         if( updatePlayer )
         {
-            ASolidObject *playerSO = [m_playerActor.actorBlockList objectAtIndex:0];
+            ASolidObject *playerSO = [m_playerActor getDefaultActorBlock];
             if( playerSO != nil )
             {
                 [thisUpdater updateSolidObject:playerSO withTimeDelta:timeDelta];
