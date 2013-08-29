@@ -113,7 +113,7 @@
     // this updater just sort of leeches time off the player's jump height if they are bumping their head.
     
     PlayerActor *playerActor = (PlayerActor *)actor;
-    ActorBlock *playerBlock = playerActor.actorBlock;    
+    ActorBlock *playerBlock = [playerActor.actorBlockList objectAtIndex:0];
     if( playerActor.currentJumpTimeRemaining > 0.f || playerBlock.state.v.y > 0 )
     {
         Emu upRoom = [self.world.elbowRoom getElbowRoomForSO:playerBlock inDirection:ERDirUp];

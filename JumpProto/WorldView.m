@@ -228,9 +228,10 @@ float smoothRatio( float inputRatio )
 
 -(CGRect)setupCurrentView
 {
-    if( [m_world getPlayerActor].actorBlock != nil )
+    ActorBlock *playerBlock = [[m_world getPlayerActor].actorBlockList objectAtIndex:0];
+    if( playerBlock != nil )
     {
-        [m_camera updateWithActorBlock:[m_world getPlayerActor].actorBlock minY:m_world.yBottom];
+        [m_camera updateWithActorBlock:playerBlock minY:m_world.yBottom];
     }
     else
     {
@@ -294,9 +295,10 @@ float smoothRatio( float inputRatio )
 
 -(void)drawPlayerDying_cheezy1:(PlayerActor *)playerActor
 {
+    ActorBlock *playerActorBlock = [playerActor.actorBlockList objectAtIndex:0];
     // just do a cheezy zoom-in thingie for now.
     NSAssert( playerActor.lifeState == ActorLifeState_Dying, @"drawPlayerDying_cheezy1: unexpected life state." );
-    NSAssert( playerActor.actorBlock != nil, @"need player's actorBlock" );
+    NSAssert( playerActorBlock != nil, @"need player's actorBlock" );
     
     float ratio = 1.f - playerActor.lifeStateTimer / PLAYER_DYING_TIME;   // 0 to 1
     ratio = 1.f - sinf( ratio * M_PI_2 );  // 1 to 0, smoothed
@@ -306,18 +308,19 @@ float smoothRatio( float inputRatio )
     targetWEm = fmaxf( targetWEm, 1.f );
     targetHEm = fmaxf( targetHEm, 1.f );
     
-    float targetXEm = playerActor.actorBlock.x + ((PLAYER_WIDTH - targetWEm) / 2.f);
-    float targetYEm = playerActor.actorBlock.y + ((PLAYER_HEIGHT - targetHEm) / 2.f);
+    float targetXEm = playerActorBlock.x + ((PLAYER_WIDTH - targetWEm) / 2.f);
+    float targetYEm = playerActorBlock.y + ((PLAYER_HEIGHT - targetHEm) / 2.f);
     
-    [SpriteStateDrawUtil drawSpriteForState:playerActor.actorBlock.defaultSpriteState x:EmuToFl( targetXEm ) y:EmuToFl( targetYEm ) w:EmuToFl( targetWEm ) h:EmuToFl( targetHEm )];
+    [SpriteStateDrawUtil drawSpriteForState:playerActorBlock.defaultSpriteState x:EmuToFl( targetXEm ) y:EmuToFl( targetYEm ) w:EmuToFl( targetWEm ) h:EmuToFl( targetHEm )];
 }
 
 
 -(void)drawPlayerWinning_cheezy1:(PlayerActor *)playerActor
 {
+    ActorBlock *playerActorBlock = [playerActor.actorBlockList objectAtIndex:0];
     // just do a cheezy zoom-in thingie for now.
     NSAssert( playerActor.lifeState == ActorLifeState_Winning, @"drawPlayerWinning_cheezy1: unexpected life state." );
-    NSAssert( playerActor.actorBlock != nil, @"need player's actorBlock" );
+    NSAssert( playerActorBlock != nil, @"need player's actorBlock" );
     
     float ratio = 1.f - playerActor.lifeStateTimer / PLAYER_WINNING_TIME;   // 0 to 1
     ratio = 1.f - cosf( ratio * M_PI_2 );  // 1 to 0, smoothed
@@ -328,10 +331,10 @@ float smoothRatio( float inputRatio )
     targetWEm = fmaxf( targetWEm, 1.f );
     targetHEm = fmaxf( targetHEm, 1.f );
     
-    float targetXEm = playerActor.actorBlock.x + ((PLAYER_WIDTH - targetWEm) / 2.f);
-    float targetYEm = playerActor.actorBlock.y + ((PLAYER_HEIGHT - targetHEm) / 2.f);
+    float targetXEm = playerActorBlock.x + ((PLAYER_WIDTH - targetWEm) / 2.f);
+    float targetYEm = playerActorBlock.y + ((PLAYER_HEIGHT - targetHEm) / 2.f);
     
-    [SpriteStateDrawUtil drawSpriteForState:playerActor.actorBlock.defaultSpriteState x:EmuToFl( targetXEm ) y:EmuToFl( targetYEm ) w:EmuToFl( targetWEm ) h:EmuToFl( targetHEm )];
+    [SpriteStateDrawUtil drawSpriteForState:playerActorBlock.defaultSpriteState x:EmuToFl( targetXEm ) y:EmuToFl( targetYEm ) w:EmuToFl( targetWEm ) h:EmuToFl( targetHEm )];
 }
 
 
@@ -413,37 +416,43 @@ float smoothRatio( float inputRatio )
     {
         Actor *thisNpc = (Actor *)[m_world.npcActors objectAtIndex:i];
         
-        switch( thisNpc.lifeState )
+        for( int j = 0; j < [thisNpc.actorBlockList count]; ++j )
         {
-            case ActorLifeState_Alive:
-                if( thisNpc.actorBlock != nil )
-                {
-                    SpriteBlock *thisBlock = (SpriteBlock *)thisNpc.actorBlock;
-                    [self tryDrawOneSpriteBlock:thisBlock withViewRect:viewRect];
-                }
-                break;
+            ActorBlock *thisActorBlock = [thisNpc.actorBlockList objectAtIndex:j];
+            switch( thisNpc.lifeState )
+            {
+                case ActorLifeState_Alive:
+                    if( thisActorBlock != nil )
+                    {
+                        SpriteBlock *thisBlock = (SpriteBlock *)thisActorBlock;
+                        [self tryDrawOneSpriteBlock:thisBlock withViewRect:viewRect];
+                    }
+                    break;
+                    
+                case ActorLifeState_BeingBorn:
+                    // TODO
+                    break;
                 
-            case ActorLifeState_BeingBorn:
-                // TODO
-                break;
-            
-            case ActorLifeState_Dying:
-                // TODO
-                break;                
-                
-            default:
-                // don't draw anything for this state.
-                break;
+                case ActorLifeState_Dying:
+                    // TODO
+                    break;                
+                    
+                default:
+                    // don't draw anything for this state.
+                    break;
+            }
         }
     }
 
     ActorLifeState playerLifeState = [m_world getPlayerActor].lifeState;
+    ActorBlock *playerActorBlock;
     switch( playerLifeState )
     {
         case ActorLifeState_Alive:
-            if( [m_world getPlayerActor].actorBlock != nil )
+            playerActorBlock = [[m_world getPlayerActor].actorBlockList objectAtIndex:0];
+            if( playerActorBlock != nil )
             {
-                [self tryDrawOneSpriteBlock:[m_world getPlayerActor].actorBlock withViewRect:viewRect];
+                [self tryDrawOneSpriteBlock:playerActorBlock withViewRect:viewRect];
             }
             break;
         

@@ -308,7 +308,8 @@
             break;
     }
     
-    BOOL playerToLeft = [m_world getPlayerActor].actorBlock.x < m_actorBlock.x;
+    ActorBlock *playerActorBlock = [[m_world getPlayerActor].actorBlockList objectAtIndex:0];
+    BOOL playerToLeft = playerActorBlock.x < m_actorBlock.x;
     m_actorBlock.defaultSpriteState.isFlipped = playerToLeft;
 }
 

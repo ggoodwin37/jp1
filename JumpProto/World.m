@@ -148,12 +148,15 @@
     for( int i = 0; i < [m_npcActors count]; ++i )
     {
         Actor *thisActor = (Actor *)[m_npcActors objectAtIndex:i];
-        Block *thisBlock = thisActor.actorBlock;
-        if( thisBlock == nil ) continue;
-        xMin = MIN( xMin, thisBlock.x );
-        yMin = MIN( yMin, thisBlock.y );
-        xMax = MAX( xMax, thisBlock.x + thisBlock.w );
-        yMax = MAX( yMax, thisBlock.y + thisBlock.h );
+        for( int j = 0; j < [thisActor.actorBlockList count]; ++j )
+        {
+            Block *thisBlock = (Block *)[thisActor.actorBlockList objectAtIndex:j];
+            if( thisBlock == nil ) continue;
+            xMin = MIN( xMin, thisBlock.x );
+            yMin = MIN( yMin, thisBlock.y );
+            xMax = MAX( xMax, thisBlock.x + thisBlock.w );
+            yMax = MAX( yMax, thisBlock.y + thisBlock.h );
+        }
     }
     for( int i = 0; i < [m_worldSOs count]; ++i )
     {
@@ -190,10 +193,13 @@
     for( int i = 0; i < [m_npcActors count]; ++i )
     {
         Actor *thisActor = (Actor *)[m_npcActors objectAtIndex:i];
-        Block *thisBlock = thisActor.actorBlock;
-        if( thisBlock != nil )
+        for( int j = 0; j < [thisActor.actorBlockList count]; ++j )
         {
-            [m_elbowRoom addBlock:thisBlock];
+            Block *thisBlock = (Block *)[thisActor.actorBlockList objectAtIndex:j];
+            if( thisBlock != nil )
+            {
+                [m_elbowRoom addBlock:thisBlock];
+            }
         }
     }
     for( int i = 0; i < [m_worldSOs count]; ++i )
@@ -385,9 +391,13 @@
         for( int j = 0; j < [m_npcActors count]; ++j )
         {
             Actor *thisActor = (Actor *)[m_npcActors objectAtIndex:j];
-            if( thisActor.actorBlock != nil )
+            for( int k = 0; k < [thisActor.actorBlockList count]; ++k )
             {
-                [thisUpdater updateSolidObject:thisActor.actorBlock withTimeDelta:timeDelta];
+                ASolidObject *thisBlock = (ASolidObject *)[thisActor.actorBlockList objectAtIndex:k];
+                if( thisBlock != nil )
+                {
+                    [thisUpdater updateSolidObject:thisBlock withTimeDelta:timeDelta];
+                }
             }
         }
         
@@ -399,9 +409,13 @@
         }
 
         // the player's block is not in the worldSO list so update it now.
-        if( updatePlayer && m_playerActor.actorBlock != nil )
+        if( updatePlayer )
         {
-            [thisUpdater updateSolidObject:m_playerActor.actorBlock withTimeDelta:timeDelta];
+            ASolidObject *playerSO = [m_playerActor.actorBlockList objectAtIndex:0];
+            if( playerSO != nil )
+            {
+                [thisUpdater updateSolidObject:playerSO withTimeDelta:timeDelta];
+            }
         }
     }
 }
@@ -691,12 +705,15 @@
     for( int j = 0; j < [m_npcActors count]; ++j )
     {
         Actor *thisActor = (Actor *)[m_npcActors objectAtIndex:j];
-        ASolidObject *thisSO = thisActor.actorBlock;
-        NSAssert( ![thisSO isGroup], @"since when do we have group actors?" );
-        Block *thisBlock = (Block *)thisSO;
-        if( thisBlock.y < lowest )
+        for( int k = 0; k < [thisActor.actorBlockList count]; ++k )
         {
-            lowest = thisBlock.y;
+            ASolidObject *thisSO = [thisActor.actorBlockList objectAtIndex:k];
+            NSAssert( ![thisSO isGroup], @"since when do we have group actors?" );
+            Block *thisBlock = (Block *)thisSO;
+            if( thisBlock.y < lowest )
+            {
+                lowest = thisBlock.y;
+            }
         }
     }
     

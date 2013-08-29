@@ -15,7 +15,7 @@
 @implementation Actor
 
 @synthesize world = m_world;
-@synthesize actorBlock = m_actorBlock;
+@synthesize actorBlockList = m_actorBlockList;
 @synthesize lifeState = m_lifeState;
 @synthesize startingPoint = m_startingPoint;
 @synthesize lifeStateTimer = m_lifeStateTimer;
@@ -30,6 +30,8 @@
         
         m_lifeState = ActorLifeState_None;
         m_lifeStateTimer = 0.f;
+        
+        m_actorBlockList = nil;
     }
     return self;
 }
@@ -38,6 +40,7 @@
 -(void)dealloc
 {
     m_world = nil;
+    [m_actorBlockList release]; m_actorBlockList = nil;
     [m_actorBlock release]; m_actorBlock = nil;
     [super dealloc];
 }

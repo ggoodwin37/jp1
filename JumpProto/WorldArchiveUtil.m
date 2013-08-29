@@ -247,7 +247,6 @@
             break;
             
         // TODOs
-        case EBlockPreset_tiny_btn1:
         case EBlockPreset_tiny_bl_ice:
             break;
             
@@ -645,7 +644,7 @@
         // batch 2
         case EBlockPreset_tiny_crum:
         case EBlockPreset_tiny_autolift:
-        //case EBlockPreset_tiny_btn1:
+        case EBlockPreset_tiny_btn1:
         case EBlockPreset_tiny_creep_fuzz_l:
         case EBlockPreset_tiny_creep_fuzz_r:
         //case EBlockPreset_tiny_creep_martian:
@@ -701,6 +700,11 @@
             return [[[TinyJellyActor alloc] initAtStartingPoint:pStart onXAxis:YES] autorelease];
         case EBlockPreset_tiny_creep_jelly_UD:
             return [[[TinyJellyActor alloc] initAtStartingPoint:pStart onXAxis:NO] autorelease];
+            
+        case EBlockPreset_tiny_btn1:
+            // TODO
+            //return [[[TinyBtn1Actor alloc] initAtStartingPoint:pStart] autorelease];
+            return nil;
             
         default:
             NSLog( @"don't know how to create actor for preset." );
