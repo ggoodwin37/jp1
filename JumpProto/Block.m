@@ -9,6 +9,7 @@
 #import "Block.h"
 #import "constants.h"
 #import "BlockUpdater.h"
+#import "Actor.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// BlockState
 
@@ -566,7 +567,7 @@
 -(BOOL)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir
 {
     BOOL didBounce = [super collidedInto:node inDir:dir];
-    [self.owningActor collidedInto:node inDir:dir];
+    [self.owningActor collidedInto:node inDir:dir actorBlock:self];
     return didBounce;
 }
 

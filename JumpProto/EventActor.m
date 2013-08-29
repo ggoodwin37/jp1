@@ -148,17 +148,27 @@
 
 
 // override
--(void)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir
+-(void)collidedInto:(NSObject<ISolidObject> *)other inDir:(ERDirection)dir actorBlock:(ActorBlock *)origActorBlock
 {
-    // TODO: since we actually own more than one block, we need a way to tell which block got collided into.
-    //       we only care about (downward) collisions on the trigger block.
-    
-    [super collidedInto:node inDir:dir];
-    
+    [super collidedInto:other inDir:dir actorBlock:origActorBlock];
     if( m_currentState != TinyBtn1State_Resting )
     {
+        // only care about collisions if we are waiting to get trig'd.
         return;
     }
+    if( dir != ERDirUp )
+    {
+        // only care about up collisions (things landing on us).
+        return;
+    }
+    if( origActorBlock != m_triggerBlock )
+    {
+        // only care about collisions on the trigger block.
+        return;
+    }
+    NSLog( @"tiny-btn1 collidedInto triggerBlock!" );
+    
+    
     
 //    BOOL triggered;
 //#if 0

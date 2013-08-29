@@ -159,7 +159,7 @@
 }
 
 
--(void)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir
+-(void)collidedInto:(NSObject<ISolidObject> *)other inDir:(ERDirection)dir actorBlock:(ActorBlock *)origActorBlock
 {
 }
 
@@ -522,9 +522,9 @@
 
 
 // override
--(void)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir
+-(void)collidedInto:(NSObject<ISolidObject> *)other inDir:(ERDirection)dir actorBlock:(ActorBlock *)origActorBlock
 {
-    [super collidedInto:node inDir:dir];
+    [super collidedInto:other inDir:dir actorBlock:origActorBlock];
 
     if( m_currentState != Crumbles1State_Chillin )
     {
@@ -782,9 +782,9 @@
 
 
 // override
--(void)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir
+-(void)collidedInto:(NSObject<ISolidObject> *)other inDir:(ERDirection)dir actorBlock:(ActorBlock *)origActorBlock
 {
-    [super collidedInto:node inDir:dir];
+    [super collidedInto:other inDir:dir actorBlock:origActorBlock];
 
     if( m_currentState != TinyAutoLiftActor_Idle )
     {

@@ -512,9 +512,9 @@
 
 
 // override
--(void)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir
+-(void)collidedInto:(NSObject<ISolidObject> *)other inDir:(ERDirection)dir actorBlock:(ActorBlock *)origActorBlock
 {
-    [super collidedInto:node inDir:dir];
+    [super collidedInto:other inDir:dir actorBlock:origActorBlock];
     
     if( m_lifeState != ActorLifeState_Alive )
     {
@@ -522,7 +522,7 @@
     }
     
     BlockEdgeDirMask mask = [Block getOpposingEdgeMaskForDir:dir];
-    [self handleCollisionWithSO:node edgeMask:mask];
+    [self handleCollisionWithSO:other edgeMask:mask];
 }
 
 
