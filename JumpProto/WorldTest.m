@@ -906,7 +906,7 @@
         thisBlock.props.canMoveFreely = YES;
         thisBlock.props.affectedByGravity = NO;
         thisBlock.props.affectedByFriction = NO;
-        thisBlock.props.bounceDampFactor = 1.0f;   // bouncy
+        thisBlock.props.bounceFactor = -1.0f;   // bouncy
         thisBlock.props.initialVelocity = EmuPointMakeFromFl( vx, vy );
         
         [world addWorldBlock:thisBlock];
@@ -947,7 +947,7 @@
     thisBlock.props.canMoveFreely = YES;
     thisBlock.props.affectedByGravity = NO;
     thisBlock.props.affectedByFriction = NO;
-    thisBlock.props.bounceDampFactor = 1.0f;   // bouncy
+    thisBlock.props.bounceFactor = -1.0f;   // bouncy
     thisBlock.props.initialVelocity = EmuPointMakeFromFl( 20, 0 );
     [world addWorldBlock:thisBlock];
     
@@ -998,7 +998,7 @@
         thisBlock.props.canMoveFreely = YES;
         thisBlock.props.affectedByGravity = NO;
         thisBlock.props.affectedByFriction = NO;
-        thisBlock.props.bounceDampFactor = 1.0f;   // bouncy
+        thisBlock.props.bounceFactor = -1.0f;   // bouncy
         thisBlock.props.initialVelocity = EmuPointMakeFromFl( 100, 0 );
         [world addWorldBlock:thisBlock];
         
@@ -1073,7 +1073,7 @@
     thisBlock.props.canMoveFreely = m;
     thisBlock.props.affectedByGravity = g;
     thisBlock.props.affectedByFriction = NO;
-    thisBlock.props.bounceDampFactor = bdf;    
+    thisBlock.props.bounceFactor = bdf;
     thisBlock.props.initialVelocity = v;
     
     [world addWorldBlock:thisBlock];
@@ -1491,7 +1491,7 @@
     thisBlock.props.canMoveFreely = m;
     thisBlock.props.affectedByGravity = g;
     thisBlock.props.affectedByFriction = fr;
-    thisBlock.props.bounceDampFactor = bdf;    
+    thisBlock.props.bounceFactor = bdf;    
     thisBlock.props.initialVelocity = v;
     
     [world addWorldBlock:thisBlock];

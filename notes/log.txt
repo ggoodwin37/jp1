@@ -337,3 +337,7 @@ x add mine
 - implement button actor. the event firing part will just no-op for now, but can get all the physics worked out now, so we'll be ready to test event stuff once it starts coming online.
 - check gibs for low-hanging fixes.
 - start looking at background layers. design. I think this will be a prerequisite for event stuff.
+
+8-31
+
+I anticipate a problem with having the stopper block push the trigger back up during the reset phase since they are both marked immovable. Probably need to replace immovable with an int so that we can rank pushables. This will be useful in general.

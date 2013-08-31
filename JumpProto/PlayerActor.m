@@ -260,6 +260,7 @@
         thisGibBlock.props.canMoveFreely = YES;
         thisGibBlock.props.affectedByGravity = YES;
         thisGibBlock.props.initialVelocity = thisV;
+        thisGibBlock.props.bounceFactor = -1.f;
         
         [m_world addWorldBlock:thisGibBlock];
     }

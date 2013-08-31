@@ -26,7 +26,7 @@
     afBlockProps.canMoveFreely = blockProps.canMoveFreely;
     afBlockProps.affectedByGravity = blockProps.affectedByGravity;
     afBlockProps.affectedByFriction = blockProps.affectedByFriction;
-    afBlockProps.bounceDampFactor = blockProps.bounceDampFactor;
+    afBlockProps.bounceDampFactor = blockProps.bounceFactor;
     afBlockProps.initialVelocity = FlPointFromEmuPoint( blockProps.initialVelocity );
     return afBlockProps;
 }
@@ -80,7 +80,7 @@
 
         case EBlockPreset_MineFloat:
             block.props.canMoveFreely = YES;
-            block.props.bounceDampFactor = 1.f;    
+            block.props.bounceFactor = -1.f;
             block.props.initialVelocity = EmuPointMake( MOVING_PLATFORM_RIGHT_MEDIUM_VX * 0.9f, 0.f );
             block.props.hurtyMask = BlockEdgeDirMask_Full;
             break;
@@ -95,7 +95,7 @@
 
         case EBlockPreset_MovingPlatformRightMedium:
             block.props.canMoveFreely = YES;
-            block.props.bounceDampFactor = 1.f;    
+            block.props.bounceFactor = -1.f;
             block.props.initialVelocity = EmuPointMake( MOVING_PLATFORM_RIGHT_MEDIUM_VX, 0.f );
             break;
         
@@ -224,7 +224,7 @@
         
         case EBlockPreset_tiny_mv_plat_l:
             block.props.canMoveFreely = YES;
-            block.props.bounceDampFactor = 1.f;
+            block.props.bounceFactor = -1.f;
             block.props.initialVelocity = EmuPointMake( -MOVING_PLATFORM_RIGHT_MEDIUM_VX, 0.f );
             block.props.solidMask = BlockEdgeDirMask_Up | BlockEdgeDirMask_Left | BlockEdgeDirMask_Right;
             block.props.followsAiHints = YES;  // so it can bounce
@@ -232,7 +232,7 @@
             break;
         case EBlockPreset_tiny_mv_plat_r:
             block.props.canMoveFreely = YES;
-            block.props.bounceDampFactor = 1.f;
+            block.props.bounceFactor = -1.f;
             block.props.initialVelocity = EmuPointMake( MOVING_PLATFORM_RIGHT_MEDIUM_VX, 0.f );
             block.props.solidMask = BlockEdgeDirMask_Up | BlockEdgeDirMask_Left | BlockEdgeDirMask_Right;
             block.props.followsAiHints = YES;  // so it can bounce
@@ -287,7 +287,7 @@
     block.props.canMoveFreely = NO;
     block.props.affectedByGravity = NO;
     block.props.affectedByFriction = NO;
-    block.props.bounceDampFactor = 0.f;
+    block.props.bounceFactor = 0.f;
     block.props.initialVelocity = EmuPointMake( 0, 0 );
     block.props.solidMask = BlockEdgeDirMask_Full;
     block.props.xConveyor = 0.f;
@@ -617,7 +617,7 @@
         block.props.canMoveFreely = afBlock.props.canMoveFreely;
         block.props.affectedByGravity = afBlock.props.affectedByGravity;
         block.props.affectedByFriction = afBlock.props.affectedByFriction;
-        block.props.bounceDampFactor = afBlock.props.bounceDampFactor;    
+        block.props.bounceFactor = afBlock.props.bounceDampFactor;    
         block.props.initialVelocity = EmuPointFromFlPoint( afBlock.props.initialVelocity );
     }
 }

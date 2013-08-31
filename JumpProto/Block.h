@@ -57,7 +57,7 @@ typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 @property (nonatomic, assign) BOOL affectedByFriction;
 @property (nonatomic, assign) EmuPoint initialVelocity;  // this becomes vIntrinsic
 
-@property (nonatomic, assign) float bounceDampFactor;
+@property (nonatomic, assign) float bounceFactor;
 
 @property (nonatomic, assign) UInt32 solidMask;
 

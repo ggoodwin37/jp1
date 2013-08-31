@@ -85,7 +85,7 @@
 @implementation BlockProps
 
 @synthesize token = m_token, canMoveFreely = m_canMoveFreely, affectedByGravity = m_affectedByGravity;
-@synthesize bounceDampFactor = m_bounceDampFactor, affectedByFriction = m_affectedByFriction;
+@synthesize bounceFactor = m_bounceFactor, affectedByFriction = m_affectedByFriction;
 @synthesize initialVelocity = m_initialVelocity, solidMask = m_solidMask, hurtyMask = m_hurtyMask;
 @synthesize isWallJumpable;
 @synthesize isGoalBlock = m_isGoalBlock;
@@ -141,7 +141,7 @@
 {
     self.canMoveFreely = other.canMoveFreely;
     self.affectedByGravity = other.affectedByGravity;
-    self.bounceDampFactor = other.bounceDampFactor;
+    self.bounceFactor = other.bounceFactor;
     self.affectedByFriction = other.affectedByFriction;
     self.initialVelocity = other.initialVelocity;
     self.solidMask = other.solidMask;
@@ -163,7 +163,7 @@
     return (
                 self.canMoveFreely == other.canMoveFreely &&
                 self.affectedByGravity == other.affectedByGravity &&
-                self.bounceDampFactor == other.bounceDampFactor &&
+                self.bounceFactor == other.bounceFactor &&
                 self.affectedByFriction == other.affectedByFriction &&
                 self.initialVelocity.x == other.initialVelocity.x &&
                 self.initialVelocity.y == other.initialVelocity.y &&
@@ -307,23 +307,26 @@
 
 -(void)bouncedOnXAxis:(BOOL)xAxis
 {
+    Emu oldVal;
     BOOL fIntrinsicChanged = NO;
     if( xAxis )
     {
-        self.state.vIntrinsic = EmuPointMake( -self.state.vIntrinsic.x, self.state.vIntrinsic.y );
-        fIntrinsicChanged = self.state.vIntrinsic.x != 0;
+        oldVal = self.state.vIntrinsic.x;
+        self.state.vIntrinsic = EmuPointMake( self.props.bounceFactor * self.state.vIntrinsic.x, self.state.vIntrinsic.y );
+        fIntrinsicChanged = self.state.vIntrinsic.x != oldVal;
     }
     else
     {
-        self.state.vIntrinsic = EmuPointMake( self.state.vIntrinsic.x, -self.state.vIntrinsic.y );
-        fIntrinsicChanged = self.state.vIntrinsic.y != 0;
+        oldVal = self.state.vIntrinsic.y;
+        self.state.vIntrinsic = EmuPointMake( self.state.vIntrinsic.x, self.props.bounceFactor * self.state.vIntrinsic.y );
+        fIntrinsicChanged = self.state.vIntrinsic.y != oldVal;
     }
     
     if( fIntrinsicChanged )
     {
         // zero the bounced velocity component so that we have a chance to accelerate in the
         // new direction before bouncing again.
-        // future: it's actually more realisitic for this to just flip sign sometimes (think bouncing ball)
+        // future: it's actually more realistic for this to just flip sign sometimes (think bouncing ball)
         EmuPoint oldV = [self getV];
         Emu xComponent = xAxis ? 0 : oldV.x;
         Emu yComponent = xAxis ? oldV.y : 0;
@@ -536,7 +539,9 @@
 {
     if( self.owningActor != nil )
     {
-        return [self.owningActor getMotive];
+        EmuPoint blockNativeMotive = [super getMotive];
+        EmuPoint actorMotive = [self.owningActor getMotive];
+        return EmuPointMake( blockNativeMotive.x + actorMotive.x, blockNativeMotive.y + actorMotive.y );
     }
     NSAssert( NO, @"unexpected" );
     return EmuPointMake( 0, 0 );

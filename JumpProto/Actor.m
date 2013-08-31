@@ -432,7 +432,7 @@
     actorBlock.props.canMoveFreely = NO;
     actorBlock.props.affectedByGravity = NO;
     actorBlock.props.affectedByFriction = NO;
-    actorBlock.props.bounceDampFactor = 0.f;    
+    actorBlock.props.bounceFactor = 0.f;
     actorBlock.props.initialVelocity = EmuPointMake( 0, 0 );
     actorBlock.props.solidMask = BlockEdgeDirMask_Full;
     actorBlock.props.xConveyor = 0.f;
@@ -654,7 +654,7 @@
     actorBlock.props.canMoveFreely = YES;
     actorBlock.props.affectedByGravity = NO;
     actorBlock.props.affectedByFriction = NO;
-    actorBlock.props.bounceDampFactor = 0.f;
+    actorBlock.props.bounceFactor = 0.f;
     actorBlock.props.initialVelocity = EmuPointMake( 0, 0 );
     actorBlock.props.solidMask = BlockEdgeDirMask_Full;
     actorBlock.props.xConveyor = 0.f;

@@ -11,11 +11,10 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// TinyBtn1Actor
 
-// TODO: consider adding another state, trigging, so that the sliding down of the trigger block happens first,
-//       then we fire the event only once the stopper has touched the bottom block.
 enum TinyBtn1StateEnum
 {
     TinyBtn1State_Resting,
+    TinyBtn1State_Trigging,
     TinyBtn1State_Triggered,
     TinyBtn1State_Resetting,
 };
