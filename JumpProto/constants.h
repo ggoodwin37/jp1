@@ -137,3 +137,12 @@
 #define CONVEYOR_VX                     ( 3800 )
 #define PULL_DOWN_THRESHOLD             ( -380 )
 
+// weight
+#define DEFAULT_WEIGHT         (1)
+#define PLAYER_WEIGHT          (10)
+#define BADGUY_WEIGHT          (PLAYER_WEIGHT)
+#define CRATE_WEIGHT           (PLAYER_WEIGHT)
+#define PLATFORM_WEIGHT        (20)
+#define IMMOVABLE_WEIGHT       (99)
+#define BUTTON_TRIGGER_WEIGHT  (46)
+#define BUTTON_STOPPER_WEIGHT  (47)

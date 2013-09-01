@@ -661,7 +661,7 @@
     actorBlock.props.hurtyMask = BlockEdgeDirMask_None;
     actorBlock.props.isGoalBlock = NO;
     actorBlock.props.isPlayerBlock = NO;
-    actorBlock.props.immovable = YES;  // can't be moved by other blocks.
+    actorBlock.props.weight = IMMOVABLE_WEIGHT;  // can't be moved by other blocks.
     
     actorBlock.state.d = EmuSizeMake( m_blockSizeInUnits.x * ONE_BLOCK_SIZE_Emu, m_blockSizeInUnits.y * ONE_BLOCK_SIZE_Emu );
     

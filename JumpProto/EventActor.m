@@ -66,7 +66,7 @@
     m_stopperBlock.state.d = EmuSizeMake( 2 * ONE_BLOCK_SIZE_Emu, 1 * ONE_BLOCK_SIZE_Emu - 1 );
     m_stopperBlock.owningActor = self;
     m_stopperBlock.props.canMoveFreely = YES;
-    m_stopperBlock.props.immovable = YES;
+    m_stopperBlock.props.weight = BUTTON_STOPPER_WEIGHT;
     m_stopperBlock.props.initialVelocity = EmuPointMake( 0, 0 );
     m_stopperBlock.props.solidMask = BlockEdgeDirMask_Up | BlockEdgeDirMask_Down;
     //m_stopperBlock.defaultSpriteState = nil;  // stopper block doesn't have a visual representation.
@@ -79,7 +79,7 @@
     m_triggerBlock.state.d = EmuSizeMake( 1 * ONE_BLOCK_SIZE_Emu, 2 * ONE_BLOCK_SIZE_Emu + 1 );
     m_triggerBlock.owningActor = self;
     m_triggerBlock.props.canMoveFreely = YES;
-    m_triggerBlock.props.immovable = YES;
+    m_triggerBlock.props.weight = BUTTON_TRIGGER_WEIGHT;
     m_triggerBlock.props.bounceFactor = 1.f;  // don't switch directions on bounce.
     m_triggerBlock.state.vIntrinsic = EmuPointMake( 0, -10000 );
     m_triggerBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"tiny-btn1-trigger"] autorelease];

@@ -94,7 +94,7 @@
 @synthesize isAiHint, followsAiHints;
 @synthesize xConveyor = m_xConveyor;
 @synthesize springyMask;
-@synthesize immovable;
+@synthesize weight;
 
 -(id)init
 {
@@ -105,6 +105,8 @@
         m_solidMask = BlockEdgeDirMask_Full;
         
         m_tokenAsString = nil;  // lazy
+        
+        self.weight = DEFAULT_WEIGHT;
     }
     return self;
 }
@@ -153,7 +155,7 @@
     self.isAiHint = other.isAiHint;
     self.followsAiHints = other.followsAiHints;
     self.isWallJumpable = other.isWallJumpable;
-    self.immovable = other.immovable;
+    self.weight = other.weight;
     // lol is this even getting used anywhere?
 }
 
@@ -176,7 +178,7 @@
                 self.isAiHint == other.isAiHint &&
                 self.followsAiHints == other.followsAiHints &&
                 self.isWallJumpable == other.isWallJumpable &&
-                self.immovable == other.immovable
+                self.weight == other.weight
             );
 }
 

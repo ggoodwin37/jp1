@@ -77,7 +77,7 @@ typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 
 @property (nonatomic, assign) UInt32 springyMask;
 
-@property (nonatomic, assign) BOOL immovable;
+@property (nonatomic, assign) int weight;
 
 @property (nonatomic, readonly, getter=getTokenAsString) NSString *tokenAsString;  // lazy
 

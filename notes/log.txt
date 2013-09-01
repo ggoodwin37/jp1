@@ -340,4 +340,5 @@ x add mine
 
 8-31
 
-I anticipate a problem with having the stopper block push the trigger back up during the reset phase since they are both marked immovable. Probably need to replace immovable with an int so that we can rank pushables. This will be useful in general.
+I anticipate a problem with having the stopper block push the trigger back up during the reset phase since they are both marked immovable. Probably need to replace immovable with an int so that we can rank pushables. This will be useful in general. (done)
+

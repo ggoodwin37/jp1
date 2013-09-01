@@ -181,6 +181,7 @@
             block.props.canMoveFreely = YES;
             block.props.affectedByGravity = YES;
             block.props.affectedByFriction = YES;
+            block.props.weight = CRATE_WEIGHT;
             break;
 
         case EBlockPreset_tiny_conveyor_l:
@@ -228,7 +229,7 @@
             block.props.initialVelocity = EmuPointMake( -MOVING_PLATFORM_RIGHT_MEDIUM_VX, 0.f );
             block.props.solidMask = BlockEdgeDirMask_Up | BlockEdgeDirMask_Left | BlockEdgeDirMask_Right;
             block.props.followsAiHints = YES;  // so it can bounce
-            block.props.immovable = YES;
+            block.props.weight = PLATFORM_WEIGHT;
             break;
         case EBlockPreset_tiny_mv_plat_r:
             block.props.canMoveFreely = YES;
@@ -236,7 +237,7 @@
             block.props.initialVelocity = EmuPointMake( MOVING_PLATFORM_RIGHT_MEDIUM_VX, 0.f );
             block.props.solidMask = BlockEdgeDirMask_Up | BlockEdgeDirMask_Left | BlockEdgeDirMask_Right;
             block.props.followsAiHints = YES;  // so it can bounce
-            block.props.immovable = YES;
+            block.props.weight = PLATFORM_WEIGHT;
             break;
             
         case EBlockPreset_tiny_aiBounceHint:
@@ -269,6 +270,7 @@
             block.props.affectedByGravity = YES;
             block.props.affectedByFriction = YES;
             block.props.hurtyMask = BlockEdgeDirMask_Full;
+            block.props.weight = CRATE_WEIGHT;
             break;
 
         case EBlockPreset_tiny_springUp:

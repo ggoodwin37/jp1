@@ -217,6 +217,7 @@
     actorBlock.props.affectedByGravity = YES;
     actorBlock.props.affectedByFriction = YES;  // TODO: we used to handle this separately, still needed?
     actorBlock.props.isPlayerBlock = YES;
+    actorBlock.props.weight = PLAYER_WEIGHT;
     
     NSLog( @"created player's actorBlock, token=%u", (unsigned int)[actorBlock getProps].token );
     
@@ -261,6 +262,7 @@
         thisGibBlock.props.affectedByGravity = YES;
         thisGibBlock.props.initialVelocity = thisV;
         thisGibBlock.props.bounceFactor = -1.f;
+        thisGibBlock.props.weight = DEFAULT_WEIGHT;
         
         [m_world addWorldBlock:thisGibBlock];
     }
