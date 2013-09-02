@@ -180,6 +180,11 @@
         {
             return;
         }
+        // BUG: after the first trigger, it becomes too easy to trigger the button, in particular sideways
+        //      touches (jumping across button without landing on it) will trigger this code, but shouldn't.
+        //      since dir == Up here, this may be a latent bug in collision triggering code. but since it works
+        //      correctly the first time, maybe it is related to framecache, e.g. stale cache somehow?
+        NSLog( @"I really do think dir is up!" );
         m_currentState = TinyBtn1State_Trigging;
     }
     else if( m_currentState == TinyBtn1State_Trigging )
