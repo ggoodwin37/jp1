@@ -254,9 +254,8 @@
             if( targetOffset != 0 )
             {
                 // compare weights to see if this node is heavy enough to push the abutter.
-                // also don't push things on y if they aren't affected by gravity (e.g. floating platforms, which should stay floating).
                 int abutterWeight = [thisAbutter getProps].weight;
-                if( nodeWeight >= abutterWeight && (xAxis || [thisAbutter getProps].affectedByGravity) )
+                if( nodeWeight >= abutterWeight )
                 {
                     [self doRecurseForNode:thisAbutter targetOffset:attTargetOffset isXAxis:xAxis isPerpProp:NO isOppParaProp:NO
                                   originSO:originSO groupPropStack:groupPropStack depth:(depth + 1)];
