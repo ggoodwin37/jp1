@@ -95,6 +95,7 @@
 @synthesize xConveyor = m_xConveyor;
 @synthesize springyMask;
 @synthesize weight;
+@synthesize eventSolidMask;
 
 -(id)init
 {
@@ -107,6 +108,7 @@
         m_tokenAsString = nil;  // lazy
         
         self.weight = DEFAULT_WEIGHT;
+        self.eventSolidMask = BlockEdgeDirMask_None;
     }
     return self;
 }
@@ -156,6 +158,7 @@
     self.followsAiHints = other.followsAiHints;
     self.isWallJumpable = other.isWallJumpable;
     self.weight = other.weight;
+    self.eventSolidMask = other.eventSolidMask;
     // lol is this even getting used anywhere?
 }
 
@@ -178,7 +181,8 @@
                 self.isAiHint == other.isAiHint &&
                 self.followsAiHints == other.followsAiHints &&
                 self.isWallJumpable == other.isWallJumpable &&
-                self.weight == other.weight
+                self.weight == other.weight &&
+                self.eventSolidMask == other.eventSolidMask
             );
 }
 

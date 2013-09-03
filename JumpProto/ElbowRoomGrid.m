@@ -220,7 +220,11 @@
             if( candidateBlock.x + candidateBlock.w <= block.x ) continue;
             if( candidateBlock.x >= block.x + block.w ) continue;
             if( candidateBlock.y + candidateBlock.h > block.y ) continue;
-            if( !(candidateBlock.props.solidMask & BlockEdgeDirMask_Up) ) continue;
+            if( block.props.eventSolidMask & BlockEdgeDirMask_Down )
+            {
+                if( !(candidateBlock.props.eventSolidMask & BlockEdgeDirMask_Up) ) continue;
+            }
+            else if( !(candidateBlock.props.solidMask & BlockEdgeDirMask_Up) ) continue;
             thisDistance = block.y - (candidateBlock.y + candidateBlock.h);
         }
         else if( dir == ERDirUp )
@@ -228,7 +232,11 @@
             if( candidateBlock.x + candidateBlock.w <= block.x ) continue;
             if( candidateBlock.x >= block.x + block.w ) continue;
             if( candidateBlock.y < block.y + block.h ) continue;
-            if( !(candidateBlock.props.solidMask & BlockEdgeDirMask_Down) ) continue;
+            if( block.props.eventSolidMask & BlockEdgeDirMask_Up )
+            {
+                if( !(candidateBlock.props.eventSolidMask & BlockEdgeDirMask_Down) ) continue;
+            }
+            else if( !(candidateBlock.props.solidMask & BlockEdgeDirMask_Down) ) continue;
             thisDistance = candidateBlock.y - (block.y + block.h);
         }
         else if( dir == ERDirLeft )
@@ -236,7 +244,11 @@
             if( candidateBlock.y + candidateBlock.h <= block.y ) continue;
             if( candidateBlock.y >= block.y + block.h ) continue;
             if( candidateBlock.x + candidateBlock.w > block.x ) continue;
-            if( !(candidateBlock.props.solidMask & BlockEdgeDirMask_Right) ) continue;
+            if( block.props.eventSolidMask & BlockEdgeDirMask_Left )
+            {
+                if( !(candidateBlock.props.eventSolidMask & BlockEdgeDirMask_Right) ) continue;
+            }
+            else if( !(candidateBlock.props.solidMask & BlockEdgeDirMask_Right) ) continue;
             thisDistance = block.x - (candidateBlock.x + candidateBlock.w);
         }
         else // if( dir == ERDirRight )
@@ -244,7 +256,11 @@
             if( candidateBlock.y + candidateBlock.h <= block.y ) continue;
             if( candidateBlock.y >= block.y + block.h ) continue;
             if( candidateBlock.x < block.x + block.w ) continue;
-            if( !(candidateBlock.props.solidMask & BlockEdgeDirMask_Left) ) continue;
+            if( block.props.eventSolidMask & BlockEdgeDirMask_Right )
+            {
+                if( !(candidateBlock.props.eventSolidMask & BlockEdgeDirMask_Left) ) continue;
+            }
+            else if( !(candidateBlock.props.solidMask & BlockEdgeDirMask_Left) ) continue;
             thisDistance = candidateBlock.x - (block.x + block.w);
         }
         

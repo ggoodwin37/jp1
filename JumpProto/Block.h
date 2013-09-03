@@ -60,8 +60,8 @@ typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 @property (nonatomic, assign) float bounceFactor;
 
 @property (nonatomic, assign) UInt32 solidMask;
-
 @property (nonatomic, assign) UInt32 hurtyMask;
+@property (nonatomic, assign) UInt32 eventSolidMask;
 
 @property (nonatomic, assign) BOOL isWallJumpable;
 
