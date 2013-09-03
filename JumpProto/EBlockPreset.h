@@ -97,7 +97,7 @@ enum EBlockPresetEnum
     EBlockPreset_tiny_autolift,
     EBlockPreset_tiny_mv_plat_l,
     EBlockPreset_tiny_mv_plat_r,
-    EBlockPreset_tiny_btn1,
+    EBlockPreset_tiny_btn1_u,
     EBlockPreset_tiny_sprtiny_0,
     EBlockPreset_tiny_sprtiny_1,
     EBlockPreset_tiny_sprtiny_2,
@@ -118,6 +118,9 @@ enum EBlockPresetEnum
     EBlockPreset_tiny_creep_jelly_UD,
     EBlockPreset_tiny_mineCrate,
     EBlockPreset_tiny_springUp,
+    EBlockPreset_tiny_btn1_l,
+    EBlockPreset_tiny_btn1_r,
+    EBlockPreset_tiny_btn1_d,
     
     EBlockPresetCount,
 };

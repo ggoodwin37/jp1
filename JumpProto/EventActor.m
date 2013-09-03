@@ -19,10 +19,11 @@
 
 @implementation TinyBtn1Actor
 
--(id)initAtStartingPoint:(EmuPoint)p
+-(id)initAtStartingPoint:(EmuPoint)p triggerDirection:(ERDirection)triggerDirection
 {
     if( self = [super initAtStartingPoint:p] )
     {
+        m_triggerDir = triggerDirection;
         m_lifeState = ActorLifeState_BeingBorn;  // this actor doesn't use the typical life cycle.
         m_lifeStateTimer = 0.f;
         m_currentState = TinyBtn1State_Resting;
@@ -76,8 +77,8 @@
     [m_actorBlockList addObject:m_stopperBlock];
     [m_world.elbowRoom addBlock:m_stopperBlock];
     
-    EmuPoint triggerPoint = EmuPointMake( m_startingPoint.x + (3 * ONE_BLOCK_SIZE_Emu / 2), m_startingPoint.y - foulOffset );
-    EmuSize triggerSize = EmuSizeMake( 1 * ONE_BLOCK_SIZE_Emu, 2 * ONE_BLOCK_SIZE_Emu );
+    EmuPoint triggerPoint = EmuPointMake( m_startingPoint.x + (1 * ONE_BLOCK_SIZE_Emu), m_startingPoint.y - foulOffset );
+    EmuSize triggerSize = EmuSizeMake( 2 * ONE_BLOCK_SIZE_Emu, 2 * ONE_BLOCK_SIZE_Emu );
     m_triggerBlock = [[ActorBlock alloc] initAtPoint:triggerPoint];
     m_triggerBlock.state.d = triggerSize;
     m_triggerBlock.owningActor = self;
@@ -85,16 +86,16 @@
     m_triggerBlock.props.weight = BUTTON_TRIGGER_WEIGHT;
     m_triggerBlock.props.bounceFactor = 1.f;  // don't switch directions on bounce.
     m_triggerBlock.state.vIntrinsic = EmuPointMake( 0, -10000 );
-    m_triggerBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"tiny-btn1-trigger"] autorelease];
+    m_triggerBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"tiny-event-btn1-trigger-u"] autorelease];
     [m_actorBlockList addObject:m_triggerBlock];
     [m_world.elbowRoom addBlock:m_triggerBlock];
 
-    EmuPoint platePoint = EmuPointMake( m_startingPoint.x + (1 * ONE_BLOCK_SIZE_Emu), m_startingPoint.y - foulOffset );
-    EmuSize plateSize = EmuSizeMake( 2 * ONE_BLOCK_SIZE_Emu, 1 * ONE_BLOCK_SIZE_Emu + foulOffset );
+    EmuPoint platePoint = EmuPointMake( m_startingPoint.x, m_startingPoint.y - foulOffset );
+    EmuSize plateSize = EmuSizeMake( 4 * ONE_BLOCK_SIZE_Emu, 1 * ONE_BLOCK_SIZE_Emu + foulOffset );
     m_plateBlock = [[ActorBlock alloc] initAtPoint:platePoint];
     m_plateBlock.state.d = plateSize;
     m_plateBlock.owningActor = self;
-    m_plateBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"tiny-btn1-plate"] autorelease];
+    m_plateBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"tiny-event-btn1-plate-ud"] autorelease];
     [m_actorBlockList addObject:m_plateBlock];
     [m_world.elbowRoom addBlock:m_plateBlock];
 }

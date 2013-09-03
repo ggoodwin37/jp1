@@ -21,6 +21,7 @@ enum TinyBtn1StateEnum
 typedef enum TinyBtn1StateEnum TinyBtn1State;
 
 @interface TinyBtn1Actor : Actor {
+    ERDirection m_triggerDir;
     TinyBtn1State m_currentState;
     float m_timeRemainingInCurrentState;
     
@@ -29,5 +30,7 @@ typedef enum TinyBtn1StateEnum TinyBtn1State;
     ActorBlock *m_triggerBlock;
     ActorBlock *m_plateBlock;
 }
+
+-(id)initAtStartingPoint:(EmuPoint)p triggerDirection:(ERDirection)triggerDirection;
 
 @end

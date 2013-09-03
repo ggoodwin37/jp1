@@ -371,7 +371,10 @@
     PCL_CATDONE();
     
     PCL_CAT( @"event-y" );
-    PCL_ADD( EBlockPreset_tiny_btn1, @"btn1", @"" );
+    PCL_ADD( EBlockPreset_tiny_btn1_u, @"btn1-u", @"" );
+    PCL_ADD( EBlockPreset_tiny_btn1_l, @"btn1-l", @"" );
+    PCL_ADD( EBlockPreset_tiny_btn1_r, @"btn1-r", @"" );
+    PCL_ADD( EBlockPreset_tiny_btn1_d, @"btn1-d", @"" );
     PCL_ADD( EBlockPreset_tiny_redblu_red, @"redblu-red", @"" );
     PCL_ADD( EBlockPreset_tiny_redblu_blu, @"redblu-blu", @"" );
     PCL_CATDONE();
