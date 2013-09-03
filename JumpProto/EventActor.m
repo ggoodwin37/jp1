@@ -263,9 +263,9 @@
 
 
 // override
--(void)collidedInto:(NSObject<ISolidObject> *)other inDir:(ERDirection)dir actorBlock:(ActorBlock *)origActorBlock
+-(void)collidedInto:(NSObject<ISolidObject> *)other inDir:(ERDirection)dir actorBlock:(ActorBlock *)origActorBlock usePropOverrides:(BOOL)propOverrides hurtyMaskOverride:(UInt32)hurtyOverride goalOverride:(UInt32)goalOverride springyOverride:(UInt32)springyOverride
 {
-    [super collidedInto:other inDir:dir actorBlock:origActorBlock];
+    [super collidedInto:other inDir:dir actorBlock:origActorBlock usePropOverrides:propOverrides hurtyMaskOverride:hurtyOverride goalOverride:goalOverride springyOverride:springyOverride];
     if( m_currentState == TinyBtn1State_Triggered )
     {
         // don't care about collisions if we are in triggered stated.

@@ -44,8 +44,9 @@
     
     // why do we have to fire this twice?
     // consider the venus fly trap.
-    BOOL didABounce = [nodeA collidedInto:nodeB inDir:dir];
-    BOOL didBBounce = [nodeB collidedInto:nodeA inDir:opposingDir];
+    // TODO overrides: need to pass them in here from caller.
+    BOOL didABounce = [nodeA collidedInto:nodeB inDir:dir usePropOverrides:NO hurtyMaskOverride:0 goalOverride:0 springyOverride:0];
+    BOOL didBBounce = [nodeB collidedInto:nodeA inDir:opposingDir usePropOverrides:NO hurtyMaskOverride:0 goalOverride:0 springyOverride:0];
     return didABounce || didBBounce;
 }
 
@@ -262,6 +263,8 @@
                 }
             }
             
+            // TODO: unanimous abutter problem. how can we and-aggregate hurty/goal/springy properties across abutter list without
+            //       breaking other collision detection functions?
             didBounce = [self collisionBetween:node and:thisAbutter inDir:dir] || didBounce;
         }
     }

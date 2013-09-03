@@ -116,7 +116,7 @@
 }
 
 
--(BOOL)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir
+-(BOOL)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir usePropOverrides:(BOOL)propOverrides hurtyMaskOverride:(UInt32)hurtyOverride goalOverride:(UInt32)goalOverride springyOverride:(UInt32)springyOverride
 {
     // no default action for group collisions.
     return NO;

@@ -341,14 +341,15 @@
 }
 
 
--(BOOL)collidedInto:(NSObject<ISolidObject> *)other inDir:(ERDirection)dir
+-(BOOL)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir usePropOverrides:(BOOL)propOverrides hurtyMaskOverride:(UInt32)hurtyOverride goalOverride:(UInt32)goalOverride springyOverride:(UInt32)springyOverride
 {
+    // TODO overrides: consume springy override if present
     BOOL didBounce = NO;
-    if( [other getProps].springyMask > 0 )
+    if( [node getProps].springyMask > 0 )
     {
         BlockEdgeDirMask otherMask = [Block getOpposingEdgeMaskForDir:dir];
         
-        if( ([other getProps].springyMask & otherMask) > 0 )
+        if( ([node getProps].springyMask & otherMask) > 0 )
         {
             EmuPoint oldV = [self getV];
             EmuPoint newV = EmuPointMake( oldV.x, SPRING_VY );
@@ -575,10 +576,11 @@
 
 
 // override
--(BOOL)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir
+-(BOOL)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir usePropOverrides:(BOOL)propOverrides hurtyMaskOverride:(UInt32)hurtyOverride goalOverride:(UInt32)goalOverride springyOverride:(UInt32)springyOverride
 {
-    BOOL didBounce = [super collidedInto:node inDir:dir];
-    [self.owningActor collidedInto:node inDir:dir actorBlock:self];
+    BOOL didBounce = [super collidedInto:node inDir:dir usePropOverrides:propOverrides hurtyMaskOverride:hurtyOverride goalOverride:goalOverride
+                         springyOverride:springyOverride];
+    [self.owningActor collidedInto:node inDir:dir actorBlock:self usePropOverrides:propOverrides hurtyMaskOverride:hurtyOverride goalOverride:goalOverride springyOverride:springyOverride];
     return didBounce;
 }
 

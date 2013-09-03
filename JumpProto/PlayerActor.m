@@ -515,15 +515,17 @@
 
 
 // override
--(void)collidedInto:(NSObject<ISolidObject> *)other inDir:(ERDirection)dir actorBlock:(ActorBlock *)origActorBlock
+-(void)collidedInto:(NSObject<ISolidObject> *)other inDir:(ERDirection)dir actorBlock:(ActorBlock *)origActorBlock usePropOverrides:(BOOL)propOverrides hurtyMaskOverride:(UInt32)hurtyOverride goalOverride:(UInt32)goalOverride springyOverride:(UInt32)springyOverride
 {
-    [super collidedInto:other inDir:dir actorBlock:origActorBlock];
+    [super collidedInto:other inDir:dir actorBlock:origActorBlock usePropOverrides:propOverrides hurtyMaskOverride:hurtyOverride goalOverride:goalOverride springyOverride:springyOverride];
     
     if( m_lifeState != ActorLifeState_Alive )
     {
         return;
     }
     
+    // TODO overrides: consume goal/hurty overrides here
+
     BlockEdgeDirMask mask = [Block getOpposingEdgeMaskForDir:dir];
     [self handleCollisionWithSO:other edgeMask:mask];
 }
