@@ -127,7 +127,7 @@
         case EBlockPreset_tiny_autolift: return @"tiny-autolift-0";
         case EBlockPreset_tiny_mv_plat_l: return @"tiny-mv-plat-l-edithint";
         case EBlockPreset_tiny_mv_plat_r: return @"tiny-mv-plat-r-edithint";
-        case EBlockPreset_tiny_btn1: return @"tiny-button-edithint";
+        case EBlockPreset_tiny_btn1: return @"tiny-button-edithint-u";
         case EBlockPreset_tiny_sprtiny_0: return @"tiny-sprtiny-0";
         case EBlockPreset_tiny_sprtiny_1: return @"tiny-sprtiny-1";
         case EBlockPreset_tiny_sprtiny_2: return @"tiny-sprtiny-2";

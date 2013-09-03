@@ -12,6 +12,7 @@
 		932DD07917974A3100375642 /* RectCoordBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 932DD07817974A3100375642 /* RectCoordBuffer.m */; };
 		9337102017A606E20080C6EB /* RandomNameGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9337101F17A606E20080C6EB /* RandomNameGenerator.m */; };
 		9359C28217B176C900AA0B15 /* LinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9359C28117B176C900AA0B15 /* LinkedList.m */; };
+		936195A517D6692900C46568 /* tiny-event-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 936195A417D6692900C46568 /* tiny-event-1.png */; };
 		93630AA917B0D1BC00AA8D5D /* ClearBufferLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93630AA817B0D1BC00AA8D5D /* ClearBufferLayerView.m */; };
 		93630AAC17B0D2EA00AA8D5D /* BackgroundGeoScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 93630AAB17B0D2EA00AA8D5D /* BackgroundGeoScene.m */; };
 		93732D8417A4327D00F1B5A7 /* ElbowRoomGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */; };
@@ -151,6 +152,7 @@
 		9337101F17A606E20080C6EB /* RandomNameGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomNameGenerator.m; sourceTree = "<group>"; };
 		9359C28017B176C900AA0B15 /* LinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedList.h; sourceTree = "<group>"; };
 		9359C28117B176C900AA0B15 /* LinkedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkedList.m; sourceTree = "<group>"; };
+		936195A417D6692900C46568 /* tiny-event-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-event-1.png"; path = "images/tiny-event-1.png"; sourceTree = "<group>"; };
 		93630AA717B0D1BC00AA8D5D /* ClearBufferLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearBufferLayerView.h; sourceTree = "<group>"; };
 		93630AA817B0D1BC00AA8D5D /* ClearBufferLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearBufferLayerView.m; sourceTree = "<group>"; };
 		93630AAA17B0D2EA00AA8D5D /* BackgroundGeoScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundGeoScene.h; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 		9386060F17A5B84F00A544B5 /* batch2 */ = {
 			isa = PBXGroup;
 			children = (
+				936195A417D6692900C46568 /* tiny-event-1.png */,
 				93AD0DC317C45ECE008C41A0 /* tiny-av-crate-1.png */,
 				93AD0DC417C45ECE008C41A0 /* tiny-av-plain-1.png */,
 				931D35B017A644210048B466 /* tiny-edit-hints.png */,
@@ -847,6 +850,7 @@
 				931D35B117A644210048B466 /* tiny-edit-hints.png in Resources */,
 				93AD0DC517C45ECE008C41A0 /* tiny-av-crate-1.png in Resources */,
 				93AD0DC617C45ECE008C41A0 /* tiny-av-plain-1.png in Resources */,
+				936195A517D6692900C46568 /* tiny-event-1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

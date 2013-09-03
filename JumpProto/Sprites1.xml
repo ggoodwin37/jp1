@@ -152,7 +152,10 @@
         <NextSprite name="tiny-mv-plat-l-edithint" />
         <NextSprite name="tiny-mv-plat-r-edithint" />
         <NextSprite name="tiny-ai-bounce-edithint" />
-        <NextSprite name="tiny-button-edithint" />
+        <NextSprite name="tiny-button-edithint-u" />
+        <NextSprite name="tiny-button-edithint-l" />
+        <NextSprite name="tiny-button-edithint-r" />
+        <NextSprite name="tiny-button-edithint-d" />
     </SpriteDefRun>
 
     <SpriteDefRun resourceName="tiny-2.png" xStart="0" yStart="0" xEnd="64" spriteWidth="8" spriteHeight="8">
@@ -231,6 +234,21 @@
         <NextSprite name="tiny-av-crate-1_d" />
         <NextSprite name="tiny-av-crate-1_e" />
         <NextSprite name="tiny-av-crate-1_f" />
+    </SpriteDefRun>
+    
+    <!-- event-1: plates (u/d, l/r symmetrical) -->
+    <SpriteDefRun resourceName="tiny-event-1" xStart="0" yStart="6" xEnd="8" spriteWidth="8" spriteHeight="2" worldWidth="4" worldHeight="1">
+        <NextSprite name="tiny-event-btn1-plate-ud" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="tiny-event-1" xStart="8" yStart="0" xEnd="10" spriteWidth="2" spriteHeight="8" worldWidth="1" worldHeight="4">
+        <NextSprite name="tiny-event-btn1-plate-lr" />
+    </SpriteDefRun>
+    <!-- event-1: triggers -->
+    <SpriteDefRun resourceName="tiny-event-1" xStart="16" yStart="0" xEnd="24" spriteWidth="4" spriteHeight="4" worldWidth="2" worldHeight="2">
+        <NextSprite name="tiny-event-btn1-trigger-u" />
+        <NextSprite name="tiny-event-btn1-trigger-l" />
+        <NextSprite name="tiny-event-btn1-trigger-r" />
+        <NextSprite name="tiny-event-btn1-trigger-d" />
     </SpriteDefRun>
     
 </SpriteDefs>

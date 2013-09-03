@@ -342,3 +342,7 @@ x add mine
 
 I anticipate a problem with having the stopper block push the trigger back up during the reset phase since they are both marked immovable. Probably need to replace immovable with an int so that we can rank pushables. This will be useful in general. (done)
 
+
+9-3
+
+Button prototype looking pretty good. Gonna switch out the art and add u/l/r/d variations.
