@@ -43,27 +43,100 @@
 {
     // this is needed to make trigger block able to move. It should match the direction of travel for trigger blocks during Trigging phase.
     // (currently this is down).
-    return EmuPointMake( 0, 5000 );   // this is positive because this represents absolute acceleration (sign is handled separately in motive updater).
+    Emu xComponent = 0, yComponent = 0;
+    
+    // values are positive because they represent absolute acceleration (sign is handled separately in motive updater).
+    switch( m_triggerDir )
+    {
+        case ERDirUp:
+        case ERDirDown:
+            yComponent = 5000;
+            break;
+        case ERDirLeft:
+        case ERDirRight:
+            xComponent = 5000;
+            break;
+        default: NSAssert( NO, @"Assume valid direction" ); break;
+    }
+    
+    return EmuPointMake( xComponent, yComponent );
 }
 
 
 -(void)spawnActorBlocks
 {
-    EmuPoint bottomPoint = EmuPointMake( m_startingPoint.x + (3 * ONE_BLOCK_SIZE_Emu / 2), m_startingPoint.y - (3 * ONE_BLOCK_SIZE_Emu) );
-    EmuSize bottomSize = EmuSizeMake( 1 * ONE_BLOCK_SIZE_Emu, 1 * ONE_BLOCK_SIZE_Emu );
-    m_bottomBlock = [[ActorBlock alloc] initAtPoint:bottomPoint];
-    m_bottomBlock.state.d = bottomSize;
-    m_bottomBlock.owningActor = self;
-    m_bottomBlock.props.solidMask = BlockEdgeDirMask_None;
-    m_bottomBlock.props.eventSolidMask = BlockEdgeDirMask_Full;
-    m_bottomBlock.defaultSpriteState = nil;  // bottom block doesn't have a visual representation.
-    [m_actorBlockList addObject:m_bottomBlock];
-    [m_world.elbowRoom addBlock:m_bottomBlock];
+    // trigger is always same size regardless of direction
+    EmuSize triggerSize = EmuSizeMake( 2 * ONE_BLOCK_SIZE_Emu, 2 * ONE_BLOCK_SIZE_Emu );
+    
+    // these values vary by direction.
+    EmuPoint anchorPoint, stopperPoint, triggerPoint, platePoint;
+    EmuSize plateSize;  // shared by stopper and anchor
+    EmuPoint triggerVIntrinsic;
+    BlockEdgeDirMask opposingDirMask;
+    NSString *triggerSpriteName, *plateSpriteName;
+    
+    switch( m_triggerDir )
+    {
+        case ERDirUp:
+            anchorPoint = EmuPointMake( m_startingPoint.x, m_startingPoint.y + (-3 * ONE_BLOCK_SIZE_Emu) );
+            stopperPoint = EmuPointMake( m_startingPoint.x, m_startingPoint.y + (-1 * ONE_BLOCK_SIZE_Emu) );
+            triggerPoint = EmuPointMake( m_startingPoint.x + (1 * ONE_BLOCK_SIZE_Emu), m_startingPoint.y + (0 * ONE_BLOCK_SIZE_Emu) );
+            platePoint = EmuPointMake( m_startingPoint.x, m_startingPoint.y );
+            plateSize = EmuSizeMake( 4 * ONE_BLOCK_SIZE_Emu, 1 * ONE_BLOCK_SIZE_Emu );
+            triggerVIntrinsic = EmuPointMake( 0, -10000 );
+            opposingDirMask = BlockEdgeDirMask_Down;
+            triggerSpriteName = @"tiny-event-btn1-trigger-u";
+            plateSpriteName = @"tiny-event-btn1-plate-ud";
+            break;
+        case ERDirLeft:
+            anchorPoint = EmuPointMake( m_startingPoint.x + (6 * ONE_BLOCK_SIZE_Emu), m_startingPoint.y );
+            stopperPoint = EmuPointMake( m_startingPoint.x + (4 * ONE_BLOCK_SIZE_Emu), m_startingPoint.y );
+            triggerPoint = EmuPointMake( m_startingPoint.x + (2 * ONE_BLOCK_SIZE_Emu), m_startingPoint.y + (1 * ONE_BLOCK_SIZE_Emu) );
+            platePoint = EmuPointMake( m_startingPoint.x + (3 * ONE_BLOCK_SIZE_Emu), m_startingPoint.y );
+            plateSize = EmuSizeMake( 1 * ONE_BLOCK_SIZE_Emu, 4 * ONE_BLOCK_SIZE_Emu );
+            triggerVIntrinsic = EmuPointMake( 10000, 0 );
+            opposingDirMask = BlockEdgeDirMask_Right;
+            triggerSpriteName = @"tiny-event-btn1-trigger-l";
+            plateSpriteName = @"tiny-event-btn1-plate-lr";
+            break;
+        case ERDirRight:
+            anchorPoint = EmuPointMake( m_startingPoint.x + (-3 * ONE_BLOCK_SIZE_Emu), m_startingPoint.y );
+            stopperPoint = EmuPointMake( m_startingPoint.x + (-1 * ONE_BLOCK_SIZE_Emu), m_startingPoint.y );
+            triggerPoint = EmuPointMake( m_startingPoint.x + (0 * ONE_BLOCK_SIZE_Emu), m_startingPoint.y + (1 * ONE_BLOCK_SIZE_Emu) );
+            platePoint = EmuPointMake( m_startingPoint.x, m_startingPoint.y );
+            plateSize = EmuSizeMake( 1 * ONE_BLOCK_SIZE_Emu, 4 * ONE_BLOCK_SIZE_Emu );
+            triggerVIntrinsic = EmuPointMake( -10000, 0 );
+            opposingDirMask = BlockEdgeDirMask_Left;
+            triggerSpriteName = @"tiny-event-btn1-trigger-r";
+            plateSpriteName = @"tiny-event-btn1-plate-lr";
+            break;
+        case ERDirDown:
+            anchorPoint = EmuPointMake( m_startingPoint.x, m_startingPoint.y + (6 * ONE_BLOCK_SIZE_Emu) );
+            stopperPoint = EmuPointMake( m_startingPoint.x, m_startingPoint.y + (4 * ONE_BLOCK_SIZE_Emu) );
+            triggerPoint = EmuPointMake( m_startingPoint.x + (1 * ONE_BLOCK_SIZE_Emu), m_startingPoint.y + (2 * ONE_BLOCK_SIZE_Emu) );
+            platePoint = EmuPointMake( m_startingPoint.x, m_startingPoint.y + (3 * ONE_BLOCK_SIZE_Emu) );
+            plateSize = EmuSizeMake( 4 * ONE_BLOCK_SIZE_Emu, 1 * ONE_BLOCK_SIZE_Emu );
+            triggerVIntrinsic = EmuPointMake( 0, 10000 );
+            opposingDirMask = BlockEdgeDirMask_Up;
+            triggerSpriteName = @"tiny-event-btn1-trigger-d";
+            plateSpriteName = @"tiny-event-btn1-plate-ud";
+            break;
+        default:
+            NSAssert( NO, @"Assume we have a valid direction." );
+            return;
+    }
+    
+    m_anchorBlock = [[ActorBlock alloc] initAtPoint:anchorPoint];
+    m_anchorBlock.state.d = plateSize;
+    m_anchorBlock.owningActor = self;
+    m_anchorBlock.props.solidMask = BlockEdgeDirMask_None;
+    m_anchorBlock.props.eventSolidMask = BlockEdgeDirMask_Full;
+    m_anchorBlock.defaultSpriteState = nil;  // bottom block doesn't have a visual representation.
+    [m_actorBlockList addObject:m_anchorBlock];
+    [m_world.elbowRoom addBlock:m_anchorBlock];
 
-    EmuPoint stopperPoint = EmuPointMake( m_startingPoint.x + ONE_BLOCK_SIZE_Emu, m_startingPoint.y - ONE_BLOCK_SIZE_Emu );
-    EmuSize stopperSize = EmuSizeMake( 2 * ONE_BLOCK_SIZE_Emu, 1 * ONE_BLOCK_SIZE_Emu );
     m_stopperBlock = [[ActorBlock alloc] initAtPoint:stopperPoint];
-    m_stopperBlock.state.d = stopperSize;
+    m_stopperBlock.state.d = plateSize;
     m_stopperBlock.owningActor = self;
     m_stopperBlock.props.canMoveFreely = YES;
     m_stopperBlock.props.weight = BUTTON_STOPPER_WEIGHT;
@@ -74,28 +147,24 @@
     [m_actorBlockList addObject:m_stopperBlock];
     [m_world.elbowRoom addBlock:m_stopperBlock];
     
-    EmuPoint triggerPoint = EmuPointMake( m_startingPoint.x + (1 * ONE_BLOCK_SIZE_Emu), m_startingPoint.y );
-    EmuSize triggerSize = EmuSizeMake( 2 * ONE_BLOCK_SIZE_Emu, 2 * ONE_BLOCK_SIZE_Emu );
     m_triggerBlock = [[ActorBlock alloc] initAtPoint:triggerPoint];
     m_triggerBlock.state.d = triggerSize;
     m_triggerBlock.owningActor = self;
     m_triggerBlock.props.canMoveFreely = YES;
     m_triggerBlock.props.weight = BUTTON_TRIGGER_WEIGHT;
     m_triggerBlock.props.bounceFactor = 1.f;  // don't switch directions on bounce.
-    m_triggerBlock.state.vIntrinsic = EmuPointMake( 0, -10000 );
-    m_triggerBlock.props.solidMask = BlockEdgeDirMask_Full ^ BlockEdgeDirMask_Down;
-    m_triggerBlock.props.eventSolidMask = BlockEdgeDirMask_Down;
-    m_triggerBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"tiny-event-btn1-trigger-u"] autorelease];
+    m_triggerBlock.state.vIntrinsic = triggerVIntrinsic;
+    m_triggerBlock.props.solidMask = BlockEdgeDirMask_Full ^ opposingDirMask;
+    m_triggerBlock.props.eventSolidMask = opposingDirMask;
+    m_triggerBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:triggerSpriteName] autorelease];
     [m_actorBlockList addObject:m_triggerBlock];
     [m_world.elbowRoom addBlock:m_triggerBlock];
 
-    EmuPoint platePoint = EmuPointMake( m_startingPoint.x, m_startingPoint.y );
-    EmuSize plateSize = EmuSizeMake( 4 * ONE_BLOCK_SIZE_Emu, 1 * ONE_BLOCK_SIZE_Emu );
     m_plateBlock = [[ActorBlock alloc] initAtPoint:platePoint];
     m_plateBlock.state.d = plateSize;
     m_plateBlock.owningActor = self;
-    m_plateBlock.props.eventSolidMask = BlockEdgeDirMask_Down;
-    m_plateBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:@"tiny-event-btn1-plate-ud"] autorelease];
+    m_plateBlock.props.eventSolidMask = opposingDirMask;
+    m_plateBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:plateSpriteName] autorelease];
     [m_actorBlockList addObject:m_plateBlock];
     [m_world.elbowRoom addBlock:m_plateBlock];
 }
@@ -120,7 +189,7 @@
     }
     NSAssert( m_currentState == TinyBtn1State_Triggered, @"Assume we must be in triggered state since we already checked the others." );
     
-    NSArray *abutters = [m_world.frameCache lazyGetAbuttListForSO:m_triggerBlock inER:m_world.elbowRoom direction:ERDirUp];
+    NSArray *abutters = [m_world.frameCache lazyGetAbuttListForSO:m_triggerBlock inER:m_world.elbowRoom direction:m_triggerDir];
     if( [abutters count] == 0 )
     {
         [self onUntriggered];
@@ -132,18 +201,43 @@
 
 -(void)updateForCurrentState
 {
-    const Emu stopperV = 1600;
+    const Emu stopperVBase = 1600;
+    Emu stopperVX, stopperVY;
+    
+    switch( m_triggerDir )
+    {
+        case ERDirUp:
+            stopperVX = 0;
+            stopperVY = -stopperVBase;
+            break;
+        case ERDirLeft:
+            stopperVX = stopperVBase;
+            stopperVY = 0;
+            break;
+        case ERDirRight:
+            stopperVX = -stopperVBase;
+            stopperVY = 0;
+            break;
+        case ERDirDown:
+            stopperVX = 0;
+            stopperVY = stopperVBase;
+            break;
+        default:
+            NSAssert( NO, @"Assume we have a valid direction." );
+            return;
+    }
+    
     if( m_currentState == TinyBtn1State_Triggered )
     {
         return;
     }
     else if( m_currentState == TinyBtn1State_Trigging )
     {
-        [m_stopperBlock setV:EmuPointMake( 0, -stopperV )];
+        [m_stopperBlock setV:EmuPointMake( stopperVX, stopperVY )];
     }
     else if( m_currentState == TinyBtn1State_Resetting )
     {
-        [m_stopperBlock setV:EmuPointMake( 0, stopperV )];
+        [m_stopperBlock setV:EmuPointMake( -stopperVX, -stopperVY )];  // assuming that one of these is zero, so negating both is fine.
     }
     else if( m_currentState == TinyBtn1State_Resting )
     {
@@ -158,7 +252,6 @@
 
 -(void)onTriggered
 {
-    NSLog( @"A button was triggered!" );
     // TODO: plug in gigantic event system here.
 }
 
@@ -179,9 +272,29 @@
         return;
     }
     
+    ERDirection oppositeDirection;
+    switch( m_triggerDir )
+    {
+        case ERDirUp:
+            oppositeDirection = ERDirDown;
+            break;
+        case ERDirLeft:
+            oppositeDirection = ERDirRight;
+            break;
+        case ERDirRight:
+            oppositeDirection = ERDirLeft;
+            break;
+        case ERDirDown:
+            oppositeDirection = ERDirUp;
+            break;
+        default:
+            NSAssert( NO, @"Assume we have a valid direction." );
+            return;
+    }
+    
     if( m_currentState == TinyBtn1State_Resting )
     {
-        if( dir != ERDirUp || origActorBlock != m_triggerBlock )
+        if( dir != m_triggerDir || origActorBlock != m_triggerBlock )
         {
             return;
         }
@@ -189,7 +302,7 @@
     }
     else if( m_currentState == TinyBtn1State_Trigging )
     {
-        if( dir != ERDirUp || origActorBlock != m_bottomBlock || other != m_stopperBlock )
+        if( dir != m_triggerDir || origActorBlock != m_anchorBlock || other != m_stopperBlock )
         {
             return;
         }
@@ -198,7 +311,7 @@
     }
     else if( m_currentState == TinyBtn1State_Resetting )
     {
-        if( dir != ERDirDown || origActorBlock != m_plateBlock || other != m_stopperBlock )
+        if( dir != oppositeDirection || origActorBlock != m_plateBlock || other != m_stopperBlock )
         {
             return;
         }

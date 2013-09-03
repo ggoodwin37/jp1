@@ -334,9 +334,7 @@ shortlist todos:
 x background strip offsets
 x push block on platform propagate case. what will break if we just remove this check? large crate stacks? that's not even a super interesting scenario.
 x add mine
-- implement button actor. the event firing part will just no-op for now, but can get all the physics worked out now, so we'll be ready to test event stuff once it starts coming online.
-- check gibs for low-hanging fixes.
-- start looking at background layers. design. I think this will be a prerequisite for event stuff.
+x implement button actor. the event firing part will just no-op for now, but can get all the physics worked out now, so we'll be ready to test event stuff once it starts coming online.
 
 8-31
 
@@ -346,3 +344,9 @@ I anticipate a problem with having the stopper block push the trigger back up du
 9-3
 
 Button prototype looking pretty good. Gonna switch out the art and add u/l/r/d variations.
+Done. 
+
+next:
+- check gibs for low-hanging fixes.
+- investigate the issue where standing partially over a spike will kill you. I'll name this the unanimous abutter problem. Basically we need to do some and-aggregation of block props when colliding against more than one.
+- start looking at background layers. design. I think this will be a prerequisite for event stuff.

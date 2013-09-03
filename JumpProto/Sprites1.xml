@@ -240,7 +240,7 @@
     <SpriteDefRun resourceName="tiny-event-1" xStart="0" yStart="6" xEnd="8" spriteWidth="8" spriteHeight="2" worldWidth="4" worldHeight="1">
         <NextSprite name="tiny-event-btn1-plate-ud" />
     </SpriteDefRun>
-    <SpriteDefRun resourceName="tiny-event-1" xStart="8" yStart="0" xEnd="10" spriteWidth="2" spriteHeight="8" worldWidth="1" worldHeight="4">
+    <SpriteDefRun resourceName="tiny-event-1" xStart="14" yStart="0" xEnd="16" spriteWidth="2" spriteHeight="8" worldWidth="1" worldHeight="4">
         <NextSprite name="tiny-event-btn1-plate-lr" />
     </SpriteDefRun>
     <!-- event-1: triggers -->

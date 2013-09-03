@@ -3,9 +3,6 @@
 
 - fix death state. gibs are weird, camera sometimes flies away, and actor's original block appears to still be hit testing (or did I fix that already?)
 
-- update button art to use new larger assets (and delete old ones).
-- make button direction generic.
-
 - tweak air friction to less?
 
 - investigate build mode, being the secondary button mode that allows you to directly manipulate the level within designated hotspots.

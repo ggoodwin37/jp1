@@ -25,7 +25,7 @@ typedef enum TinyBtn1StateEnum TinyBtn1State;
     TinyBtn1State m_currentState;
     float m_timeRemainingInCurrentState;
     
-    ActorBlock *m_bottomBlock;
+    ActorBlock *m_anchorBlock;
     ActorBlock *m_stopperBlock;
     ActorBlock *m_triggerBlock;
     ActorBlock *m_plateBlock;
