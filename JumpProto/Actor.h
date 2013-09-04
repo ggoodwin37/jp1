@@ -73,7 +73,7 @@ typedef enum ActorLifeStateEnum ActorLifeState;
 -(EmuPoint)getMotiveAccel;
 
 -(void)bouncedOnXAxis:(BOOL)xAxis;
--(void)collidedInto:(NSObject<ISolidObject> *)other inDir:(ERDirection)dir actorBlock:(ActorBlock *)origActorBlock usePropOverrides:(BOOL)propOverrides hurtyMaskOverride:(UInt32)hurtyOverride goalOverride:(UInt32)goalOverride springyOverride:(UInt32)springyOverride;
+-(void)collidedInto:(NSObject<ISolidObject> *)other inDir:(ERDirection)dir actorBlock:(ActorBlock *)origActorBlock props:(BlockProps *)props;
 
 -(BOOL)shouldReverseWalkDirection;
 

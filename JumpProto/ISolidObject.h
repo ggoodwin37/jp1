@@ -37,7 +37,7 @@
 // returns YES if a bounce happened already, so we can avoid triggering a distinct bounce event
 //  on the same frame. conceptually this can return any information that may be useful later, but
 //  right now we just have the bounced flag.
--(BOOL)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir usePropOverrides:(BOOL)propOverrides hurtyMaskOverride:(UInt32)hurtyOverride goalOverride:(UInt32)goalOverride springyOverride:(UInt32)springyOverride;
+-(BOOL)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir props:(BlockProps *)props;
 
 @end
 

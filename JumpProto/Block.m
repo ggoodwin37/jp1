@@ -341,7 +341,7 @@
 }
 
 
--(BOOL)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir usePropOverrides:(BOOL)propOverrides hurtyMaskOverride:(UInt32)hurtyOverride goalOverride:(UInt32)goalOverride springyOverride:(UInt32)springyOverride
+-(BOOL)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir props:(BlockProps *)props
 {
     // TODO overrides: consume springy override if present
     BOOL didBounce = NO;
@@ -396,7 +396,7 @@
         case ERDirLeft: return BlockEdgeDirMask_Right;
         case ERDirRight: return BlockEdgeDirMask_Left;
         case ERDirDown: return BlockEdgeDirMask_Up;
-        default: NSAssert( NO, @"onCollidedIntoSO: bad dir" ); return 0;
+        default: NSAssert( NO, @"getOpposingEdgeMaskForDir: bad dir" ); return 0;
     }
 }
 
@@ -576,11 +576,10 @@
 
 
 // override
--(BOOL)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir usePropOverrides:(BOOL)propOverrides hurtyMaskOverride:(UInt32)hurtyOverride goalOverride:(UInt32)goalOverride springyOverride:(UInt32)springyOverride
+-(BOOL)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir props:(BlockProps *)props
 {
-    BOOL didBounce = [super collidedInto:node inDir:dir usePropOverrides:propOverrides hurtyMaskOverride:hurtyOverride goalOverride:goalOverride
-                         springyOverride:springyOverride];
-    [self.owningActor collidedInto:node inDir:dir actorBlock:self usePropOverrides:propOverrides hurtyMaskOverride:hurtyOverride goalOverride:goalOverride springyOverride:springyOverride];
+    BOOL didBounce = [super collidedInto:node inDir:dir props:props];
+    [self.owningActor collidedInto:node inDir:dir actorBlock:self props:props];
     return didBounce;
 }
 
