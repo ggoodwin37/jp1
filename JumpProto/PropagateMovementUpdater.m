@@ -18,6 +18,7 @@
     if( self = [super initWithElbowRoom:elbowRoom frameCache:frameCacheIn] )
     {
         m_groupPropStack = [[NSMutableArray arrayWithCapacity:4] retain];
+        m_propsAccumulator = [[BlockProps alloc] init];
     }
     return self;
 }
@@ -25,6 +26,7 @@
 
 -(void)dealloc
 {
+    [m_propsAccumulator release]; m_propsAccumulator = nil;
     [m_groupPropStack release]; m_groupPropStack = nil;
     [super dealloc];
 }
@@ -45,8 +47,30 @@
     // why do we have to fire this twice?
     // consider the venus fly trap.
     BOOL didABounce = [nodeA collidedInto:nodeB inDir:dir props:props];
-    BOOL didBBounce = [nodeB collidedInto:nodeA inDir:opposingDir props:props];
+    BOOL didBBounce = [nodeB collidedInto:nodeA inDir:opposingDir props:[nodeA getProps]];  // use original (not accumulated) props for reverse direction
     return didABounce || didBBounce;
+}
+
+
+// basic idea here is to AND together certain properties for all SOs in the list. We'll accumulate these properties
+// into a member variable (for performance) and use these accumulated values in our collision handlers. This fixes
+// the case where player is standing on a block and a spike (they would insta-die on the spike without this step).
+// it's a little awkward because only specific properties fall in this bucket: hurty, springy, and goal.
+-(void)accumulatePropsForList:(NSArray *)list
+{
+    if( [list count] < 1 ) return;
+    BlockProps *firstProps = [[list objectAtIndex:0] getProps];
+
+    m_propsAccumulator.springyMask = firstProps.springyMask;
+    m_propsAccumulator.hurtyMask = firstProps.hurtyMask;
+    m_propsAccumulator.isGoalBlock = firstProps.isGoalBlock;
+    for( int i = 1; i < [list count]; ++i )
+    {
+        BlockProps *thisProps = [[list objectAtIndex:i] getProps];
+        m_propsAccumulator.springyMask &= thisProps.springyMask;
+        m_propsAccumulator.hurtyMask &= thisProps.hurtyMask;
+        m_propsAccumulator.isGoalBlock &= thisProps.isGoalBlock;
+    }
 }
 
 
@@ -242,8 +266,8 @@
             dir = xAxis ? ERDirLeft : ERDirDown;  // including targetOffset == 0
             paraAbuttList = [m_worldFrameCache lazyGetAbuttListForSO:node inER:m_elbowRoom direction:dir];
         }
+
         Emu attTargetOffset = targetOffset * 1;  // future: some attenuation here?
-        
         for( int i = 0; i < [paraAbuttList count]; ++i )
         {
             ASolidObject *thisAbutter = (ASolidObject *)[paraAbuttList objectAtIndex:i];
@@ -261,9 +285,13 @@
                                   originSO:originSO groupPropStack:groupPropStack depth:(depth + 1)];
                 }
             }
-            
-            // TODO overrides: generate aggregate props and pass in.
-            didBounce = [self collisionBetween:node and:thisAbutter inDir:dir overrideProps:nil] || didBounce;
+        }
+
+        [self accumulatePropsForList:paraAbuttList];
+        for( int i = 0; i < [paraAbuttList count]; ++i )
+        {
+            ASolidObject *thisAbutter = (ASolidObject *)[paraAbuttList objectAtIndex:i];
+            didBounce = [self collisionBetween:node and:thisAbutter inDir:dir overrideProps:m_propsAccumulator] || didBounce;
         }
     }
     

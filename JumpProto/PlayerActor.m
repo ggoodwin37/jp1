@@ -464,24 +464,24 @@
 }
 
 
--(void)handleCollisionWithSO:(ASolidObject *)solidObject edgeMask:(BlockEdgeDirMask)mask
+-(void)handleCollisionWithSO:(ASolidObject *)solidObject edgeMask:(BlockEdgeDirMask)mask props:(BlockProps *)props
 {
     // check various properties to see if colliding into this SO should trigger any actor events.
     
     // hurt?
-    if( ([solidObject getProps].hurtyMask & mask) > 0 )
+    if( (props.hurtyMask & mask) > 0 )
     {
         [self onTouchedHurty];
     }
     
     // won?
-    if( [solidObject getProps].isGoalBlock )
+    if( props.isGoalBlock )
     {
         [self onTouchedGoal];
     }
     
     // wall jumping?
-    if( [solidObject getProps].isWallJumpable && !m_isWallJumping )
+    if( props.isWallJumpable && !m_isWallJumping )
     {
         BOOL lSignal;
         BOOL rSignal;
@@ -524,10 +524,9 @@
         return;
     }
     
-    // TODO overrides: consume goal/hurty overrides here
-
     BlockEdgeDirMask mask = [Block getOpposingEdgeMaskForDir:dir];
-    [self handleCollisionWithSO:other edgeMask:mask];
+    BlockProps *propsToUse = (props != nil) ? props : [other getProps];
+    [self handleCollisionWithSO:other edgeMask:mask props:propsToUse];
 }
 
 

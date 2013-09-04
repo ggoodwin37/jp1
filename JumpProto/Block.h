@@ -62,20 +62,16 @@ typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 @property (nonatomic, assign) UInt32 solidMask;
 @property (nonatomic, assign) UInt32 hurtyMask;
 @property (nonatomic, assign) UInt32 eventSolidMask;
+@property (nonatomic, assign) UInt32 springyMask;
 
 @property (nonatomic, assign) BOOL isWallJumpable;
-
 @property (nonatomic, assign) BOOL isGoalBlock;
-
 @property (nonatomic, assign) BOOL isActorBlock;
 @property (nonatomic, assign) BOOL isPlayerBlock;
-
 @property (nonatomic, assign) BOOL isAiHint;
 @property (nonatomic, assign) BOOL followsAiHints;
 
 @property (nonatomic, assign) Emu xConveyor;
-
-@property (nonatomic, assign) UInt32 springyMask;
 
 @property (nonatomic, assign) int weight;
 

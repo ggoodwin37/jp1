@@ -15,6 +15,7 @@
 // propagates movement due to velocity along all abutting blocks.
 @interface PropagateMovementUpdater : ERFrameCacheBlockUpdater {
     NSMutableArray *m_groupPropStack;  // scratch array used to prevent group propagation loops.
+    BlockProps *m_propsAccumulator;
 }
 
 @end

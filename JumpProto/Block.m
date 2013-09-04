@@ -343,9 +343,9 @@
 
 -(BOOL)collidedInto:(NSObject<ISolidObject> *)node inDir:(ERDirection)dir props:(BlockProps *)props
 {
-    // TODO overrides: consume springy override if present
+    UInt32 springyMask = (props != nil) ? props.springyMask : [node getProps].springyMask;
     BOOL didBounce = NO;
-    if( [node getProps].springyMask > 0 )
+    if( springyMask > 0 )
     {
         BlockEdgeDirMask otherMask = [Block getOpposingEdgeMaskForDir:dir];
         
