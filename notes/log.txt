@@ -351,3 +351,16 @@ x check gibs for low-hanging fixes.
 x investigate the issue where standing partially over a spike will kill you. I'll name this the unanimous abutter problem. Basically we need to do some and-aggregation of block props when colliding against more than one.
   x in progress, search "TODO overrides"
 - start looking at background layers. design. I think this will be a prerequisite for event stuff.
+
+9-5
+
+Made a few playability fixes and now I'm working on RedBlu. Core impl is mostly done but needs some integration.
+
+TODO:
+  - spriteStates aren't picked correctly for red-blu presets. probably need to go all the way to the xml layer to hook up to RedBluSpriteState.
+  - need new button art for red/blu buttons.
+  - preset plumbing for red/blu buttons. might as well just do all 4 directions.
+  - button overrides hooking up to toggleState.
+  - voila?
+
+follow up: walls suddenly appearing on top of you should probably kill you, same for badguys.
