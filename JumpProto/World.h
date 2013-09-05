@@ -15,8 +15,9 @@
 #import "BlockGroup.h"
 #import "WorldFrameState.h"
 #import "EBlockPreset.h"   // just for player presets
+#import "IRedBluState.h"
 
-@interface World : NSObject<DpadEventDelegate> {
+@interface World : NSObject<DpadEventDelegate, IRedBluStateProvider> {
     
     NSMutableArray *m_worldSOs;
     NSMutableArray *m_frameStateBlockUpdaters;

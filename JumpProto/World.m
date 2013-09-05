@@ -804,5 +804,11 @@
 }
 
 
+// IRedBluStateProvider
+-(BOOL)isCurrentlyRed
+{
+    return YES;  // TODO
+}
+
 @end
 

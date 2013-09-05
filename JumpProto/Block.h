@@ -46,6 +46,17 @@ typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 @end
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// BlockRedBluStateEnum
+enum BlockRedBluStateEnum
+{
+    BlockRedBlueState_None = 0,
+    BlockRedBlueState_Red = 1,
+    BlockRedBlueState_Blue = 2,
+};
+
+typedef enum BlockRedBluStateEnum BlockRedBluState;
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// BlockProps
 @interface BlockProps : NSObject {
     NSString *m_tokenAsString;
@@ -76,6 +87,8 @@ typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 @property (nonatomic, assign) int weight;
 
 @property (nonatomic, readonly, getter=getTokenAsString) NSString *tokenAsString;  // lazy
+
+@property (nonatomic, assign) BlockRedBluState redBluState;
 
 +(BlockToken)nextToken;
 

@@ -206,6 +206,8 @@
     NSArray *list = [self tryGetGridCellAtCol:col row:row];  // could be nil
     Emu minDistance = prevMin;
     Emu thisDistance;
+    NSObject<IRedBluStateProvider> *redBluProvider;  // TODO: hook up
+    
     for( int i = 0; i < [list count]; ++i )
     {
         Block *candidateBlock = (Block *)[list objectAtIndex:i];
@@ -214,6 +216,10 @@
         if( block.groupId != GROUPID_NONE && block.groupId == candidateBlock.groupId ) continue;  // can't collide with own group.
         
         if( candidateBlock.props.isAiHint && !block.props.followsAiHints ) continue;
+
+        if( candidateBlock.props.redBluState != BlockRedBlueState_None &&
+           candidateBlock.props.redBluState != [redBluProvider isCurrentlyRed] )
+            continue;
 
         if( dir == ERDirDown )
         {

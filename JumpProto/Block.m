@@ -96,6 +96,7 @@
 @synthesize springyMask;
 @synthesize weight;
 @synthesize eventSolidMask;
+@synthesize redBluState;
 
 -(id)init
 {
@@ -109,6 +110,7 @@
         
         self.weight = DEFAULT_WEIGHT;
         self.eventSolidMask = BlockEdgeDirMask_None;
+        self.redBluState = BlockRedBlueState_None;
     }
     return self;
 }
@@ -159,6 +161,7 @@
     self.isWallJumpable = other.isWallJumpable;
     self.weight = other.weight;
     self.eventSolidMask = other.eventSolidMask;
+    self.redBluState = other.redBluState;
     // lol is this even getting used anywhere?
 }
 
@@ -182,7 +185,8 @@
                 self.followsAiHints == other.followsAiHints &&
                 self.isWallJumpable == other.isWallJumpable &&
                 self.weight == other.weight &&
-                self.eventSolidMask == other.eventSolidMask
+                self.eventSolidMask == other.eventSolidMask &&
+                self.redBluState == other.redBluState
             );
 }
 
