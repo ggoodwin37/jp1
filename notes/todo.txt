@@ -8,11 +8,24 @@
 - world layers
 
 - should add a bunch more static blocks and simple enemy types for gits and shiggles.
+  - background-oriented tiles.
+
+- investigate: can we really just move files back and forth via organizer? if so, I don't think there's any need to worry about exporting the files off the device in-app (unless you want to get into user-generated levels...bleh).
+  - test run.
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // future
 
 -player and creeps (and herds) should be able to step up small blocks. how hard is this to implement? it doesnt happen instantaneously. bounces shouldnt trigger. what about pushing crates, probably shouldnt be able to step up while pushing a crate (and that's impossible to implement well).
+  - e.g.:
+    creatureActor::onCollided(other) {
+      if other.yExtent is within ONE_BLOCK, engage a special mode.
+        actually that isn't good enough, we need to check overall extent, not just collider extent. can we do this with an offset'd call to ER?
+      else do usual collision logic (bouncing, etc)
+    creatureActor::handleInputOrMovementSignal {
+      if special mode, consider forward input to mean "also apply upward velocity". counteract gravity.
+      the "also" is important because we need to keep moving horiz to continue checking if we are done.
+
 
 - implement the restricted rect version of EWorldView drawToContext for better perf while drawing blocks.
   - you already are culling to view rect in the main grid document drawer, but I think there's an optional separate version of the draw method that only updates a certain rect. then we can invalidate just specific parts of the screen when drawing/erasing, should make editing snappier (until the user pans/zooms).
@@ -26,8 +39,10 @@
 
 - beams
 
+- herds basic impl.
+
 - possible perf improvement: shared spritestates for non-actor anim blocks. example: a big castle with lots of spikes. no sense spinning up an animstate and paying to update it for each spike if they are all identical anyways. this only works if they are supposed to be identically in sync. profile first to verify suspicion that this scenario is expensive. I think it adds like 2 or 3 ms to world update for a moderate-large number of spikes.
-  - doesn't appear to be super bad, can wait.
+  - the implementation here may be simpler than I thought. If we just lazy-create a single instance of a AnimSpriteState then pass that to all spike blocks, we're done. Yay good design for sprite states being separate from blocks. should do the same for static blocks too, could be big memory savings.
 
 
 
