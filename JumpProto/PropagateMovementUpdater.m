@@ -52,10 +52,11 @@
 }
 
 
-// basic idea here is to AND together certain properties for all SOs in the list. We'll accumulate these properties
+// basic idea here is to combine certain properties for all SOs in the list. We'll accumulate these properties
 // into a member variable (for performance) and use these accumulated values in our collision handlers. This fixes
 // the case where player is standing on a block and a spike (they would insta-die on the spike without this step).
-// it's a little awkward because only specific properties fall in this bucket: hurty, springy, and goal.
+// it's a little awkward because only specific properties fall in this bucket: hurty, springy, wallJump, and goal.
+// in some cases we AND, in some cases we OR.
 -(void)accumulatePropsForList:(NSArray *)list
 {
     if( [list count] < 1 ) return;
@@ -64,12 +65,14 @@
     m_propsAccumulator.springyMask = firstProps.springyMask;
     m_propsAccumulator.hurtyMask = firstProps.hurtyMask;
     m_propsAccumulator.isGoalBlock = firstProps.isGoalBlock;
+    m_propsAccumulator.isWallJumpable = firstProps.isWallJumpable;
     for( int i = 1; i < [list count]; ++i )
     {
         BlockProps *thisProps = [[list objectAtIndex:i] getProps];
         m_propsAccumulator.springyMask &= thisProps.springyMask;
         m_propsAccumulator.hurtyMask &= thisProps.hurtyMask;
         m_propsAccumulator.isGoalBlock &= thisProps.isGoalBlock;
+        m_propsAccumulator.isWallJumpable |= thisProps.isWallJumpable;
     }
 }
 

@@ -6,6 +6,8 @@
 - Conrad's vulgar anvil:
   - riding a lift with a crate and the player is not smooth.
 
+- jellyfish sometimes get stuck together.
+
 // old
 
 // punted
