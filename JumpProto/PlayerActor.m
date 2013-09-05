@@ -257,12 +257,12 @@
         
         SpriteStateMap *spriteStateMap = [[[SpriteStateMap alloc] initWithSize:CGSizeMake( 1.f, 1.f)] autorelease];
         [spriteStateMap setSpriteStateAtX:0 y:0 to:thisSpriteState];
-        SpriteBlock *thisGibBlock = [[SpriteBlock alloc] initWithRect:thisRect spriteStateMap:spriteStateMap];
+        GibBlock *thisGibBlock = [[GibBlock alloc] initWithRect:thisRect spriteStateMap:spriteStateMap];
         thisGibBlock.props.canMoveFreely = YES;
-        thisGibBlock.props.affectedByGravity = YES;
+        thisGibBlock.props.affectedByGravity = NO;
         thisGibBlock.props.initialVelocity = thisV;
         thisGibBlock.props.bounceFactor = -1.f;
-        thisGibBlock.props.weight = DEFAULT_WEIGHT;
+        thisGibBlock.props.weight = GIB_WEIGHT;
         
         [m_world addWorldBlock:thisGibBlock];
     }

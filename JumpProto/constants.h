@@ -84,8 +84,12 @@
 
 #define PLAYER_NOTBORNYET_TIME (0.005f)
 #define PLAYER_BEINGBORN_TIME (0.5f)
-#define PLAYER_DYING_TIME (1.25f)
+#define PLAYER_DYING_TIME (1.6f)
 #define PLAYER_WINNING_TIME (1.f)
+
+#define PLAYER_DEAD_GIB_COUNT  (15)
+#define PLAYER_DEAD_GIB_V      (42000)
+#define GIB_ACCEL              (10000000)
 
 #define VIEW_STANDARD_ZOOM (4.f)
 #define PLAYER_BEINGBORN_ZOOMOUT_MIN    VIEW_STANDARD_ZOOM
@@ -129,17 +133,15 @@
 
 #define SPRING_VY (30000)
 
-#define PLAYER_DEAD_GIB_COUNT  (15)
-#define PLAYER_DEAD_GIB_V      (77000)
-
 // misc world physics/prop values
 #define MOVING_PLATFORM_RIGHT_MEDIUM_VX ( 2560 )
 #define CONVEYOR_VX                     ( 3800 )
 #define PULL_DOWN_THRESHOLD             ( -380 )
 
 // weight
-#define DEFAULT_WEIGHT         (1)
+#define DEFAULT_WEIGHT         (2)
 #define PLAYER_WEIGHT          (10)
+#define GIB_WEIGHT             (1)
 #define BADGUY_WEIGHT          (PLAYER_WEIGHT)
 #define CRATE_WEIGHT           (PLAYER_WEIGHT)
 #define PLATFORM_WEIGHT        (20)

@@ -1,7 +1,6 @@
 // current
 
 - trying to erase 2x2 blocks (instead of 4x4) seemed to not work in some cases.
-- gibs don't bounce right.
 
 - Conrad's vulgar anvil:
   - riding a lift with a crate and the player is not smooth.

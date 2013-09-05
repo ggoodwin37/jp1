@@ -585,3 +585,14 @@
 
 @end
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// GibBlock
+@implementation GibBlock
+
+// override
+-(EmuPoint)getMotiveAccel
+{
+    return EmuPointMake( GIB_ACCEL, GIB_ACCEL );
+}
+
+@end

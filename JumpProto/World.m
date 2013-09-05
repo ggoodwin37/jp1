@@ -773,11 +773,8 @@
 
 -(void)onPlayerDying
 {
-    // TODO: want to remove the playerBlock's edge info so we don't continue to track
-    //  player even when they blow up, but this causes crashes later in the frame. does
-    //  this need to be handled asynchronously?
     // don't allow playerBlock to clip or move during death.
-    //[self.elbowRoom removeBlock:m_playerActor.actorBlock];
+    [self.elbowRoom removeBlock:[m_playerActor getDefaultActorBlock]];
 }
 
 

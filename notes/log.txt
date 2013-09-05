@@ -347,7 +347,7 @@ Button prototype looking pretty good. Gonna switch out the art and add u/l/r/d v
 Done. 
 
 next:
-- check gibs for low-hanging fixes.
+x check gibs for low-hanging fixes.
 x investigate the issue where standing partially over a spike will kill you. I'll name this the unanimous abutter problem. Basically we need to do some and-aggregation of block props when colliding against more than one.
   x in progress, search "TODO overrides"
 - start looking at background layers. design. I think this will be a prerequisite for event stuff.

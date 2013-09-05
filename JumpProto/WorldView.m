@@ -229,7 +229,7 @@ float smoothRatio( float inputRatio )
 -(CGRect)setupCurrentView
 {
     ActorBlock *playerBlock = [[m_world getPlayerActor] getDefaultActorBlock];
-    if( playerBlock != nil )
+    if( [m_world getPlayerActor].lifeState == ActorLifeState_Alive && playerBlock != nil )
     {
         [m_camera updateWithActorBlock:playerBlock minY:m_world.yBottom];
     }
