@@ -1,12 +1,13 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // near term
 
-- tweak air friction to less?
-
 - investigate build mode, being the secondary button mode that allows you to directly manipulate the level within designated hotspots.
 
 - consider changing propagate logic such that you have to be standing on solid ground in order to push something. this is slightly more realistic and also increases the playability of blocks (now we can use them as one-way-doors, etc.)
 
+- world layers
+
+- should add a bunch more static blocks and simple enemy types for gits and shiggles.
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // future
@@ -19,9 +20,6 @@
 - core, low pri: handling of sprite and preset constants is pretty ugly. should make this more dynamic and compact.
 
 - revisit how groups are instantiated/added to world and er. can probably be cleaned up, not essential.
-
-- world layers
-  o a hitless group connector. hitless blocks in general (background) (these won't be good unless we have a dedicated background layer or other mechanism for specifying z, since currently draw order is essentially random).
 
 - z-index? can we use depth buffer? do layers cover this?
   - (I think layers cover this)

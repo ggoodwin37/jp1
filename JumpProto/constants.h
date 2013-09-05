@@ -65,8 +65,8 @@
 //       zero and we won't trigger gap checker logic.
 #define VELOCITY_MIN ( 64 )
 
-#define GROUND_FRICTION_DECEL ( 52000 )
-#define AIR_FRICTION_DECEL    ( 32000 )
+#define GROUND_FRICTION_DECEL ( 42000 )
+#define AIR_FRICTION_DECEL    ( 20000 )
 
 #define PLAYERINPUT_LR_MAX_V ( 7040 )
 #define PLAYERINPUT_LR_ACCEL ( 140000 )
