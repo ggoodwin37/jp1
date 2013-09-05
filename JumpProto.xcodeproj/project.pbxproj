@@ -175,6 +175,7 @@
 		93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBlockMRUList.m; sourceTree = "<group>"; };
 		93AD0DC317C45ECE008C41A0 /* tiny-av-crate-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-av-crate-1.png"; path = "images/tiny-av-crate-1.png"; sourceTree = "<group>"; };
 		93AD0DC417C45ECE008C41A0 /* tiny-av-plain-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-av-plain-1.png"; path = "images/tiny-av-plain-1.png"; sourceTree = "<group>"; };
+		93AFFAA817D8585D00ACF1B0 /* IRedBluState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IRedBluState.h; sourceTree = "<group>"; };
 		93E01FCA17C31CCC00708802 /* ColorRectLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorRectLayerView.h; sourceTree = "<group>"; };
 		93E01FCB17C31CCD00708802 /* ColorRectLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorRectLayerView.m; sourceTree = "<group>"; };
 		F305ECE61623E1FB00E153FB /* blAlgae.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blAlgae.png; path = images/blAlgae.png; sourceTree = "<group>"; };
@@ -674,6 +675,7 @@
 				F3D6C7EA14CA2640003FE5B4 /* ActorUpdater.m */,
 				93732D8517A4982A00F1B5A7 /* PropagateMovementUpdater.h */,
 				93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */,
+				93AFFAA817D8585D00ACF1B0 /* IRedBluState.h */,
 			);
 			name = "World logic";
 			sourceTree = "<group>";

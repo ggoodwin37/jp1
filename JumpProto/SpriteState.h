@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <OpenGLES/ES1/gl.h>
 #import "SpriteManager.h"
-
+#import "IRedBluState.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// SpriteState
 @interface SpriteState : NSObject {
@@ -19,7 +19,7 @@
 @property (nonatomic, getter=getIsFlipped, setter=setIsFlipped:) BOOL isFlipped;
 @property (nonatomic, readonly, getter=getTexSheet) GLuint texSheet;
 @property (nonatomic, readonly, getter=getTexCoords) GLfloat *texCoords;
-@property (nonatomic, retain) NSString *resourceName;
+@property (nonatomic, retain) NSString *resourceName;  // TODO: I think this property is dead.
 @property (nonatomic, readonly, getter=getWorldSize) CGSize worldSize;
 
 -(void)updateWithTimeDelta:(float)delta;
@@ -57,3 +57,16 @@
 
 @end
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// RedBluSpriteState
+@interface RedBluSpriteState : SpriteState
+{
+    SpriteDef *m_onSpriteDef;
+    SpriteDef *m_offSpriteDef;
+    BOOL m_isRed;
+    NSObject<IRedBluStateProvider> *m_redBluStateProvider;
+}
+
+-(id)initWithOnSpriteDef:(SpriteDef *)onSpriteDef offSpriteDef:(SpriteDef *)offSpriteDef asRed:(BOOL)asRed stateProvider:(NSObject<IRedBluStateProvider> *)redBluStateProvider;
+
+@end

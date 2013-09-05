@@ -57,12 +57,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// StaticSpriteState
 @implementation StaticSpriteState
 
-
 -(id)initWithSpriteDef:(SpriteDef *)spriteDef
 {
     if( self = [super init] )
     {
-        m_spriteDef = [spriteDef retain];  // consider making this weak instead?        
+        m_spriteDef = [spriteDef retain];
     }
     return self;
 }
@@ -160,7 +159,7 @@
 {
     if( self = [super init] )
     {
-        m_animDef = [animDef retain];  // consider making this weak instead?
+        m_animDef = [animDef retain];
         m_totalDur = animDur;
         
         m_currentFrame = 0;
@@ -283,3 +282,83 @@
 @end
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// RedBluSpriteState
+@implementation RedBluSpriteState
+
+
+-(id)initWithOnSpriteDef:(SpriteDef *)onSpriteDef offSpriteDef:(SpriteDef *)offSpriteDef asRed:(BOOL)asRed stateProvider:(NSObject<IRedBluStateProvider> *)redBluStateProvider
+{
+    if( self = [super init] )
+    {
+        m_onSpriteDef = [onSpriteDef retain];
+        m_offSpriteDef = [offSpriteDef retain];
+        m_isRed = asRed;
+        m_redBluStateProvider = redBluStateProvider;  // weak;
+    }
+    return self;
+}
+
+
+-(void)dealloc
+{
+    self.resourceName = nil;
+    m_redBluStateProvider = nil;  // weak
+    [m_offSpriteDef release]; m_offSpriteDef = nil;
+    [m_onSpriteDef release]; m_onSpriteDef = nil;
+    [super dealloc];
+}
+
+
+-(SpriteDef *)getCurrentSpriteDef
+{
+    return (m_isRed == [m_redBluStateProvider isCurrentlyRed]) ? m_onSpriteDef : m_offSpriteDef;
+}
+
+
+// override
+-(GLuint)getTexSheet
+{
+    SpriteDef *spriteDef = [self getCurrentSpriteDef];
+    if( nil == spriteDef )
+    {
+        NSAssert( NO, @"RedBluSpriteState getTexSheet: no spriteDef set." );
+        return 0;
+    }
+    return spriteDef.spriteSheet.texName;
+}
+
+
+// override
+-(GLfloat *)getTexCoords
+{
+    SpriteDef *spriteDef = [self getCurrentSpriteDef];
+    if( nil == spriteDef )
+    {
+        NSAssert( NO, @"RedBluSpriteState getTexCoords: no spriteDef set." );
+        return nil;
+    }
+    return spriteDef.texCoordsCache;
+}
+
+
+// override
+-(BOOL)getIsFlipped
+{
+    return [super getIsFlipped] || [self getCurrentSpriteDef].isFlipped;
+}
+
+
+// override
+-(CGSize)getWorldSize
+{
+    SpriteDef *spriteDef = [self getCurrentSpriteDef];
+    if( nil == spriteDef )
+    {
+        NSAssert( NO, @"RedBluSpriteState getWorldSize: no spriteDef set." );
+        return CGSizeMake( 0, 0 );
+    }
+    return spriteDef.worldSize;
+}
+
+
+@end
