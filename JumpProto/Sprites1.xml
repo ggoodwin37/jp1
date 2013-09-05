@@ -251,4 +251,9 @@
         <NextSprite name="tiny-event-btn1-trigger-d" />
     </SpriteDefRun>
     
+    <!-- ToggleDefs for RedBlu stuff -->
+    <ToggleDef name="tiny-redblu-block-red" offSprite="tiny-redblu-red-off" onSprite="tiny-redblu-red-on" />
+    <ToggleDef name="tiny-redblu-block-blu" offSprite="tiny-redblu-blu-off" onSprite="tiny-redblu-blu-on" />
+    <!-- TODO: need button triggers here too -->
+     
 </SpriteDefs>

@@ -107,6 +107,9 @@
             NSLog( @"ignoring duplicate animdef with name \"%@\".", thisAnimDef.name );
         }
     }
+    
+    // TODO: need to run ToggleDefLoader here, but what do we do with the results?
+    //       figure out where getSpriteDef and getAnimDef are used.
 }
 
 

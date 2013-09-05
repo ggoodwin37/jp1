@@ -70,3 +70,16 @@
 
 @end
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// ToggleDef
+@interface ToggleDef : NSObject {
+}
+
+@property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) SpriteDef *offSprite;
+@property (nonatomic, readonly) SpriteDef *onSprite;
+
+-(id)initWithName:(NSString *)name offSprite:(SpriteDef *)offSprite onSprite:(SpriteDef *)onSprite;
+
+@end
+

@@ -198,3 +198,29 @@
 @end
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// ToggleDef
+@implementation ToggleDef
+
+@synthesize name = m_name, offSprite = m_offSprite, onSprite = m_onSprite;
+
+-(id)initWithName:(NSString *)name offSprite:(SpriteDef *)offSprite onSprite:(SpriteDef *)onSprite
+{
+    if( self = [super init] )
+    {
+        m_name = [name retain];
+        m_offSprite = [offSprite retain];
+        m_onSprite = [onSprite retain];
+    }
+    return self;
+}
+
+
+-(void)dealloc
+{
+    [m_offSprite release]; m_offSprite = nil;
+    [m_onSprite release]; m_onSprite = nil;
+    [m_name release]; m_name = nil;
+    [super dealloc];
+}
+
+@end

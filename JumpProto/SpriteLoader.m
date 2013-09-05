@@ -192,15 +192,11 @@ static NSString *kAttr_worldHeight = @"worldHeight";
 
 -(void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError
 {
-    NSLog( @"spriteParser parseErrorOccurred \"%@\"", [parseError localizedDescription] );
+    NSLog( @"SpriteDefLoader parseErrorOccurred \"%@\"", [parseError localizedDescription] );
     // Handle errors as appropriate for your application.
 }
 
-
-
 @end
-
-
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// AnimDefLoader
@@ -334,12 +330,139 @@ static NSString *kAttr_dur = @"dur";
 
 -(void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError
 {
-    NSLog( @"spriteParser parseErrorOccurred \"%@\"", [parseError localizedDescription] );
+    NSLog( @"AnimDefLoader parseErrorOccurred \"%@\"", [parseError localizedDescription] );
     // Handle errors as appropriate for your application.
 }
 
 @end
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// ToggleDefLoader
+@implementation ToggleDefLoader
+
+-(id)init
+{
+    if( self = [super init] )
+    {
+        m_resultDefs = nil;
+        m_spriteDefTable = nil;
+    }
+    return self;
+}
+
+
+-(void)dealloc
+{
+    m_resultDefs = nil;     // weak
+    m_spriteDefTable = nil; // weak
+    [super dealloc];
+}
+
+
+// take in a list of xml resource URIs, parse them, and return a list of AnimDefs.
+-(NSArray *)loadToggleDefsFrom:(NSArray *)resources withSpriteDefTable:(NSDictionary *)spriteDefTable
+{
+    // these weak references are only valid during the lifetime of parse, we don't own them.
+    m_resultDefs = [NSMutableArray arrayWithCapacity:50]; // TODO: bigger capacity? :)
+    m_spriteDefTable = spriteDefTable;
+    
+    LogStopWatch *stopWatch;
+    stopWatch = [[LogStopWatch alloc] initWithName:@"toggleDefParse"];
+    [stopWatch start];
+    
+    for( int iResource = 0; iResource < [resources count]; ++iResource )
+    {
+        NSString *thisResource = (NSString *)[resources objectAtIndex:iResource];
+        
+        // assume this resource lives in the main bundle for now.
+        // FUTURE: optionally read these from Documents instead?
+        NSURL *thisUrl = [[NSBundle mainBundle] URLForResource:thisResource withExtension:nil];
+        
+        NSXMLParser *parser = [[[NSXMLParser alloc] initWithContentsOfURL:thisUrl] autorelease];
+        parser.delegate = self;
+        
+        if( NO == [parser parse] )
+        {
+            NSAssert1( NO, @"Failed to parse resource at URL %@", [thisUrl absoluteString] );
+            continue;
+        }
+    }
+    
+    [stopWatch stop];
+    
+    NSArray *returnVal = m_resultDefs;
+    m_resultDefs = nil;
+    m_spriteDefTable = nil;
+    return returnVal;
+}
+
+
+// NSXMLParser delegate stuff
+
+static NSString *kName_ToggleDef = @"ToggleDef";
+static NSString *kAttr_offSprite = @"offSprite";
+static NSString *kAttr_onSprite = @"onSprite";
+
+-(void)initToggleDefWithAttributes:(NSDictionary *)attr
+{
+    NSString *toggleDefName = [(NSString *)[attr valueForKey:kAttr_name] retain];
+    
+    NSString *offSpriteName = (NSString *)[attr valueForKey:kAttr_offSprite];
+    SpriteDef *offSprite = (SpriteDef *)[m_spriteDefTable valueForKey:offSpriteName];
+    if( offSprite == nil )
+    {
+        NSLog( @"couldn't find referenced spriteName %@, hope your stuff doesn't blow up.", offSpriteName );
+    }
+    
+    NSString *onSpriteName  = (NSString *)[attr valueForKey:kAttr_onSprite];
+    SpriteDef *onSprite = (SpriteDef *)[m_spriteDefTable valueForKey:onSpriteName];
+    if( onSprite == nil )
+    {
+        NSLog( @"couldn't find referenced spriteName %@, hope your stuff doesn't blow up.", onSpriteName );
+    }
+    
+    ToggleDef *toggleDef = [[ToggleDef alloc] initWithName:toggleDefName offSprite:offSprite onSprite:onSprite];
+    [m_resultDefs addObject:toggleDef];
+}
+
+
+-(void)closeCurrentToggleDef
+{
+    // nothing to do here.
+}
+
+
+-(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict
+{
+    if( [elementName isEqualToString:kName_ToggleDef] )
+    {
+        [self initToggleDefWithAttributes:attributeDict];
+    }
+}
+
+
+-(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+{
+    if( [elementName isEqualToString:kName_ToggleDef] )
+    {
+        [self closeCurrentToggleDef];
+    }
+}
+
+
+-(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
+    // we don't need textNodes for this parser.
+}
+
+
+-(void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError
+{
+    NSLog( @"ToggleDefLoader parseErrorOccurred \"%@\"", [parseError localizedDescription] );
+    // Handle errors as appropriate for your application.
+}
+
+@end
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// DrawingResource

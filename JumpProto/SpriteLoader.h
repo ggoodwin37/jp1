@@ -54,6 +54,16 @@
 @end
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// ToggleDefLoader
+@interface ToggleDefLoader : NSObject<NSXMLParserDelegate> {
+    NSMutableArray *m_resultDefs;
+    NSDictionary *m_spriteDefTable; // weak
+}
+
+// take in a list of xml resource URIs, parse them, and return a list of ToggleDefs.
+-(NSArray *)loadToggleDefsFrom:(NSArray *)resources withSpriteDefTable:(NSDictionary *)spriteDefTable;
+@end
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// DrawingResource
 @interface DrawingResource : NSObject {
