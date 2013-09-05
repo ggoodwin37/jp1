@@ -284,7 +284,7 @@
             {
                 // compare weights to see if this node is heavy enough to push the abutter.
                 int abutterWeight = [thisAbutter getProps].weight;
-                if( nodeWeight >= abutterWeight )
+                if( abutterWeight != IMMOVABLE_WEIGHT && nodeWeight >= abutterWeight )
                 {
                     [self doRecurseForNode:thisAbutter targetOffset:attTargetOffset isXAxis:xAxis isPerpProp:NO isOppParaProp:NO
                                   originSO:originSO groupPropStack:groupPropStack depth:(depth + 1)];

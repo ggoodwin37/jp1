@@ -401,7 +401,8 @@
     ActorBlock *actorBlock = [self getDefaultActorBlock];
     actorBlock.props.affectedByGravity = NO;
     actorBlock.props.hurtyMask = BlockEdgeDirMask_Full;
-    
+    actorBlock.props.weight = IMMOVABLE_WEIGHT;
+
     int sign = m_facingPositive ? 1 : -1;
     Emu xComponent = m_xAxis ? (sign * TINYJELLY_V) : 0;
     Emu yComponent = m_xAxis ? 0 : (sign * TINYJELLY_V);
