@@ -248,15 +248,15 @@
             block.props.isWallJumpable = YES;
             break;
             
-        // TODOs
+        // TODO
         case EBlockPreset_tiny_bl_ice:
             break;
             
-        // TODO: implement red/blu switching. for now just pretend blu is active.
         case EBlockPreset_tiny_redblu_red:
-            block.props.solidMask = 0;
+            block.props.redBluState = BlockRedBlueState_Red;
             break;
         case EBlockPreset_tiny_redblu_blu:
+            block.props.redBluState = BlockRedBlueState_Blu;
             break;
             
         // TODO creeps
@@ -286,6 +286,7 @@
 +(void)setPropsForBlock:(Block *)block fromPreset:(EBlockPreset)preset
 {
     // defaults
+    // TODO: props should set its own defaults. (already does a few)
     block.props.canMoveFreely = NO;
     block.props.affectedByGravity = NO;
     block.props.affectedByFriction = NO;

@@ -11,7 +11,7 @@
 
 @implementation ElbowRoomGrid
 
--(id)init
+-(id)initWithRedBluProvider:(NSObject<IRedBluStateProvider> *)redBluProvider
 {
     if( self = [super init] )
     {
@@ -19,6 +19,7 @@
         m_gridCells = nil;
         
         m_workingStack = [[NSMutableArray arrayWithCapacity:4] retain];
+        m_redBluProvider = redBluProvider;  // weak
     }
     return self;
 }
@@ -38,6 +39,7 @@
 
 -(void)dealloc
 {
+    m_redBluProvider = nil;  // weak
     [m_workingStack release]; m_workingStack = nil;
     [self releaseGridCells];
     [super dealloc];
@@ -206,8 +208,6 @@
     NSArray *list = [self tryGetGridCellAtCol:col row:row];  // could be nil
     Emu minDistance = prevMin;
     Emu thisDistance;
-    NSObject<IRedBluStateProvider> *redBluProvider;  // TODO: hook up
-    
     for( int i = 0; i < [list count]; ++i )
     {
         Block *candidateBlock = (Block *)[list objectAtIndex:i];
@@ -217,8 +217,12 @@
         
         if( candidateBlock.props.isAiHint && !block.props.followsAiHints ) continue;
 
+        // only ask for current state if we are dealing with a red-blu.
+        //  this saves us lots of calls since the typical case is a non-red-blu.
+        //  but if we happen to have lots of red-blus, it would be nice to have
+        //  this cached.
         if( candidateBlock.props.redBluState != BlockRedBlueState_None &&
-           candidateBlock.props.redBluState != [redBluProvider isCurrentlyRed] )
+            candidateBlock.props.redBluState != [m_redBluProvider isCurrentlyRed] )
             continue;
 
         if( dir == ERDirDown )

@@ -14,5 +14,6 @@
 @protocol IRedBluStateProvider <NSObject>
 
 -(BOOL)isCurrentlyRed;
+-(void)toggleState;
 
 @end

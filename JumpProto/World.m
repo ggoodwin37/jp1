@@ -47,7 +47,7 @@
         m_frameStateBlockUpdaters = [[NSMutableArray arrayWithCapacity:10] retain];
         m_updateGraphWorkers = [[NSMutableArray arrayWithCapacity:10] retain];
         m_worldStateBlockUpdaters = [[NSMutableArray arrayWithCapacity:10] retain];
-        m_elbowRoom = [[ElbowRoomGrid alloc] init];
+        m_elbowRoom = [[ElbowRoomGrid alloc] initWithRedBluProvider:self];
         m_groupTable = [[NSMutableDictionary dictionaryWithCapacity:20] retain];
         
         m_worldFrameCache = [[WorldFrameCache alloc] init];
@@ -72,6 +72,8 @@
         
         m_deadActorsThisFrame = [[NSMutableArray arrayWithCapacity:8] retain];
         m_deadSOsThisFrame = [[NSMutableArray arrayWithCapacity:8] retain];
+        
+        m_isCurrentlyRed = NO;
      }
     return self;
 }
@@ -807,8 +809,15 @@
 // IRedBluStateProvider
 -(BOOL)isCurrentlyRed
 {
-    return YES;  // TODO
+    return m_isCurrentlyRed;
 }
+
+
+-(void)toggleState
+{
+    m_isCurrentlyRed = !m_isCurrentlyRed;
+}
+
 
 @end
 

@@ -51,7 +51,7 @@ enum BlockRedBluStateEnum
 {
     BlockRedBlueState_None = 0,
     BlockRedBlueState_Red = 1,
-    BlockRedBlueState_Blue = 2,
+    BlockRedBlueState_Blu = 2,
 };
 
 typedef enum BlockRedBluStateEnum BlockRedBluState;

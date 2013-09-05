@@ -44,6 +44,8 @@
     
     NSMutableArray *m_deadActorsThisFrame;
     NSMutableArray *m_deadSOsThisFrame;
+    
+    BOOL m_isCurrentlyRed;
 }
 
 @property (nonatomic, retain) NSString *levelName;

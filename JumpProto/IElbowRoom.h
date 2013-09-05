@@ -12,6 +12,8 @@
 
 @protocol IElbowRoom <NSObject>
 
+-(id)initWithRedBluProvider:(NSObject<IRedBluStateProvider> *)redBluProvider;
+
 -(void)resetWithWorldMin:(EmuPoint)minPoint worldMax:(EmuPoint)maxPoint;
 -(void)reset;   // for compatibility with worldTest only, should remove this eventually.
 -(Emu)getMaxDistance;
