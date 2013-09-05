@@ -232,10 +232,12 @@
     {
         return 0;
     }
-    if( xAxis && targetOffset == 0 )
+    if( targetOffset == 0 )
     {
-        return 0;
-    }  // for y, need to check down collision special case with targetOffset == 0
+        if( xAxis ) return 0;
+        if( ![node getProps].affectedByGravity ) return 0;
+        // else for y, need to check down collision special case with targetOffset == 0 (gravity blocks only)
+    }
     
     // handle group checks to prevent group loop.
     if( ![self groupLoopCheckOkForSO:node stack:groupPropStack] )
