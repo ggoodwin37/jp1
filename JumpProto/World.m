@@ -756,6 +756,8 @@
     m_timeUntilNextSpeedReport = TIME_BETWEEN_WORLDUPDATE_SPEED_REPORTS;
     
     m_burnFrames = BURN_FRAMES_ON_WORLD_RESET;
+    
+    m_isCurrentlyRed = NO;
 }
 
 
