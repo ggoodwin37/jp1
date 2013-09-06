@@ -366,3 +366,12 @@ TODO:
 follow up: walls suddenly appearing on top of you should probably kill you, same for badguys.
 
 So RedBlu is done now (except the walls killing you part). Haven't played around with it much yet. I guess background layers are up next, unless you want to add some more art and enemies for a little while. Bang for buck?
+
+9-6
+
+Looking into minor optimization about sharing spriteStates.
+Before:
+stress1 (lots of baddies):  draw=2.5ms, update=99ms // unlikely to help this case much with spritestate opt.
+stress2 (lots of spikes):   draw=34.4, update=7.8   // surprised draw is this high, a bug around culling large blocks?
+
+actually, after looking into the implementation a bit, it's a little more hairy than I want to tackle right now. The issue is that once we start sharing spriteStates across multiple blocks, figuring out which ones need to be updated gets a little tricky, considering there are also group blocks, actor blocks, etc. So either we need all spritestates in the cache (then just update the ones in the cache instead of the ones belonging to blocks), or need more advanced machinery. and for actors, we want the ability to have distinct instances of the same sprite resource (so they can be animated separately). overall doesn't appear to be worth the complexity for now.
