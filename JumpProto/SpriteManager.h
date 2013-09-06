@@ -14,9 +14,9 @@
     
     NSMutableDictionary *m_spriteDefMap;
     NSMutableDictionary *m_animDefMap;
+    NSMutableDictionary *m_toggleDefMap;
     
     NSDictionary        *m_imageMap;
-    
 }
 
 // allow easy access to the flat list of all sprite sheets. this is only needed for testing purposes.
@@ -25,6 +25,7 @@
 -(void)loadAllSpriteTextures;
 -(SpriteDef *)getSpriteDef:(NSString *)name;
 -(AnimDef *)getAnimDef:(NSString *)name;
+-(ToggleDef *)getToggleDef:(NSString *)name;
 
 // UIImage API for Edit mode.
 -(void)loadAllImages;

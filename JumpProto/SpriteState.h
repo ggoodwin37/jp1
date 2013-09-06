@@ -61,12 +61,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// RedBluSpriteState
 @interface RedBluSpriteState : SpriteState
 {
-    SpriteDef *m_onSpriteDef;
-    SpriteDef *m_offSpriteDef;
+    ToggleDef *m_toggleDef;
     BOOL m_isRed;
     NSObject<IRedBluStateProvider> *m_redBluStateProvider;
 }
 
--(id)initWithOnSpriteDef:(SpriteDef *)onSpriteDef offSpriteDef:(SpriteDef *)offSpriteDef asRed:(BOOL)asRed stateProvider:(NSObject<IRedBluStateProvider> *)redBluStateProvider;
+-(id)initWithToggleDef:(ToggleDef *)toggleDef asRed:(BOOL)asRed stateProvider:(NSObject<IRedBluStateProvider> *)redBluStateProvider;
 
 @end

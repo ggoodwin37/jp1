@@ -543,9 +543,8 @@
         case EBlockPreset_tiny_creep_mosquito: //return @"tiny-creep-mosquito-0";
             return nil; // TODO: actors
 
-        // TODO: these names should correspond to new type of sprite resource.
-        case EBlockPreset_tiny_redblu_red: return @"tiny-redblu-red-off";  // pretends initial blu-is-on state
-        case EBlockPreset_tiny_redblu_blu: return @"tiny-redblu-blu-on";
+        case EBlockPreset_tiny_redblu_red: return @"tiny-redblu-block-red";
+        case EBlockPreset_tiny_redblu_blu: return @"tiny-redblu-block-blu";
             
         case EBlockPreset_tiny_bl_ice: return @"tiny-bl-ice";
         case EBlockPreset_tiny_aiBounceHint: return nil;
@@ -575,7 +574,7 @@
 }
 
 
-+(SpriteStateMap *)getSpriteStateMapForPresetBlock:(AFPresetBlockBase *)presetBlock
++(SpriteStateMap *)getSpriteStateMapForPresetBlock:(AFPresetBlockBase *)presetBlock withWorld:(World *)world
 {
     SpriteStateMap *resultMap = [[[SpriteStateMap alloc] initWithSize:presetBlock.autoVariationMap.size] autorelease];
     for( int y = 0; y < presetBlock.autoVariationMap.size.height; ++y )
@@ -586,7 +585,20 @@
             float animDur = [WorldArchiveUtil getAnimDurForPreset:presetBlock.preset];
             NSString *resourceName = [WorldArchiveUtil getSpriteResourceNameForPreset:presetBlock.preset fourWayAVCode:thisHint];
             SpriteState *spriteState;
-            if( animDur > 0.f )
+            
+            // determine whether we have a static, anim, or toggle spriteState addBlock
+            ToggleDef *toggleDef = [[SpriteManager instance] getToggleDef:resourceName];
+            if( toggleDef != nil )
+            {
+                // TODO: figure out how to handle redBlu buttons here.
+                BOOL asRed = YES;
+                if( presetBlock.preset == EBlockPreset_tiny_redblu_blu )
+                {
+                    asRed = NO;
+                }
+                spriteState = [[RedBluSpriteState alloc] initWithToggleDef:toggleDef asRed:asRed stateProvider:world];
+            }
+            else if( animDur > 0.f )
             {
                 spriteState = [[[AnimSpriteState alloc] initWithAnimName:resourceName animDur:animDur] autorelease];
             }
@@ -800,7 +812,7 @@
                     playerStartPreset = thisAFPresetBlockBase.preset;
                     continue;
                 }
-                SpriteStateMap *spriteStateMap = [WorldArchiveUtil getSpriteStateMapForPresetBlock:thisAFPresetBlockBase];
+                SpriteStateMap *spriteStateMap = [WorldArchiveUtil getSpriteStateMapForPresetBlock:thisAFPresetBlockBase withWorld:world];
                 thisBlock = [[[SpriteBlock alloc] initWithRect:thisRectEmu spriteStateMap:spriteStateMap] autorelease];
             }
         }

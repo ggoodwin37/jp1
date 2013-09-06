@@ -286,12 +286,11 @@
 @implementation RedBluSpriteState
 
 
--(id)initWithOnSpriteDef:(SpriteDef *)onSpriteDef offSpriteDef:(SpriteDef *)offSpriteDef asRed:(BOOL)asRed stateProvider:(NSObject<IRedBluStateProvider> *)redBluStateProvider
+-(id)initWithToggleDef:(ToggleDef *)toggleDef asRed:(BOOL)asRed stateProvider:(NSObject<IRedBluStateProvider> *)redBluStateProvider
 {
     if( self = [super init] )
     {
-        m_onSpriteDef = [onSpriteDef retain];
-        m_offSpriteDef = [offSpriteDef retain];
+        m_toggleDef = [toggleDef retain];
         m_isRed = asRed;
         m_redBluStateProvider = redBluStateProvider;  // weak;
     }
@@ -303,15 +302,14 @@
 {
     self.resourceName = nil;
     m_redBluStateProvider = nil;  // weak
-    [m_offSpriteDef release]; m_offSpriteDef = nil;
-    [m_onSpriteDef release]; m_onSpriteDef = nil;
+    [m_toggleDef release]; m_toggleDef = nil;
     [super dealloc];
 }
 
 
 -(SpriteDef *)getCurrentSpriteDef
 {
-    return (m_isRed == [m_redBluStateProvider isCurrentlyRed]) ? m_onSpriteDef : m_offSpriteDef;
+    return (m_isRed == [m_redBluStateProvider isCurrentlyRed]) ? m_toggleDef.onSprite : m_toggleDef.offSprite;
 }
 
 

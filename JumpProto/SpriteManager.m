@@ -19,6 +19,7 @@
     {
         m_spriteDefMap = [[NSMutableDictionary dictionaryWithCapacity:100] retain];
         m_animDefMap = [[NSMutableDictionary dictionaryWithCapacity:100] retain];
+        m_toggleDefMap = [[NSMutableDictionary dictionaryWithCapacity:32] retain];
         
         m_imageMap = nil;
         
@@ -32,6 +33,7 @@
 {
     self.spriteSheetListForTestPurposes = nil;
     [m_imageMap release]; m_imageMap = nil;
+    [m_toggleDefMap release]; m_toggleDefMap = nil;
     [m_spriteDefMap release]; m_spriteDefMap = nil;
     [m_animDefMap release]; m_animDefMap = nil;
     [super dealloc];
@@ -108,8 +110,22 @@
         }
     }
     
-    // TODO: need to run ToggleDefLoader here, but what do we do with the results?
-    //       figure out where getSpriteDef and getAnimDef are used.
+    NSArray *toggleDefResources = [NSArray arrayWithObjects:@"Sprites1.xml", nil];
+    ToggleDefLoader *toggleDefLoader = [[[ToggleDefLoader alloc] init] autorelease];
+    NSArray *toggleDefs = [toggleDefLoader loadToggleDefsFrom:toggleDefResources withSpriteDefTable:m_spriteDefMap];
+    for( int i = 0; i < [toggleDefs count]; ++i )
+    {
+        ToggleDef *thisToggleDef = (ToggleDef *)[toggleDefs objectAtIndex:i];
+        id existingValue = [m_toggleDefMap valueForKey:thisToggleDef.name];
+        if( existingValue == nil )
+        {
+            [m_toggleDefMap setValue:thisToggleDef forKey:thisToggleDef.name];
+        }
+        else
+        {
+            NSLog( @"ignoring duplicate toggledef with name \"%@\".", thisToggleDef.name );
+        }
+    }
 }
 
 
@@ -296,6 +312,12 @@
 -(AnimDef *)getAnimDef:(NSString *)name
 {
     return (AnimDef *)[m_animDefMap objectForKey:name];    
+}
+
+
+-(ToggleDef *)getToggleDef:(NSString *)name
+{
+    return (ToggleDef *)[m_toggleDefMap objectForKey:name];
 }
 
 
