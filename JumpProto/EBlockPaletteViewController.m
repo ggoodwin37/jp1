@@ -377,6 +377,11 @@
     PCL_ADD( EBlockPreset_tiny_btn1_d, @"btn1-d", @"" );
     PCL_ADD( EBlockPreset_tiny_redblu_red, @"redblu-red", @"" );
     PCL_ADD( EBlockPreset_tiny_redblu_blu, @"redblu-blu", @"" );
+    PCL_ADD( EBlockPreset_tiny_redblu_btn_u, @"redblu-btn-u", @"" );
+    PCL_ADD( EBlockPreset_tiny_redblu_btn_l, @"redblu-btn-l", @"" );
+    PCL_ADD( EBlockPreset_tiny_redblu_btn_r, @"redblu-btn-r", @"" );
+    PCL_ADD( EBlockPreset_tiny_redblu_btn_d, @"redblu-btn-d", @"" );
+
     PCL_CATDONE();
     
     return list;

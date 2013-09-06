@@ -156,6 +156,10 @@
         <NextSprite name="tiny-button-edithint-l" />
         <NextSprite name="tiny-button-edithint-r" />
         <NextSprite name="tiny-button-edithint-d" />
+        <NextSprite name="tiny-redblu-button-edithint-u" />
+        <NextSprite name="tiny-redblu-button-edithint-l" />
+        <NextSprite name="tiny-redblu-button-edithint-r" />
+        <NextSprite name="tiny-redblu-button-edithint-d" />
     </SpriteDefRun>
 
     <SpriteDefRun resourceName="tiny-2.png" xStart="0" yStart="0" xEnd="64" spriteWidth="8" spriteHeight="8">

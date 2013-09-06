@@ -673,6 +673,10 @@
         case EBlockPreset_tiny_btn1_d:
         case EBlockPreset_tiny_creep_fuzz_l:
         case EBlockPreset_tiny_creep_fuzz_r:
+        case EBlockPreset_tiny_redblu_btn_u:
+        case EBlockPreset_tiny_redblu_btn_l:
+        case EBlockPreset_tiny_redblu_btn_r:
+        case EBlockPreset_tiny_redblu_btn_d:
         //case EBlockPreset_tiny_creep_martian:
         //case EBlockPreset_tiny_creep_mosquito:
         case EBlockPreset_tiny_creep_jelly_LR:
@@ -735,6 +739,12 @@
             return [[[TinyBtn1Actor alloc] initAtStartingPoint:pStart triggerDirection:ERDirRight] autorelease];
         case EBlockPreset_tiny_btn1_d:
             return [[[TinyBtn1Actor alloc] initAtStartingPoint:pStart triggerDirection:ERDirDown] autorelease];
+
+        case EBlockPreset_tiny_redblu_btn_u:
+        case EBlockPreset_tiny_redblu_btn_l:
+        case EBlockPreset_tiny_redblu_btn_r:
+        case EBlockPreset_tiny_redblu_btn_d:
+            return nil;  // TODO: redblu btn actor
             
         default:
             NSLog( @"don't know how to create actor for preset." );

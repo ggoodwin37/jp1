@@ -149,6 +149,10 @@
         case EBlockPreset_tiny_aiBounceHint: return @"tiny-ai-bounce-edithint";
         case EBlockPreset_tiny_mineCrate: return @"tiny-creep-mine";
         case EBlockPreset_tiny_springUp: return @"tiny-spring-up";
+        case EBlockPreset_tiny_redblu_btn_u: return @"tiny-redblu-button-edithint-u";
+        case EBlockPreset_tiny_redblu_btn_l: return @"tiny-redblu-button-edithint-l";
+        case EBlockPreset_tiny_redblu_btn_r: return @"tiny-redblu-button-edithint-r";
+        case EBlockPreset_tiny_redblu_btn_d: return @"tiny-redblu-button-edithint-d";
             
         default:
             return @"icon_close";  // TODO: better "unknown" tile?

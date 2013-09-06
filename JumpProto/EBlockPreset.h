@@ -121,6 +121,10 @@ enum EBlockPresetEnum
     EBlockPreset_tiny_btn1_l,
     EBlockPreset_tiny_btn1_r,
     EBlockPreset_tiny_btn1_d,
+    EBlockPreset_tiny_redblu_btn_u,
+    EBlockPreset_tiny_redblu_btn_l,
+    EBlockPreset_tiny_redblu_btn_r,
+    EBlockPreset_tiny_redblu_btn_d,
     
     EBlockPresetCount,
 };
