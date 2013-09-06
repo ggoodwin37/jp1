@@ -221,9 +221,17 @@
         //  this saves us lots of calls since the typical case is a non-red-blu.
         //  but if we happen to have lots of red-blus, it would be nice to have
         //  this cached.
-        if( candidateBlock.props.redBluState != BlockRedBlueState_None &&
-            candidateBlock.props.redBluState != [m_redBluProvider isCurrentlyRed] )
-            continue;
+        if( candidateBlock.props.redBluState != BlockRedBlueState_None )
+        {
+            if( [m_redBluProvider isCurrentlyRed] )
+            {
+                if( candidateBlock.props.redBluState != BlockRedBlueState_Red ) continue;
+            }
+            else
+            {
+                if( candidateBlock.props.redBluState != BlockRedBlueState_Blu ) continue;
+            }
+        }
 
         if( dir == ERDirDown )
         {

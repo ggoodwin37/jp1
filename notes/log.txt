@@ -357,10 +357,12 @@ x investigate the issue where standing partially over a spike will kill you. I'l
 Made a few playability fixes and now I'm working on RedBlu. Core impl is mostly done but needs some integration.
 
 TODO:
-  - spriteStates aren't picked correctly for red-blu presets. probably need to go all the way to the xml layer to hook up to RedBluSpriteState.
-  - need new button art for red/blu buttons.
-  - preset plumbing for red/blu buttons. might as well just do all 4 directions.
-  - button overrides hooking up to toggleState.
-  - voila?
+  x spriteStates aren't picked correctly for red-blu presets. probably need to go all the way to the xml layer to hook up to RedBluSpriteState.
+  x need new button art for red/blu buttons.
+  x preset plumbing for red/blu buttons. might as well just do all 4 directions.
+  x button overrides hooking up to toggleState.
+  x voila?
 
 follow up: walls suddenly appearing on top of you should probably kill you, same for badguys.
+
+So RedBlu is done now (except the walls killing you part). Haven't played around with it much yet. I guess background layers are up next, unless you want to add some more art and enemies for a little while. Bang for buck?
