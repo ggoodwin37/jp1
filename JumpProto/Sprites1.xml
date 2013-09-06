@@ -171,12 +171,6 @@
         <NextSprite />
         <NextSprite name="tiny-spring-up" />
     </SpriteDefRun>
-    <SpriteDefRun resourceName="tiny-2.png" xStart="32" yStart="0" xEnd="40" spriteWidth="4" spriteHeight="4">
-        <NextSprite name="tiny-redblu-btn-red-plate" />
-        <NextSprite name="tiny-redblu-btn-red-rod" />
-        <NextSprite name="tiny-redblu-btn-blu-plate" />
-        <NextSprite name="tiny-redblu-btn-blu-rod" />
-    </SpriteDefRun>
     
     <SpriteDefRun resourceName="rob-16.png" xStart="0" yStart="0" xEnd="64" spriteWidth="16" spriteHeight="32" worldWidth="4" worldHeight="8">
         <NextSprite name="rob16-idle" />
@@ -254,10 +248,27 @@
         <NextSprite name="tiny-event-btn1-trigger-r" />
         <NextSprite name="tiny-event-btn1-trigger-d" />
     </SpriteDefRun>
+
+    <!-- event-1: redBlu triggers -->
+    <SpriteDefRun resourceName="tiny-event-1" xStart="24" yStart="0" xEnd="32" spriteWidth="4" spriteHeight="4" worldWidth="2" worldHeight="2">
+        <NextSprite name="tiny-event-redblu-btn-trigger-red-u" />
+        <NextSprite name="tiny-event-redblu-btn-trigger-red-l" />
+        <NextSprite name="tiny-event-redblu-btn-trigger-red-r" />
+        <NextSprite name="tiny-event-redblu-btn-trigger-red-d" />
+    </SpriteDefRun>
+    <SpriteDefRun resourceName="tiny-event-1" xStart="0" yStart="8" xEnd="8" spriteWidth="4" spriteHeight="4" worldWidth="2" worldHeight="2">
+        <NextSprite name="tiny-event-redblu-btn-trigger-blu-u" />
+        <NextSprite name="tiny-event-redblu-btn-trigger-blu-l" />
+        <NextSprite name="tiny-event-redblu-btn-trigger-blu-r" />
+        <NextSprite name="tiny-event-redblu-btn-trigger-blu-d" />
+    </SpriteDefRun>
     
     <!-- ToggleDefs for RedBlu stuff -->
     <ToggleDef name="tiny-redblu-block-red" offSprite="tiny-redblu-red-off" onSprite="tiny-redblu-red-on" />
     <ToggleDef name="tiny-redblu-block-blu" offSprite="tiny-redblu-blu-off" onSprite="tiny-redblu-blu-on" />
-    <!-- TODO: need button triggers here too -->
+    <ToggleDef name="tiny-redblu-trigger-u" offSprite="tiny-event-redblu-btn-trigger-blu-u" onSprite="tiny-event-redblu-btn-trigger-red-u" />
+    <ToggleDef name="tiny-redblu-trigger-l" offSprite="tiny-event-redblu-btn-trigger-blu-l" onSprite="tiny-event-redblu-btn-trigger-red-l" />
+    <ToggleDef name="tiny-redblu-trigger-r" offSprite="tiny-event-redblu-btn-trigger-blu-r" onSprite="tiny-event-redblu-btn-trigger-red-r" />
+    <ToggleDef name="tiny-redblu-trigger-d" offSprite="tiny-event-redblu-btn-trigger-blu-d" onSprite="tiny-event-redblu-btn-trigger-red-d" />
      
 </SpriteDefs>

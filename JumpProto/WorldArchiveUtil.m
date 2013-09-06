@@ -692,7 +692,7 @@
 }
 
 
-+(Actor *)createActorForPresetBlock:(AFPresetBlockBase *)block
++(Actor *)createActorForPresetBlock:(AFPresetBlockBase *)block withWorld:(World *)world
 {
     EmuPoint pStart = EmuPointMake( block.rect.origin.x * ONE_BLOCK_SIZE_Emu,
                                     block.rect.origin.y * ONE_BLOCK_SIZE_Emu );
@@ -741,10 +741,13 @@
             return [[[TinyBtn1Actor alloc] initAtStartingPoint:pStart triggerDirection:ERDirDown] autorelease];
 
         case EBlockPreset_tiny_redblu_btn_u:
+            return [[[TinyRedBluBtnActor alloc] initAtStartingPoint:pStart triggerDirection:ERDirUp redBluStateProvider:world] autorelease];
         case EBlockPreset_tiny_redblu_btn_l:
+            return [[[TinyRedBluBtnActor alloc] initAtStartingPoint:pStart triggerDirection:ERDirLeft redBluStateProvider:world] autorelease];
         case EBlockPreset_tiny_redblu_btn_r:
+            return [[[TinyRedBluBtnActor alloc] initAtStartingPoint:pStart triggerDirection:ERDirRight redBluStateProvider:world] autorelease];
         case EBlockPreset_tiny_redblu_btn_d:
-            return nil;  // TODO: redblu btn actor
+            return [[[TinyRedBluBtnActor alloc] initAtStartingPoint:pStart triggerDirection:ERDirDown redBluStateProvider:world] autorelease];
             
         default:
             NSLog( @"don't know how to create actor for preset." );
@@ -852,7 +855,7 @@
         
         if( thisActorPresetBlock != nil )
         {
-            Actor *thisActor = [WorldArchiveUtil createActorForPresetBlock:thisActorPresetBlock];
+            Actor *thisActor = [WorldArchiveUtil createActorForPresetBlock:thisActorPresetBlock withWorld:world];
             if( thisActor != nil )
             {
                 [world addNPCActor:thisActor];

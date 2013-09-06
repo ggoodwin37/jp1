@@ -34,3 +34,13 @@ typedef enum TinyBtn1StateEnum TinyBtn1State;
 -(id)initAtStartingPoint:(EmuPoint)p triggerDirection:(ERDirection)triggerDirection;
 
 @end
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// TinyRedBluBtnActor
+@interface TinyRedBluBtnActor : TinyBtn1Actor {
+    NSObject<IRedBluStateProvider> *m_redBluStateProvider;
+}
+
+-(id)initAtStartingPoint:(EmuPoint)p triggerDirection:(ERDirection)triggerDirection redBluStateProvider:(NSObject<IRedBluStateProvider> *)redBluStateProvider;
+
+@end

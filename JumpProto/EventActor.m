@@ -63,6 +63,31 @@
 }
 
 
+-(SpriteState *)getTriggerBlockSpriteState
+{
+    NSString *triggerSpriteName;
+    switch( m_triggerDir )
+    {
+        case ERDirUp:
+            triggerSpriteName = @"tiny-event-btn1-trigger-u";
+            break;
+        case ERDirLeft:
+            triggerSpriteName = @"tiny-event-btn1-trigger-l";
+            break;
+        case ERDirRight:
+            triggerSpriteName = @"tiny-event-btn1-trigger-r";
+            break;
+        case ERDirDown:
+            triggerSpriteName = @"tiny-event-btn1-trigger-d";
+            break;
+        default:
+            NSAssert( NO, @"Assume we have a valid direction." );
+            return nil;
+    }
+    return [[[StaticSpriteState alloc] initWithSpriteName:triggerSpriteName] autorelease];
+}
+
+
 -(void)spawnActorBlocks
 {
     // trigger is always same size regardless of direction
@@ -73,7 +98,7 @@
     EmuSize plateSize;  // shared by stopper and anchor
     EmuPoint triggerVIntrinsic;
     BlockEdgeDirMask opposingDirMask;
-    NSString *triggerSpriteName, *plateSpriteName;
+    NSString *plateSpriteName;
     
     switch( m_triggerDir )
     {
@@ -85,7 +110,6 @@
             plateSize = EmuSizeMake( 4 * ONE_BLOCK_SIZE_Emu, 1 * ONE_BLOCK_SIZE_Emu );
             triggerVIntrinsic = EmuPointMake( 0, -10000 );
             opposingDirMask = BlockEdgeDirMask_Down;
-            triggerSpriteName = @"tiny-event-btn1-trigger-u";
             plateSpriteName = @"tiny-event-btn1-plate-ud";
             break;
         case ERDirLeft:
@@ -96,7 +120,6 @@
             plateSize = EmuSizeMake( 1 * ONE_BLOCK_SIZE_Emu, 4 * ONE_BLOCK_SIZE_Emu );
             triggerVIntrinsic = EmuPointMake( 10000, 0 );
             opposingDirMask = BlockEdgeDirMask_Right;
-            triggerSpriteName = @"tiny-event-btn1-trigger-l";
             plateSpriteName = @"tiny-event-btn1-plate-lr";
             break;
         case ERDirRight:
@@ -107,7 +130,6 @@
             plateSize = EmuSizeMake( 1 * ONE_BLOCK_SIZE_Emu, 4 * ONE_BLOCK_SIZE_Emu );
             triggerVIntrinsic = EmuPointMake( -10000, 0 );
             opposingDirMask = BlockEdgeDirMask_Left;
-            triggerSpriteName = @"tiny-event-btn1-trigger-r";
             plateSpriteName = @"tiny-event-btn1-plate-lr";
             break;
         case ERDirDown:
@@ -118,7 +140,6 @@
             plateSize = EmuSizeMake( 4 * ONE_BLOCK_SIZE_Emu, 1 * ONE_BLOCK_SIZE_Emu );
             triggerVIntrinsic = EmuPointMake( 0, 10000 );
             opposingDirMask = BlockEdgeDirMask_Up;
-            triggerSpriteName = @"tiny-event-btn1-trigger-d";
             plateSpriteName = @"tiny-event-btn1-plate-ud";
             break;
         default:
@@ -156,7 +177,7 @@
     m_triggerBlock.state.vIntrinsic = triggerVIntrinsic;
     m_triggerBlock.props.solidMask = BlockEdgeDirMask_Full ^ opposingDirMask;
     m_triggerBlock.props.eventSolidMask = opposingDirMask;
-    m_triggerBlock.defaultSpriteState = [[[StaticSpriteState alloc] initWithSpriteName:triggerSpriteName] autorelease];
+    m_triggerBlock.defaultSpriteState = [self getTriggerBlockSpriteState];
     [m_actorBlockList addObject:m_triggerBlock];
     [m_world.elbowRoom addBlock:m_triggerBlock];
 
@@ -320,6 +341,64 @@
 
     // handle the details of this actor's behavior.
     [self updateForCurrentState];
+}
+
+@end
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// TinyRedBluBtnActor
+@implementation TinyRedBluBtnActor
+
+-(id)initAtStartingPoint:(EmuPoint)p triggerDirection:(ERDirection)triggerDirection redBluStateProvider:(NSObject<IRedBluStateProvider> *)redBluStateProvider
+{
+    if( self = [super initAtStartingPoint:p triggerDirection:triggerDirection] )
+    {
+        m_redBluStateProvider = redBluStateProvider;  // weak
+    }
+    return self;
+}
+
+
+-(void)dealloc
+{
+    m_redBluStateProvider = nil;  // weak
+    [super dealloc];
+}
+
+
+// override
+-(SpriteState *)getTriggerBlockSpriteState
+{
+    NSString *triggerDefName;
+    switch( m_triggerDir )
+    {
+        case ERDirUp:
+            triggerDefName = @"tiny-redblu-trigger-u";
+            break;
+        case ERDirLeft:
+            triggerDefName = @"tiny-redblu-trigger-l";
+            break;
+        case ERDirRight:
+            triggerDefName = @"tiny-redblu-trigger-r";
+            break;
+        case ERDirDown:
+            triggerDefName = @"tiny-redblu-trigger-d";
+            break;
+        default:
+            NSAssert( NO, @"Assume we have a valid direction." );
+            return nil;
+    }
+    ToggleDef *toggleDef = [[SpriteManager instance] getToggleDef:triggerDefName];
+    NSAssert( toggleDef != nil, @"Assume we have valid toggleDef names." );
+
+    return [[[RedBluSpriteState alloc] initWithToggleDef:toggleDef asRed:NO stateProvider:m_redBluStateProvider] autorelease];
+}
+
+
+// override
+-(void)onTriggered
+{
+    [m_redBluStateProvider toggleState];
 }
 
 @end
