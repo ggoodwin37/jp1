@@ -66,7 +66,7 @@ typedef enum BlockRedBluStateEnum BlockRedBluState;
 @property (nonatomic, assign) BOOL canMoveFreely;
 @property (nonatomic, assign) BOOL affectedByGravity;
 @property (nonatomic, assign) BOOL affectedByFriction;
-@property (nonatomic, assign) EmuPoint initialVelocity;  // this becomes vIntrinsic
+@property (nonatomic, assign) EmuPoint initialVelocity;  // this becomes vIntrinsic (iff block is added via world::addWorldBlock)
 
 @property (nonatomic, assign) float bounceFactor;
 

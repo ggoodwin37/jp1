@@ -402,11 +402,12 @@
     actorBlock.props.affectedByGravity = NO;
     actorBlock.props.hurtyMask = BlockEdgeDirMask_Full;
     actorBlock.props.weight = IMMOVABLE_WEIGHT;
+    actorBlock.props.bounceFactor = -1.f;
 
     int sign = m_facingPositive ? 1 : -1;
     Emu xComponent = m_xAxis ? (sign * TINYJELLY_V) : 0;
     Emu yComponent = m_xAxis ? 0 : (sign * TINYJELLY_V);
-    [actorBlock setV:EmuPointMake(xComponent, yComponent) ];
+    actorBlock.state.vIntrinsic = EmuPointMake(xComponent, yComponent);
 }
 
 
@@ -436,6 +437,14 @@
     Emu xComponent = m_xAxis ? -oldV.x : 0;
     Emu yComponent = m_xAxis ? 0 : -oldV.y;
     [actorBlock setV:EmuPointMake(xComponent, yComponent) ];
+}
+
+
+// override, required for vIntrinsic to work.
+-(EmuPoint)getMotiveAccel
+{
+    const Emu fullAccelInOneFrame = 60 * PLAYERINPUT_JUMP_MAX_V;
+    return EmuPointMake( fullAccelInOneFrame, fullAccelInOneFrame );
 }
 
 @end

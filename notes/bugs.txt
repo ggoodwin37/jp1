@@ -4,9 +4,6 @@
 
 - riding a lift is not smooth when both a crate and the player are on.
 
-- a crate on a spring bouncing into a low ceiling: crate retains velocity, has an awkward hanging pause before falling again. this doesn't happen for player (headBumpUpdater?). seems minor but will actually be significant for bouncing-button tricks.
-
-
 // old
 
 // punted

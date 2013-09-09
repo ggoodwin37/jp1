@@ -39,6 +39,8 @@
 
 - beams
 
+- generator blocks?
+
 - herds basic impl.
 
 - possible perf improvement: shared spritestates for non-actor anim blocks. example: a big castle with lots of spikes. no sense spinning up an animstate and paying to update it for each spike if they are all identical anyways. this only works if they are supposed to be identically in sync. profile first to verify suspicion that this scenario is expensive. I think it adds like 2 or 3 ms to world update for a moderate-large number of spikes.

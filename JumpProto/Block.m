@@ -319,20 +319,22 @@
 {
     Emu oldVal;
     BOOL fIntrinsicChanged = NO;
+    EmuPoint vIntrinsic = self.state.vIntrinsic;
+    BOOL fHasIntrinsic = (vIntrinsic.x != 0) || (vIntrinsic.y != 0);
     if( xAxis )
     {
-        oldVal = self.state.vIntrinsic.x;
-        self.state.vIntrinsic = EmuPointMake( self.props.bounceFactor * self.state.vIntrinsic.x, self.state.vIntrinsic.y );
+        oldVal = vIntrinsic.x;
+        self.state.vIntrinsic = EmuPointMake( self.props.bounceFactor * vIntrinsic.x, vIntrinsic.y );
         fIntrinsicChanged = self.state.vIntrinsic.x != oldVal;
     }
     else
     {
-        oldVal = self.state.vIntrinsic.y;
-        self.state.vIntrinsic = EmuPointMake( self.state.vIntrinsic.x, self.props.bounceFactor * self.state.vIntrinsic.y );
+        oldVal = vIntrinsic.y;
+        self.state.vIntrinsic = EmuPointMake( vIntrinsic.x, self.props.bounceFactor * vIntrinsic.y );
         fIntrinsicChanged = self.state.vIntrinsic.y != oldVal;
     }
     
-    if( fIntrinsicChanged )
+    if( !fHasIntrinsic || fIntrinsicChanged )
     {
         // zero the bounced velocity component so that we have a chance to accelerate in the
         // new direction before bouncing again.
