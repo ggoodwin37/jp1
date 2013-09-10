@@ -336,6 +336,7 @@
     
     if( !fHasIntrinsic || fIntrinsicChanged )
     {
+        if( !fHasIntrinsic ) NSLog( @"block doesn't have intrinsic v, zeroing velocity on bounce" );  // TODO: maybe we are missing an axis check?
         // zero the bounced velocity component so that we have a chance to accelerate in the
         // new direction before bouncing again.
         // future: it's actually more realistic for this to just flip sign sometimes (think bouncing ball)

@@ -375,3 +375,17 @@ stress1 (lots of baddies):  draw=2.5ms, update=99ms // unlikely to help this cas
 stress2 (lots of spikes):   draw=34.4, update=7.8   // surprised draw is this high, a bug around culling large blocks?
 
 actually, after looking into the implementation a bit, it's a little more hairy than I want to tackle right now. The issue is that once we start sharing spriteStates across multiple blocks, figuring out which ones need to be updated gets a little tricky, considering there are also group blocks, actor blocks, etc. So either we need all spritestates in the cache (then just update the ones in the cache instead of the ones belonging to blocks), or need more advanced machinery. and for actors, we want the ability to have distinct instances of the same sprite resource (so they can be animated separately). overall doesn't appear to be worth the complexity for now.
+
+9-9
+
+It's time to start the Next Big Feature. Just need to decide what it is. Or maybe I should procrastinate and just add some new art and monsters. Yeah, that sounds pretty good.
+
+Need to do some thought experimentation around the build mode button (b-mode). This may really be the feature I was looking for but need to convince myself more before dropping lots of hours on implementation.
+
+Todos:
+- fix falling v issue introduced recently.
+- add to ER API:
+  -(NSArray *)blocksOverlappingRect:(EmuRect)rect;
+  this will be used for b-mode (detect what blocks are under touch point) and also used to kill stuff when a redblu turns on. Eventually might be useful for beams or trigger zones. The input rect could correspond to a block or just a 1x1 rect for a touch point.
+- start prototyping b-mode. for now can just disable d-pad input and add in b-mode input handler. Time slows down. Direct manipulation of some blocks (do we need a special blockProp for these types of blocks?). WorldView can turn on coloring mode for moveable blocks. When a block is getting moved, it should gain velocity. Would be cool to be able to throw blocks somehow, not sure how to implement this with time slowing down though.
+
