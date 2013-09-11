@@ -18,7 +18,7 @@
     NSMutableArray **m_gridCells;    // each slot lazy holds an NSArray of grid inhabitants.
                                      // using a raw buffer here since NSArrays can't hold nil.
     
-    NSMutableArray *m_workingStack;
+    NSMutableArray *m_colliderStack;
     NSMutableArray *m_overlapperStack;
     NSObject<IRedBluStateProvider> *m_redBluProvider;
 }

@@ -18,7 +18,7 @@
         m_gridCellSize = ONE_BLOCK_SIZE_Emu * 2;   // class const.
         m_gridCells = nil;
         
-        m_workingStack = [[NSMutableArray arrayWithCapacity:4] retain];
+        m_colliderStack = [[NSMutableArray arrayWithCapacity:4] retain];
         m_overlapperStack = [[NSMutableArray arrayWithCapacity:4] retain];
         m_redBluProvider = redBluProvider;  // weak
     }
@@ -42,7 +42,7 @@
 {
     m_redBluProvider = nil;  // weak
     [m_overlapperStack release]; m_overlapperStack = nil;
-    [m_workingStack release]; m_workingStack = nil;
+    [m_colliderStack release]; m_colliderStack = nil;
     [self releaseGridCells];
     [super dealloc];
 }
@@ -382,13 +382,13 @@
         Emu thisDistance = [self getElbowRoomForBlock:thisBlock inDirection:dir resultStack:tempStack];
         if( thisDistance < minDistance )
         {
-            [m_workingStack removeAllObjects];
-            [m_workingStack addObjectsFromArray:tempStack];
+            [m_colliderStack removeAllObjects];
+            [m_colliderStack addObjectsFromArray:tempStack];
             minDistance = thisDistance;
         }
         else if( thisDistance == minDistance )
         {
-            [m_workingStack addObjectsFromArray:tempStack];
+            [m_colliderStack addObjectsFromArray:tempStack];
         }
         // else do nothing with this block
     }
@@ -398,14 +398,14 @@
 
 -(Emu)getElbowRoomForSO:(ASolidObject *)solidObject inDirection:(ERDirection)dir
 {
-    [m_workingStack removeAllObjects];
+    [m_colliderStack removeAllObjects];
     if( [solidObject isGroup] )
     {
         return [self getElbowRoomForGroup:(BlockGroup *)solidObject inDirection:dir];
     }
     else
     {
-        return [self getElbowRoomForBlock:(Block *)solidObject inDirection:dir resultStack:m_workingStack];
+        return [self getElbowRoomForBlock:(Block *)solidObject inDirection:dir resultStack:m_colliderStack];
     }
 }
 
@@ -413,10 +413,10 @@
 -(Block *)popCollider
 {
     Block *result = nil;
-    if( [m_workingStack count] > 0 )
+    if( [m_colliderStack count] > 0 )
     {
-        result = [m_workingStack lastObject];
-        [m_workingStack removeLastObject];
+        result = [m_colliderStack lastObject];
+        [m_colliderStack removeLastObject];
     }
     return result;
 }
