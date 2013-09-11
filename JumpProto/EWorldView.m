@@ -326,7 +326,8 @@
 }
 
 
-// TODO: restricted rect version?
+// TODO: restricted rect version? need to manage dirty rect manually, handle different coordinate transforms, and
+//       update draw methods to optionally only draw some subset.
 -(void)drawGridDocumentToContext:(CGContextRef)context
 {
     if( self.document == nil )

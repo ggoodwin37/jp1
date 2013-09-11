@@ -29,6 +29,7 @@
 
 - implement the restricted rect version of EWorldView drawToContext for better perf while drawing blocks.
   - you already are culling to view rect in the main grid document drawer, but I think there's an optional separate version of the draw method that only updates a certain rect. then we can invalidate just specific parts of the screen when drawing/erasing, should make editing snappier (until the user pans/zooms).
+  - postponing for now, manually calculating the region to redraw is not hard but kind of a pain in the ass.
 
 - core, low pri: handling of sprite and preset constants is pretty ugly. should make this more dynamic and compact.
 
@@ -47,6 +48,7 @@
   - the implementation here may be simpler than I thought. If we just lazy-create a single instance of a AnimSpriteState then pass that to all spike blocks, we're done. Yay good design for sprite states being separate from blocks. should do the same for static blocks too, could be big memory savings.
      - but of course it isn't that simple because then you have to figure out an efficient way to update each shared instance only once. Currently SpriteStateUpdater wants to run on every block.
 
+- bonus/secret stars.
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // edit. claim: investing in edit makes play exponentially more awesome.
@@ -56,6 +58,7 @@
 - cut/copy/paste. for copy, you've been picturing this intelligent edge trimming algorithm, but we can probably do without that for now and just trust author to make convenient copies (which handles 95% of actual use cases). i.e. drop blocks not entirely in copy region.
 
 - would be cool to have like 3 to 4 draw slots so I can rapidly choose between several presets, can be pre-pop'd too.
+  - this feels a little less interesting now.
 
 - undo stack
 
