@@ -19,6 +19,7 @@
         m_gridCells = nil;
         
         m_workingStack = [[NSMutableArray arrayWithCapacity:4] retain];
+        m_overlapperStack = [[NSMutableArray arrayWithCapacity:4] retain];
         m_redBluProvider = redBluProvider;  // weak
     }
     return self;
@@ -40,6 +41,7 @@
 -(void)dealloc
 {
     m_redBluProvider = nil;  // weak
+    [m_overlapperStack release]; m_overlapperStack = nil;
     [m_workingStack release]; m_workingStack = nil;
     [self releaseGridCells];
     [super dealloc];
@@ -418,5 +420,25 @@
     }
     return result;
 }
+
+
+-(int)getOverlappersForWorldRect:(EmuPoint)worldRect
+{
+    // TODO
+    return 0;
+}
+
+
+-(Block *)popOverlapper
+{
+    Block *result = nil;
+    if( [m_overlapperStack count] > 0 )
+    {
+        result = [m_overlapperStack lastObject];
+        [m_overlapperStack removeLastObject];
+    }
+    return result;
+}
+
 
 @end

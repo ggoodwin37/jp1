@@ -19,6 +19,7 @@
                                      // using a raw buffer here since NSArrays can't hold nil.
     
     NSMutableArray *m_workingStack;
+    NSMutableArray *m_overlapperStack;
     NSObject<IRedBluStateProvider> *m_redBluProvider;
 }
 

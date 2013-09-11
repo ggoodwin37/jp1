@@ -383,7 +383,7 @@ It's time to start the Next Big Feature. Just need to decide what it is. Or mayb
 Need to do some thought experimentation around the build mode button (b-mode). This may really be the feature I was looking for but need to convince myself more before dropping lots of hours on implementation.
 
 Todos:
-- fix falling v issue introduced recently.
+x fix falling v issue introduced recently.
 - add to ER API:
   -(NSArray *)blocksOverlappingRect:(EmuRect)rect;
   this will be used for b-mode (detect what blocks are under touch point) and also used to kill stuff when a redblu turns on. Eventually might be useful for beams or trigger zones. The input rect could correspond to a block or just a 1x1 rect for a touch point.

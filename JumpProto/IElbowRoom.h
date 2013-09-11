@@ -21,6 +21,10 @@
 -(void)removeBlock:(Block *)block;
 -(void)moveBlock:(Block *)block byOffset:(EmuPoint)offset;
 -(Emu)getElbowRoomForSO:(ASolidObject *)solidObject inDirection:(ERDirection)dir;
--(Block *)popCollider;  // returns next collider resulting from the most recent getElbowRoomForSO: call.
+-(Block *)popCollider;   // returns next collider resulting from the most recent getElbowRoomForSO: call.
+
+// overlap detection
+-(int)getOverlappersForWorldRect:(EmuPoint)worldRect;  // returns overlapper count and pushes overlapping blocks for later use (via popOverlapper).
+-(Block *)popOverlapper; // returns next overlapper resulting from the most recent getOverlappersForWorldRect: call.
 
 @end
