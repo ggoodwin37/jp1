@@ -82,7 +82,7 @@
 //  target offset so that we end the turn directly over the gap, instead of moving beyond it.
 // this method makes a distinction between group SOs and their element blocks. we only want to check
 //  gaps against elements.
--(Emu)checkPerpGapsForNode:(ASolidObject *)node targetOffset:(Emu)targetOffset isXAxis:(BOOL)xAxis
+-(Emu)checkPerpGapsForNode:(ASolidObject *)node targetOffset:(Emu)targetOffset isXAxis:(BOOL)xAxis outStoppedForGap:(BOOL *)outStoppedForGap
 {
     NSAssert( ![node isGroup], @"don't pass group nodes in here" );  // note: can process group elements, just not group owners.
     
@@ -128,36 +128,42 @@
     
     Block *thisBlock = (Block *)node;
     Block *gapBlock = (Block *)gapAbutter;
+    Emu result;
     switch( gapDirection )
     {
         case ERDirDown:
         case ERDirUp:
             if( targetOffset < 0 )  // left
             {
-                return MAX( targetOffset, MIN( 0, gapBlock.x - (thisBlock.x + thisBlock.w) ) );
+                result = MAX( targetOffset, MIN( 0, gapBlock.x - (thisBlock.x + thisBlock.w) ) );
             }
             else                    // right
             {
-                return MIN( targetOffset, MAX( 0, gapBlock.x + gapBlock.w - thisBlock.x ) );
+                result = MIN( targetOffset, MAX( 0, gapBlock.x + gapBlock.w - thisBlock.x ) );
             }
+            break;
         case ERDirLeft:
         case ERDirRight:
             if( targetOffset < 0 )  // down
             {
-                return MAX( targetOffset, MIN( 0, gapBlock.y - (thisBlock.y + thisBlock.h) ) );
+                result = MAX( targetOffset, MIN( 0, gapBlock.y - (thisBlock.y + thisBlock.h) ) );
             }
             else                    // up
             {
-                return MIN( targetOffset, MAX( 0, gapBlock.y + gapBlock.h - thisBlock.y ) );
+                result = MIN( targetOffset, MAX( 0, gapBlock.y + gapBlock.h - thisBlock.y ) );
             }
+            break;
         default: NSAssert( NO, @"unknown direction." ); return 0;
     }
+    *outStoppedForGap = (result != targetOffset);
+    return result;
 }
 
 
--(Emu)performMoveForNode:(ASolidObject *)node targetOffset:(Emu)targetOffset isXAxis:(BOOL)xAxis
+-(Emu)performMoveForNode:(ASolidObject *)node targetOffset:(Emu)targetOffset isXAxis:(BOOL)xAxis outStoppedForGap:(BOOL *)outStoppedForGap
 {
     NSAssert( [node getProps].canMoveFreely, @"only moveable blocks allowed." );
+    *outStoppedForGap = NO;  // assume we don't hit any gaps (can be overridden in checkPerpGapsForNode:)
     
     ERDirection dir = xAxis ? ( targetOffset > 0 ? ERDirRight : ERDirLeft ) :
     ( targetOffset > 0 ? ERDirUp : ERDirDown );
@@ -189,12 +195,12 @@
         for( int i = 0; i < [thisGroup.blocks count]; ++i )
         {
             Block *thisBlock = (Block *)[thisGroup.blocks objectAtIndex:i];
-            actualOffsetThisFrame = [self checkPerpGapsForNode:thisBlock targetOffset:actualOffsetThisFrame isXAxis:xAxis];
+            actualOffsetThisFrame = [self checkPerpGapsForNode:thisBlock targetOffset:actualOffsetThisFrame isXAxis:xAxis outStoppedForGap:outStoppedForGap];
         }
     }
     else
     {
-        actualOffsetThisFrame = [self checkPerpGapsForNode:node targetOffset:actualOffsetThisFrame isXAxis:xAxis];
+        actualOffsetThisFrame = [self checkPerpGapsForNode:node targetOffset:actualOffsetThisFrame isXAxis:xAxis outStoppedForGap:outStoppedForGap];
     }
     
     [node changePositionOnXAxis:xAxis signedMoveOffset:actualOffsetThisFrame elbowRoom:self.elbowRoom];
@@ -322,7 +328,8 @@
     }
     
     // perform the actual move!
-    Emu didMoveOffset = [self performMoveForNode:node targetOffset:targetOffset isXAxis:xAxis];
+    BOOL fStoppedForGap;
+    Emu didMoveOffset = [self performMoveForNode:node targetOffset:targetOffset isXAxis:xAxis outStoppedForGap:&fStoppedForGap];
     
     // cheesy: recurse again if we just bumped into something without completing our desired move (for player only).
     //         this helps situations where we can't push a block while riding a conveyor or platform since the
@@ -348,7 +355,10 @@
     
     // if we newly gain abutters, wait a frame before bouncing. This allows us to observe an "opposing motive"
     //  bounce with higher priority (by checking earlier next frame than "true" bounce).
-    if( didMoveOffset == 0 && ![m_worldFrameCache ensureEntryForSO:node].newAbuttersThisFrame )
+    // don't run this check if we had cut our movement short due to gap checks, because that means we haven't
+    //  actually hit anything and so we shouldn't run bounce code.
+    // TODO: verify newAbuttersThisFrame is still necessary and correct. Seems a little suspish.
+    if( !fStoppedForGap && didMoveOffset == 0 && ![m_worldFrameCache ensureEntryForSO:node].newAbuttersThisFrame )
     {
         if( !didBounce )
         {

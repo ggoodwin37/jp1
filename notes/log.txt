@@ -384,8 +384,10 @@ Need to do some thought experimentation around the build mode button (b-mode). T
 
 Todos:
 - fix falling v issue introduced recently.
+- edit view restricted rect. I'll have to manage dirty rect manually.
 - add to ER API:
   -(NSArray *)blocksOverlappingRect:(EmuRect)rect;
   this will be used for b-mode (detect what blocks are under touch point) and also used to kill stuff when a redblu turns on. Eventually might be useful for beams or trigger zones. The input rect could correspond to a block or just a 1x1 rect for a touch point.
 - start prototyping b-mode. for now can just disable d-pad input and add in b-mode input handler. Time slows down. Direct manipulation of some blocks (do we need a special blockProp for these types of blocks?). WorldView can turn on coloring mode for moveable blocks. When a block is getting moved, it should gain velocity. Would be cool to be able to throw blocks somehow, not sure how to implement this with time slowing down though.
 
+idea: stars. these are secret/challenge collectibles. not sure what reward will be, for now just successfully collecting them and finishing the level will be enough. at load time, we count how many stars there are, then show that many grey outlines in upper left. as they collect stars the outlines fill in. the stars should be placed such that they are hard/hidden/interesting to get, with the expectation that the user must still make it back to the exit for the stars to "count".

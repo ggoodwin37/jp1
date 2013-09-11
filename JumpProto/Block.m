@@ -317,9 +317,20 @@
 
 -(void)bouncedOnXAxis:(BOOL)xAxis
 {
+    // don't process the player block here because we never want to do a normal bounce on player block. This
+    //  can break things and/or act unexpectedly. The specific reason I am adding this bailout is for up-gaps.
+    //  when we bounce upward trying to jump into an up-gap, we'd try to zero y velocity at the bottom of this
+    //  function, which means player can't ever jump up into y-gaps.
+    // Conceptually it would be more correct to not care about player block here, and just use [self getMotive]
+    //  instead of self.state.vIntrinsic, then just do the right thing. But getMotive doesn't work that way currently.
+    if( m_props.isPlayerBlock )
+    {
+        return;
+    }
+    
     Emu oldVal;
     BOOL fIntrinsicChanged = NO;
-    EmuPoint vIntrinsic = self.state.vIntrinsic;
+    EmuPoint vIntrinsic = self.state.vIntrinsic;  // TODO: this should really be motive instead (which is implemented as vIntrinsic for plain blocks).
     BOOL fHasIntrinsic = (vIntrinsic.x != 0) || (vIntrinsic.y != 0);
     if( xAxis )
     {
@@ -336,7 +347,6 @@
     
     if( !fHasIntrinsic || fIntrinsicChanged )
     {
-        if( !fHasIntrinsic ) NSLog( @"block doesn't have intrinsic v, zeroing velocity on bounce" );  // TODO: maybe we are missing an axis check?
         // zero the bounced velocity component so that we have a chance to accelerate in the
         // new direction before bouncing again.
         // future: it's actually more realistic for this to just flip sign sometimes (think bouncing ball)
