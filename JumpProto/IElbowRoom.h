@@ -24,7 +24,7 @@
 -(Block *)popCollider;   // returns next collider resulting from the most recent getElbowRoomForSO: call.
 
 // overlap detection
--(int)getOverlappersForWorldRect:(EmuPoint)worldRect;  // returns overlapper count and pushes overlapping blocks for later use (via popOverlapper).
+-(int)getOverlappersForWorldRect:(EmuRect)worldRect;  // returns overlapper count and pushes overlapping blocks for later use (via popOverlapper).
 -(Block *)popOverlapper; // returns next overlapper resulting from the most recent getOverlappersForWorldRect: call.
 
 @end

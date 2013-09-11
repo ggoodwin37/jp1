@@ -422,10 +422,35 @@
 }
 
 
--(int)getOverlappersForWorldRect:(EmuPoint)worldRect
+-(int)getOverlappersForWorldRect:(EmuRect)worldRect
 {
-    // TODO
-    return 0;
+    int blockCol0 = (worldRect.origin.x - m_worldMin.x) / m_gridCellSize;
+    int blockCol1 = (worldRect.origin.x + worldRect.size.width - m_worldMin.x) / m_gridCellSize;
+    int blockRow0 = (worldRect.origin.y - m_worldMin.y) / m_gridCellSize;
+    int blockRow1 = (worldRect.origin.y + worldRect.size.height - m_worldMin.y) / m_gridCellSize;
+    
+    [m_overlapperStack removeAllObjects];
+    
+    for( int jj = blockRow0; jj <= blockRow1; ++jj )
+    {
+        for( int ii = blockCol0; ii <= blockCol1; ++ii )
+        {
+            NSArray *list = [self tryGetGridCellAtCol:ii row:jj];
+            for( int iBlock = 0; iBlock < [list count]; ++iBlock )
+            {
+                Block *thisBlock = (Block *)[list objectAtIndex:iBlock];
+                BOOL isMiss = thisBlock.x > (worldRect.origin.x + worldRect.size.width) ||
+                              thisBlock.y > (worldRect.origin.y + worldRect.size.height) ||
+                              worldRect.origin.x > (thisBlock.x + thisBlock.h) ||
+                              worldRect.origin.y > (thisBlock.y + thisBlock.h);
+                if( !isMiss )
+                {
+                    [ElbowRoomGrid addIfUniqueToStack:m_overlapperStack block:thisBlock];
+                }
+            }
+        }
+    }
+    return [m_overlapperStack count];
 }
 
 
