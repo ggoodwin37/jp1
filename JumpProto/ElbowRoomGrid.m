@@ -439,10 +439,10 @@
             for( int iBlock = 0; iBlock < [list count]; ++iBlock )
             {
                 Block *thisBlock = (Block *)[list objectAtIndex:iBlock];
-                BOOL isMiss = thisBlock.x > (worldRect.origin.x + worldRect.size.width) ||
-                              thisBlock.y > (worldRect.origin.y + worldRect.size.height) ||
-                              worldRect.origin.x > (thisBlock.x + thisBlock.h) ||
-                              worldRect.origin.y > (thisBlock.y + thisBlock.h);
+                BOOL isMiss = thisBlock.x >= (worldRect.origin.x + worldRect.size.width) ||
+                              thisBlock.y >= (worldRect.origin.y + worldRect.size.height) ||
+                              worldRect.origin.x >= (thisBlock.x + thisBlock.w) ||
+                              worldRect.origin.y >= (thisBlock.y + thisBlock.h);
                 if( !isMiss )
                 {
                     [ElbowRoomGrid addIfUniqueToStack:m_overlapperStack block:thisBlock];

@@ -815,9 +815,43 @@
 }
 
 
+-(void)checkOverlappersOnRedBluToggleForActor:(Actor *)actor
+{
+    ActorBlock *actorBlock = [actor getDefaultActorBlock];
+    EmuRect rect = EmuRectMake( actorBlock.x, actorBlock.y, actorBlock.w, actorBlock.h );
+    if( [self.elbowRoom getOverlappersForWorldRect:rect] != 0 )
+    {
+        Block *thisOverlapper;
+        while( (thisOverlapper = [self.elbowRoom popOverlapper]) != nil )
+        {
+            if( thisOverlapper.props.redBluState != BlockRedBlueState_None )
+            {
+                if( thisOverlapper == actorBlock ) continue;
+                if( [self isCurrentlyRed] )
+                {
+                    if( thisOverlapper.props.redBluState != BlockRedBlueState_Red ) continue;
+                }
+                else
+                {
+                    if( thisOverlapper.props.redBluState != BlockRedBlueState_Blu ) continue;
+                }
+                [actor onTouchedHurty];  // TODO: I don't think this does anything except in PlayerActor case.
+            }
+        }
+    }
+}
+
+
 -(void)toggleState
 {
     m_isCurrentlyRed = !m_isCurrentlyRed;
+    
+    Actor *checkOverlapActor;
+    
+    checkOverlapActor = [self getPlayerActor];
+    [self checkOverlappersOnRedBluToggleForActor:checkOverlapActor];
+    
+    // TODO: other NPC actors too?
 }
 
 
