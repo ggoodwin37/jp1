@@ -1,0 +1,395 @@
+9-8
+fixed a handful of annoying but minor bugs.
+
+one hole simplification: claim that the average movement offset during one frame is significantly less than the size of one block (even if we make block sizes half as big).
+
+if this is true, then the only frame we care about (for one hole) is when the solidObject has exactly one down abutter, and we want to move more than the overlap between our edges. if we can detect this condition precisely, we have an easy and sort of minimal way to tell when we need to forfeit a chunk of time.
+
+9-9
+three things:
+x notion of original propagator for limit tally
+x one hole check, verify assumption first
+- wasting propagate work even when v=0?
+
+I think I have finally solved the one-hole-down problem for good (although there are still possible problem cases, I'm hoping I won't ever hit them). woo. hoo. I have dreamed of this day since I was a boy in a small rural village.
+
+9-10
+collision detection doesn't look like it will be too hard to get going. want a nice event-based system. problems with firing collision events in the middle of an updater loop? All state changes must be asynchronously handled?
+do we still need both the me-touch-you and you-touch-me flavors of collision detection?
+
+also I should spend some time on groups, at least figure out how broken they are, ideally fix them. not quite sure how the new gap checker logic will work for groups. it's fine to be expensive for now.
+
+9-10, pm
+trying something different by moving log, bugs, and todo text files from evernote into the repo.
+
+refresher question: are group SOs stored separately from their element SOs? are the elements in the world list, or only owned by the group? answer: groups are stored in the worldSO list, and they own their elements (elements not in world list).
+
+refresher on what exactly vIntrinsic is used for? it is used to provide motive for blocks whose initialVelocity is set. it is bounced when a bounce event happens.
+
+ending tonight in the middle of the collision detection update. basic functionality is working but have the following issues to fix directly:
+x meanieB spazzes out
+x gibs spaz out (maybe related to above)
+x crumbles don't work
+x moving platforms don't bounce correctly, maybe similar to meanies
+
+9-12
+got collision detection mostly back to where it was, wrapping up a few bugs.
+
+after this should spend some time getting groups back up and running.
+
+9-16
+fixed basic group movement and half of group gap check. the half I fixed is if a group is on top of regular blocks. I think we're still broken if a regular block is gap checking on top of a group.
+
+9-17
+x fix one-gap-on-top-of-group issue.
+x fix crash when group falls off level.
+- motive vs. motive no bounce
+- edit groups?
+
+9-24
+just been working on a few bugs. overall really stable.
+
+9-25
+trying to fix last two issues before finally moving on to new features:
+x jumps sometimes exaggerate when world is running slowly.
+- motive bounce issue (meanie vs. meanie)
+
+9-29
+fixed moving platform opposing motive, meanies still stick together though.
+
+been doing some art and thinking lots about what comes up next. editor needs some love.
+
+10-1
+trying to resolve the sticky issue still. mid-frame abutter updates so bounce detection works correctly.
+
+I think I finally fixed the sticky issues. I'm ready to call this a checkpoint.
+woohoo, finally get to work on some new stuff! starting tomorrow...
+
+10-4
+making quick progress on editing groups.
+...aaand done. seems pretty cool at first take. did notice an alarming phasing issue maybe unrelated, but it looked like a "didn't add edge at all" bug rather than some obscure updater/ER thing. couldn't repro at first glance.
+
+10-8
+skipped a few days. haven't seen phasing bug mentioned above, but didn't really test that hard after all.
+
+added some new art I was messing around with, including art for nonunit blocks, maybe some that can be background tiles, and the trig set for red/blue shenanigans (once I get around to coding it).
+
+next up: some decoupling of the block sprite drawer from the unit grid. need to support these scenarios:
+- all existing blocks. 1 unit block of a certain preset -> one unit sized sprite
+- big blocks: a 3x5 block of a certain preset -> a 3x5 tiling of a unit sized sprite
+- more general: the block size and sprite size are totally decoupled. we do need a common reference unit or scale factor to provide the translation.
+- perf: is there a measurable gain if we have optimized drawers for certain types of blocks? since we're gonna be doing a lot of "draw big static block" for the ground and walls, what savings can we get there, if any? maybe it's not that expensive to just do it the best way.
+- do we need to support an offset?
+
+10-23
+been slacking. now I dove in deep to the grid resize. everything is a factor of 4 bigger now. this will allow us to have smaller blocks mixed in (and bigger ones). after this I can work on drawing the non-1x1 blocks correctly.
+
+this will be a total level reset unless I add some fallback legacy code. can check the date on disk of a level and decide what to do? nah, the rescale touched too many places. can always just roll back to an older build if you need to check it for some reason. at least the levels still load and can be seen if not played successfully.
+
+loose ends:
+x edit mode should show a target location on touchstart and only draw block on touchend. this will encourage more economical block use as well.
+x actors are small
+x edit mode need a way to detect touches on blocks (other than their origin block). for erase and grab.
+- do a pass with freshly edited levels (to take advantage of the change where we write non-units for most things now).
+o editing is a pain in general now that we aren't snapping to grid. should add a snap setting. actually this may be less important now, need to try it for a while with cursor enabled.
+
+10-29
+still slacking. done with core work for grid size boost. need several refinements, as above.
+
+11-27
+waking up again. tackling editing issues.
+
+x edit initial zoom is bad
+x rescale everything correctly
+
+x edit: add snap mode. what visuals?
+x edit: add block size control during draw. this should go on same control as snap.
+- sprites: figure out how to map single sprites into non-unit blocks (including AV). see todo.txt
+- sprites: fix AV for all cases.
+
+5-14-2013
+been thinking about jumpproto again. I hit a road block with the pixel resolution thing. I was working on a new batch of sprites (this time at a different size, assuming we must go 1:1 zoom ratio). but I lost steam.
+
+now I'm trying to get development set up on my macbook. got a checkout of the source but I still need to attempt to install it on the device.
+
+btw, noticed some weirdness with the checkout on the iMac, looks like you somehow have two checkouts, one at the parent and another one level down.
+
+5-16
+All set up on macbook. been fleshing out the worldSize stuff for drawing tiled blocks, need to do some more on this but basic case works.
+
+5-17
+working on autoVariationMaps to enable av again on arbitrary sized blocks.
+
+x remove EBlockPreset_GroundTestAutoVariation1
+x trim 8-way to 4-way av hinting.
+x remove old level.playerStart cruft.
+- getting lots of overflow warnings, appears to be around apex of jump and looks nonharmful.
+- nuke all levels
+- edit mode should prompt for level name when starting a new level (including at launch). just show properties dialog initially.
+
+5-19
+finished off the avMap work by plumbing through to the worldView.
+
+need to figure out what to do next. nominate:
+- edit: 2 finger pan/zoom, remove tool.
+- edit: more improvements, whatever makes level editing easier and fun.
+  - cut/copy/paste
+  - drag&draw
+  - fast palette
+  - undo
+
+5-30
+working on toolless pan/zoom and block MRU list. haven't tested the code yet (at work). need to remove pan/zoom UI. need to write MRU UI. may be convenient to hook up sprites for the block palette while you're at it.
+
+5-31
+Finished toolless pan/zoom, 'snice. Wrote some code for MRU but no UI yet. Fixed edit large block culling issue.
+
+Next up: adding sprites to palette, MRU UI.
+
+Want to overhaul manifest system, in particular, kill them and replace with a tag system. This will be simpler and better.
+
+7-17
+Hello again. While I was brushing my teeth last night I randomly realized that I am probably using openGL very poorly, I should be buffering all vertices and drawing them at once. also can skip the color ptr, maybe that will give speedup.
+- create a heavy test level
+- time draw as is.
+- remove color ptr, retime
+- do buffer change, retime
+
+test level: draw-stress-01
+
+before any changes:
+2013-07-17 10:49:40.975 JumpProto[3190:707] updating world average duration is 31.430508 ms.
+2013-07-17 10:49:50.632 JumpProto[3190:707] worldView draw avg: 8.324895ms.
+
+(wtf, why is updateWorld taking so long? there's a lot of static blocks on this level, and several crates/moving platforms, but this is really high. I think I need a general profiling pass here too).
+
+removing glColorPoint call:
+2013-07-17 10:54:01.867 JumpProto[3207:707] updating world average duration is 30.829538 ms.
+2013-07-17 10:54:11.501 JumpProto[3207:707] worldView draw avg: 8.029288ms.
+
+a very slight improvement, but graphics are now all dark, so I need to figure out how to just apply a global flat light to the scene if I want to roll with this. Reverting for now, but could be interesting to return to. Should also explore using the color array for cool effects.
+
+after batching all vertices in a single call to glDrawArrays:
+
+2013-07-17 22:16:35.229 JumpProto[3588:707] worldView draw avg: 2.882353ms.
+2013-07-17 22:16:35.631 JumpProto[3588:707] updating world average duration is 31.475380 ms.
+
+less than half the time. had to switch to GL_TRIANGLES instead of GL_TRIANGLESTRIPS but clearly worthwhile. This is eating about 100k of system memory for the extra buffers though.
+
+next up: should do a pass for low-hanging fruit on the other 31 ms being spent on world update. this graphics stress test level should be relatively light on world logic, just around 15 crates and 5 moving platforms, plus a ton of static walls. perf this bad not expected for such a simple level.
+
+7-24
+Migrated the repo to git on bitbucket.
+
+Have some time to write a little code for the next 4 days. Rough plan of attack (depending on how lazy I am):
+- do a pass on world update perf.
+- investigate manifest update (remove manifests, add tagging system).
+- stretch goal: level upload to dropbox.
+- gameplay improvements:
+  - walljump
+  - button actor
+  - event system foundation
+  - new monster?
+- plug in some new graphics.
+- bug pass
+
+// perf pass
+
+so the core problem appears to be that we are making tons of ER calls. about two thirds go to abuttListUpdater and one third goes to propagateMovement. need to find a way to slim down abuttListUpdater. Can't really find any shortcuts for updating abuttLists, so maybe there's a way to do it less often. going to look into on-demand abutt list updating but I have a feeling they would just constantly be in demand so no gain.
+
+trying on-demand abutt list generation.
+pre:
+average world update (3rd iteration): 31.3ms
+cnolist=0 tnolist=0 clist=2928 tlist=713 cdup=2928 tdup=0
+
+post:
+updating world average duration is 25.998981 ms.
+cnolist=0 tnolist=0 clist=2540 tlist=614 cdup=2540 tdup=0
+
+meh, a slight improvement, but it looks like the current algorithm really does require abutt lists in most directions for most (moving) SOs.
+
+actually once I turned ER logging off the average update time went down to 19.5ms (the pre update time was taken with logging off). so this is actually a pretty decent improvement after all. a microoptimization in ER (reuse testEdge) saved another 3ms, now at 16.5ms.
+
+think more about only updating lists if we have detected that they need to be updated. this seems like a hard problem to solve. er doesn't really organize data in a way that is conducive to that knowledge.
+
+I tried adding a streamlined version of the ER stack that just checks for abutters so we can fail fast, but the net result was no change in time. when we can't fail fast we had to do the regular work, and this was happening more than half the time, so it was a wash. reverted.
+
+scenario: a bunch of crates stacked up, not moving. how much work are we doing? suspect wasted propagate work or something.
+
+idle-crates-stress-01
+worldView draw avg: 1.025830ms.
+updating world average duration is 34.800255 ms.
+
+after tweaks to idle velocity due to gravity:
+worldView draw avg: 0.818030ms.
+updating world average duration is 10.195816 ms.
+
+// so after no-down-velocity-for-idle-blocks, original stress test looks like (compared to 31.3 before any changes):
+worldView draw avg: 2.824817ms.
+updating world average duration is 14.317692 ms.
+
+crazy idea: what if er maintained a separate set of datastructures to help determine abuttlists?
+existing cachestrips aren't suited for this since they are unidirectional. but what if we had bidirectional caches as well? each solid object has refs to its bidiEdges (zero or more per direction) and can instantly check if the "next opposing bidi" is abutting or not.
+
+maybe this is how ER should work in general? this saves us from the "test edge" logic which is expensive. no longer need to make test edges because we have real edges in there already.
+
+ok, did a little reading online and found a new approach for collision detection. construct a virtual grid. each block sits on one or more grid spaces. when check for elbow room, just need to dumb check whatever other blocks are in our grid spaces.
+- need a concept of "how far do you want to move"...no sense checking until infinity if they only want to move 1 unit over. instead of return MAX_DISTANCE we just echo back how_far_i_wanted if they can move that far without hitting anything.
+- this is simpler if how_far_I_want << grid_size, so we ever have to check at most one space over.
+- the hardest part of this is probably how do we address lists of blocks on a given grid space without taking up a ton of memory/using slow key generation.
+- abutt list checks are just how_far_I_want == 1 emu.
+- still have complexity of copying edges over to the result list (this requirement is pretty baked in by ER callers/overall design).
+- what is the max step that any actor ever takes?
+
+after switching to ElbowRoomGrid, drawStress looks like:
+worldView draw avg: 2.452579ms.
+updating world average duration is 4.471143 ms.
+
+don't know whether to laugh at how awesome this is, or cry at how bad my original one was -.-
+
+7-28
+Well the perf pass took a little longer than expected, but went way better than expected.
+
+New art is in.
+
+Last day of coding, got lots of little things done. Need to regroup and think about what comes next, I vote for buttons and events, but some monsters wouldn't hurt. Also walljumping. And fixing player animation states so we can do the jump anim etc. Also lift actor, new crumbles actor, ice. General idea is there are several low-ish hanging items that will add to toolkit.
+
+7-30
+Still going even though the most recent marathon is over.
+
+Did a little rewrite of player spritestate logic, now it's solid and cool to have separate anims for jumpup, jumpdown, walljump, etc. And will be easy to add more.
+
+Also replaced the basic edit draw tool with freedraw. this is way better, feels nicer, and allowed me to kill the annoying size controls for good.
+
+Should finish walljump (opposing jump part).
+
+Next up I want to do one or two more low-hanging items (lift and maybe another creep), then start looking at the next Big Thing, probably buttons and events. A simple button to toggle light would be a good goal. Probably want to sketch out design for event system and primary objects first. Also sketch out the physical button operation (actor state).
+
+Been daydreaming about a scenario where you are a robot trapped in a lab. Your creator talks to you in textovers (and does tutorial this way). Very light story elements. Gives an excuse to have a "rat in a maze" feel. A little bit Portal, a little bit Mega Man in theme and setting if not gameplay.
+
+For the robot character, dream up a way to have interchangeable parts on the main character. Keypoints to bind different sprites. Are  we prerendering these are doing them live together each frame?
+
+Maybe it's time to start coming up with the List of abilities the player can have. Some will be passive and some will be active (only 1 active at a time, unless we have other input methods? jump is one, jump+hold, double-tap?
+
+Another element: beams. How would you implement this smoothly? Could be used for lots of interesting elements. death rays, trigger beams, solid beams that can be moved. It's sort of like a dynamic block that changes size depending on how far it can move from a source. size change can happen non-instantly, even slowly. a moving platform can block and reveal it in a rhythm.
+
+Can we make a robot that is not generic? Robit = robot + hobbit. Not a walking trash can (like rob16), not a little boy. maybe a little bit Marvin from Hitchhiker's Guide.
+
+7-31
+
+Near-term list:
+x finish walljump opposing jump (including dead input logic).
+- lift actor.
+- add a few simple creeps.
+- how about a v1 of a (far) background scene? I like a starry night with a city skyline. Stick with ultra lowfi/pixellated look for now. Stars, moon, clouds. Render plain geometry where possible. What does parallax math look like? Collect timing info of course.
+
+8-5
+
+Absent a few days. RevelTouch/Tocata laid a bunch of people off and the rest of us now have to wait for an acquisition or nothing.
+
+I like the Jump Proto right now but I go through spells where I don't think anything fun can come of it. There aren't enough axes of freedom to make the gameplay as interesting as the vague concept in my head. Need something that will make the gameplay richer.
+
+There was this pixel-ish iPhone game that has a constant run mechanic and only two buttons (run/throw rock). It was orders of magnitude more simple than what I have (gameplay wise) but it seemed to be moderately successful (was featured).
+
+Really need to figure out what to do with that second button.
+
+8-6
+
+Here's an idea for interactivity. Scrap the planned "items" functionality and instead introduce a "build mode" mechanic. There are "build hotspots" scattered around the level. When the player is standing inside one of these hotspots, they can tap the secondary button to switch to "build mode". In build mode, gravity-enabled blocks become draggable and even pick-up-able. While in build mode, time keeps running. The player can hold several blocks in their inventory and carry them between hotspots.
+
+This enables scenarios like: make a bridge, fix the machine, uncover the secret passage, block the enemy, transport the key, etc.
+
+8-19
+
+My usual pattern: hit a difficult spot and procrastinate for a few days. Or maybe what's really happening is that my subconscious is regrouping around the new concept so that a few days later I can just bang out the solution.
+
+Got the first background strip up and running (scrolling). Gonna add a few more.
+
+Idea: a little gargoyle monster that jumps like facebone, but spits little lava blocks at you. the lava blocks have physics and maybe cool down eventually to be handled. the gargoyle only spits out n blocks at a time (i.e. living in the level).
+
+8-20
+
+x background y offset
+x cloud strips
+x hook up to world offset
+
+Then you can move on to some other stuff.
+
+- add mine
+x add jellyfish. u/d and l/r variations would be cool.
+  o or: a state machine jellyfish that goes up until it hits something, then turns right, then turns down, then turns left. right hand and left hand versions.
+- add cricket dudes (future?).
+o add radbird (l/r variations) (future?).
+
+8-22
+
+Idea: bombs. Wouldn't be very hard to implement and would add lots of scenarios. How do bombs get lit?
+Idea: a moving platform that has state machine rules like the jellyfish I mentioned earlier. Basically a flying block with an interesting deterministic flight pattern.
+
+I'm not really in love with the radbird idea, it seemed cool at the time but not really cost to benefit ratio right now.
+
+8-28
+
+shortlist todos:
+x background strip offsets
+x push block on platform propagate case. what will break if we just remove this check? large crate stacks? that's not even a super interesting scenario.
+x add mine
+x implement button actor. the event firing part will just no-op for now, but can get all the physics worked out now, so we'll be ready to test event stuff once it starts coming online.
+
+8-31
+
+I anticipate a problem with having the stopper block push the trigger back up during the reset phase since they are both marked immovable. Probably need to replace immovable with an int so that we can rank pushables. This will be useful in general. (done)
+
+
+9-3
+
+Button prototype looking pretty good. Gonna switch out the art and add u/l/r/d variations.
+Done. 
+
+next:
+x check gibs for low-hanging fixes.
+x investigate the issue where standing partially over a spike will kill you. I'll name this the unanimous abutter problem. Basically we need to do some and-aggregation of block props when colliding against more than one.
+  x in progress, search "TODO overrides"
+- start looking at background layers. design. I think this will be a prerequisite for event stuff.
+
+9-5
+
+Made a few playability fixes and now I'm working on RedBlu. Core impl is mostly done but needs some integration.
+
+TODO:
+  x spriteStates aren't picked correctly for red-blu presets. probably need to go all the way to the xml layer to hook up to RedBluSpriteState.
+  x need new button art for red/blu buttons.
+  x preset plumbing for red/blu buttons. might as well just do all 4 directions.
+  x button overrides hooking up to toggleState.
+  x voila?
+
+follow up: walls suddenly appearing on top of you should probably kill you, same for badguys.
+
+So RedBlu is done now (except the walls killing you part). Haven't played around with it much yet. I guess background layers are up next, unless you want to add some more art and enemies for a little while. Bang for buck?
+
+9-6
+
+Looking into minor optimization about sharing spriteStates.
+Before:
+stress1 (lots of baddies):  draw=2.5ms, update=99ms // unlikely to help this case much with spritestate opt.
+stress2 (lots of spikes):   draw=34.4, update=7.8   // surprised draw is this high, a bug around culling large blocks?
+
+actually, after looking into the implementation a bit, it's a little more hairy than I want to tackle right now. The issue is that once we start sharing spriteStates across multiple blocks, figuring out which ones need to be updated gets a little tricky, considering there are also group blocks, actor blocks, etc. So either we need all spritestates in the cache (then just update the ones in the cache instead of the ones belonging to blocks), or need more advanced machinery. and for actors, we want the ability to have distinct instances of the same sprite resource (so they can be animated separately). overall doesn't appear to be worth the complexity for now.
+
+9-9
+
+It's time to start the Next Big Feature. Just need to decide what it is. Or maybe I should procrastinate and just add some new art and monsters. Yeah, that sounds pretty good.
+
+Need to do some thought experimentation around the build mode button (b-mode). This may really be the feature I was looking for but need to convince myself more before dropping lots of hours on implementation.
+
+Todos:
+x fix falling v issue introduced recently.
+x add to ER API:
+  x(NSArray *)blocksOverlappingRect:(EmuRect)rect;
+  this will be used for b-mode (detect what blocks are under touch point) and also used to kill stuff when a redblu turns on. Eventually might be useful for beams or trigger zones. The input rect could correspond to a block or just a 1x1 rect for a touch point.
+
+start prototyping b-mode. for now can just disable d-pad input and add in b-mode input handler. Time slows down. Direct manipulation of some blocks (do we need a special blockProp for these types of blocks?). WorldView can turn on coloring mode for moveable blocks. When a block is getting moved, it should gain velocity. Would be cool to be able to throw blocks somehow, not sure how to implement this with time slowing down though.
+
+idea: stars. these are secret/challenge collectibles. not sure what reward will be, for now just successfully collecting them and finishing the level will be enough. at load time, we count how many stars there are, then show that many grey outlines in upper left. as they collect stars the outlines fill in. the stars should be placed such that they are hard/hidden/interesting to get, with the expectation that the user must still make it back to the exit for the stars to "count".
+
+- test out overlapper code by making redBlus kill you if you are standing inside of one when it turns on. (can just do a check at switch time. no caching of overlappers in place or needed yet).

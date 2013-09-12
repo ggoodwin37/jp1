@@ -50,6 +50,10 @@
 
 - bonus/secret stars.
 
+- obsessive: ER layer is pretty solid, but the next layer up (propagateMovement, gapCheck, bounce, collision, v/vIntrinsic/motive/motiveAccel) is goofy. when you fix one thing, two other things break. what is the Right design? can we get rid of all order dependencies? can we unify collision/bouncing?
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // edit. claim: investing in edit makes play exponentially more awesome.
 
