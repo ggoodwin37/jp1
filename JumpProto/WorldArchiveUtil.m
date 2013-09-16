@@ -182,6 +182,7 @@
             block.props.affectedByGravity = YES;
             block.props.affectedByFriction = YES;
             block.props.weight = CRATE_WEIGHT;
+            block.props.bModeActive = YES;
             break;
 
         case EBlockPreset_tiny_conveyor_l:

@@ -97,6 +97,7 @@
 @synthesize weight;
 @synthesize eventSolidMask;
 @synthesize redBluState;
+@synthesize bModeActive;
 
 -(id)init
 {
@@ -111,6 +112,7 @@
         self.weight = DEFAULT_WEIGHT;
         self.eventSolidMask = BlockEdgeDirMask_None;
         self.redBluState = BlockRedBlueState_None;
+        self.bModeActive = NO;
     }
     return self;
 }
@@ -162,6 +164,7 @@
     self.weight = other.weight;
     self.eventSolidMask = other.eventSolidMask;
     self.redBluState = other.redBluState;
+    self.bModeActive = other.bModeActive;
     // lol is this even getting used anywhere?
 }
 
@@ -186,7 +189,8 @@
                 self.isWallJumpable == other.isWallJumpable &&
                 self.weight == other.weight &&
                 self.eventSolidMask == other.eventSolidMask &&
-                self.redBluState == other.redBluState
+                self.redBluState == other.redBluState &&
+                self.bModeActive == other.bModeActive
             );
 }
 
