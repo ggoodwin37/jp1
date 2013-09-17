@@ -38,7 +38,7 @@
     float y = button.bounds.origin.y + padding;
     float w = button.bounds.size.width - (2.f * padding);
     float h = button.bounds.size.height - (2.f * padding);
-    [SpriteStateDrawUtil drawSpriteForState:button.spriteState x:x y:y w:w h:h];
+    [SpriteStateDrawUtil drawSpriteForState:button.spriteState x:x y:y w:w h:h a:0xff r:0xff g:0xff b:0xff];
 }
 
 

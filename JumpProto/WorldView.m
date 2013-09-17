@@ -159,6 +159,28 @@
     float tileHFl = EmuToFl( tileH );
     int xCount = block.spriteStateMap.size.width;
     int yCount = block.spriteStateMap.size.height;
+    GLbyte a = 0xff, r, g, b;
+    
+    // TODO: hook up to world bMode state here to engage bMode colorization.
+    if( NO )
+    {
+        if( block.props.isPlayerBlock )
+        {
+            r = 0xff; g = 0xff; b = 0xff;
+        }
+        else if( block.props.bModeActive )
+        {
+            r = 0xff; g = 0xff; b = 0x00;
+        }
+        else
+        {
+            r = g = b = 0x40;
+        }
+    }
+    else
+    {
+        r = g = b = 0xff;
+    }
     for( int iy = 0; iy < yCount; ++iy)
     {
         float y = EmuToFl( block.y + (iy * tileH) );
@@ -166,7 +188,7 @@
         {
             float x = EmuToFl( block.x + (ix * tileW) );
             SpriteState *spriteState = [block.spriteStateMap getSpriteStateAtX:ix y:iy];
-            [SpriteStateDrawUtil drawSpriteForState:spriteState x:x y:y w:tileWFl h:tileHFl];
+            [SpriteStateDrawUtil drawSpriteForState:spriteState x:x y:y w:tileWFl h:tileHFl a:a r:r g:g b:b];
         }
     }
 }
@@ -289,7 +311,7 @@ float smoothRatio( float inputRatio )
         NSAssert( m_genericPlayerSpriteState != nil, @"failed to make cheezy spriteState thingie." );
     }
     
-    [SpriteStateDrawUtil drawSpriteForState:m_genericPlayerSpriteState x:EmuToFl( targetXEm ) y:EmuToFl( targetYEm ) w:EmuToFl( targetWEm ) h:EmuToFl( targetHEm )];
+    [SpriteStateDrawUtil drawSpriteForState:m_genericPlayerSpriteState x:EmuToFl( targetXEm ) y:EmuToFl( targetYEm ) w:EmuToFl( targetWEm ) h:EmuToFl( targetHEm ) a:0xff r:0xff g:0xff b:0xff];
 }
 
 
@@ -311,7 +333,7 @@ float smoothRatio( float inputRatio )
     float targetXEm = playerActorBlock.x + ((PLAYER_WIDTH - targetWEm) / 2.f);
     float targetYEm = playerActorBlock.y + ((PLAYER_HEIGHT - targetHEm) / 2.f);
     
-    [SpriteStateDrawUtil drawSpriteForState:playerActorBlock.defaultSpriteState x:EmuToFl( targetXEm ) y:EmuToFl( targetYEm ) w:EmuToFl( targetWEm ) h:EmuToFl( targetHEm )];
+    [SpriteStateDrawUtil drawSpriteForState:playerActorBlock.defaultSpriteState x:EmuToFl( targetXEm ) y:EmuToFl( targetYEm ) w:EmuToFl( targetWEm ) h:EmuToFl( targetHEm ) a:0xff r:0xff g:0xff b:0xff];
 }
 
 
@@ -334,7 +356,7 @@ float smoothRatio( float inputRatio )
     float targetXEm = playerActorBlock.x + ((PLAYER_WIDTH - targetWEm) / 2.f);
     float targetYEm = playerActorBlock.y + ((PLAYER_HEIGHT - targetHEm) / 2.f);
     
-    [SpriteStateDrawUtil drawSpriteForState:playerActorBlock.defaultSpriteState x:EmuToFl( targetXEm ) y:EmuToFl( targetYEm ) w:EmuToFl( targetWEm ) h:EmuToFl( targetHEm )];
+    [SpriteStateDrawUtil drawSpriteForState:playerActorBlock.defaultSpriteState x:EmuToFl( targetXEm ) y:EmuToFl( targetYEm ) w:EmuToFl( targetWEm ) h:EmuToFl( targetHEm ) a:0xff r:0xff g:0xff b:0xff];
 }
 
 

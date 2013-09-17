@@ -56,7 +56,31 @@ static RectCoordBuffer *g_rectCoordBuffer = nil;
 }
 
 
-+(void)drawSpriteForState:(SpriteState *)spriteState x:(float)x y:(float)y w:(float)w h:(float)h
++(void)pushSolidColorA:(GLbyte)a r:(GLbyte)r g:(GLbyte)g b:(GLbyte)b
+{
+	static GLbyte colorBuf[] = {
+        0xff, 0xff, 0xff, 0xff,
+        0xff, 0xff, 0xff, 0xff,
+        0xff, 0xff, 0xff, 0xff,
+        0xff, 0xff, 0xff, 0xff,
+        0xff, 0xff, 0xff, 0xff,
+        0xff, 0xff, 0xff, 0xff,
+	};
+
+    for( int i = 0; i < 6; ++i )
+    {
+        GLbyte *ptr = colorBuf + (i * 4);
+        ptr[0] = r;
+        ptr[1] = g;
+        ptr[2] = b;
+        ptr[3] = a;
+    }
+    [g_rectCoordBuffer pushRectColors2dBuf:colorBuf];
+
+}
+
+
++(void)drawSpriteForState:(SpriteState *)spriteState x:(float)x y:(float)y w:(float)w h:(float)h a:(GLbyte)a r:(GLbyte)r g:(GLbyte)g b:(GLbyte)b
 {
     if( nil == spriteState )
     {
@@ -75,6 +99,7 @@ static RectCoordBuffer *g_rectCoordBuffer = nil;
     }
 
     [g_rectCoordBuffer pushRectGeoCoord2dX1:x1 Y1:y1 X2:x2 Y2:y2];
+    [SpriteStateDrawUtil pushSolidColorA:a r:r g:g b:b];
 #ifndef DISABLE_SPRITES
     [g_rectCoordBuffer pushRectTexCoord2dBuf:spriteState.texCoords];
     [g_rectCoordBuffer setTexName:spriteState.texSheet];  // can flush, so needs to happen last for this rect.

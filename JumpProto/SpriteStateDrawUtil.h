@@ -14,7 +14,7 @@
 }
 
 +(void)setupForSpriteDrawing;
-+(void)drawSpriteForState:(SpriteState *)spriteState x:(float)x y:(float)y w:(float)w h:(float)h;
++(void)drawSpriteForState:(SpriteState *)spriteState x:(float)x y:(float)y w:(float)w h:(float)h a:(GLbyte)a r:(GLbyte)r g:(GLbyte)g b:(GLbyte)b;
 
 +(void)beginFrame;
 +(void)endFrame;
