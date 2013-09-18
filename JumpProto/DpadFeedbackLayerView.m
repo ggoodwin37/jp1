@@ -166,6 +166,9 @@
 // override
 -(void)buildScene
 {
+    // b-mode disables dpad, so we shouldn't show dpad feedback either.
+    if( [m_dpadInput.bModeHolder isBModeActive] ) return;
+    
     [self setupStandardOrthoView];
     glDisable( GL_TEXTURE_2D );
     glEnableClientState( GL_COLOR_ARRAY );

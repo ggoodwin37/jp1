@@ -373,6 +373,8 @@
 
 @implementation DpadInput
 
+@synthesize bModeHolder = m_bModeHolder;
+
 -(id)init
 {
     if( self = [super init] )

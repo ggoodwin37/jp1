@@ -127,9 +127,9 @@ typedef enum DpadButtonEnum DpadButton;
     id  m_leftTouchLRSorter, m_rightTouchLRSorter;
     
     BOOL m_stateCache_LL, m_stateCache_LR, m_stateCache_RL, m_stateCache_RR;
-    id<IBModeHolder> m_bModeHolder;
 }
 
+@property (nonatomic, assign) id<IBModeHolder> bModeHolder;  // weak
 
 -(void)registerEventDelegate:(id<DpadEventDelegate>)theDelegate;
 -(void)setBModeHolder:(id<IBModeHolder>)holder;
