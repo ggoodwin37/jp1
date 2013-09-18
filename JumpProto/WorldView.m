@@ -161,8 +161,7 @@
     int yCount = block.spriteStateMap.size.height;
     GLbyte a = 0xff, r, g, b;
     
-    // TODO: hook up to world bMode state here to engage bMode colorization.
-    if( NO )
+    if( [m_world isBModeActive] )
     {
         if( block.props.isPlayerBlock )
         {
