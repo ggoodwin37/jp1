@@ -148,3 +148,7 @@
 #define IMMOVABLE_WEIGHT       (99)
 #define BUTTON_TRIGGER_WEIGHT  (46)
 #define BUTTON_STOPPER_WEIGHT  (47)
+
+// b-mode time dilation
+#define B_MODE_TIME_DILATION_FACTOR (0.1f)
+

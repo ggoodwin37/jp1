@@ -46,3 +46,15 @@ roadmap:
   - flesh out event system
   - herds?
   - stars
+
+
+9-18
+
+Diving in to b-mode, it's looking pretty cool so far (with just time dilation and view hookup, no block moving yet). I worry a bit about ergonomics of switching between regular and b-mode.
+
+I played with the idea of having to hold b-button to stay in b-mode, but this doesn't make sense ergonomically.
+
+- add a button to exit b-mode, can use existing assets for now. I feel like the button should be larger than existing global buttons, say 2x, and located near where the b-mode start button was (but probably should be anchored to screen edge, not dynamic).
+- figure out how the physics are gonna work, essentially we want direct movement propagataion. sharing existing code?
+- make sure that b-movable blocks can't push player, else they can just magic carpet.
+

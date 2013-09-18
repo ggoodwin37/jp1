@@ -446,13 +446,17 @@
     long startTime = getUpTimeMs();
     BOOL updatePlayer = (m_playerActor != nil);
     
+    // time slows to a crawl during b-mode
+    float timeDilationFactor = m_isBModeActive ? B_MODE_TIME_DILATION_FACTOR : 1.f;
+    float timeDeltaDilated = timeDelta * timeDilationFactor;
+    
     // updaters specifically for the player actor
     if( updatePlayer )
     {
         for( int i = 0; i < [m_playerActorUpdaters count]; ++i )
         {
             ActorUpdater *thisUpdater = (ActorUpdater *)[m_playerActorUpdaters objectAtIndex:i];
-            [thisUpdater updateActor:m_playerActor withTimeDelta:timeDelta];
+            [thisUpdater updateActor:m_playerActor withTimeDelta:timeDeltaDilated];
         }
     }
 
@@ -464,21 +468,21 @@
         // the player actor is not in the npcActor list
         if( updatePlayer )
         {
-            [thisUpdater updateActor:m_playerActor withTimeDelta:timeDelta];
+            [thisUpdater updateActor:m_playerActor withTimeDelta:timeDeltaDilated];
         }
         
         for( int j = 0; j < [m_npcActors count]; ++j )
         {
             Actor *thisActor = (Actor *)[m_npcActors objectAtIndex:j];
-            [thisUpdater updateActor:thisActor withTimeDelta:timeDelta];
+            [thisUpdater updateActor:thisActor withTimeDelta:timeDeltaDilated];
         }
     }
     
     // updaters related to frame physics state
-    [self runBlockUpdaterList:m_frameStateBlockUpdaters forTimeDelta:timeDelta];
+    [self runBlockUpdaterList:m_frameStateBlockUpdaters forTimeDelta:timeDeltaDilated];
   
     // post-processing updaters
-    [self runBlockUpdaterList:m_worldStateBlockUpdaters forTimeDelta:timeDelta];
+    [self runBlockUpdaterList:m_worldStateBlockUpdaters forTimeDelta:timeDeltaDilated];
     
     // after all updaters are done, sweep for dead blocks and actors
     [self sweepDeadObjects];
