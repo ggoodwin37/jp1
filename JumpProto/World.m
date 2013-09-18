@@ -228,6 +228,11 @@
 
 -(void)onDpadEvent:(DpadEvent *)event
 {
+    if( event.touchZone == RightTouchZone && event.button == DpadLeftButton && event.type == DpadPressed )
+    {
+        [self setBModeActive:YES];
+        return;
+    }
     [m_playerActor onDpadEvent:event];
 }
 
