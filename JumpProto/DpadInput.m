@@ -604,6 +604,9 @@
 
 -(void)handleTouch:(UITouch *)touch at:(CGPoint)p
 {
+    // if b-mode is active, dpad doesn't listen.
+    if( [m_bModeHolder isBModeActive] ) return;
+    
     // first generate the DpadEvent
 
     DpadEventType eventType;
