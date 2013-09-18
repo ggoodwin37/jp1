@@ -16,8 +16,9 @@
 #import "WorldFrameState.h"
 #import "EBlockPreset.h"   // just for player presets
 #import "IRedBluState.h"
+#import "IBModeHolder.h"
 
-@interface World : NSObject<DpadEventDelegate, IRedBluStateProvider> {
+@interface World : NSObject<DpadEventDelegate, IRedBluStateProvider, IBModeHolder> {
     
     NSMutableArray *m_worldSOs;
     NSMutableArray *m_frameStateBlockUpdaters;
@@ -46,6 +47,7 @@
     NSMutableArray *m_deadSOsThisFrame;
     
     BOOL m_isCurrentlyRed;
+    BOOL m_isBModeActive;
 }
 
 @property (nonatomic, retain) NSString *levelName;

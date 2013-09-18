@@ -142,6 +142,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9306D6C517E97E2A0065AF51 /* IBModeHolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IBModeHolder.h; sourceTree = "<group>"; };
 		930FFDF717A3574A00735149 /* IElbowRoom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IElbowRoom.h; sourceTree = "<group>"; };
 		931D35B017A644210048B466 /* tiny-edit-hints.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-edit-hints.png"; path = "images/tiny-edit-hints.png"; sourceTree = "<group>"; };
 		932CBA7917CEDD5900A2D7DD /* EventActor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventActor.h; sourceTree = "<group>"; };
@@ -676,6 +677,7 @@
 				93732D8517A4982A00F1B5A7 /* PropagateMovementUpdater.h */,
 				93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */,
 				93AFFAA817D8585D00ACF1B0 /* IRedBluState.h */,
+				9306D6C517E97E2A0065AF51 /* IBModeHolder.h */,
 			);
 			name = "World logic";
 			sourceTree = "<group>";

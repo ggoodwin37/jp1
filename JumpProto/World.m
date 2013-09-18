@@ -74,6 +74,7 @@
         m_deadSOsThisFrame = [[NSMutableArray arrayWithCapacity:8] retain];
         
         m_isCurrentlyRed = NO;
+        m_isBModeActive = NO;
      }
     return self;
 }
@@ -852,6 +853,19 @@
     [self checkOverlappersOnRedBluToggleForActor:checkOverlapActor];
     
     // TODO: other NPC actors too?
+}
+
+
+// IRedBluStateProvider
+-(BOOL)isBModeActive
+{
+    return m_isBModeActive;
+}
+
+
+-(void)setBModeActive:(BOOL)bModeActive
+{
+    m_isBModeActive = bModeActive;
 }
 
 
