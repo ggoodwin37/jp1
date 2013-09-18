@@ -16,7 +16,6 @@
 #import "WorldFrameState.h"
 #import "EBlockPreset.h"   // just for player presets
 #import "IRedBluState.h"
-#import "IBModeHolder.h"
 
 @interface World : NSObject<DpadEventDelegate, IRedBluStateProvider, IBModeHolder> {
     

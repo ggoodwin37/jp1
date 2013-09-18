@@ -385,6 +385,7 @@
         [GlobalCommand registerObject:self forNotification:GLOBAL_COMMAND_NOTIFICATION_RESETDPAD withSel:@selector(onGlobalCommand_resetDpad)];
         
         m_stateCache_LL = m_stateCache_LR = m_stateCache_RL = m_stateCache_RR = NO;
+        m_bModeHolder = nil;  // weak
     }
     return self;
 }
@@ -392,6 +393,7 @@
 
 -(void)dealloc
 {
+    m_bModeHolder = nil;  // weak
     [GlobalCommand unregisterObject:self];
     
     [m_rightTouchLRSorter release]; m_rightTouchLRSorter = nil;
@@ -431,9 +433,16 @@
 
 -(void)registerEventDelegate:(id<DpadEventDelegate>)theDelegate
 {
+    // TODO: this smells, why are we doing fancy stuff here?
     // we want to store weak references in the set, so wrap it with an NSValue
     NSValue *value = [NSValue valueWithNonretainedObject:theDelegate];    
     [m_eventDelegates addObject:value];
+}
+
+
+-(void)setBModeHolder:(id<IBModeHolder>)holder
+{
+    m_bModeHolder = holder;  // weak
 }
 
 

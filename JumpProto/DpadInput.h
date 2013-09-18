@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HitZone.h"
+#import "IBModeHolder.h"
 
 
 enum TouchZoneEnum
@@ -126,10 +127,12 @@ typedef enum DpadButtonEnum DpadButton;
     id  m_leftTouchLRSorter, m_rightTouchLRSorter;
     
     BOOL m_stateCache_LL, m_stateCache_LR, m_stateCache_RL, m_stateCache_RR;
+    id<IBModeHolder> m_bModeHolder;
 }
 
 
 -(void)registerEventDelegate:(id<DpadEventDelegate>)theDelegate;
+-(void)setBModeHolder:(id<IBModeHolder>)holder;
 -(void)handleTouch:(UITouch *)touch at:(CGPoint)p;
 -(DpadTouchLRSorter *)sorterForZone:(TouchZone)touchZone;
 -(void)resetEventDelegates;

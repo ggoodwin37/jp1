@@ -644,6 +644,7 @@
 				F35CFA4714A1AD9F00137887 /* sharedTypes.h */,
 				F3DE18EE14FAA6E80090BDEB /* LevelUtil.h */,
 				F3DE18EF14FAA6E80090BDEB /* LevelUtil.m */,
+				9306D6C517E97E2A0065AF51 /* IBModeHolder.h */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -677,7 +678,6 @@
 				93732D8517A4982A00F1B5A7 /* PropagateMovementUpdater.h */,
 				93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */,
 				93AFFAA817D8585D00ACF1B0 /* IRedBluState.h */,
-				9306D6C517E97E2A0065AF51 /* IBModeHolder.h */,
 			);
 			name = "World logic";
 			sourceTree = "<group>";

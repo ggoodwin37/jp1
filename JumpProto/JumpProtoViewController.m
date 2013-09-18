@@ -96,7 +96,8 @@
     m_world = [[World alloc] init];
     m_mainDrawController.worldView.world = m_world;  // weak
     [m_dpadInput registerEventDelegate:m_world];
-    
+    [m_dpadInput setBModeHolder:m_world];
+
     m_globalButtonManager = [[GlobalButtonManager alloc] init];
     m_mainDrawController.globalButtonView.buttonManager = m_globalButtonManager;  // weak
     
