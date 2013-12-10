@@ -57,4 +57,12 @@ I played with the idea of having to hold b-button to stay in b-mode, but this do
 - add a button to exit b-mode, can use existing assets for now. I feel like the button should be larger than existing global buttons, say 2x, and located near where the b-mode start button was (but probably should be anchored to screen edge, not dynamic).
 - figure out how the physics are gonna work, essentially we want direct movement propagataion. sharing existing code?
 - make sure that b-movable blocks can't push player, else they can just magic carpet.
+- probably b-movable blocks can't push anything (except other b-movables?)
 
+12-9
+
+Haven't checked in for a while since starting at Yahoo. In addition to the b-mode stuff above, should consider moving to new ipad and iphone. I should let go of the idea that this is cheating in performance. The algorithm is pretty good now so should just accept the new speed.
+
+Curious about iPhone support. shouldn't be too hard, first have to get the basic resolution change hooked up, then need to handle secondary plumbing to scale stuff, etc.
+
+You stopped working on b-mode when you had a lot of momentum, will be interesting to see if that makes it easier to resume.

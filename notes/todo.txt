@@ -13,6 +13,9 @@
 - investigate: can we really just move files back and forth via organizer? if so, I don't think there's any need to worry about exporting the files off the device in-app (unless you want to get into user-generated levels...bleh).
   - test run.
 
+- upgrade to new iPad (dependant on file moving so we can populate files).
+- upgrade to iPhone.
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // future
 
@@ -29,7 +32,7 @@
 
 - implement the restricted rect version of EWorldView drawToContext for better perf while drawing blocks.
   - you already are culling to view rect in the main grid document drawer, but I think there's an optional separate version of the draw method that only updates a certain rect. then we can invalidate just specific parts of the screen when drawing/erasing, should make editing snappier (until the user pans/zooms).
-  - postponing for now, manually calculating the region to redraw is not hard but kind of a pain in the ass.
+  - postponing for now, manually calculating the region to redraw is not hard but kind of a pain in the ass. maybe a special case to handle drawing single blocks?
 
 - core, low pri: handling of sprite and preset constants is pretty ugly. should make this more dynamic and compact.
 
@@ -47,6 +50,7 @@
 - possible perf improvement: shared spritestates for non-actor anim blocks. example: a big castle with lots of spikes. no sense spinning up an animstate and paying to update it for each spike if they are all identical anyways. this only works if they are supposed to be identically in sync. profile first to verify suspicion that this scenario is expensive. I think it adds like 2 or 3 ms to world update for a moderate-large number of spikes.
   - the implementation here may be simpler than I thought. If we just lazy-create a single instance of a AnimSpriteState then pass that to all spike blocks, we're done. Yay good design for sprite states being separate from blocks. should do the same for static blocks too, could be big memory savings.
      - but of course it isn't that simple because then you have to figure out an efficient way to update each shared instance only once. Currently SpriteStateUpdater wants to run on every block.
+       - shared blocks have the concept of a master block, it's the only one that actually updates the shared spritestate.
 
 - bonus/secret stars.
 
