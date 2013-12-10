@@ -16,6 +16,10 @@
 - upgrade to new iPad (dependant on file moving so we can populate files).
 - upgrade to iPhone.
 
+- clouds in bg should drift on their own (not cities though).
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // future
 

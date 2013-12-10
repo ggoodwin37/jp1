@@ -55,9 +55,9 @@ Diving in to b-mode, it's looking pretty cool so far (with just time dilation an
 I played with the idea of having to hold b-button to stay in b-mode, but this doesn't make sense ergonomically.
 
 - add a button to exit b-mode, can use existing assets for now. I feel like the button should be larger than existing global buttons, say 2x, and located near where the b-mode start button was (but probably should be anchored to screen edge, not dynamic).
-- figure out how the physics are gonna work, essentially we want direct movement propagataion. sharing existing code?
-- make sure that b-movable blocks can't push player, else they can just magic carpet.
-- probably b-movable blocks can't push anything (except other b-movables?)
+- when exiting b-mode, do we need some delay so the player can re-orient their thumbs? hopefully not.
+- figure out how the physics are gonna work, essentially we want direct movement only, propagation doesn't occur in b-mode. sharing existing code?
+- probably b-movable blocks can't push anything, not even other b-movables. I'm thinking they shouldn't be affected by gravity, or pushable by actors. this will also simplify coding as a nice side effect.
 
 12-9
 
