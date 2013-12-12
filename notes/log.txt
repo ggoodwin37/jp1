@@ -66,3 +66,9 @@ Haven't checked in for a while since starting at Yahoo. In addition to the b-mod
 Curious about iPhone support. shouldn't be too hard, first have to get the basic resolution change hooked up, then need to handle secondary plumbing to scale stuff, etc.
 
 You stopped working on b-mode when you had a lot of momentum, will be interesting to see if that makes it easier to resume.
+
+Waiting for apple developer renewal to come through. They have done a good job of making sure I curse Apple's name every time I have to pay this fee. Then making me wait "within 24 hours" adds insult to injury :)
+
+12-11
+
+Need to figure out how to get the build up and running. UIStepper doesn't compile.
