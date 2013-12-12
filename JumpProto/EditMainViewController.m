@@ -519,7 +519,7 @@
     int currentTry = 0;
     NSString *result;
     
-    NSString *randomName = [EditMainViewController sanitizeLevelName:[RandomNameGenerator generateRandomNameLooselyBasedOnCurrentTime]];
+    NSString *randomName = [EditMainViewController sanitizeLevelName:[RandomNameGenerator generateRandomNameLooselyBasedOnCurrentTimeInclTimeStamp:YES]];
     while( YES )
     {
         NSString *levelPath;

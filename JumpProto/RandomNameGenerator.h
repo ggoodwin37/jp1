@@ -10,7 +10,7 @@
 
 @interface RandomNameGenerator : NSObject
 
-+(NSString *)generateRandomNameLooselyBasedOnCurrentTime;
++(NSString *)generateRandomNameLooselyBasedOnCurrentTimeInclTimeStamp:(BOOL)inclTimeStamp;
 
 @end
 

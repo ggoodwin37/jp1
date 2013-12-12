@@ -76,17 +76,18 @@
 }
 
 
-+(NSString *)generateRandomNameLooselyBasedOnCurrentTime
++(NSString *)generateRandomNameLooselyBasedOnCurrentTimeInclTimeStamp:(BOOL)inclTimeStamp
 {
     NSDate *today = [NSDate date];
     NSCalendar *gregorian = [[NSCalendar alloc]
                              initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *dateComponents = [gregorian components:(NSSecondCalendarUnit | NSMinuteCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:today];
+    NSDateComponents *dateComponents = [gregorian components:(NSSecondCalendarUnit | NSMinuteCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSYearCalendarUnit) fromDate:today];
     int day = [dateComponents day];
     int second = [dateComponents second];
     int minute = [dateComponents minute];
     int hour = [dateComponents hour];
     int month = [dateComponents month];
+    int year = [dateComponents year];
 
     // TODO: this is so ghetto, should have a RandomTable(size) class that handles this better.
     //       it would be cool if this was actually deterministic though to give it flavor.
@@ -97,10 +98,21 @@
     int col0Index = col0key % [[RandomNameGenerator getCol0List] count];
     int col1Index = col1key % [[RandomNameGenerator getCol1List] count];
     int col2Index = col2key % [[RandomNameGenerator getCol2List] count];
+    
+    NSString *optTimeStamp;
+    if( inclTimeStamp )
+    {
+        optTimeStamp = [NSString stringWithFormat:@"%2d%2d%2d ", month, day, year % 100];
+    }
+    else
+    {
+        optTimeStamp = @"";
+    }
+    
     NSString *val0 = [[RandomNameGenerator getCol0List] objectAtIndex:col0Index];
     NSString *val1 = [[RandomNameGenerator getCol1List] objectAtIndex:col1Index];
     NSString *val2 = [[RandomNameGenerator getCol2List] objectAtIndex:col2Index];
-    return [NSString stringWithFormat:@"%@'s %@ %@", val0, val1, val2];
+    return [NSString stringWithFormat:@"%@%@'s %@ %@", optTimeStamp, val0, val1, val2];
 }
 
 @end
