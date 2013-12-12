@@ -4,6 +4,12 @@
 
 - riding a lift is not smooth when both a crate and the player are on.
 
+- when importing levels onto a new device, lost their order since timestamps changed. might just be puntable.
+
+- if you stand inside a crumbles until it reappears, nothing happens. should die like red/blu.
+
+- (minor) on old levels with the simpsons dude, the player sprite will switch during being-born phase due to cached fake sprite.
+
 // old
 
 // punted
