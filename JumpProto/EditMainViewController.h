@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import "JumpProtoLaunchViewController.h"
+#import "IParentChildVC.h"
 #import "EWorldView.h"
 #import "EDoc.h"
 #import "EBlockPaletteViewController.h"

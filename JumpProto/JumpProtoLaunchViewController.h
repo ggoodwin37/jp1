@@ -11,21 +11,7 @@
 #import "JumpProtoAppDelegate.h"
 #import "ILauncherUI.h"
 #import "DpadInput.h"
-
-@protocol IParentVC <NSObject>
-
--(void)onChildClosing:(id)child withOptionalLevelName:(NSString *)optLevelName;
-
-@end
-
-
-@protocol IChildVC <IAppStartStop>
-
--(void)setParentDelegate:(id<IParentVC>)parent;
--(void)setStartingLevel:(NSString *)levelName;
-
-@end
-
+#import "IParentChildVC.h"
 
 @class LauncherDialogBase;
 

@@ -8,14 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol IAppStartStop <NSObject>
-
--(void)onAppStart;
--(void)onAppStop;
-
-@end
-
-
 @class JumpProtoLaunchViewController;
 
 @interface JumpProtoAppDelegate : NSObject <UIApplicationDelegate> {

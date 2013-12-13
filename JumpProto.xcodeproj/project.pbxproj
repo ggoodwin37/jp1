@@ -28,6 +28,7 @@
 		93A736BC17580FEE0059C2C9 /* EBlockMRUList.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */; };
 		93AD0DC517C45ECE008C41A0 /* tiny-av-crate-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 93AD0DC317C45ECE008C41A0 /* tiny-av-crate-1.png */; };
 		93AD0DC617C45ECE008C41A0 /* tiny-av-plain-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 93AD0DC417C45ECE008C41A0 /* tiny-av-plain-1.png */; };
+		93CAF655185ADC7800A01055 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93CAF654185ADC7800A01055 /* Default-568h@2x.png */; };
 		93E01FCC17C31CCD00708802 /* ColorRectLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E01FCB17C31CCD00708802 /* ColorRectLayerView.m */; };
 		F305ECE91623E1FB00E153FB /* blAlgae.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE61623E1FB00E153FB /* blAlgae.png */; };
 		F305ECEA1623E1FB00E153FB /* blavQik.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE71623E1FB00E153FB /* blavQik.png */; };
@@ -177,6 +178,8 @@
 		93AD0DC317C45ECE008C41A0 /* tiny-av-crate-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-av-crate-1.png"; path = "images/tiny-av-crate-1.png"; sourceTree = "<group>"; };
 		93AD0DC417C45ECE008C41A0 /* tiny-av-plain-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-av-plain-1.png"; path = "images/tiny-av-plain-1.png"; sourceTree = "<group>"; };
 		93AFFAA817D8585D00ACF1B0 /* IRedBluState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IRedBluState.h; sourceTree = "<group>"; };
+		93CAF653185ADBC900A01055 /* IParentChildVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IParentChildVC.h; sourceTree = "<group>"; };
+		93CAF654185ADC7800A01055 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		93E01FCA17C31CCC00708802 /* ColorRectLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorRectLayerView.h; sourceTree = "<group>"; };
 		93E01FCB17C31CCD00708802 /* ColorRectLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorRectLayerView.m; sourceTree = "<group>"; };
 		F305ECE61623E1FB00E153FB /* blAlgae.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blAlgae.png; path = images/blAlgae.png; sourceTree = "<group>"; };
@@ -446,6 +449,7 @@
 		F37EEF8A13CF3EE600AC418D = {
 			isa = PBXGroup;
 			children = (
+				93CAF654185ADC7800A01055 /* Default-568h@2x.png */,
 				F37EEF9F13CF3EE700AC418D /* JumpProto */,
 				F37EEFBF13CF3EE700AC418D /* JumpProtoTests */,
 				F37EEF9813CF3EE700AC418D /* Frameworks */,
@@ -633,6 +637,7 @@
 				F37EEFF313CF411800AC418D /* SoundManager.m */,
 				F37EEFA813CF3EE700AC418D /* JumpProtoAppDelegate.h */,
 				F37EEFA913CF3EE700AC418D /* JumpProtoAppDelegate.m */,
+				93CAF653185ADBC900A01055 /* IParentChildVC.h */,
 				F3B34FE814319E13007EE52C /* JumpProtoLaunchViewController.h */,
 				F3B34FE914319E13007EE52C /* JumpProtoLaunchViewController.m */,
 				F37EEFAE13CF3EE700AC418D /* JumpProtoViewController.h */,
@@ -818,6 +823,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F37EEFA413CF3EE700AC418D /* InfoPlist.strings in Resources */,
+				93CAF655185ADC7800A01055 /* Default-568h@2x.png in Resources */,
 				F37EEFAD13CF3EE700AC418D /* MainWindow.xib in Resources */,
 				F37EEFB313CF3EE700AC418D /* JumpProtoViewController.xib in Resources */,
 				F37EEFF913CF411800AC418D /* InfoPlist.strings in Resources */,
