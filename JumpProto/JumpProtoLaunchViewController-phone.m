@@ -1,3 +1,4 @@
+#if 0
 //
 //  JumpProtoLaunchViewController.m
 //  JumpProto
@@ -5,16 +6,13 @@
 //  Created by gideong on 9/26/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
-#if 0
+
 #import <QuartzCore/QuartzCore.h>
 
 #import "JumpProtoLaunchViewController.h"
 #import "JumpProtoViewController.h"
 #import "EditMainViewController.h"
 #import "LevelUtil.h"
-#import "LauncherNewPackDialog.h"
-#import "LauncherDeletePackDialog.h"
-#import "LauncherExportPackDialog.h"
 
 @interface JumpProtoLaunchViewController (private)
 
@@ -32,11 +30,10 @@
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
-   if( self = [super initWithCoder:aDecoder] )
+    if( self = [super initWithCoder:aDecoder] )
     {
         m_childViewController = nil;
         m_lastPickedLevelRow = 0;
-        m_currentLauncherDialog = nil;
         self.exitedLevelName = nil;
     }
     return self;
@@ -52,7 +49,6 @@
     self.exitedLevelName = nil;
     [m_levelPickerViewContents release]; m_levelPickerViewContents = nil;
     [m_childViewController release]; m_childViewController = nil;
-    [m_currentLauncherDialog release]; m_currentLauncherDialog = nil;
     [LevelFileUtil releaseGlobalInstance];
     [AspectController releaseGlobalInstance];
     [super dealloc];
@@ -80,7 +76,7 @@
     [AspectController initGlobalInstanceWithRect:self.view.frame flipCoords:YES];
     
     [LevelFileUtil initGlobalInstance];
-
+    
     self.dpadInput = [[DpadInput alloc] init];
     
     [self populateLevelPickerView];
@@ -144,7 +140,7 @@
 {
     [m_childViewController setParentDelegate:self];
     
-    NSString *startingLevel = nil;    
+    NSString *startingLevel = nil;
     if( m_lastPickedLevelRow > 0 )  // row 0 is "new level"
     {
         startingLevel = (NSString *)[m_levelPickerViewContents objectAtIndex:m_lastPickedLevelRow];
@@ -170,18 +166,6 @@
         [m_childViewController.view removeFromSuperview];
         [m_childViewController release]; m_childViewController = nil;
     }
-}
-
-
--(void)addCurrentLauncherDialog
-{
-    [m_currentLauncherDialog setParent:self];
-    m_currentLauncherDialog.view.hidden = NO;
-    CGRect rDocProps = CGRectMake( 20.f, 20.f,
-                                  m_currentLauncherDialog.view.frame.size.width,
-                                  m_currentLauncherDialog.view.frame.size.height );    
-    [m_currentLauncherDialog.view setFrame:rDocProps];
-    [self.view addSubview:m_currentLauncherDialog.view];
 }
 
 
@@ -249,7 +233,7 @@
     
     [self addTransitionEntrDir:NO];
     m_childViewController.view.hidden = YES;
-
+    
     // refresh pickerViews in case something changed (eg new level).
     [self populateLevelPickerView];
 }
@@ -266,7 +250,7 @@
     
     [m_levelPickerViewContents release];
     m_levelPickerViewContents = mutableContents;
-
+    
     [self.levelPickerView reloadAllComponents];
     
     // if present, use the last exited level as starting point in the picker list.
@@ -284,7 +268,7 @@
         }
     }
     m_lastPickedLevelRow = startingIndex;
-
+    
     startingIndex = MIN( startingIndex, [m_levelPickerViewContents count] - 1 );
     [self.levelPickerView selectRow:startingIndex inComponent:0 animated:NO];
 }
@@ -303,7 +287,7 @@
 {
     NSAssert( pickerView == self.levelPickerView, @"what pickerView is talking to me?" );
     NSAssert( component == 0, @"called with bad component number?" );
-
+    
     if( pickerView == self.levelPickerView )
     {
         return [m_levelPickerViewContents count];
@@ -340,19 +324,6 @@
     return @"unknown pickerView problem?";
 }
 
-
-// ILauncherUIParent
-
--(void)onDialogClosed:(LauncherUIDialogId)dialogId withStringInput:(NSString *)stringInput buttonSelection:(LauncherUIButtonSelection)button
-{
-    // this appears to be unused since I removed manifest/pack stuff.
-    NSAssert( m_currentLauncherDialog != nil, @"m_currentLauncherDialog fail." );
-    NSLog( @"onDialogClosed: Unrecognized dialogId." );
-    
-    [m_currentLauncherDialog.view removeFromSuperview];
-    [m_currentLauncherDialog removeFromParentViewController]; // what's the diff between this and m_currentLauncherDialog.view removeFromSuperview?
-    [m_currentLauncherDialog release]; m_currentLauncherDialog = nil;
-}
 
 @end
 #endif

@@ -119,9 +119,6 @@
 		F3DABAEF1665F39B00471044 /* DrawSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DABAED1665F39B00471044 /* DrawSettingsViewController.m */; };
 		F3DABAF01665F39B00471044 /* DrawSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3DABAEE1665F39B00471044 /* DrawSettingsViewController.xib */; };
 		F3DE18F014FAA6E80090BDEB /* LevelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DE18EF14FAA6E80090BDEB /* LevelUtil.m */; };
-		F3DE18F514FBF9FC0090BDEB /* LauncherNewPackDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DE18F314FBF9FC0090BDEB /* LauncherNewPackDialog.m */; };
-		F3DE18FA14FBFB040090BDEB /* LauncherDeletePackDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DE18F814FBFB040090BDEB /* LauncherDeletePackDialog.m */; };
-		F3DE18FF14FBFC340090BDEB /* LauncherExportPackDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DE18FD14FBFC340090BDEB /* LauncherExportPackDialog.m */; };
 		F3DFED3A161E9C95004AD6B6 /* GroupPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DFED38161E9C95004AD6B6 /* GroupPickerViewController.m */; };
 		F3DFED3B161E9C95004AD6B6 /* GroupPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3DFED39161E9C95004AD6B6 /* GroupPickerViewController.xib */; };
 		F3E109A9143FD7A6005E3FE5 /* EditMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E109A7143FD7A6005E3FE5 /* EditMainViewController.m */; };
@@ -283,7 +280,6 @@
 		F39963051445F3680082822E /* blOneWay0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blOneWay0.png; path = images/blOneWay0.png; sourceTree = "<group>"; };
 		F39963061445F3680082822E /* props0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = props0.png; path = images/props0.png; sourceTree = "<group>"; };
 		F39963071445F3680082822E /* testblox2b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = testblox2b.png; path = images/testblox2b.png; sourceTree = "<group>"; };
-		F39AC75A14FCA031009736D2 /* ILauncherUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILauncherUI.h; sourceTree = "<group>"; };
 		F3A8A6BF13D3FA1300DAC166 /* DebugLogLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLogLayerView.h; sourceTree = "<group>"; };
 		F3A8A6C013D3FA1300DAC166 /* DebugLogLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugLogLayerView.m; sourceTree = "<group>"; };
 		F3B180AE14D0A8DA007DEA9E /* badGuys2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = badGuys2.png; path = images/badGuys2.png; sourceTree = "<group>"; };
@@ -331,12 +327,6 @@
 		F3DABAEE1665F39B00471044 /* DrawSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawSettingsViewController.xib; sourceTree = "<group>"; };
 		F3DE18EE14FAA6E80090BDEB /* LevelUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelUtil.h; sourceTree = "<group>"; };
 		F3DE18EF14FAA6E80090BDEB /* LevelUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelUtil.m; sourceTree = "<group>"; };
-		F3DE18F214FBF9FC0090BDEB /* LauncherNewPackDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherNewPackDialog.h; sourceTree = "<group>"; };
-		F3DE18F314FBF9FC0090BDEB /* LauncherNewPackDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherNewPackDialog.m; sourceTree = "<group>"; };
-		F3DE18F714FBFB030090BDEB /* LauncherDeletePackDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherDeletePackDialog.h; sourceTree = "<group>"; };
-		F3DE18F814FBFB040090BDEB /* LauncherDeletePackDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherDeletePackDialog.m; sourceTree = "<group>"; };
-		F3DE18FC14FBFC330090BDEB /* LauncherExportPackDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherExportPackDialog.h; sourceTree = "<group>"; };
-		F3DE18FD14FBFC340090BDEB /* LauncherExportPackDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherExportPackDialog.m; sourceTree = "<group>"; };
 		F3DFED37161E9C95004AD6B6 /* GroupPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupPickerViewController.h; sourceTree = "<group>"; };
 		F3DFED38161E9C95004AD6B6 /* GroupPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupPickerViewController.m; sourceTree = "<group>"; };
 		F3DFED39161E9C95004AD6B6 /* GroupPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupPickerViewController.xib; sourceTree = "<group>"; };
@@ -493,7 +483,6 @@
 				F37EEFD913CF411800AC418D /* en.lproj */,
 				F37EEFA013CF3EE700AC418D /* Supporting Files */,
 				F3C444D014035A94003B5C9C /* XIBs */,
-				F3DE190114FBFCEC0090BDEB /* Launcher UI */,
 				F3C444D314035B22003B5C9C /* Core */,
 				F3C444D214035AE9003B5C9C /* Views */,
 				F3C444D514035BE5003B5C9C /* Sprite */,
@@ -709,20 +698,6 @@
 				F3395AD41443DACA00C381AA /* SpriteAutoVariationDefines.h */,
 			);
 			name = Sprite;
-			sourceTree = "<group>";
-		};
-		F3DE190114FBFCEC0090BDEB /* Launcher UI */ = {
-			isa = PBXGroup;
-			children = (
-				F39AC75A14FCA031009736D2 /* ILauncherUI.h */,
-				F3DE18F214FBF9FC0090BDEB /* LauncherNewPackDialog.h */,
-				F3DE18F314FBF9FC0090BDEB /* LauncherNewPackDialog.m */,
-				F3DE18F714FBFB030090BDEB /* LauncherDeletePackDialog.h */,
-				F3DE18F814FBFB040090BDEB /* LauncherDeletePackDialog.m */,
-				F3DE18FC14FBFC330090BDEB /* LauncherExportPackDialog.h */,
-				F3DE18FD14FBFC340090BDEB /* LauncherExportPackDialog.m */,
-			);
-			name = "Launcher UI";
 			sourceTree = "<group>";
 		};
 		F3E109AC143FD7AB005E3FE5 /* Edit */ = {
@@ -959,9 +934,6 @@
 				F36BC4E314CF8E5B0028CC80 /* EDocPropsViewController.m in Sources */,
 				F3CB7BDA14F37907005C7377 /* TestSpriteSheetLayerView.m in Sources */,
 				F3DE18F014FAA6E80090BDEB /* LevelUtil.m in Sources */,
-				F3DE18F514FBF9FC0090BDEB /* LauncherNewPackDialog.m in Sources */,
-				F3DE18FA14FBFB040090BDEB /* LauncherDeletePackDialog.m in Sources */,
-				F3DE18FF14FBFC340090BDEB /* LauncherExportPackDialog.m in Sources */,
 				F35204231500A2F100000CDC /* WorldFrameState.m in Sources */,
 				F3DFED3A161E9C95004AD6B6 /* GroupPickerViewController.m in Sources */,
 				F3DABAEF1665F39B00471044 /* DrawSettingsViewController.m in Sources */,

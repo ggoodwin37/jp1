@@ -12,9 +12,6 @@
 #import "JumpProtoViewController.h"
 #import "EditMainViewController.h"
 #import "LevelUtil.h"
-#import "LauncherNewPackDialog.h"
-#import "LauncherDeletePackDialog.h"
-#import "LauncherExportPackDialog.h"
 
 @interface JumpProtoLaunchViewController (private)
 
@@ -36,7 +33,6 @@
     {
         m_childViewController = nil;
         m_lastPickedLevelRow = 0;
-        m_currentLauncherDialog = nil;
         self.exitedLevelName = nil;
     }
     return self;
@@ -52,7 +48,6 @@
     self.exitedLevelName = nil;
     [m_levelPickerViewContents release]; m_levelPickerViewContents = nil;
     [m_childViewController release]; m_childViewController = nil;
-    [m_currentLauncherDialog release]; m_currentLauncherDialog = nil;
     [LevelFileUtil releaseGlobalInstance];
     [AspectController releaseGlobalInstance];
     [super dealloc];
@@ -170,18 +165,6 @@
         [m_childViewController.view removeFromSuperview];
         [m_childViewController release]; m_childViewController = nil;
     }
-}
-
-
--(void)addCurrentLauncherDialog
-{
-    [m_currentLauncherDialog setParent:self];
-    m_currentLauncherDialog.view.hidden = NO;
-    CGRect rDocProps = CGRectMake( 20.f, 20.f,
-                                  m_currentLauncherDialog.view.frame.size.width,
-                                  m_currentLauncherDialog.view.frame.size.height );    
-    [m_currentLauncherDialog.view setFrame:rDocProps];
-    [self.view addSubview:m_currentLauncherDialog.view];
 }
 
 
@@ -340,18 +323,5 @@
     return @"unknown pickerView problem?";
 }
 
-
-// ILauncherUIParent
-
--(void)onDialogClosed:(LauncherUIDialogId)dialogId withStringInput:(NSString *)stringInput buttonSelection:(LauncherUIButtonSelection)button
-{
-    // this appears to be unused since I removed manifest/pack stuff.
-    NSAssert( m_currentLauncherDialog != nil, @"m_currentLauncherDialog fail." );
-    NSLog( @"onDialogClosed: Unrecognized dialogId." );
-    
-    [m_currentLauncherDialog.view removeFromSuperview];
-    [m_currentLauncherDialog removeFromParentViewController]; // what's the diff between this and m_currentLauncherDialog.view removeFromSuperview?
-    [m_currentLauncherDialog release]; m_currentLauncherDialog = nil;
-}
 
 @end

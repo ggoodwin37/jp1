@@ -1,3 +1,4 @@
+#if 0
 //
 //  JumpProtoLaunchViewController.h
 //  JumpProto
@@ -5,23 +6,18 @@
 //  Created by gideong on 9/26/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
-#if 0
+
 #import <UIKit/UIKit.h>
 
 #import "JumpProtoAppDelegate.h"
-#import "ILauncherUI.h"
 #import "DpadInput.h"
 #import "IParentChildVC.h"
 
-@class LauncherDialogBase;
-
-@interface JumpProtoLaunchViewController : UIViewController <IAppStartStop, IParentVC, UIPickerViewDataSource, UIPickerViewDelegate, ILauncherUIParent> {
+@interface JumpProtoLaunchViewController : UIViewController <IAppStartStop, IParentVC, UIPickerViewDataSource, UIPickerViewDelegate> {
     UIViewController<IChildVC> *m_childViewController;
     
     NSArray *m_levelPickerViewContents;
     int m_lastPickedLevelRow;
-    
-    LauncherDialogBase *m_currentLauncherDialog;
 }
 
 @property (nonatomic, retain) IBOutlet UIPickerView *levelPickerView;
