@@ -547,10 +547,10 @@
 		F3C444D014035A94003B5C9C /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
-				93B5A831185ADF640058F167 /* JumpProtoLaunchViewController-phone.xib */,
 				F37EEFAB13CF3EE700AC418D /* MainWindow.xib */,
 				F37EEFB113CF3EE700AC418D /* JumpProtoViewController.xib */,
 				F3B34FEA14319E13007EE52C /* JumpProtoLaunchViewController.xib */,
+				93B5A831185ADF640058F167 /* JumpProtoLaunchViewController-phone.xib */,
 				F3E109A8143FD7A6005E3FE5 /* EditMainViewController.xib */,
 				F37F1DF0144395F600790E55 /* EBlockPaletteViewController.xib */,
 				F36BC4E214CF8E5B0028CC80 /* EDocPropsViewController.xib */,
