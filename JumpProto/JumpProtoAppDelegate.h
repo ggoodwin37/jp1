@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class JumpProtoLaunchViewController;
+#import "IParentChildVC.h"  // IAppStartStop
 
 @interface JumpProtoAppDelegate : NSObject <UIApplicationDelegate> {
 
@@ -16,6 +15,6 @@
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
-@property (nonatomic, retain) IBOutlet JumpProtoLaunchViewController *viewController;
+@property (nonatomic, retain) IBOutlet UIViewController<IAppStartStop> *viewController;
 
 @end

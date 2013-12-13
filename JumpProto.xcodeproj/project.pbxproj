@@ -621,8 +621,6 @@
 		F3C444D314035B22003B5C9C /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				93B5A833185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.h */,
-				93B5A834185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.m */,
 				F37EEFD613CF411800AC418D /* constants.h */,
 				F347EAD113E1F69900F6EA15 /* HitZone.h */,
 				F347EAD213E1F69900F6EA15 /* HitZone.m */,
@@ -637,6 +635,8 @@
 				93CAF653185ADBC900A01055 /* IParentChildVC.h */,
 				F3B34FE814319E13007EE52C /* JumpProtoLaunchViewController.h */,
 				F3B34FE914319E13007EE52C /* JumpProtoLaunchViewController.m */,
+				93B5A833185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.h */,
+				93B5A834185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.m */,
 				F37EEFAE13CF3EE700AC418D /* JumpProtoViewController.h */,
 				F37EEFAF13CF3EE700AC418D /* JumpProtoViewController.m */,
 				F3259F6913D6A5FC0018CC3D /* DpadInput.h */,

@@ -8,8 +8,6 @@
 
 #import "JumpProtoAppDelegate.h"
 
-#import "JumpProtoLaunchViewController.h"
-
 @implementation JumpProtoAppDelegate
 
 
