@@ -28,6 +28,8 @@
 		93A736BC17580FEE0059C2C9 /* EBlockMRUList.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */; };
 		93AD0DC517C45ECE008C41A0 /* tiny-av-crate-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 93AD0DC317C45ECE008C41A0 /* tiny-av-crate-1.png */; };
 		93AD0DC617C45ECE008C41A0 /* tiny-av-plain-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 93AD0DC417C45ECE008C41A0 /* tiny-av-plain-1.png */; };
+		93B5A832185ADF640058F167 /* JumpProtoLaunchViewController-phone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93B5A831185ADF640058F167 /* JumpProtoLaunchViewController-phone.xib */; };
+		93B5A835185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B5A834185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.m */; };
 		93CAF655185ADC7800A01055 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93CAF654185ADC7800A01055 /* Default-568h@2x.png */; };
 		93E01FCC17C31CCD00708802 /* ColorRectLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E01FCB17C31CCD00708802 /* ColorRectLayerView.m */; };
 		F305ECE91623E1FB00E153FB /* blAlgae.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE61623E1FB00E153FB /* blAlgae.png */; };
@@ -178,6 +180,9 @@
 		93AD0DC317C45ECE008C41A0 /* tiny-av-crate-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-av-crate-1.png"; path = "images/tiny-av-crate-1.png"; sourceTree = "<group>"; };
 		93AD0DC417C45ECE008C41A0 /* tiny-av-plain-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-av-plain-1.png"; path = "images/tiny-av-plain-1.png"; sourceTree = "<group>"; };
 		93AFFAA817D8585D00ACF1B0 /* IRedBluState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IRedBluState.h; sourceTree = "<group>"; };
+		93B5A831185ADF640058F167 /* JumpProtoLaunchViewController-phone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "JumpProtoLaunchViewController-phone.xib"; sourceTree = "<group>"; };
+		93B5A833185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JumpProtoLaunchViewController-phone.h"; sourceTree = "<group>"; };
+		93B5A834185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JumpProtoLaunchViewController-phone.m"; sourceTree = "<group>"; };
 		93CAF653185ADBC900A01055 /* IParentChildVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IParentChildVC.h; sourceTree = "<group>"; };
 		93CAF654185ADC7800A01055 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		93E01FCA17C31CCC00708802 /* ColorRectLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorRectLayerView.h; sourceTree = "<group>"; };
@@ -553,6 +558,7 @@
 		F3C444D014035A94003B5C9C /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
+				93B5A831185ADF640058F167 /* JumpProtoLaunchViewController-phone.xib */,
 				F37EEFAB13CF3EE700AC418D /* MainWindow.xib */,
 				F37EEFB113CF3EE700AC418D /* JumpProtoViewController.xib */,
 				F3B34FEA14319E13007EE52C /* JumpProtoLaunchViewController.xib */,
@@ -626,6 +632,8 @@
 		F3C444D314035B22003B5C9C /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				93B5A833185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.h */,
+				93B5A834185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.m */,
 				F37EEFD613CF411800AC418D /* constants.h */,
 				F347EAD113E1F69900F6EA15 /* HitZone.h */,
 				F347EAD213E1F69900F6EA15 /* HitZone.m */,
@@ -824,6 +832,7 @@
 			files = (
 				F37EEFA413CF3EE700AC418D /* InfoPlist.strings in Resources */,
 				93CAF655185ADC7800A01055 /* Default-568h@2x.png in Resources */,
+				93B5A832185ADF640058F167 /* JumpProtoLaunchViewController-phone.xib in Resources */,
 				F37EEFAD13CF3EE700AC418D /* MainWindow.xib in Resources */,
 				F37EEFB313CF3EE700AC418D /* JumpProtoViewController.xib in Resources */,
 				F37EEFF913CF411800AC418D /* InfoPlist.strings in Resources */,
@@ -935,6 +944,7 @@
 				F3471E4A143D4CF9001AA4C8 /* SpriteStateDrawUtil.m in Sources */,
 				F3471E54143ED7C7001AA4C8 /* ArchiveFormat.m in Sources */,
 				F3471E5A143FCF31001AA4C8 /* WorldArchiveUtil.m in Sources */,
+				93B5A835185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.m in Sources */,
 				F3E109A9143FD7A6005E3FE5 /* EditMainViewController.m in Sources */,
 				F3CCE2541440244E008773E8 /* QuartzView.m in Sources */,
 				F3CCE25814402482008773E8 /* EWorldView.m in Sources */,
