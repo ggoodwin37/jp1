@@ -72,3 +72,11 @@ Waiting for apple developer renewal to come through. They have done a good job o
 12-11
 
 Need to figure out how to get the build up and running. UIStepper doesn't compile.
+
+12-12
+
+Got it running on new iPad fairly smoothly.
+
+Tried to get it running on iPhone. Probably need to put some effort into having a different launcher on the phone. Right now MainWindow.xib always loads the iPad-sized launcher (original JumpProtoLaunchViewController). Add a lower layer that can choose between this launcher or the phone one? Should really share some code between the two instead of the copy & paste job you have now.
+
+I modified the original launcher xib just to see what play mode looked like on the phone. it looks fairly broken, so there's some work there too.
