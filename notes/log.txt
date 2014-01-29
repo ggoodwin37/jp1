@@ -80,3 +80,13 @@ Got it running on new iPad fairly smoothly.
 Tried to get it running on iPhone. Probably need to put some effort into having a different launcher on the phone. Right now MainWindow.xib always loads the iPad-sized launcher (original JumpProtoLaunchViewController). Add a lower layer that can choose between this launcher or the phone one? Should really share some code between the two instead of the copy & paste job you have now.
 
 I modified the original launcher xib just to see what play mode looked like on the phone. it looks fairly broken, so there's some work there too.
+
+
+1-28-14
+
+after a little break, I'm here to get the iPhone version set up.
+
+plan: remove hardcoded connection to jumpProtoLaunchVC in MainWindow nib. instead set this up dynamically (depending on device) in JumpProtoAppDelegate.
+
+TODO: jumpProtoLaunchViewController is really a base class for -ipad and -phone versions. almost all code is shared.
+

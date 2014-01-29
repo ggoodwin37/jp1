@@ -28,6 +28,18 @@
 
 @synthesize exitedLevelName;
 
+-(id)init
+{
+    if( self = [super init] )
+    {
+        m_childViewController = nil;
+        m_lastPickedLevelRow = 0;
+        self.exitedLevelName = nil;
+    }
+    return self;
+}
+
+
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
     if( self = [super initWithCoder:aDecoder] )

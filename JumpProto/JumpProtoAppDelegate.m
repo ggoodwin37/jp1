@@ -17,15 +17,32 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-    
-    // would prefer to do this in the nib...
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    
+    [self setUpVC];
 
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    
+    NSLog(@"didFinishLaunching");
     return YES;
 }
+
+
+-(void)setUpVC
+{
+    BOOL isIPhone = NO;
+    if (isIPhone) {
+        // TODO: add view controller here! not nib codepath! add to layer?
+        //self.viewController = [[JumpProtoLaunchViewController ...
+        
+    
+    } else {
+        
+    }
+    
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
