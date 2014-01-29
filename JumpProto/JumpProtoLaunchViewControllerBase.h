@@ -24,6 +24,8 @@
 -(IBAction)onEditButtonTouched:(id)sender;
 -(IBAction)onDeleteButtonTouched:(id)sender;
 
+-(void)onAwake;
+
 -(void)onAppStart;
 -(void)onAppStop;
 

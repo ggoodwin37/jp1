@@ -7,6 +7,8 @@
 //
 
 #import "JumpProtoAppDelegate.h"
+#import "JumpProtoLaunchViewController.h"
+#import "JumpProtoLaunchViewController-phone.h"
 
 @implementation JumpProtoAppDelegate
 
@@ -23,24 +25,24 @@
 
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
-    
-    NSLog(@"didFinishLaunching");
+
     return YES;
 }
 
 
 -(void)setUpVC
 {
-    BOOL isIPhone = NO;
+    BOOL isIPhone = YES;
     if (isIPhone) {
-        // TODO: add view controller here! not nib codepath! add to layer?
-        //self.viewController = [[JumpProtoLaunchViewController ...
-        
-    
+        //self.viewController = [[JumpProtoLaunchViewControllerPhone alloc] initWithNibName:@"JumpProtoLaunchViewControllerPhone" bundle:nil];
+        self.viewController = [[JumpProtoLaunchViewControllerPhone alloc] init];
     } else {
-        
+        //self.viewController = [[JumpProtoLaunchViewController alloc] initWithNibName:@"JumpProtoLaunchViewController" bundle:nil];
+        self.viewController = [[JumpProtoLaunchViewController alloc] init];
     }
-    
+    [self.window addSubview:self.viewController.view];
+    JumpProtoLaunchViewControllerBase *baseVC = (JumpProtoLaunchViewControllerBase *)self.viewController;
+    [baseVC onAwake];
 }
 
 
