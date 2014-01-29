@@ -86,5 +86,9 @@ I modified the original launcher xib just to see what play mode looked like on t
 
 after a little break, I'm here to get the iPhone version set up.
 
-plan: remove hardcoded connection to jumpProtoLaunchVC in MainWindow nib. instead set this up dynamically (depending on device) in JumpProtoAppDelegate.
+added a dedicated launcherVC for phone. but this will allow us to run in "phone mode". note that the xib and class must have identical names if you want to programmatically add vcs.
 
+next up:
+- iphone xib isn't quite right
+- test on devices
+- fix iphone viewport bugs

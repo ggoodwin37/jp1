@@ -26,11 +26,11 @@
 		9386061B17A5BA6E00A544B5 /* Sprites1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9386061917A5BA6E00A544B5 /* Sprites1.xml */; };
 		9386061E17A5ED8A00A544B5 /* PlayerActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9386061D17A5ED8A00A544B5 /* PlayerActor.m */; };
 		9386062117A5ED9C00A544B5 /* BadGuyActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9386062017A5ED9C00A544B5 /* BadGuyActor.m */; };
+		939CA9F31898EDE2000785AF /* JumpProtoLaunchViewPhoneController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 939CA9F21898EDE2000785AF /* JumpProtoLaunchViewPhoneController.xib */; };
+		939CA9F61898EDF8000785AF /* JumpProtoLaunchViewPhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 939CA9F51898EDF8000785AF /* JumpProtoLaunchViewPhoneController.m */; };
 		93A736BC17580FEE0059C2C9 /* EBlockMRUList.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */; };
 		93AD0DC517C45ECE008C41A0 /* tiny-av-crate-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 93AD0DC317C45ECE008C41A0 /* tiny-av-crate-1.png */; };
 		93AD0DC617C45ECE008C41A0 /* tiny-av-plain-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 93AD0DC417C45ECE008C41A0 /* tiny-av-plain-1.png */; };
-		93B5A832185ADF640058F167 /* JumpProtoLaunchViewController-phone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93B5A831185ADF640058F167 /* JumpProtoLaunchViewController-phone.xib */; };
-		93B5A835185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B5A834185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.m */; };
 		93CAF655185ADC7800A01055 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93CAF654185ADC7800A01055 /* Default-568h@2x.png */; };
 		93E01FCC17C31CCD00708802 /* ColorRectLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E01FCB17C31CCD00708802 /* ColorRectLayerView.m */; };
 		F305ECE91623E1FB00E153FB /* blAlgae.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE61623E1FB00E153FB /* blAlgae.png */; };
@@ -175,14 +175,14 @@
 		9386061D17A5ED8A00A544B5 /* PlayerActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerActor.m; sourceTree = "<group>"; };
 		9386061F17A5ED9C00A544B5 /* BadGuyActor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadGuyActor.h; sourceTree = "<group>"; };
 		9386062017A5ED9C00A544B5 /* BadGuyActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadGuyActor.m; sourceTree = "<group>"; };
+		939CA9F21898EDE2000785AF /* JumpProtoLaunchViewPhoneController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JumpProtoLaunchViewPhoneController.xib; sourceTree = "<group>"; };
+		939CA9F41898EDF8000785AF /* JumpProtoLaunchViewPhoneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JumpProtoLaunchViewPhoneController.h; sourceTree = "<group>"; };
+		939CA9F51898EDF8000785AF /* JumpProtoLaunchViewPhoneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JumpProtoLaunchViewPhoneController.m; sourceTree = "<group>"; };
 		93A736BA17580FEE0059C2C9 /* EBlockMRUList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBlockMRUList.h; sourceTree = "<group>"; };
 		93A736BB17580FEE0059C2C9 /* EBlockMRUList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBlockMRUList.m; sourceTree = "<group>"; };
 		93AD0DC317C45ECE008C41A0 /* tiny-av-crate-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-av-crate-1.png"; path = "images/tiny-av-crate-1.png"; sourceTree = "<group>"; };
 		93AD0DC417C45ECE008C41A0 /* tiny-av-plain-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-av-plain-1.png"; path = "images/tiny-av-plain-1.png"; sourceTree = "<group>"; };
 		93AFFAA817D8585D00ACF1B0 /* IRedBluState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IRedBluState.h; sourceTree = "<group>"; };
-		93B5A831185ADF640058F167 /* JumpProtoLaunchViewController-phone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "JumpProtoLaunchViewController-phone.xib"; sourceTree = "<group>"; };
-		93B5A833185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JumpProtoLaunchViewController-phone.h"; sourceTree = "<group>"; };
-		93B5A834185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JumpProtoLaunchViewController-phone.m"; sourceTree = "<group>"; };
 		93CAF653185ADBC900A01055 /* IParentChildVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IParentChildVC.h; sourceTree = "<group>"; };
 		93CAF654185ADC7800A01055 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		93E01FCA17C31CCC00708802 /* ColorRectLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorRectLayerView.h; sourceTree = "<group>"; };
@@ -553,7 +553,7 @@
 				F37EEFAB13CF3EE700AC418D /* MainWindow.xib */,
 				F37EEFB113CF3EE700AC418D /* JumpProtoViewController.xib */,
 				F3B34FEA14319E13007EE52C /* JumpProtoLaunchViewController.xib */,
-				93B5A831185ADF640058F167 /* JumpProtoLaunchViewController-phone.xib */,
+				939CA9F21898EDE2000785AF /* JumpProtoLaunchViewPhoneController.xib */,
 				F3E109A8143FD7A6005E3FE5 /* EditMainViewController.xib */,
 				F37F1DF0144395F600790E55 /* EBlockPaletteViewController.xib */,
 				F36BC4E214CF8E5B0028CC80 /* EDocPropsViewController.xib */,
@@ -640,8 +640,8 @@
 				938195871898E1E200E8944F /* JumpProtoLaunchViewControllerBase.m */,
 				F3B34FE814319E13007EE52C /* JumpProtoLaunchViewController.h */,
 				F3B34FE914319E13007EE52C /* JumpProtoLaunchViewController.m */,
-				93B5A833185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.h */,
-				93B5A834185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.m */,
+				939CA9F41898EDF8000785AF /* JumpProtoLaunchViewPhoneController.h */,
+				939CA9F51898EDF8000785AF /* JumpProtoLaunchViewPhoneController.m */,
 				F37EEFAE13CF3EE700AC418D /* JumpProtoViewController.h */,
 				F37EEFAF13CF3EE700AC418D /* JumpProtoViewController.m */,
 				F3259F6913D6A5FC0018CC3D /* DpadInput.h */,
@@ -812,7 +812,6 @@
 			files = (
 				F37EEFA413CF3EE700AC418D /* InfoPlist.strings in Resources */,
 				93CAF655185ADC7800A01055 /* Default-568h@2x.png in Resources */,
-				93B5A832185ADF640058F167 /* JumpProtoLaunchViewController-phone.xib in Resources */,
 				F37EEFAD13CF3EE700AC418D /* MainWindow.xib in Resources */,
 				F37EEFB313CF3EE700AC418D /* JumpProtoViewController.xib in Resources */,
 				F37EEFF913CF411800AC418D /* InfoPlist.strings in Resources */,
@@ -855,6 +854,7 @@
 				93AD0DC517C45ECE008C41A0 /* tiny-av-crate-1.png in Resources */,
 				93AD0DC617C45ECE008C41A0 /* tiny-av-plain-1.png in Resources */,
 				936195A517D6692900C46568 /* tiny-event-1.png in Resources */,
+				939CA9F31898EDE2000785AF /* JumpProtoLaunchViewPhoneController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -924,7 +924,6 @@
 				F3471E4A143D4CF9001AA4C8 /* SpriteStateDrawUtil.m in Sources */,
 				F3471E54143ED7C7001AA4C8 /* ArchiveFormat.m in Sources */,
 				F3471E5A143FCF31001AA4C8 /* WorldArchiveUtil.m in Sources */,
-				93B5A835185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.m in Sources */,
 				F3E109A9143FD7A6005E3FE5 /* EditMainViewController.m in Sources */,
 				F3CCE2541440244E008773E8 /* QuartzView.m in Sources */,
 				F3CCE25814402482008773E8 /* EWorldView.m in Sources */,
@@ -932,6 +931,7 @@
 				F3B1C4561442B21600D09E36 /* EArchiveUtil.m in Sources */,
 				F37F1DF1144395F600790E55 /* EBlockPaletteViewController.m in Sources */,
 				F3D4C6EF1469005300FC282A /* BlockGroup.m in Sources */,
+				939CA9F61898EDF8000785AF /* JumpProtoLaunchViewPhoneController.m in Sources */,
 				F3C79EF01499BCE20051ADAD /* Emu.c in Sources */,
 				F38A372514B1106900A6403B /* EBlockPresetSpriteNames.m in Sources */,
 				F3D6C7E714CA1B30003FE5B4 /* Actor.m in Sources */,

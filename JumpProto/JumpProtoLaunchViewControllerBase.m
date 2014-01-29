@@ -72,7 +72,6 @@
 
 -(void)onAwake
 {
-    NSLog(@"AWAAKE!");
     // this is authority on current coordinate system, in terms of aspect ratio and pixels (used only where needed to interface with events).
     // why flipCoords? Not sure. Originally this was called with the openGLView's rect and the coords didn't need to be flipped. But now that
     // we are using this quartz view's frame, this seems to be required. There's a better explanation out there somewhere but frankly who cares.

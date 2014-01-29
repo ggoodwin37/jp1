@@ -8,7 +8,7 @@
 
 #import "JumpProtoAppDelegate.h"
 #import "JumpProtoLaunchViewController.h"
-#import "JumpProtoLaunchViewController-phone.h"
+#import "JumpProtoLaunchViewPhoneController.h"
 
 @implementation JumpProtoAppDelegate
 
@@ -32,13 +32,13 @@
 
 -(void)setUpVC
 {
-    BOOL isIPhone = YES;
-    if (isIPhone) {
-        //self.viewController = [[JumpProtoLaunchViewControllerPhone alloc] initWithNibName:@"JumpProtoLaunchViewControllerPhone" bundle:nil];
-        self.viewController = [[JumpProtoLaunchViewControllerPhone alloc] init];
-    } else {
-        //self.viewController = [[JumpProtoLaunchViewController alloc] initWithNibName:@"JumpProtoLaunchViewController" bundle:nil];
+    // TODO: consider making this more robust before shipping (haha)
+    NSString *deviceType = [UIDevice currentDevice].model;
+    BOOL isIPad = ([deviceType rangeOfString:@"iPad"].location != NSNotFound);
+    if (isIPad) {
         self.viewController = [[JumpProtoLaunchViewController alloc] init];
+    } else {
+        self.viewController = [[JumpProtoLaunchViewPhoneController alloc] init];
     }
     [self.window addSubview:self.viewController.view];
     JumpProtoLaunchViewControllerBase *baseVC = (JumpProtoLaunchViewControllerBase *)self.viewController;

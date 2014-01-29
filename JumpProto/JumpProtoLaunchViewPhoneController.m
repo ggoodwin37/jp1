@@ -1,12 +1,12 @@
 #import <QuartzCore/QuartzCore.h>
-#import "JumpProtoLaunchViewController-phone.h"
+#import "JumpProtoLaunchViewPhoneController.h"
 
-@interface JumpProtoLaunchViewControllerPhone (private)
+@interface JumpProtoLaunchViewPhoneController (private)
 
 @end
 
 
-@implementation JumpProtoLaunchViewControllerPhone
+@implementation JumpProtoLaunchViewPhoneController
 
 -(id)init
 {
