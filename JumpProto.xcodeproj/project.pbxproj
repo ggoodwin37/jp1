@@ -17,6 +17,7 @@
 		93630AAC17B0D2EA00AA8D5D /* BackgroundGeoScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 93630AAB17B0D2EA00AA8D5D /* BackgroundGeoScene.m */; };
 		93732D8417A4327D00F1B5A7 /* ElbowRoomGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */; };
 		93732D8717A4982B00F1B5A7 /* PropagateMovementUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */; };
+		938195881898E1E200E8944F /* JumpProtoLaunchViewControllerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 938195871898E1E200E8944F /* JumpProtoLaunchViewControllerBase.m */; };
 		9386061417A5B86900A544B5 /* rob-16.png in Resources */ = {isa = PBXBuildFile; fileRef = 9386061017A5B86900A544B5 /* rob-16.png */; };
 		9386061517A5B86900A544B5 /* tiny-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9386061117A5B86900A544B5 /* tiny-2.png */; };
 		9386061617A5B86900A544B5 /* tiny-creeps-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9386061217A5B86900A544B5 /* tiny-creeps-1.png */; };
@@ -162,6 +163,8 @@
 		93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElbowRoomGrid.m; sourceTree = "<group>"; };
 		93732D8517A4982A00F1B5A7 /* PropagateMovementUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropagateMovementUpdater.h; sourceTree = "<group>"; };
 		93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropagateMovementUpdater.m; sourceTree = "<group>"; };
+		938195861898E1E200E8944F /* JumpProtoLaunchViewControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JumpProtoLaunchViewControllerBase.h; sourceTree = "<group>"; };
+		938195871898E1E200E8944F /* JumpProtoLaunchViewControllerBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JumpProtoLaunchViewControllerBase.m; sourceTree = "<group>"; };
 		9386061017A5B86900A544B5 /* rob-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rob-16.png"; path = "images/rob-16.png"; sourceTree = "<group>"; };
 		9386061117A5B86900A544B5 /* tiny-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-2.png"; path = "images/tiny-2.png"; sourceTree = "<group>"; };
 		9386061217A5B86900A544B5 /* tiny-creeps-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-creeps-1.png"; path = "images/tiny-creeps-1.png"; sourceTree = "<group>"; };
@@ -633,6 +636,8 @@
 				F37EEFA813CF3EE700AC418D /* JumpProtoAppDelegate.h */,
 				F37EEFA913CF3EE700AC418D /* JumpProtoAppDelegate.m */,
 				93CAF653185ADBC900A01055 /* IParentChildVC.h */,
+				938195861898E1E200E8944F /* JumpProtoLaunchViewControllerBase.h */,
+				938195871898E1E200E8944F /* JumpProtoLaunchViewControllerBase.m */,
 				F3B34FE814319E13007EE52C /* JumpProtoLaunchViewController.h */,
 				F3B34FE914319E13007EE52C /* JumpProtoLaunchViewController.m */,
 				93B5A833185ADFDC0058F167 /* JumpProtoLaunchViewController-phone.h */,
@@ -948,6 +953,7 @@
 				93630AAC17B0D2EA00AA8D5D /* BackgroundGeoScene.m in Sources */,
 				9359C28217B176C900AA0B15 /* LinkedList.m in Sources */,
 				93E01FCC17C31CCD00708802 /* ColorRectLayerView.m in Sources */,
+				938195881898E1E200E8944F /* JumpProtoLaunchViewControllerBase.m in Sources */,
 				932CBA7B17CEDD5900A2D7DD /* EventActor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

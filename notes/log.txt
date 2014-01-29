@@ -88,5 +88,3 @@ after a little break, I'm here to get the iPhone version set up.
 
 plan: remove hardcoded connection to jumpProtoLaunchVC in MainWindow nib. instead set this up dynamically (depending on device) in JumpProtoAppDelegate.
 
-TODO: jumpProtoLaunchViewController is really a base class for -ipad and -phone versions. almost all code is shared.
-

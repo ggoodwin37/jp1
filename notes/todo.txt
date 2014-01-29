@@ -10,10 +10,6 @@
 - should add a bunch more static blocks and simple enemy types for gits and shiggles.
   - background-oriented tiles.
 
-- investigate: can we really just move files back and forth via organizer? if so, I don't think there's any need to worry about exporting the files off the device in-app (unless you want to get into user-generated levels...bleh).
-  - test run.
-
-- upgrade to new iPad (dependant on file moving so we can populate files).
 - upgrade to iPhone.
 
 - clouds in bg should drift on their own (not cities though).

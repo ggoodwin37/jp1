@@ -1,38 +1,10 @@
-//
-//  JumpProtoLaunchViewController.h
-//  JumpProto
-//
-//  Created by gideong on 9/26/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
-//
+// note: this is the ipad version. Can't be bothered to go through and change the class name everywhere though.
 
 #import <UIKit/UIKit.h>
 
-#import "JumpProtoAppDelegate.h"
-#import "DpadInput.h"
-#import "IParentChildVC.h"
+#import "JumpProtoLaunchViewControllerBase.h"
 
-@interface JumpProtoLaunchViewController : UIViewController <IAppStartStop, IParentVC, UIPickerViewDataSource, UIPickerViewDelegate> {
-    UIViewController<IChildVC> *m_childViewController;
-    
-    NSArray *m_levelPickerViewContents;
-    int m_lastPickedLevelRow;
+@interface JumpProtoLaunchViewController : JumpProtoLaunchViewControllerBase {
 }
-
-@property (nonatomic, retain) IBOutlet UIPickerView *levelPickerView;
-@property (nonatomic, retain) IBOutlet UISwitch *deleteArmedSwitch;
-
-@property (nonatomic, retain) IBOutlet UISwitch *loadFromDiskSwitch;
-
-@property (nonatomic, retain) NSString *exitedLevelName;
-
-@property (nonatomic, retain) DpadInput *dpadInput;
-
--(IBAction)onPlayButtonTouched:(id)sender;
--(IBAction)onEditButtonTouched:(id)sender;
--(IBAction)onDeleteButtonTouched:(id)sender;
-
--(void)onAppStart;
--(void)onAppStop;
 
 @end
