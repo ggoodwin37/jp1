@@ -70,7 +70,7 @@
 }
 
 
--(void)awakeFromNib
+-(void)onAwake
 {
     // this is authority on current coordinate system, in terms of aspect ratio and pixels (used only where needed to interface with events).
     // why flipCoords? Not sure. Originally this was called with the openGLView's rect and the coords didn't need to be flipped. But now that
@@ -79,7 +79,7 @@
     [AspectController initGlobalInstanceWithRect:self.view.frame flipCoords:YES];
     
     [LevelFileUtil initGlobalInstance];
-
+    
     self.dpadInput = [[DpadInput alloc] init];
     
     [self populateLevelPickerView];
@@ -88,6 +88,12 @@
     
     // testing: just load the first level without requiring any user input for testing purposes.
     //[self temp_autoPlayFirstLevel];
+}
+
+
+-(void)awakeFromNib
+{
+    [self onAwake];
 }
 
 
