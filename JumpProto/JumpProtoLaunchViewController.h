@@ -7,4 +7,6 @@
 @interface JumpProtoLaunchViewController : JumpProtoLaunchViewControllerBase {
 }
 
+@property (nonatomic, retain) IBOutlet UISwitch *loadFromDiskSwitch;
+
 @end

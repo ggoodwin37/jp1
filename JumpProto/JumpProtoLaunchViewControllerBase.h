@@ -14,8 +14,6 @@
 @property (nonatomic, retain) IBOutlet UIPickerView *levelPickerView;
 @property (nonatomic, retain) IBOutlet UISwitch *deleteArmedSwitch;
 
-@property (nonatomic, retain) IBOutlet UISwitch *loadFromDiskSwitch;
-
 @property (nonatomic, retain) NSString *exitedLevelName;
 
 @property (nonatomic, retain) DpadInput *dpadInput;
@@ -28,5 +26,7 @@
 
 -(void)onAppStart;
 -(void)onAppStop;
+
+-(BOOL)shouldLoadFromDisk;
 
 @end

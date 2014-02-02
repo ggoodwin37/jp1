@@ -14,7 +14,7 @@
 
 @implementation JumpProtoLaunchViewControllerBase
 
-@synthesize levelPickerView, deleteArmedSwitch, loadFromDiskSwitch;
+@synthesize levelPickerView, deleteArmedSwitch;
 @synthesize dpadInput;
 
 @synthesize exitedLevelName;
@@ -47,7 +47,6 @@
 {
     self.dpadInput = nil;
     self.deleteArmedSwitch = nil;
-    self.loadFromDiskSwitch = nil;
     self.levelPickerView = nil;
     self.exitedLevelName = nil;
     [m_levelPickerViewContents release]; m_levelPickerViewContents = nil;
@@ -84,7 +83,6 @@
     
     [self populateLevelPickerView];
     self.deleteArmedSwitch.on = NO;
-    self.loadFromDiskSwitch.on = YES;
     
     // testing: just load the first level without requiring any user input for testing purposes.
     //[self temp_autoPlayFirstLevel];
@@ -187,9 +185,15 @@
     }
     JumpProtoViewController *jumpVC = [[JumpProtoViewController alloc] initWithNibName:@"JumpProtoViewController" bundle:nil];
     jumpVC.dpadInput = self.dpadInput;
-    jumpVC.loadFromDisk = self.loadFromDiskSwitch.on;
+    jumpVC.loadFromDisk = [self shouldLoadFromDisk];
     m_childViewController = jumpVC;
     [self addChildViewWithTransition:NO];
+}
+
+
+-(BOOL)shouldLoadFromDisk
+{
+    return YES;
 }
 
 
