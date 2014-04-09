@@ -282,28 +282,28 @@
     }
     m_lastPickedLevelRow = startingIndex;
 
-    startingIndex = MIN( startingIndex, [m_levelPickerViewContents count] - 1 );
+    startingIndex = (int)MIN( startingIndex, [m_levelPickerViewContents count] - 1 );
     [self.levelPickerView selectRow:startingIndex inComponent:0 animated:NO];
 }
 
 
 // UIPickerViewDataSource
 
--(int)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
     NSAssert( pickerView == self.levelPickerView, @"what pickerView is talking to me?" );
     return 1;
 }
 
 
--(int)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
     NSAssert( pickerView == self.levelPickerView, @"what pickerView is talking to me?" );
     NSAssert( component == 0, @"called with bad component number?" );
 
     if( pickerView == self.levelPickerView )
     {
-        return [m_levelPickerViewContents count];
+        return (int)[m_levelPickerViewContents count];
     }
     
     return 0;
@@ -319,7 +319,7 @@
     if( pickerView == self.levelPickerView )
     {
         NSAssert( row < [m_levelPickerViewContents count], @"bad row?" );
-        m_lastPickedLevelRow = row;
+        m_lastPickedLevelRow = (int)row;
     }
 }
 

@@ -597,7 +597,7 @@
 
 -(int)getEventTouchCount:(UIEvent *)event
 {
-    return [[event touchesForView:self] count];
+    return (int)[[event touchesForView:self] count];
 }
 
 
@@ -813,7 +813,7 @@
     // every move event causes both a pan and a zoom (either of which may be a no-op).
     NSSet *viewTouches = [event touchesForView:view];
     UITouch *touch;
-    int touchCount = [viewTouches count];
+    int touchCount = (int)[viewTouches count];
     if( touchCount != 2 )
     {
         NSAssert( NO, @"Assume panZoomProcessor only gets events with 2 active touches." );

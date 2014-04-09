@@ -160,7 +160,7 @@
         default: NSAssert( NO, @"dir fail" );            break;
     }
     
-    for( int i = [targetArray count] - 1; i >= 0; --i )
+    for( int i = (int)[targetArray count] - 1; i >= 0; --i )
     {
         ASolidObject *thisSO = (ASolidObject *)targetArray[i];
         if( ![thisSO isGroup] )

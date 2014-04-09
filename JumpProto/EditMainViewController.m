@@ -125,8 +125,8 @@
                                thisMarker.gridLocation.yGrid * yardstick - (h / 2.f),
                                w, h );
         }
-        xMin = MIN( xMin, thisMarker.gridLocation.xGrid );
-        yMin = MIN( yMin, thisMarker.gridLocation.yGrid );
+        xMin = (int)MIN( xMin, thisMarker.gridLocation.xGrid );
+        yMin = (int)MIN( yMin, thisMarker.gridLocation.yGrid );
     }
     
     // if we never found a PlayerStart marker, just assign the starting point to some block somewhere.

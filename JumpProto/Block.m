@@ -139,7 +139,7 @@
 {
     if( m_tokenAsString == nil )
     {
-        m_tokenAsString = [[NSString stringWithFormat:@"%lu", m_token] retain];
+        m_tokenAsString = [[NSString stringWithFormat:@"%u", (unsigned int)m_token] retain];
     }
     return m_tokenAsString;
 }
@@ -215,7 +215,7 @@
     {
         m_state = [[BlockState alloc] init];
         m_props = [[BlockProps alloc] init];
-        m_key = [[NSString stringWithFormat:@"b%ld", m_props.token ] retain];
+        m_key = [[NSString stringWithFormat:@"b%u", (unsigned int)m_props.token ] retain];
         self.groupId = GROUPID_NONE;
         self.owningGroup = nil;
         self.shortCircuitER = 0;

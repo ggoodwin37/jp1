@@ -63,10 +63,10 @@
     DebugPaneTextDrawerArgs         *m_args;
     DebugTextBuffer                 *m_buffer;
 
-    size_t              m_trueWidth;
-    size_t              m_trueHeight;
-    size_t              m_paddedWidth;
-    size_t              m_paddedHeight;
+    int                 m_trueWidth;
+    int                 m_trueHeight;
+    int                 m_paddedWidth;
+    int                 m_paddedHeight;
     GLubyte            *m_rawBitmapData;
     CGContextRef        m_cgContext;
     

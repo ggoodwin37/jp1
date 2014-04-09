@@ -58,7 +58,7 @@
     {
         if( self.snapSelectionDelegate != nil )
         {
-            [self.snapSelectionDelegate onSnapSelectionChanged:self.segmentControl.selectedSegmentIndex];
+            [self.snapSelectionDelegate onSnapSelectionChanged:(int)self.segmentControl.selectedSegmentIndex];
         }
     }
 }

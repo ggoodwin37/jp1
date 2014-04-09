@@ -26,7 +26,7 @@
         NSAssert( (m_xGrid & 0x0000ffff) == m_xGrid, @"EGridPoint overflow" );
         NSUInteger hash = ((m_xGrid & 0x0000ffff) << 16) | m_yGrid;
 
-        m_key = [[NSString stringWithFormat:@"%u", hash] retain];
+        m_key = [[NSString stringWithFormat:@"%lu", (unsigned long)hash] retain];
         
     }
     return self;
@@ -128,8 +128,8 @@
     EGridPoint *parentLocation = [[[EGridPoint alloc] initAtXGrid:targetMarker.gridLocation.xGrid yGrid:targetMarker.gridLocation.yGrid] autorelease];
     NSAssert( targetMarker != nil, @"remove parent fail" );
     NSAssert( targetMarker.shadowParent == nil, @"expected shadowParent, not shadow" );
-    int w = targetMarker.gridSize.xGrid;
-    int h = targetMarker.gridSize.yGrid;
+    int w = (int)targetMarker.gridSize.xGrid;
+    int h = (int)targetMarker.gridSize.yGrid;
     for( int j = 0; j < h; ++j )
     {
         for( int i = 0; i < w; ++i )
@@ -215,8 +215,8 @@
 {
     NSAssert( p.x >= 0.f && p.y >= 0.f, @"EGridDocument getMarkerAt: negative coords not allowed." );
     
-    NSUInteger xGrid = (NSUInteger)floorf( p.x / ONE_BLOCK_SIZE_Fl );
-    NSUInteger yGrid = (NSUInteger)floorf( p.y / ONE_BLOCK_SIZE_Fl );
+    UInt32 xGrid = (UInt32)floorf( p.x / ONE_BLOCK_SIZE_Fl );
+    UInt32 yGrid = (UInt32)floorf( p.y / ONE_BLOCK_SIZE_Fl );
     
     return [self getMarkerAtXGrid:xGrid yGrid:yGrid];
 }

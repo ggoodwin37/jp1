@@ -186,7 +186,7 @@
 
 -(int)getNumFrames
 {
-    return [m_frames count];
+    return (int)[m_frames count];
 }
 
 

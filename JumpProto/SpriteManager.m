@@ -250,7 +250,7 @@
         if( yDraw + thisSpriteDef.nativeBounds.size.height + (2 * padding) >= compositeSheetHeight )
         {
             [optimizedSheetList addObject:currentOptimizedSheet];
-            currentOptimizedSheet = [self getNewOptSheetWidth:compositeSheetWidth height:compositeSheetHeight identifier:[optimizedSheetList count]];
+            currentOptimizedSheet = [self getNewOptSheetWidth:compositeSheetWidth height:compositeSheetHeight identifier:(int)[optimizedSheetList count]];
             xDraw = yDraw = maxHeightForThisRow = 0;
             
             // update temp context
@@ -291,7 +291,7 @@
 {
     [self populateDefMaps];
     NSArray *optSpriteSheetArray = [self optimizeSheets];
-    NSLog( @"optimized to %d composite sheet(s).", [optSpriteSheetArray count] );
+    NSLog( @"optimized to %lu composite sheet(s).", (unsigned long)[optSpriteSheetArray count] );
     
     TexLoader *texLoader = [[TexLoader alloc] init];
     [texLoader loadTexturesForSpriteSheets:optSpriteSheetArray];
@@ -327,7 +327,7 @@
 {
     [self populateDefMaps];
     NSArray *spriteDefs = [m_spriteDefMap allValues];
-    NSLog( @"loading images for %d sprites.", [spriteDefs count] );
+    NSLog( @"loading images for %lu sprites.", (unsigned long)[spriteDefs count] );
     
     ImageLoader *imageLoader = [[ImageLoader alloc] init];
     m_imageMap = [[imageLoader loadImagesForSpriteDefList:spriteDefs] retain];

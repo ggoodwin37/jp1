@@ -81,7 +81,7 @@ static LevelFileUtil *globalLevelFileUtilInstance = nil;
         }
     }
     
-    NSLog( @"deleteAllFilesWithExtension: deleting %d files with extension %@.", [targetPathList count], ext );
+    NSLog( @"deleteAllFilesWithExtension: deleting %lu files with extension %@.", (unsigned long)[targetPathList count], ext );
     for( int i = 0; i < [targetPathList count]; ++i )
     {
         NSString *thisFilenameWithExtension = (NSString *)[targetPathList objectAtIndex:i];

@@ -45,7 +45,7 @@
 
 -(UInt32)getCount
 {
-    return [m_entries count];
+    return (UInt32)[m_entries count];
 }
 
 
@@ -62,7 +62,7 @@
 // zero-based
 -(NSString *)getNthNewestEntry:(UInt32)n
 {
-    UInt32 count = [m_entries count];
+    UInt32 count = (UInt32)[m_entries count];
     if( n >= count )
     {
         NSAssert( NO, @"getNthOldestEntry out of range." );
@@ -284,7 +284,7 @@
     m_rawBitmapData = (GLubyte *) calloc( bitmapDataLen, sizeof( GLubyte ) );
     NSAssert( m_rawBitmapData, @"Couldn't allocate raw data." );
     memset( m_rawBitmapData, 0, bitmapDataLen * sizeof( GLubyte ) );
-    NSLog( @"Allocated %ld bytes for DebugPaneTextDrawer bitmapData of size %lux%lu.", bitmapDataLen * sizeof( GLubyte ), m_paddedWidth, m_paddedHeight );
+    NSLog( @"Allocated %ld bytes for DebugPaneTextDrawer bitmapData of size %dx%d.", bitmapDataLen * sizeof( GLubyte ), m_paddedWidth, m_paddedHeight );
     
     CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
     m_cgContext = CGBitmapContextCreate( m_rawBitmapData, m_paddedWidth, m_paddedHeight, 8, m_paddedWidth * 4, rgbColorSpace, kCGImageAlphaPremultipliedLast );

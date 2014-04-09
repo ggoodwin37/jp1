@@ -147,7 +147,7 @@
 
 -(int)count
 {
-    return [m_stack count];
+    return (int)[m_stack count];
 }
 
 

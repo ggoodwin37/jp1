@@ -510,7 +510,7 @@ static BUStats *buStatsStaticInstance = nil;
 
 -(int)stopTimer
 {
-    return (getUpTimeMs() - m_timerStart);    
+    return (int)(getUpTimeMs() - m_timerStart);
 }
 
 

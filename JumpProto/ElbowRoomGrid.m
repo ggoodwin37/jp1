@@ -450,7 +450,7 @@
             }
         }
     }
-    return [m_overlapperStack count];
+    return (int)[m_overlapperStack count];
 }
 
 

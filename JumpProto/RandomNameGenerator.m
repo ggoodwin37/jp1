@@ -82,12 +82,12 @@
     NSCalendar *gregorian = [[NSCalendar alloc]
                              initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *dateComponents = [gregorian components:(NSSecondCalendarUnit | NSMinuteCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSYearCalendarUnit) fromDate:today];
-    int day = [dateComponents day];
-    int second = [dateComponents second];
-    int minute = [dateComponents minute];
-    int hour = [dateComponents hour];
-    int month = [dateComponents month];
-    int year = [dateComponents year];
+    int day = (int)[dateComponents day];
+    int second = (int)[dateComponents second];
+    int minute = (int)[dateComponents minute];
+    int hour = (int)[dateComponents hour];
+    int month = (int)[dateComponents month];
+    int year = (int)[dateComponents year];
 
     // TODO: this is so ghetto, should have a RandomTable(size) class that handles this better.
     //       it would be cool if this was actually deterministic though to give it flavor.

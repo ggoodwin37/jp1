@@ -91,7 +91,7 @@
 
 -(int)getCurrentSize
 {
-    return [m_stack count];
+    return (int)[m_stack count];
 }
 
 @end

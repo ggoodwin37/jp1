@@ -194,7 +194,7 @@
 
 -(int)buttonCount
 {
-    return [m_buttons count];
+    return (int)[m_buttons count];
 }
 
 

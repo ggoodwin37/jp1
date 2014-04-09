@@ -585,7 +585,7 @@
 {
     if( self = [super init] )
     {
-        srandom(time(NULL));
+        srandom((unsigned int)time(NULL));
         m_stripScene = [[Test1StripScene alloc] init];
         m_worldView = [worldViewIn retain];
         

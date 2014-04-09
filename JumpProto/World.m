@@ -347,7 +347,7 @@
 
 -(int)worldSOCount
 {
-    return [m_worldSOs count];
+    return (int)[m_worldSOs count];
 }
 
 
@@ -361,7 +361,7 @@
 {
     if( [m_deadActorsThisFrame count] != 0 )
     {
-        NSLog( @"removing %d actor(s) this frame", [m_deadActorsThisFrame count] );
+        NSLog( @"removing %lu actor(s) this frame", (unsigned long)[m_deadActorsThisFrame count] );
         for( int i = 0; i < [m_deadActorsThisFrame count]; ++i )
         {
             Actor *thisActor = (Actor *)[m_deadActorsThisFrame objectAtIndex:i];
@@ -373,7 +373,7 @@
 
     if( [m_deadSOsThisFrame count] != 0 )
     {
-        NSLog( @"removing %d SO(s) this frame", [m_deadSOsThisFrame count] );
+        NSLog( @"removing %lu SO(s) this frame", (unsigned long)[m_deadSOsThisFrame count] );
         for( int i = 0; i < [m_deadSOsThisFrame count]; ++i )
         {
             ASolidObject *thisSO = (ASolidObject *)[m_deadSOsThisFrame objectAtIndex:i];
@@ -514,7 +514,7 @@
     if( [solidObject isGroup] )
     {
         BlockGroup *thisGroup = (BlockGroup *)solidObject;
-        NSLog( @"removing group SO from world, contains %d elements.", [thisGroup.blocks count] );
+        NSLog( @"removing group SO from world, contains %lu elements.", (unsigned long)[thisGroup.blocks count] );
         for( int i = 0; i < [thisGroup.blocks count]; ++i )
         {
             Block *thisBlock = (Block *)[thisGroup.blocks objectAtIndex:i];

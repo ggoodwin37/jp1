@@ -569,10 +569,10 @@ static NSString *kAttr_onSprite = @"onSprite";
 
 -(GLuint)uploadTextureForDrawingResource:(DrawingResource *)dr
 {
-    size_t xSheetDim = 1;
+    int xSheetDim = 1;
     while( xSheetDim < (size_t)dr.size.width )
         xSheetDim <<= 1;
-    size_t ySheetDim = 1;
+    int ySheetDim = 1;
     while( ySheetDim < (size_t)dr.size.height )
         ySheetDim <<= 1;
     
