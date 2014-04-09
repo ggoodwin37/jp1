@@ -92,3 +92,45 @@ next up:
 - iphone xib isn't quite right
 - test on devices
 - fix iphone viewport bugs
+
+2-1-14
+MainWindow and JumpProtoViewController seem to be hardcoded to 1024x768. what's the correct way to have a mainWindow that fills the device coords, and how does this trickle down to the other VCs?
+
+4-8-14
+Procrastinated. Still stuck on that ^^
+
+Played Monument Valley. Gave me inspiration to fix the graphics to be geometric. Need to think about this a lot.
+- 2d or 3d?
+- art format? grid-based? constraints can be interesting. pattern-based? scriptable?
+  - relationship between this format and in-memory openGL-drawable format?
+- blocks are feasible. What do we do for characters though? Particularly the player.
+  - "it's just a bunch of linear systems" - professor interpolaite
+- perf proof of concept?
+- how procedural can we/should we go? how does this interact with storage format?
+
+Rough roadmap:
+- fix device independence
+- refactor so that all sprite-specific stuff is encapsulated, ready to be swapped out for geometric drawing
+- mock/basic geodraw layers
+- geometric drawing proof of concept
+- art format for blocks.
+- actors/animation system
+- edit mode (maybe move this higher in list)
+
+- gameplay sanity check:
+  - can/should we remove any block presets? simplification
+  - consider physics reset: the viewable area should be zoomed out more, jump height/floatability increased, more like n-plus feel
+
+- b-mode conceptual refinement
+  - b-mode blocks are affected by gravity
+  - maybe b-mode is only active if you are standing on solid ground
+  - maybe you can store up to one block? pick it up here and bring it over there
+  - you can also just drag around blocks directly without picking them up.
+  - ditch the idea of having designated areas that are b-mode-able. this is too contrived.
+  - give me freedom, but don't make it so I can just save myself from any spike, or any beast, or lift myself through the air
+  - b-mode blocks are always clearly visible and distinctly styled.
+
+- consider making actors be able to step up small distances. this will open up lots of interest, especially with herds
+- think about herds
+
+- events in here somewhere
