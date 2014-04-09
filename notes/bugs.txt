@@ -10,6 +10,8 @@
 
 - (minor) on old levels with the simpsons dude, the player sprite will switch during being-born phase due to cached fake sprite.
 
+- levels on disk are pretty fat (100k+), fix this
+
 // old
 
 // punted
