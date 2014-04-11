@@ -241,11 +241,11 @@
     AFLevel *afLevel = (AFLevel *)[rootObject valueForKey:@"afLevel"];
     
 #ifdef LOG_BLOCK_DISK_ACTIVITY    
-    NSLog( @"EArchiveUtil loadDoc:fromDiskForName reading %d blocks:", [afLevel.blockList count] );
+    NSLog( @"EArchiveUtil loadDoc:fromDiskForName reading %d blocks:", (int)[afLevel.blockList count] );
     for( int i = 0; i < [afLevel.blockList count]; ++i )
     {
         AFBlock *thisAFBlock = (AFBlock *)[afLevel.blockList objectAtIndex:i];
-        NSLog( @"  reading a block at %fx%f with groupId %lu", thisAFBlock.rect.origin.x, thisAFBlock.rect.origin.y, thisAFBlock.groupId );
+        NSLog( @"  reading a block at %fx%f with groupId %lu", thisAFBlock.rect.origin.x, thisAFBlock.rect.origin.y, (unsigned long)thisAFBlock.groupId );
     }
 #endif
 
@@ -253,12 +253,12 @@
     
 #ifdef LOG_BLOCK_DISK_ACTIVITY    
     NSArray *markerList = [doc getValues];
-    NSLog( @"EArchiveUtil loadDoc: read with %d markers:", [markerList count] );
+    NSLog( @"EArchiveUtil loadDoc: read with %d markers:", (int)[markerList count] );
     for( int i = 0; i < [markerList count]; ++i )
     {
         EGridBlockMarker *thisMarker = (EGridBlockMarker *)[markerList objectAtIndex:i];
         NSLog( @"  a %@marker is at grid %dx%d with groupId %lu", thisMarker.shadowParent != nil ? @"shadow " : @"",
-              thisMarker.gridLocation.xGrid, thisMarker.gridLocation.yGrid, thisMarker.props.groupId );
+              (int)thisMarker.gridLocation.xGrid, (int)thisMarker.gridLocation.yGrid, (unsigned long)thisMarker.props.groupId );
     }
 #endif
 
@@ -275,12 +275,12 @@
     
 #ifdef LOG_BLOCK_DISK_ACTIVITY    
     NSArray *markerList = [doc getValues];
-    NSLog( @"EArchiveUtil saveToDisk: starting with %d markers:", [markerList count] );
+    NSLog( @"EArchiveUtil saveToDisk: starting with %d markers:", (int)[markerList count] );
     for( int i = 0; i < [markerList count]; ++i )
     {
         EGridBlockMarker *thisMarker = (EGridBlockMarker *)[markerList objectAtIndex:i];
         NSLog( @"  a %@marker is at grid %dx%d", thisMarker.shadowParent != nil ? @"shadow " : @"",
-              thisMarker.gridLocation.xGrid, thisMarker.gridLocation.yGrid );
+              (int)thisMarker.gridLocation.xGrid, (int)thisMarker.gridLocation.yGrid );
     }
 #endif
     
@@ -303,7 +303,7 @@
     AFLevel *afLevel = [EArchiveUtil writeToAFFromDoc:doc];
     
 #ifdef LOG_BLOCK_DISK_ACTIVITY    
-    NSLog( @"EArchiveUtil saveToDisk: writing %d blocks:", [afLevel.blockList count] );
+    NSLog( @"EArchiveUtil saveToDisk: writing %d blocks:", (int)[afLevel.blockList count] );
     for( int i = 0; i < [afLevel.blockList count]; ++i )
     {
         AFBlock *thisAFBlock = (AFBlock *)[afLevel.blockList objectAtIndex:i];

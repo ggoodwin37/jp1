@@ -959,9 +959,9 @@
     // TODO: error handling
     rootObject = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
     AFLevel *afLevel = (AFLevel *)[rootObject valueForKey:@"afLevel"];
-    
-#ifdef LOG_BLOCK_DISK_ACTIVITY    
-    NSLog( @"WorldArchiveUtil loadWorld: reading %d blocks:", [afLevel.blockList count] );
+
+#ifdef LOG_BLOCK_DISK_ACTIVITY
+    NSLog( @"WorldArchiveUtil loadWorld: reading %d blocks:", (int)[afLevel.blockList count] );
     for( int i = 0; i < [afLevel.blockList count]; ++i )
     {
         AFBlock *thisAFBlock = (AFBlock *)[afLevel.blockList objectAtIndex:i];
