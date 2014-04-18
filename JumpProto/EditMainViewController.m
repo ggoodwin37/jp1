@@ -586,7 +586,7 @@
 {
     if( textField == self.docPropsVC.levelNameTextField )
     {
-        NSString *oldName = m_doc.levelName;
+        NSString *oldName = [[m_doc.levelName retain] autorelease];
         m_doc.levelName = [EditMainViewController sanitizeLevelName:self.docPropsVC.levelNameTextField.text];
         if( ![oldName isEqualToString:m_doc.levelName] )
         {
