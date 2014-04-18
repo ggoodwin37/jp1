@@ -134,3 +134,17 @@ Rough roadmap:
 - think about herds
 
 - events in here somewhere
+
+9-17
+
+Had a few unproductive attempts at fixing crash. Noticed it was crashing on iPad too, and in edit mode.
+
+I fixed one of the cases. I was accessing memory that had been released. But it was only on a temporary, within-function basis, so maybe something changed about the granularity at which things can be released. Anyways, this probably accounts for the other crash I was seeing too. Need to track it down.
+
+This also got me interested in ARC, but I don't know if it will be worth the effort to convert the project.
+
+Notes on the crash:
+// TODO: debugging iphone crash. it's not related to this code. we hit this main loop once,
+//  then return due to m_burnFrames, and crash somewhere after the first time through the
+//  render loop. we're double-releasing an afLevel somehow (80% sure), but can't figure out
+//  how. This happens on master too.

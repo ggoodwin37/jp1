@@ -435,14 +435,6 @@
     NSLog( @"++ frame ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
 #endif
 
-    // TODO: debugging iphone crash. it's not related to this code. we hit this main loop once,
-    //  then return due to m_burnFrames, and crash somewhere after the first time through the
-    //  render loop. we're double-releasing an afLevel somehow (80% sure), but can't figure out
-    //  how. This happens on master too.
-    
-    // WTF: another repro: ipad, edit mode, change title to say 0a-foo-bar, hide keyboard -> crash
-    //  a similar zombie situation to above? did something change drastically around memory management?
-
     if( m_burnFrames > 0 )
     {
         --m_burnFrames;
