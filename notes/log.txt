@@ -152,3 +152,9 @@ Notes on the crash:
 9-18
 
 Fixed it. Similar issue, this time because I had [super dealloc] first, not last. This didn't used to crash, but I can see how it is strictly wrong. I wonder what changed, that these spots started crashing? As if objects are getting freed synchronously now when their count hits zero, but didn't used to do that.
+
+Fixed some scaling issues. iPad is back to parity, iPhone is much closer to working.
+- fix button placement on iPhone
+- figure out how to handle scaling. Currently we're way too close on iPhone. Try to avoid if( iphone ) code.
+- kill iPhone autorotate...grrr.
+- bonus: can we grab actual device size and use it to seed the size of everything?

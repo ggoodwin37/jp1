@@ -80,13 +80,13 @@
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "MallocStackLogging"
-            value = "YES"
-            isEnabled = "YES">
+            value = "NO"
+            isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "MallocStackLoggingNoCompact"
-            value = "YES"
-            isEnabled = "YES">
+            value = "NO"
+            isEnabled = "NO">
          </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>

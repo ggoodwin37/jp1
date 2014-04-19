@@ -72,10 +72,14 @@
 -(void)onAwake
 {
     // this is authority on current coordinate system, in terms of aspect ratio and pixels (used only where needed to interface with events).
+
     // why flipCoords? Not sure. Originally this was called with the openGLView's rect and the coords didn't need to be flipped. But now that
     // we are using this quartz view's frame, this seems to be required. There's a better explanation out there somewhere but frankly who cares.
     //  IT'S NOT LIKE THIS WILL EVER COME BACK TO BITE ME IN THE ASS.
-    [AspectController initGlobalInstanceWithRect:self.view.frame flipCoords:YES];
+    // Update: this totally came back to bite me in the ass. I turned off flipCoords now. One day I should figure this out. Must have changed
+    //  something when splitting off the iPhone component.
+    // TODO: self.view.frame = CGRectMake( 0.f, 0.f, THE_ACTUAL_DEVICE_SIZE );
+    [AspectController initGlobalInstanceWithRect:self.view.frame flipCoords:NO];
     
     [LevelFileUtil initGlobalInstance];
     

@@ -65,15 +65,17 @@
           UIInterfaceOrientationIsLandscape( self.interfaceOrientation ) ? @"landscape" : @"portrait" );
     
     // this assumes that any orientation change support is implemented manually (i.e. this view doesn't autorotate)
-	m_mainGlView = [[EAGLView alloc] initWithFrame: self.view.frame];
+    // size the play frame to match the Aspect size (which was set from the launch controller).
+    self.view.frame = CGRectMake( 0.f, 0.f, [AspectController instance].xPixel, [AspectController instance].yPixel );
+    m_mainGlView = [[EAGLView alloc] initWithFrame: self.view.frame];
     
     [self.view addSubview:m_mainGlView];
     
 	// manages rendering the scene.
-	m_mainDrawController = [[MainDrawController alloc] init];
-	[m_mainGlView setRenderDelegate: m_mainDrawController];
+    m_mainDrawController = [[MainDrawController alloc] init];
+    [m_mainGlView setRenderDelegate: m_mainDrawController];
     m_mainGlView.touchHandlerDelegate = self;
-	[m_mainGlView setAnimationFrameInterval:ANIMATION_FRAME_INTERVAL];
+    [m_mainGlView setAnimationFrameInterval:ANIMATION_FRAME_INTERVAL];
 
     DebugOut( @"--== Welcome to Jump Proto ==--" );
 
