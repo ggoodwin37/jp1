@@ -14,13 +14,6 @@
 
 - clouds in bg should drift on their own (not cities though).
 
-learn about debugging:
-- basic usage of the debugger at breakpoints
-- read this:
-http://stackoverflow.com/questions/327082/exc-bad-access-signal-received
-- and this:
-- http://cocoadev.com/DebuggingAutorelease
-
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////

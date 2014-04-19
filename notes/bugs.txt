@@ -1,16 +1,10 @@
 // current
 
-- PRI0: crashes on launch on iphone :(
-- PRI1: ipad does not crash, but world size is definitely screwed up, looks like touch input is not mapped to viewport correctly.
-^^ related to int sizing issues that popped up recently?
-
 - iphone: launcher screen rotates to portrait too (ipad doesn't)
 
 - trying to erase 2x2 blocks (instead of 4x4) seemed to not work in some cases.
 
 - riding a lift is not smooth when both a crate and the player are on.
-
-- when importing levels onto a new device, lost their order since timestamps changed. might just be puntable.
 
 - if you stand inside a crumbles until it reappears, nothing happens. should die like red/blu.
 
