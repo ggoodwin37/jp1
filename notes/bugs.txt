@@ -20,4 +20,6 @@
 
 // old
 
+- if you ever do ship this, remember to turn off NSDebugEnabled, NSZombieEnabled, MallocStackLogging, MallocStackLoggingNoCompact.
+
 // punted

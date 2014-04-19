@@ -148,3 +148,7 @@ Notes on the crash:
 //  then return due to m_burnFrames, and crash somewhere after the first time through the
 //  render loop. we're double-releasing an afLevel somehow (80% sure), but can't figure out
 //  how. This happens on master too.
+
+9-18
+
+Fixed it. Similar issue, this time because I had [super dealloc] first, not last. This didn't used to crash, but I can see how it is strictly wrong. I wonder what changed, that these spots started crashing? As if objects are getting freed synchronously now when their count hits zero, but didn't used to do that.
