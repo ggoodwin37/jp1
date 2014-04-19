@@ -256,8 +256,8 @@
 
 -(void)dealloc
 {
-    [super dealloc];
     self.autoVariationMap = nil;
+    [super dealloc];
 }
 
 

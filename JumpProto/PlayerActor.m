@@ -147,7 +147,7 @@
     if( [m_eventQueue count] == 0 )
         return;
     
-    DpadEvent *event = (DpadEvent *)[m_eventQueue objectAtIndex:0];
+    DpadEvent *event = (DpadEvent *)[[[m_eventQueue objectAtIndex:0] retain] autorelease];
     [m_eventQueue removeObjectAtIndex:0];
     if( event.touchZone == LeftTouchZone )
     {
