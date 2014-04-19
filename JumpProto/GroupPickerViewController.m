@@ -78,9 +78,9 @@
         [self.groupIdChangedDelegate onCurrentGroupIdChanged:self.currentGroupId];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (BOOL)shouldAutorotate
 {
-    return UIInterfaceOrientationIsLandscape( interfaceOrientation );
+    return YES;
 }
 
 @end

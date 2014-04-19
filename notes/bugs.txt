@@ -1,7 +1,5 @@
 // current
 
-- iphone: launcher screen rotates to portrait too (ipad doesn't)
-
 - trying to erase 2x2 blocks (instead of 4x4) seemed to not work in some cases.
 
 - riding a lift is not smooth when both a crate and the player are on.

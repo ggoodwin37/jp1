@@ -419,11 +419,10 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (BOOL)shouldAutorotate
 {
-    return UIInterfaceOrientationIsLandscape( interfaceOrientation );
+    return YES;
 }
-
 
 #pragma mark UITableViewDataSource
 

@@ -73,22 +73,11 @@
 {
     // this is authority on current coordinate system, in terms of aspect ratio and pixels (used only where needed to interface with events).
 
-    // why flipCoords? Not sure. Originally this was called with the openGLView's rect and the coords didn't need to be flipped. But now that
-    // we are using this quartz view's frame, this seems to be required. There's a better explanation out there somewhere but frankly who cares.
-    //  IT'S NOT LIKE THIS WILL EVER COME BACK TO BITE ME IN THE ASS.
-    // Update: this totally came back to bite me in the ass. I turned off flipCoords now. One day I should figure this out. Must have changed
-    //  something when splitting off the iPhone component.
-
-    // dude this part feels super home grown, there must be more best practicey way to do this.
+    // dude this part feels super home grown, there must be a more best practicey way to do this.
     CGRect screenRect = [[UIScreen mainScreen] bounds];
-    if( UIDeviceOrientationIsLandscape( self.interfaceOrientation ) ) {
-        self.view.frame = screenRect;
-    }
-    else
-    {
-        // flip that bitch
-        self.view.frame = CGRectMake( screenRect.origin.x, screenRect.origin.y, screenRect.size.height, screenRect.size.width );
-    }
+    self.view.frame = CGRectMake(screenRect.origin.x, screenRect.origin.y,
+                                 MAX( screenRect.size.width, screenRect.size.height ),
+                                 MIN( screenRect.size.width, screenRect.size.height ) );
     NSLog( @"initializing with screenRect %f,%f %fx%f", self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height );
     [AspectController initGlobalInstanceWithRect:self.view.frame flipCoords:NO];
     
@@ -140,9 +129,19 @@
 }
 
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (BOOL)shouldAutorotate
 {
-    return UIInterfaceOrientationIsLandscape( interfaceOrientation );
+    // even though we only want to work in landscape mode, still return YES here so that we can autorotate to
+    //  the most appropriate (left hand, right hand) landscape depending on how device is held. The restriction
+    //  to landscape mode is actually enforced by settings in the plist file and our implementations of
+    //  supportedInterfaceOrientations.
+    return YES;
+}
+
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskLandscape;
 }
 
 

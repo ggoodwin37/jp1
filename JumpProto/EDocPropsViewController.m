@@ -59,12 +59,10 @@
     [super viewDidUnload];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (BOOL)shouldAutorotate
 {
-    // Return YES for supported orientations
-	return interfaceOrientation == UIInterfaceOrientationIsLandscape( interfaceOrientation );
+    return YES;
 }
-
 
 -(void)updateValuesFromDoc
 {

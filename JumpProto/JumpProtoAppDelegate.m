@@ -74,6 +74,11 @@
     [self.viewController onAppStop];
 }
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskLandscape;
+}
+
 - (void)dealloc
 {
     [_window release];
