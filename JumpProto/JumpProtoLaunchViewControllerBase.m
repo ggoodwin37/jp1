@@ -78,7 +78,18 @@
     //  IT'S NOT LIKE THIS WILL EVER COME BACK TO BITE ME IN THE ASS.
     // Update: this totally came back to bite me in the ass. I turned off flipCoords now. One day I should figure this out. Must have changed
     //  something when splitting off the iPhone component.
-    // TODO: self.view.frame = CGRectMake( 0.f, 0.f, THE_ACTUAL_DEVICE_SIZE );
+
+    // dude this part feels super home grown, there must be more best practicey way to do this.
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    if( UIDeviceOrientationIsLandscape( self.interfaceOrientation ) ) {
+        self.view.frame = screenRect;
+    }
+    else
+    {
+        // flip that bitch
+        self.view.frame = CGRectMake( screenRect.origin.x, screenRect.origin.y, screenRect.size.height, screenRect.size.width );
+    }
+    NSLog( @"initializing with screenRect %f,%f %fx%f", self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height );
     [AspectController initGlobalInstanceWithRect:self.view.frame flipCoords:NO];
     
     [LevelFileUtil initGlobalInstance];
