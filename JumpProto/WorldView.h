@@ -36,8 +36,8 @@
     
     SpriteState *m_genericPlayerSpriteState;  // used to draw player even though player's block hasn't been created yet.
     
-// takes 3-4ms on typical levels and up to 11ms on levels that fill almost the entire screen with blocks.
-// this will only get worse as more layers and background stuff gets added.
+    float m_standardZoom;
+
 #define TIME_WORLDVIEW
 #define TIME_WORLDVIEW_REPORT_PERIOD (10.f)
     

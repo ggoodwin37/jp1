@@ -121,6 +121,10 @@
         m_camera = [[FocalPointCamera alloc] initWithTolerance:cameraTolerance];
         
         m_genericPlayerSpriteState = nil;
+
+        // 768 * 4 = ypix * n
+        // n = 768 * 4 / n
+        m_standardZoom = VIEW_STANDARD_ZOOM * 768.f / [AspectController instance].yPixel;
         
 #ifdef TIME_WORLDVIEW
         m_timer_timeUntilNextReport = TIME_WORLDVIEW_REPORT_PERIOD;
@@ -230,19 +234,20 @@ float smoothRatio( float inputRatio )
     // future: could imagine this getting more interesting, zooming based on action, etc. could also have its own
     //  state so it wouldn't have to be coupled directly to an actor's timing state.
     float ratio;
+    const float notBornYetZoom = PLAYER_BEINGBORN_ZOOMOUT_MAX_FACTOR * m_standardZoom;
     PlayerActor *playerActor = [m_world getPlayerActor];
     switch( playerActor.lifeState )
     {
         case ActorLifeState_NotBornYet:
-            return PLAYER_BEINGBORN_ZOOMOUT_MAX;
+            return notBornYetZoom;
             
         case ActorLifeState_BeingBorn:
             ratio = 1.f - (playerActor.lifeStateTimer / PLAYER_BEINGBORN_TIME);   // from 0 to 1
             ratio = smoothRatio( ratio );  // from 0 to 1, smoothed
-            return PLAYER_BEINGBORN_ZOOMOUT_MAX + (ratio * (PLAYER_BEINGBORN_ZOOMOUT_MIN - PLAYER_BEINGBORN_ZOOMOUT_MAX));
+            return notBornYetZoom + (ratio * (m_standardZoom - notBornYetZoom));
             
         default:
-            return PLAYER_BEINGBORN_ZOOMOUT_MIN;
+            return m_standardZoom;
     }
 }
 
