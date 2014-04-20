@@ -122,9 +122,9 @@
         
         m_genericPlayerSpriteState = nil;
 
-        // 768 * 4 = ypix * n
-        // n = 768 * 4 / n
-        m_standardZoom = VIEW_STANDARD_ZOOM * 768.f / [AspectController instance].yPixel;
+        // std_height * std_zoom = ypix * n
+        // n = std_height * std_height / n
+        m_standardZoom = VIEW_STANDARD_ZOOM * VIEW_STANDARD_HEIGHT / [AspectController instance].yPixel;
         
 #ifdef TIME_WORLDVIEW
         m_timer_timeUntilNextReport = TIME_WORLDVIEW_REPORT_PERIOD;

@@ -91,7 +91,9 @@
 #define PLAYER_DEAD_GIB_V      (42000)
 #define GIB_ACCEL              (10000000)
 
+// zoom factor is calculated based on tuned value of 4 at 768px height.
 #define VIEW_STANDARD_ZOOM (4.f)
+#define VIEW_STANDARD_HEIGHT (768.f)
 #define PLAYER_BEINGBORN_ZOOMOUT_MAX_FACTOR   (1.9f)
 
 // shared badguy values
