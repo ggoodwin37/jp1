@@ -10,6 +10,8 @@
 
 - levels on disk are pretty fat (100k+), fix this
 
+- status bar is visible, I think this is both iPad and iPhone.
+
 // old
 
 - if you ever do ship this, remember to turn off NSDebugEnabled, NSZombieEnabled, MallocStackLogging, MallocStackLoggingNoCompact.

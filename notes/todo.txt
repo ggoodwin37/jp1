@@ -10,8 +10,6 @@
 - should add a bunch more static blocks and simple enemy types for gits and shiggles.
   - background-oriented tiles.
 
-- upgrade to iPhone.
-
 - clouds in bg should drift on their own (not cities though).
 
 

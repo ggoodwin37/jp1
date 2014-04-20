@@ -159,3 +159,8 @@ x fix button placement on iPhone
 x kill iPhone autorotate...grrr.
 x bonus: can we grab actual device size and use it to seed the size of everything?
 
+4-19
+
+iPhone branch is wrapped up, time to proceed to next game feature.
+
+I would like to make it so b-mode doesn't kill your gameplay. That would be nice. At least make it off-able.
