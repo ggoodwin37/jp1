@@ -228,11 +228,12 @@
 
 -(void)onDpadEvent:(DpadEvent *)event
 {
-    if( event.touchZone == RightTouchZone && event.button == DpadLeftButton && event.type == DpadPressed )
-    {
-        [self setBModeActive:YES];
-        return;
-    }
+    // TODO: the more I think about it, the more I'm thinking we want a global button to toggle bMode,
+    //   rather than using the RL button. so this needs to become a global command.
+    //if( event.touchZone == RightTouchZone && event.button == DpadLeftButton && event.type == DpadPressed )
+    //{
+    //    [self setBModeActive:![self isBModeActive]];
+    //}
     [m_playerActor onDpadEvent:event];
 }
 

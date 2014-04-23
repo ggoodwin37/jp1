@@ -164,3 +164,8 @@ x bonus: can we grab actual device size and use it to seed the size of everythin
 iPhone branch is wrapped up, time to proceed to next game feature.
 
 I would like to make it so b-mode doesn't kill your gameplay. That would be nice. At least make it off-able.
+
+4-22
+
+disabling bmode for now. I think it needs to be a global command, rather than the rl dpad button. start at onDpadEvent.
+

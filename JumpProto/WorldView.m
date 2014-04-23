@@ -475,6 +475,14 @@ float smoothRatio( float inputRatio )
     switch( playerLifeState )
     {
         case ActorLifeState_Alive:
+            // discard the generic spriteState once we're done with it. this was to support
+            //  the old player sprite in old levels.
+            if( m_genericPlayerSpriteState )
+            {
+                [m_genericPlayerSpriteState release];
+                m_genericPlayerSpriteState = nil;
+            }
+            
             playerActorBlock = [[m_world getPlayerActor] getDefaultActorBlock];
             if( playerActorBlock != nil )
             {

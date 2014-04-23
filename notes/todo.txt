@@ -54,6 +54,9 @@
 
 - obsessive: ER layer is pretty solid, but the next layer up (propagateMovement, gapCheck, bounce, collision, v/vIntrinsic/motive/motiveAccel) is goofy. when you fix one thing, two other things break. what is the Right design? can we get rid of all order dependencies? can we unify collision/bouncing?
 
+- thoughts on items: maybe RL dpad button is "item button". items are on special pedestals throughout the level. when you pick up a new item, the old one takes its place on the pedestal (maybe dulled out a bit). once you have an item, you press RL to use it.
+items: blaster, jetpack, throw grenade, key, magnet (allowing you to transport blocks). the mutual exclusivity is a big part of the equation. one limitation is that it isn't ergonomic to press both dpads at same time. can we simulate this at the dpad layer? there's some special mutual exclusivity logic in there, maybe that needs to be relaxed.
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////

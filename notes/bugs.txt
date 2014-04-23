@@ -1,9 +1,5 @@
 // current
 
-- b-mode won't toggle back off
-- (minor) on old levels with the simpsons dude, the player sprite will switch during being-born phase due to cached fake sprite.
-
-
 - trying to erase 2x2 blocks (instead of 4x4) seemed to not work in some cases.
 
 - riding a lift is not smooth when both a crate and the player are on.
