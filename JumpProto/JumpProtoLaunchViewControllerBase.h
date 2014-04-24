@@ -28,5 +28,6 @@
 -(void)onAppStop;
 
 -(BOOL)shouldLoadFromDisk;
+-(BOOL)shouldShowCreateNewLevelOption;
 
 @end

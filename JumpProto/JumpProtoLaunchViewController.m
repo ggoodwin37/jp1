@@ -49,4 +49,11 @@
     return self.loadFromDiskSwitch.on;
 }
 
+
+// override
+-(BOOL)shouldShowCreateNewLevelOption
+{
+    return YES;
+}
+
 @end

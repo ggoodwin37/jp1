@@ -169,3 +169,7 @@ I would like to make it so b-mode doesn't kill your gameplay. That would be nice
 
 disabling bmode for now. I think it needs to be a global command, rather than the rl dpad button. start at onDpadEvent.
 
+4-23
+
+Starting on step-up for actors. It's gonna be pretty complicated.
+

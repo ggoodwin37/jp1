@@ -60,7 +60,7 @@
 // for testing background drawing.
 -(void)temp_autoPlayFirstLevel
 {
-    m_lastPickedLevelRow = 1;
+    m_lastPickedLevelRow = [self shouldShowCreateNewLevelOption] ? 1 : 0;
     JumpProtoViewController *jumpVC = [[JumpProtoViewController alloc] initWithNibName:@"JumpProtoViewController" bundle:nil];
     jumpVC.dpadInput = self.dpadInput;
     jumpVC.loadFromDisk = YES;
@@ -71,7 +71,7 @@
 
 -(void)onAwake
 {
-    // this is authority on current coordinate system, in terms of aspect ratio and pixels (used only where needed to interface with events).
+    // this is authority on current coordinate system, in terms of aspect ratio and pixels.
 
     // dude this part feels super home grown, there must be a more best practicey way to do this.
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -161,8 +161,8 @@
 {
     [m_childViewController setParentDelegate:self];
     
-    NSString *startingLevel = nil;    
-    if( m_lastPickedLevelRow > 0 )  // row 0 is "new level"
+    NSString *startingLevel = nil;
+    if( ![self shouldShowCreateNewLevelOption] || m_lastPickedLevelRow > 0 )  // row 0 is "new level" if enabled
     {
         startingLevel = (NSString *)[m_levelPickerViewContents objectAtIndex:m_lastPickedLevelRow];
     }
@@ -192,7 +192,7 @@
 
 -(IBAction)onPlayButtonTouched:(id)sender
 {
-    if( m_lastPickedLevelRow == 0 )
+    if( [self shouldShowCreateNewLevelOption] && m_lastPickedLevelRow == 0 )
     {
         NSLog( @"choose something besides \"new level\"." );
         return;
@@ -206,6 +206,12 @@
 
 
 -(BOOL)shouldLoadFromDisk
+{
+    return YES;
+}
+
+
+-(BOOL)shouldShowCreateNewLevelOption
 {
     return YES;
 }
@@ -226,7 +232,7 @@
         return;
     }
     
-    if( m_lastPickedLevelRow == 0 )
+    if( [self shouldShowCreateNewLevelOption] && m_lastPickedLevelRow == 0 )
     {
         NSLog( @"choose something besides \"new level\"." );
         return;
@@ -271,8 +277,11 @@
     NSMutableArray *mutableContents = [[NSMutableArray arrayWithCapacity:50] retain];
     
     // zero'th entry is special, corresponding to "new level"
-    [mutableContents addObject:@"Create new level..."];
-    
+    if( [self shouldShowCreateNewLevelOption] )
+    {
+        [mutableContents addObject:@"Create new level..."];
+    }
+
     [[LevelFileUtil instance] addAllLevelNamesTo:mutableContents];
     
     [m_levelPickerViewContents release];

@@ -31,4 +31,11 @@
     [super dealloc];
 }
 
+
+// override
+-(BOOL)shouldShowCreateNewLevelOption
+{
+    return NO;
+}
+
 @end
