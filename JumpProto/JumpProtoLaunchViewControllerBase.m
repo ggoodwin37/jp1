@@ -78,7 +78,7 @@
     self.view.frame = CGRectMake(screenRect.origin.x, screenRect.origin.y,
                                  MAX( screenRect.size.width, screenRect.size.height ),
                                  MIN( screenRect.size.width, screenRect.size.height ) );
-    NSLog( @"initializing with screenRect %f,%f %fx%f", self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height );
+    NSLog( @"initializing AspectController with screenRect %f,%f %fx%f", self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height );
     [AspectController initGlobalInstanceWithRect:self.view.frame flipCoords:NO];
     
     [LevelFileUtil initGlobalInstance];
