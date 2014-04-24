@@ -82,6 +82,7 @@ typedef enum BlockRedBluStateEnum BlockRedBluState;
 @property (nonatomic, assign) BOOL isAiHint;
 @property (nonatomic, assign) BOOL followsAiHints;
 @property (nonatomic, assign) BOOL bModeActive;
+@property (nonatomic, assign) BOOL isHopBlock;
 
 @property (nonatomic, assign) Emu xConveyor;
 

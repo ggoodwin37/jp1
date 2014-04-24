@@ -165,7 +165,6 @@
         case EBlockPreset_tiny_bl_turf1:
         case EBlockPreset_tiny_bl_turf2:
         case EBlockPreset_tiny_avPlain:
-        case EBlockPreset_tiny_sprtiny_0:
         case EBlockPreset_tiny_sprtiny_1:
         case EBlockPreset_tiny_sprtiny_2:
         case EBlockPreset_tiny_sprtiny_3:
@@ -276,6 +275,11 @@
 
         case EBlockPreset_tiny_springUp:
             block.props.springyMask = BlockEdgeDirMask_Up;
+            break;
+
+        // HopBlocks
+        case EBlockPreset_tiny_sprtiny_0:
+            block.props.isHopBlock = YES;
             break;
 
         default:

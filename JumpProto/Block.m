@@ -98,6 +98,7 @@
 @synthesize eventSolidMask;
 @synthesize redBluState;
 @synthesize bModeActive;
+@synthesize isHopBlock;
 
 -(id)init
 {
@@ -165,7 +166,8 @@
     self.eventSolidMask = other.eventSolidMask;
     self.redBluState = other.redBluState;
     self.bModeActive = other.bModeActive;
-    // lol is this even getting used anywhere?
+    self.isHopBlock = other.isHopBlock;
+    // lol is this method even getting used anywhere?
 }
 
 
@@ -190,7 +192,8 @@
                 self.weight == other.weight &&
                 self.eventSolidMask == other.eventSolidMask &&
                 self.redBluState == other.redBluState &&
-                self.bModeActive == other.bModeActive
+                self.bModeActive == other.bModeActive &&
+                self.isHopBlock == isHopBlock
             );
 }
 
