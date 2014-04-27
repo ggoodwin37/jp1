@@ -12,22 +12,9 @@
 
 - clouds in bg should drift on their own (not cities though).
 
-- step-up logic, see "future" section
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // future
-
--player and creeps (and herds) should be able to step up small blocks. how hard is this to implement? it doesnt happen instantaneously. bounces shouldnt trigger. what about pushing crates, probably shouldnt be able to step up while pushing a crate (and that's impossible to implement well).
-  - e.g.:
-    creatureActor::onCollided(other) {
-      if other.yExtent is within ONE_BLOCK, engage a special mode.
-        actually that isn't good enough, we need to check overall extent, not just collider extent. can we do this with an offset'd call to ER?
-      else do usual collision logic (bouncing, etc)
-    creatureActor::handleInputOrMovementSignal {
-      if special mode, consider forward input to mean "also apply upward velocity". counteract gravity.
-      the "also" is important because we need to keep moving horiz to continue checking if we are done.
-
 
 - implement the restricted rect version of EWorldView drawToContext for better perf while drawing blocks.
   - you already are culling to view rect in the main grid document drawer, but I think there's an optional separate version of the draw method that only updates a certain rect. then we can invalidate just specific parts of the screen when drawing/erasing, should make editing snappier (until the user pans/zooms).
@@ -51,14 +38,12 @@
      - but of course it isn't that simple because then you have to figure out an efficient way to update each shared instance only once. Currently SpriteStateUpdater wants to run on every block.
        - shared blocks have the concept of a master block, it's the only one that actually updates the shared spritestate.
 
-- bonus/secret stars.
-
 - obsessive: ER layer is pretty solid, but the next layer up (propagateMovement, gapCheck, bounce, collision, v/vIntrinsic/motive/motiveAccel) is goofy. when you fix one thing, two other things break. what is the Right design? can we get rid of all order dependencies? can we unify collision/bouncing?
 
 - thoughts on items: maybe RL dpad button is "item button". items are on special pedestals throughout the level. when you pick up a new item, the old one takes its place on the pedestal (maybe dulled out a bit). once you have an item, you press RL to use it.
 items: blaster, jetpack, throw grenade, key, magnet (allowing you to transport blocks). the mutual exclusivity is a big part of the equation. one limitation is that it isn't ergonomic to press both dpads at same time. can we simulate this at the dpad layer? there's some special mutual exclusivity logic in there, maybe that needs to be relaxed.
 
-- stars (see log.txt for more)
+- bonus/secret stars (see log.txt for more)
 
 - vector graphics (see log)
 
