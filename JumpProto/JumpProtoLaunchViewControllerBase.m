@@ -57,6 +57,7 @@
 }
 
 
+#ifdef AUTOLOAD_FIRST_LEVEL
 // for testing background drawing.
 -(void)temp_autoPlayFirstLevel
 {
@@ -67,6 +68,7 @@
     m_childViewController = jumpVC;
     [self addChildViewWithTransition:NO];
 }
+#endif
 
 
 -(void)onAwake
@@ -88,8 +90,10 @@
     [self populateLevelPickerView];
     self.deleteArmedSwitch.on = NO;
     
+#ifdef AUTOLOAD_FIRST_LEVEL
     // testing: just load the first level without requiring any user input for testing purposes.
-    //[self temp_autoPlayFirstLevel];
+    [self temp_autoPlayFirstLevel];
+#endif
 }
 
 
