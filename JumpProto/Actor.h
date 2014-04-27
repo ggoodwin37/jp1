@@ -77,6 +77,7 @@ typedef enum ActorLifeStateEnum ActorLifeState;
 
 -(BOOL)shouldReverseWalkDirection;
 
+-(BOOL)canHop;
 -(void)doHop;
 
 @end

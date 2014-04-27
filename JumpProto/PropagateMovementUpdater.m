@@ -8,6 +8,7 @@
 
 #import "PropagateMovementUpdater.h"
 #import "BlockGroup.h"
+#import "Actor.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// PropagateMovementUpdater
 
@@ -230,6 +231,32 @@
 }
 
 
+// sometimes blocks can be exempt from bouncing when they otherwise would.
+// currently this happens when an actor is doing a hop.
+-(BOOL)isBounceExempt:(ASolidObject *)solidObject inDir:(ERDirection)dir
+{
+    if( ![solidObject getProps].isActorBlock )
+    {
+        return NO;
+    }
+    ActorBlock *thisActorBlock = (ActorBlock *)solidObject;
+    if( ![thisActorBlock.owningActor canHop] )
+    {
+        return NO;
+    }
+
+    NSArray *abutters = [m_worldFrameCache lazyGetAbuttListForSO:solidObject inER:m_elbowRoom direction:dir];
+    for( int i = 0; i < [abutters count]; ++i )
+    {
+        ASolidObject *thisAbutter = (ASolidObject *)[abutters objectAtIndex:i];
+        if ( [thisAbutter getProps].isHopBlock ) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
 // returns actual move offset
 // parameter isPerpProp controls whether we are handling the perpendicular drag propagation
 //   (if so, avoid doing parallel propagation again to cut down on weird jittery effects...still not perfect)
@@ -361,7 +388,17 @@
     // TODO: might need additional logic here for hops, to prevent bouncing if a hop occurred.
     if( !fStoppedForGap && didMoveOffset == 0 && ![m_worldFrameCache ensureEntryForSO:node].newAbuttersThisFrame )
     {
-        if( !didBounce )
+        ERDirection dir;
+        if( targetOffset > 0 )
+        {
+            dir = xAxis ? ERDirRight : ERDirUp;
+        }
+        else
+        {
+            dir = xAxis ? ERDirLeft : ERDirDown;
+        }
+
+        if( !didBounce && ![self isBounceExempt:node inDir:dir] )
         {
             [m_worldFrameCache tryBounceNode:node onXAxis:xAxis];
         }
