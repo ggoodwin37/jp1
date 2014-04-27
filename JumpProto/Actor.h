@@ -77,6 +77,8 @@ typedef enum ActorLifeStateEnum ActorLifeState;
 
 -(BOOL)shouldReverseWalkDirection;
 
+-(void)doHop;
+
 @end
 
 
@@ -84,7 +86,6 @@ typedef enum ActorLifeStateEnum ActorLifeState;
 
 @interface CreatureActor : Actor
 {
-@public
     BOOL m_walkingLeft;
     BOOL m_walkingRight;
     Emu m_walkAccel;

@@ -358,6 +358,7 @@
     // don't run this check if we had cut our movement short due to gap checks, because that means we haven't
     //  actually hit anything and so we shouldn't run bounce code.
     // TODO: verify newAbuttersThisFrame is still necessary and correct. Seems a little suspish.
+    // TODO: might need additional logic here for hops, to prevent bouncing if a hop occurred.
     if( !fStoppedForGap && didMoveOffset == 0 && ![m_worldFrameCache ensureEntryForSO:node].newAbuttersThisFrame )
     {
         if( !didBounce )

@@ -175,4 +175,8 @@ Starting on step-up for actors. It's gonna be pretty complicated.
 
 Simplification: rather than trying to be all perfect deterministic, how about this: blocks can have a hop property. If an eligible actor walks into one of these hop blocks from the side, they get triggered to do a special type of jump that is just a hop. Have to suppress direction flip.
 
+search for ")collidedInto:" to see where collisions happen. need to trigger a hop instead of a bounce. but we do need to bounce after the hop.
 
+4-27
+
+Hops coming along ok. Not sure if it's gonna be as awesome as I pictured.

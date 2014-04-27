@@ -139,6 +139,11 @@
         
         m_walkAccel = TESTMEANIEB_LR_ACCEL;
         m_walkMaxV = TESTMEANIEB_LR_MAX_V;
+
+        // TODO: tune for hopping
+        m_jumpMaxV = BADGUY_JUMP_MAX_V;
+        m_numJumpsAllowed = 1;
+        m_jumpDuration = BADGUY_MAX_JUMP_DURATION;
     }
     return self;
 }

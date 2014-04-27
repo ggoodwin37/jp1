@@ -159,8 +159,24 @@
 }
 
 
+-(BOOL)canHop
+{
+    // TODO: override this in subclasses as appropriate
+    return YES;
+}
+
+
+-(void)doHop
+{
+}
+
+
 -(void)collidedInto:(NSObject<ISolidObject> *)other inDir:(ERDirection)dir actorBlock:(ActorBlock *)origActorBlock props:(BlockProps *)props
 {
+    if( (dir == ERDirRight || dir == ERDirLeft) && [other getProps].isHopBlock && [self canHop] )
+    {
+        [self doHop];
+    }
 }
 
 
@@ -232,6 +248,14 @@
 }
 
 
+// override
+-(void)doHop
+{
+    [super doHop];
+    [self onJumpEvent:YES];  // TODO: customize this for hop.
+}
+
+
 // this name is so awkward. this runs every frame if the actor is standing on solid ground.
 //  (useful for baselining jump-related counters)
 -(void)updateStateForStandingOnGround
@@ -256,6 +280,9 @@
     {
         m_currentJumpTimeRemaining -= delta;
         m_currentlyJumping = (m_currentJumpTimeRemaining > 0.f);
+        if( !m_currentlyJumping ) {
+            m_wantsToJump = NO;  // TODO: revisit, do we still need both m_wantsToJump and m_currentlyJumping?
+        }
     }
     else
     {

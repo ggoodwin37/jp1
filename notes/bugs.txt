@@ -10,6 +10,8 @@
 
 - status bar is visible, I think this is both iPad and iPhone.
 
+- block props don't propagate across groups like I was hoping. In particular it would be cool to have group'd moving platforms.
+
 
 // old
 
