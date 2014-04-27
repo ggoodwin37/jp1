@@ -102,7 +102,7 @@
     NSString *optTimeStamp;
     if( inclTimeStamp )
     {
-        optTimeStamp = [NSString stringWithFormat:@"%2d%2d%2d ", month, day, year % 100];
+        optTimeStamp = [NSString stringWithFormat:@"%02d%02d%02d ", month, day, year % 100];
     }
     else
     {
