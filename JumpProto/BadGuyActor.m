@@ -140,10 +140,9 @@
         m_walkAccel = TESTMEANIEB_LR_ACCEL;
         m_walkMaxV = TESTMEANIEB_LR_MAX_V;
 
-        // TODO: tune for hopping
-        m_jumpMaxV = BADGUY_JUMP_MAX_V;
+        m_jumpMaxV = GENERIC_HOP_JUMP_MAX_V;
         m_numJumpsAllowed = 1;
-        m_jumpDuration = BADGUY_MAX_JUMP_DURATION;
+        m_jumpDuration = GENERIC_HOP_MAX_JUMP_DURATION;
     }
     return self;
 }
@@ -223,6 +222,13 @@
     Emu xComponent = xAxis ? 0 : oldV.x;
     Emu yComponent = xAxis ? oldV.y : 0;
     [actorBlock setV:EmuPointMake(xComponent, yComponent) ];
+}
+
+
+// override
+-(BOOL)canHop
+{
+    return YES;
 }
 
 @end

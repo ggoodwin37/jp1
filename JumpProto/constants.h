@@ -115,6 +115,10 @@
 #define FACEBONE_JUMPTIME        (MAX_JUMP_DURATION * 2.f)
 #define BADGUY_MAX_JUMP_DURATION (MAX_JUMP_DURATION);
 
+// hop values
+#define GENERIC_HOP_JUMP_MAX_V          (8000)
+#define GENERIC_HOP_MAX_JUMP_DURATION   (0.05f)
+
 // crumbles1 values
 #define CRUMBLES1_CRUMBLETIME  (0.45f)
 #define CRUMBLES1_GONETIME     (2.75f)

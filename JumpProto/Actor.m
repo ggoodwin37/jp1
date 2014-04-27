@@ -161,8 +161,7 @@
 
 -(BOOL)canHop
 {
-    // TODO: override this in subclasses as appropriate
-    return YES;
+    return NO;
 }
 
 
@@ -252,7 +251,9 @@
 -(void)doHop
 {
     [super doHop];
-    [self onJumpEvent:YES];  // TODO: customize this for hop.
+    
+    // assumes that a hop is same as a jump. if this isn't the case for any actor, need to make this pass in a flag for hop or something.
+    [self onJumpEvent:YES];
 }
 
 
