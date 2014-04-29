@@ -1,13 +1,13 @@
 //
-//  BasicEvent.m
+//  WorldEvent.m
 //  JumpProto
 //
 //  Created by Gideon Goodwin on 4/28/14.
 //
 //
 
-#import "BasicEvent.h"
+#import "WorldEvent.h"
 
-@implementation BasicEvent
+@implementation WorldEvent
 
 @end
