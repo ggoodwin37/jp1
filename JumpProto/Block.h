@@ -45,6 +45,12 @@ typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 
 @end
 
+// TODO: need EvBlockState here to handle dynamic state that can be influenced by events.
+//       EvBlockState has access to the list of fx, and also has a cache of event state info
+//       such as { 'targetId1': {lastTrigger: <time>, isDown: <bool> } }
+//       then for each state access we query fx list to see what the modifier is for that state, if any.
+//       there's usually zero or one fx in the list, but in some cases maybe 2 or more.
+//       event state info cache gets updated by events from dispatcher.
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// BlockRedBluStateEnum
 enum BlockRedBluStateEnum
@@ -103,6 +109,11 @@ typedef enum BlockRedBluStateEnum BlockRedBluState;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// Block
 @class BlockGroup;
 
+// TODO: add an api that allows me to listen to an event, with a given fx and event dispatcher.
+//       under the hood, this will register with the dispatcher, and create an instance of EvBlockState which
+//       knows how to change itself according to event state.
+
+
 @interface Block : NSObject<ISolidObject> {
 }
 
@@ -144,6 +155,7 @@ typedef enum BlockRedBluStateEnum BlockRedBluState;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// SpriteBlock
+// TODO: sprite state should be a mixin, not part of the hierarchy
 @interface SpriteBlock : Block {
     
 }

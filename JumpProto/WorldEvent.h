@@ -36,6 +36,8 @@ typedef enum WorldEventFXTypeEnum WorldEventFXType;
 @property (nonatomic, retain) NSString *targetId;
 @property (nonatomic, assign) WorldEventType type;
 
+// TODO: current time
+
 
 @end
 
@@ -61,7 +63,3 @@ typedef enum WorldEventFXTypeEnum WorldEventFXType;
 
 @end
 
-
-// TODO: button creates and fires an event. it knows its targetId (set at load time).
-//       it fires an event at an NSObject<WorldEventHandler>
-//       central event dispatcher handles this. then relays them to any blocks registered as listeners for this event.
