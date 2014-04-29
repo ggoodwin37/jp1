@@ -167,7 +167,6 @@
     self.redBluState = other.redBluState;
     self.bModeActive = other.bModeActive;
     self.isHopBlock = other.isHopBlock;
-    // lol is this method even getting used anywhere?
 }
 
 
