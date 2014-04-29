@@ -182,3 +182,7 @@ search for ")collidedInto:" to see where collisions happen. need to trigger a ho
 Hops coming along ok. Not sure if it's gonna be as awesome as I pictured.
 
 Got it working well for fuzz. Need to play around with this, make sure it didn't break anything or hurt perf too much.
+
+4-28
+
+Gonna tackle events on the world side. stub in some hardcoded ones for now.

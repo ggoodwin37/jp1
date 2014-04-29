@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		931D35B117A644210048B466 /* tiny-edit-hints.png in Resources */ = {isa = PBXBuildFile; fileRef = 931D35B017A644210048B466 /* tiny-edit-hints.png */; };
+		9326C354190F720400507C44 /* BasicEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9326C353190F720400507C44 /* BasicEvent.m */; };
 		932CBA7B17CEDD5900A2D7DD /* EventActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 932CBA7A17CEDD5900A2D7DD /* EventActor.m */; };
 		932DD07917974A3100375642 /* RectCoordBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 932DD07817974A3100375642 /* RectCoordBuffer.m */; };
 		9337102017A606E20080C6EB /* RandomNameGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9337101F17A606E20080C6EB /* RandomNameGenerator.m */; };
@@ -146,6 +147,8 @@
 		9306D6C517E97E2A0065AF51 /* IBModeHolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IBModeHolder.h; sourceTree = "<group>"; };
 		930FFDF717A3574A00735149 /* IElbowRoom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IElbowRoom.h; sourceTree = "<group>"; };
 		931D35B017A644210048B466 /* tiny-edit-hints.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tiny-edit-hints.png"; path = "images/tiny-edit-hints.png"; sourceTree = "<group>"; };
+		9326C352190F720400507C44 /* BasicEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicEvent.h; sourceTree = "<group>"; };
+		9326C353190F720400507C44 /* BasicEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicEvent.m; sourceTree = "<group>"; };
 		932CBA7917CEDD5900A2D7DD /* EventActor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventActor.h; sourceTree = "<group>"; };
 		932CBA7A17CEDD5900A2D7DD /* EventActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventActor.m; sourceTree = "<group>"; };
 		932DD07717974A3100375642 /* RectCoordBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RectCoordBuffer.h; sourceTree = "<group>"; };
@@ -375,6 +378,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9326C351190F71BE00507C44 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				9326C352190F720400507C44 /* BasicEvent.h */,
+				9326C353190F720400507C44 /* BasicEvent.m */,
+			);
+			name = Event;
+			sourceTree = "<group>";
+		};
 		9386060E17A5B83B00A544B5 /* batch1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -491,6 +503,7 @@
 				F3C444D514035BE5003B5C9C /* Sprite */,
 				F3C444D414035B50003B5C9C /* World logic */,
 				93A9866A17AA3189000F1B90 /* Actor */,
+				9326C351190F71BE00507C44 /* Event */,
 				F3471E4E143D6E08001AA4C8 /* ArchiveFormat */,
 				F3E109AC143FD7AB005E3FE5 /* Edit */,
 			);
@@ -941,6 +954,7 @@
 				F3DE18F014FAA6E80090BDEB /* LevelUtil.m in Sources */,
 				F35204231500A2F100000CDC /* WorldFrameState.m in Sources */,
 				F3DFED3A161E9C95004AD6B6 /* GroupPickerViewController.m in Sources */,
+				9326C354190F720400507C44 /* BasicEvent.m in Sources */,
 				F3DABAEF1665F39B00471044 /* DrawSettingsViewController.m in Sources */,
 				93A736BC17580FEE0059C2C9 /* EBlockMRUList.m in Sources */,
 				932DD07917974A3100375642 /* RectCoordBuffer.m in Sources */,
