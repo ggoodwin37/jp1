@@ -123,7 +123,8 @@
 }
 
 
--(void)handleEvent:(WorldEvent *)event
+// WorldEventHandler
+-(void)onWorldEvent:(WorldEvent *)event
 {
     if( ![event.targetId isEqualToString:m_fx.targetId] )
     {
@@ -152,7 +153,15 @@
     Emu vx = 0, vy = 0;
     if( m_fx.type == WFXTest )
     {
-        // TODO
+        // basic test: just give me some rightward velocity if I'm triggered
+        // TODO: next try up velocity, then down velocity after a certain time.
+        if( m_stateCache.lastTriggerTime != 0 )
+        {
+            if( getUpTimeMs() - m_stateCache.lastTriggerTime < 1000 )
+            {
+                vx = MOVING_PLATFORM_RIGHT_MEDIUM_VX;
+            }
+        }
     }
     return EmuPointMake( vx, vy );
 }

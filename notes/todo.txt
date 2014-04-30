@@ -48,6 +48,8 @@ items: blaster, jetpack, throw grenade, key, magnet (allowing you to transport b
 
 - revisit build mode. I think we need a global button to exit build mode. test ergonomics of this.
 
+- should be able to get crushed by blocks.
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // edit. claim: investing in edit makes play exponentially more awesome.
 

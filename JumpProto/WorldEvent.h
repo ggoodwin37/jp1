@@ -62,3 +62,15 @@ typedef enum WorldEventFXTypeEnum WorldEventFXType;
 
 @end
 
+
+// WorldEventDispatcher /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@interface WorldEventDispatcher : NSObject<WorldEventHandler>
+{
+    NSMutableDictionary *m_worldEventListeners; // a map of lists
+}
+
+-(void)registerListener:(NSObject<WorldEventHandler> *)listener forTargetId:(NSString *)targetId;
+
+@end
+

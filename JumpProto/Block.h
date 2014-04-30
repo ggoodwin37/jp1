@@ -57,14 +57,12 @@ typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// EvBlockState
-@interface EvBlockState : BlockState {
+@interface EvBlockState : BlockState<WorldEventHandler> {
     EvStateCache *m_stateCache;
     WorldEventFX *m_fx;
 }
 
 -(id)initFromBlockState:(BlockState *)blockStateIn fx:(WorldEventFX *)fxIn;
-
--(void)handleEvent:(WorldEvent *)event;
 
 @end
 
