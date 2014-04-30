@@ -47,12 +47,22 @@ typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 @end
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// EvStateCache
+@interface EvStateCache : NSObject
+
+@property (nonatomic, assign) long lastTriggerTime;
+@property (nonatomic, assign) BOOL isOn;
+
+@end
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// EvBlockState
 @interface EvBlockState : BlockState {
-    NSMutableDictionary *m_stateCache;
+    EvStateCache *m_stateCache;
+    WorldEventFX *m_fx;
 }
 
--(id)initFromBlockState:(BlockState *)blockStateIn;
+-(id)initFromBlockState:(BlockState *)blockStateIn fx:(WorldEventFX *)fxIn;
 
 -(void)handleEvent:(WorldEvent *)event;
 

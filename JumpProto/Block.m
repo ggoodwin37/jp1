@@ -80,18 +80,36 @@
 @end
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// EvStateCache
+
+@implementation EvStateCache
+@synthesize lastTriggerTime, isOn;
+
+-(id)init
+{
+    if( self = [super init] )
+    {
+        self.lastTriggerTime = 0;
+        self.isOn = 0;
+    }
+    return self;
+}
+@end
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// EvBlockState
 
 @implementation EvBlockState
 
--(id)initFromBlockState:(BlockState *)blockStateIn
+-(id)initFromBlockState:(BlockState *)blockStateIn fx:(WorldEventFX *)fxIn
 {
     if( self = [super init] )
     {
         self.p = blockStateIn.p;
         self.v = blockStateIn.v;
         self.d = blockStateIn.d;
-        m_stateCache = [[NSMutableDictionary alloc] initWithCapacity:8];
+        m_stateCache = [[EvStateCache alloc] init];
+        m_fx = [fxIn retain];
     }
     return self;
 }
@@ -99,6 +117,7 @@
 
 -(void)dealloc
 {
+    [m_fx release]; m_fx = nil;
     [m_stateCache release]; m_stateCache = nil;
     [super dealloc];
 }
@@ -106,7 +125,36 @@
 
 -(void)handleEvent:(WorldEvent *)event
 {
-    
+    if( ![event.targetId isEqualToString:m_fx.targetId] )
+    {
+        NSLog( @"Didn't expect to get an event that doesn't match my targetId" );
+        return;
+    }
+    switch( event.type )
+    {
+        case WEPressed:
+            m_stateCache.lastTriggerTime = getUpTimeMs();
+            break;
+        case WEDown:
+            m_stateCache.isOn = YES;
+            break;
+        case WEUp:
+            m_stateCache.isOn = NO;
+            break;
+        default:
+            break;
+    }
+}
+
+
+-(EmuPoint)getOffsetV
+{
+    Emu vx = 0, vy = 0;
+    if( m_fx.type == WFXTest )
+    {
+        // TODO
+    }
+    return EmuPointMake( vx, vy );
 }
 
 
@@ -114,14 +162,13 @@
 -(EmuPoint)getV
 {
     EmuPoint base = [super getV];
-    EmuPoint offset = EmuPointMake( 0, 0 );  // TODO
+    EmuPoint offset = [self getOffsetV];
     return EmuPointMake( base.x + offset.x, base.y + offset.y );
 }
 
 // TODO: support more property overrides as other event types require them.
 
 @end
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// BlockProps
 

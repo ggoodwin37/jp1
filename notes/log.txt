@@ -186,3 +186,7 @@ Got it working well for fuzz. Need to play around with this, make sure it didn't
 4-28
 
 Gonna tackle events on the world side. stub in some hardcoded ones for now.
+
+4-29
+
+I think I have the design figured out for events, working through impl now. For perf, I made it so a block can only have one fx that is triggered by exactly one event targetId. This shouldn't be too much of a hindrance to level design, and allows me to avoid dictionary iteration for every getV call.
