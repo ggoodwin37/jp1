@@ -248,8 +248,12 @@
             block.props.isWallJumpable = YES;
             break;
             
-        // TODO
+        // TODO: using this to test events for now, should eventually make this more iceish.
         case EBlockPreset_tiny_bl_ice:
+            block.props.canMoveFreely = YES;
+            block.props.bounceFactor = 0.f;
+            block.props.initialVelocity = EmuPointMake( 0.f, 0.f );
+            block.props.weight = PLATFORM_WEIGHT;
             break;
             
         case EBlockPreset_tiny_redblu_red:
