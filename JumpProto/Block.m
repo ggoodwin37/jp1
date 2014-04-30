@@ -80,6 +80,49 @@
 @end
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// EvBlockState
+
+@implementation EvBlockState
+
+-(id)initFromBlockState:(BlockState *)blockStateIn
+{
+    if( self = [super init] )
+    {
+        self.p = blockStateIn.p;
+        self.v = blockStateIn.v;
+        self.d = blockStateIn.d;
+        m_stateCache = [[NSMutableDictionary alloc] initWithCapacity:8];
+    }
+    return self;
+}
+
+
+-(void)dealloc
+{
+    [m_stateCache release]; m_stateCache = nil;
+    [super dealloc];
+}
+
+
+-(void)handleEvent:(WorldEvent *)event
+{
+    
+}
+
+
+// override
+-(EmuPoint)getV
+{
+    EmuPoint base = [super getV];
+    EmuPoint offset = EmuPointMake( 0, 0 );  // TODO
+    return EmuPointMake( base.x + offset.x, base.y + offset.y );
+}
+
+// TODO: support more property overrides as other event types require them.
+
+@end
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// BlockProps
 
 @implementation BlockProps

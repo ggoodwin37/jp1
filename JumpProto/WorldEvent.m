@@ -7,12 +7,13 @@
 //
 
 #import "WorldEvent.h"
+#import "gutil.h"
 
 // WorldEvent ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @implementation WorldEvent
 
-@synthesize targetId, type;
+@synthesize targetId, type, timestamp = m_timestamp;
 
 -(id)initWithTargetId:(NSString *)targetIdIn type:(WorldEventType)typeIn
 {
@@ -20,6 +21,7 @@
     {
         self.targetId = targetIdIn;
         self.type = typeIn;
+        m_timestamp = getUpTimeMs();
     }
     return self;
 }

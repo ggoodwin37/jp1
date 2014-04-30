@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SpriteState.h"
 #import "ISolidObject.h"
+#import "WorldEvent.h"
 
 typedef UInt32 BlockToken;
 
@@ -45,12 +46,18 @@ typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 
 @end
 
-// TODO: need EvBlockState here to handle dynamic state that can be influenced by events.
-//       EvBlockState has access to the list of fx, and also has a cache of event state info
-//       such as { 'targetId1': {lastTrigger: <time>, isDown: <bool> } }
-//       then for each state access we query fx list to see what the modifier is for that state, if any.
-//       there's usually zero or one fx in the list, but in some cases maybe 2 or more.
-//       event state info cache gets updated by events from dispatcher.
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// EvBlockState
+@interface EvBlockState : BlockState {
+    NSMutableDictionary *m_stateCache;
+}
+
+-(id)initFromBlockState:(BlockState *)blockStateIn;
+
+-(void)handleEvent:(WorldEvent *)event;
+
+@end
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// BlockRedBluStateEnum
 enum BlockRedBluStateEnum

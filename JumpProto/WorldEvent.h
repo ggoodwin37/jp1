@@ -35,9 +35,7 @@ typedef enum WorldEventFXTypeEnum WorldEventFXType;
 
 @property (nonatomic, retain) NSString *targetId;
 @property (nonatomic, assign) WorldEventType type;
-
-// TODO: current time
-
+@property (nonatomic, readonly) long timestamp;  // getUpTimeMs()
 
 @end
 
