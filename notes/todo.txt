@@ -1,9 +1,8 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // near term
 
-- investigate build mode, being the secondary button mode that allows you to directly manipulate the level within designated hotspots.
-
-- consider changing propagate logic such that you have to be standing on solid ground in order to push something. this is slightly more realistic and also increases the playability of blocks (now we can use them as one-way-doors, etc.)
+- events
+  - stub in some hardcoded events to get world part done. I think the edit part is making you procrastinate.
 
 - world layers
 
@@ -47,7 +46,9 @@ items: blaster, jetpack, throw grenade, key, magnet (allowing you to transport b
 
 - vector graphics (see log)
 
+- revisit build mode. I think we need a global button to exit build mode. test ergonomics of this.
 
+- should be able to get crushed by blocks.
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // edit. claim: investing in edit makes play exponentially more awesome.

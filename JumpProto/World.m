@@ -34,6 +34,7 @@
 @synthesize elbowRoom = m_elbowRoom;
 @synthesize frameCache = m_worldFrameCache;
 @synthesize yBottom;
+@synthesize worldEventDispatcher = m_worldEventDispatcher;
 
 -(id)init
 {
@@ -72,7 +73,9 @@
         
         m_deadActorsThisFrame = [[NSMutableArray arrayWithCapacity:8] retain];
         m_deadSOsThisFrame = [[NSMutableArray arrayWithCapacity:8] retain];
-        
+
+        m_worldEventDispatcher = [[WorldEventDispatcher alloc] init];
+
         m_isCurrentlyRed = NO;
         m_isBModeActive = NO;
      }
@@ -84,7 +87,9 @@
 {
     self.levelName = nil;
     self.levelDescription = nil;
-    
+
+    [m_worldEventDispatcher release]; m_worldEventDispatcher = nil;
+
     [m_deadActorsThisFrame release]; m_deadActorsThisFrame = nil;
     [m_deadSOsThisFrame release]; m_deadSOsThisFrame = nil;
     

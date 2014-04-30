@@ -17,6 +17,7 @@
 		93630AAC17B0D2EA00AA8D5D /* BackgroundGeoScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 93630AAB17B0D2EA00AA8D5D /* BackgroundGeoScene.m */; };
 		93732D8417A4327D00F1B5A7 /* ElbowRoomGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */; };
 		93732D8717A4982B00F1B5A7 /* PropagateMovementUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */; };
+		937BCEB4190F73BE00AFE2DE /* WorldEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 937BCEB3190F73BE00AFE2DE /* WorldEvent.m */; };
 		938195881898E1E200E8944F /* JumpProtoLaunchViewControllerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 938195871898E1E200E8944F /* JumpProtoLaunchViewControllerBase.m */; };
 		9386061417A5B86900A544B5 /* rob-16.png in Resources */ = {isa = PBXBuildFile; fileRef = 9386061017A5B86900A544B5 /* rob-16.png */; };
 		9386061517A5B86900A544B5 /* tiny-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9386061117A5B86900A544B5 /* tiny-2.png */; };
@@ -163,6 +164,8 @@
 		93732D8317A4327D00F1B5A7 /* ElbowRoomGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElbowRoomGrid.m; sourceTree = "<group>"; };
 		93732D8517A4982A00F1B5A7 /* PropagateMovementUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropagateMovementUpdater.h; sourceTree = "<group>"; };
 		93732D8617A4982A00F1B5A7 /* PropagateMovementUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropagateMovementUpdater.m; sourceTree = "<group>"; };
+		937BCEB2190F73BE00AFE2DE /* WorldEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldEvent.h; sourceTree = "<group>"; };
+		937BCEB3190F73BE00AFE2DE /* WorldEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldEvent.m; sourceTree = "<group>"; };
 		938195861898E1E200E8944F /* JumpProtoLaunchViewControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JumpProtoLaunchViewControllerBase.h; sourceTree = "<group>"; };
 		938195871898E1E200E8944F /* JumpProtoLaunchViewControllerBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JumpProtoLaunchViewControllerBase.m; sourceTree = "<group>"; };
 		9386061017A5B86900A544B5 /* rob-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rob-16.png"; path = "images/rob-16.png"; sourceTree = "<group>"; };
@@ -375,6 +378,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9326C351190F71BE00507C44 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				937BCEB2190F73BE00AFE2DE /* WorldEvent.h */,
+				937BCEB3190F73BE00AFE2DE /* WorldEvent.m */,
+			);
+			name = Event;
+			sourceTree = "<group>";
+		};
 		9386060E17A5B83B00A544B5 /* batch1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -491,6 +503,7 @@
 				F3C444D514035BE5003B5C9C /* Sprite */,
 				F3C444D414035B50003B5C9C /* World logic */,
 				93A9866A17AA3189000F1B90 /* Actor */,
+				9326C351190F71BE00507C44 /* Event */,
 				F3471E4E143D6E08001AA4C8 /* ArchiveFormat */,
 				F3E109AC143FD7AB005E3FE5 /* Edit */,
 			);
@@ -899,6 +912,7 @@
 				F37EEFFD13CF411800AC418D /* gutil.c in Sources */,
 				F37EEFFF13CF411800AC418D /* LayerView.m in Sources */,
 				F37EF00013CF411800AC418D /* LogStopWatch.m in Sources */,
+				937BCEB4190F73BE00AFE2DE /* WorldEvent.m in Sources */,
 				F37EF00113CF411800AC418D /* MainDrawController.m in Sources */,
 				F37EF00313CF411800AC418D /* oal.m in Sources */,
 				F37EF00413CF411800AC418D /* SoundManager.m in Sources */,

@@ -19,7 +19,7 @@
 
 @implementation TinyBtn1Actor
 
--(id)initAtStartingPoint:(EmuPoint)p triggerDirection:(ERDirection)triggerDirection
+-(id)initAtStartingPoint:(EmuPoint)p triggerDirection:(ERDirection)triggerDirection dispatcher:(WorldEventDispatcher *)dispatcherIn
 {
     if( self = [super initAtStartingPoint:p] )
     {
@@ -27,6 +27,7 @@
         m_lifeState = ActorLifeState_BeingBorn;  // this actor doesn't use the typical life cycle.
         m_lifeStateTimer = 0.f;
         m_currentState = TinyBtn1State_Resting;
+        m_dispatcher = dispatcherIn; // weak
     }
     return self;
 }
@@ -34,6 +35,7 @@
 
 -(void)dealloc
 {
+    m_dispatcher = nil;
     [super dealloc];
 }
 
@@ -273,13 +275,16 @@
 
 -(void)onTriggered
 {
-    // TODO: plug in gigantic event system here.
+    // TODO: plumbing for targetId
+    WorldEvent *ev = [[[WorldEvent alloc] initWithTargetId:@"test-target-id" type:WEDown] autorelease];
+    [m_dispatcher onWorldEvent:ev];
 }
 
 
 -(void)onUntriggered
 {
-    // TODO: event system
+    WorldEvent *ev = [[[WorldEvent alloc] initWithTargetId:@"test-target-id" type:WEUp] autorelease];
+    [m_dispatcher onWorldEvent:ev];
 }
 
 
@@ -351,7 +356,7 @@
 
 -(id)initAtStartingPoint:(EmuPoint)p triggerDirection:(ERDirection)triggerDirection redBluStateProvider:(NSObject<IRedBluStateProvider> *)redBluStateProvider
 {
-    if( self = [super initAtStartingPoint:p triggerDirection:triggerDirection] )
+    if( self = [super initAtStartingPoint:p triggerDirection:triggerDirection dispatcher:nil] )
     {
         m_redBluStateProvider = redBluStateProvider;  // weak
     }

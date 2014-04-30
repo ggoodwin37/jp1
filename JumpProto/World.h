@@ -47,6 +47,8 @@
     
     BOOL m_isCurrentlyRed;
     BOOL m_isBModeActive;
+
+    WorldEventDispatcher *m_worldEventDispatcher;
 }
 
 @property (nonatomic, retain) NSString *levelName;
@@ -57,6 +59,7 @@
 @property (nonatomic, assign) Emu yBottom;
 
 @property (nonatomic, readonly, getter=getNpcActors) NSMutableArray *npcActors;
+@property (nonatomic, readonly) WorldEventDispatcher *worldEventDispatcher;
 
 -(void)showTestWorld:(NSString *)preferredStartingWorld loadFromDisk:(BOOL)loadFromDisk;
 -(void)resetTestWorld;

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SpriteState.h"
 #import "ISolidObject.h"
+#import "WorldEvent.h"
 
 typedef UInt32 BlockToken;
 
@@ -42,6 +43,26 @@ typedef enum BlockEdgeDirMaskEnum BlockEdgeDirMask;
 @property (nonatomic, assign) EmuPoint vIntrinsic;
 
 -(void)setRect:(EmuRect)rect;
+
+@end
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// EvStateCache
+@interface EvStateCache : NSObject
+
+@property (nonatomic, assign) long lastTriggerTime;
+@property (nonatomic, assign) BOOL isOn;
+
+@end
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// EvBlockState
+@interface EvBlockState : BlockState<WorldEventHandler> {
+    EvStateCache *m_stateCache;
+    WorldEventFX *m_fx;
+}
+
+-(id)initFromBlockState:(BlockState *)blockStateIn fx:(WorldEventFX *)fxIn;
 
 @end
 
@@ -126,6 +147,8 @@ typedef enum BlockRedBluStateEnum BlockRedBluState;
 
 +(BlockEdgeDirMask)getOpposingEdgeMaskForDir:(ERDirection)dir;
 
+-(void)listenToEventTargetId:(NSString *)targetId fx:(WorldEventFX *)fx dispatcher:(WorldEventDispatcher *)dispatcher;
+
 @end
 
 
@@ -144,6 +167,7 @@ typedef enum BlockRedBluStateEnum BlockRedBluState;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// SpriteBlock
+// TODO: sprite state should be a mixin, not part of the hierarchy
 @interface SpriteBlock : Block {
     
 }

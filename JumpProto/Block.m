@@ -80,6 +80,104 @@
 @end
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// EvStateCache
+
+@implementation EvStateCache
+@synthesize lastTriggerTime, isOn;
+
+-(id)init
+{
+    if( self = [super init] )
+    {
+        self.lastTriggerTime = 0;
+        self.isOn = 0;
+    }
+    return self;
+}
+@end
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// EvBlockState
+
+@implementation EvBlockState
+
+-(id)initFromBlockState:(BlockState *)blockStateIn fx:(WorldEventFX *)fxIn
+{
+    if( self = [super init] )
+    {
+        self.p = blockStateIn.p;
+        self.v = blockStateIn.v;
+        self.d = blockStateIn.d;
+        m_stateCache = [[EvStateCache alloc] init];
+        m_fx = [fxIn retain];
+    }
+    return self;
+}
+
+
+-(void)dealloc
+{
+    [m_fx release]; m_fx = nil;
+    [m_stateCache release]; m_stateCache = nil;
+    [super dealloc];
+}
+
+
+// WorldEventHandler
+-(void)onWorldEvent:(WorldEvent *)event
+{
+    switch( event.type )
+    {
+        case WEDown:
+            m_stateCache.lastTriggerTime = getUpTimeMs();
+            m_stateCache.isOn = YES;
+            break;
+        case WEUp:
+            m_stateCache.isOn = NO;
+            break;
+        default:
+            break;
+    }
+}
+
+
+-(EmuPoint)getOffsetV
+{
+    Emu vx = 0, vy = 0;
+    if( m_fx.type == WFXTest )
+    {
+        // basic test: just give me some velocity if I'm triggered.
+        if( m_stateCache.lastTriggerTime != 0 )
+        {
+            long deltaT = getUpTimeMs() - m_stateCache.lastTriggerTime;
+            const int moveTime = 500;
+            const int restTime = 1500;
+            if( deltaT < moveTime )
+            {
+                vy = TEST_EVENT_V;
+            }
+            else if( deltaT >= (moveTime + restTime) && deltaT < (moveTime + restTime + moveTime) )
+            {
+                vy = -TEST_EVENT_V;
+            }
+        }
+    }
+    return EmuPointMake( vx, vy );
+}
+
+
+// override
+-(EmuPoint)getV
+{
+    EmuPoint base = [super getV];
+    EmuPoint offset = [self getOffsetV];
+    return EmuPointMake( base.x + offset.x, base.y + offset.y );
+}
+
+// TODO: support more property overrides as other event types require them.
+
+@end
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// BlockProps
 
 @implementation BlockProps
@@ -210,6 +308,7 @@
 @synthesize state = m_state, props = m_props, key = m_key, groupId = m_groupId;
 @synthesize owningGroup;
 @synthesize shortCircuitER;
+
 
 -(id)init
 {
@@ -422,6 +521,17 @@
         default: NSAssert( NO, @"getOpposingEdgeMaskForDir: bad dir" ); return 0;
     }
 }
+
+
+-(void)listenToEventTargetId:(NSString *)targetId fx:(WorldEventFX *)fx dispatcher:(WorldEventDispatcher *)dispatcher
+{
+    EvBlockState *evBlockState = [[[EvBlockState alloc] initFromBlockState:m_state fx:fx] autorelease];
+    [m_state release];
+    m_state = [evBlockState retain];
+
+    [dispatcher registerListener:evBlockState forTargetId:targetId];
+}
+
 
 @end
 

@@ -29,9 +29,11 @@ typedef enum TinyBtn1StateEnum TinyBtn1State;
     ActorBlock *m_stopperBlock;
     ActorBlock *m_triggerBlock;
     ActorBlock *m_plateBlock;
+
+    WorldEventDispatcher *m_dispatcher;  // weak
 }
 
--(id)initAtStartingPoint:(EmuPoint)p triggerDirection:(ERDirection)triggerDirection;
+-(id)initAtStartingPoint:(EmuPoint)p triggerDirection:(ERDirection)triggerDirection dispatcher:(WorldEventDispatcher *)dispatcherIn;
 
 @end
 

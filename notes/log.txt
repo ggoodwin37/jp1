@@ -182,3 +182,19 @@ search for ")collidedInto:" to see where collisions happen. need to trigger a ho
 Hops coming along ok. Not sure if it's gonna be as awesome as I pictured.
 
 Got it working well for fuzz. Need to play around with this, make sure it didn't break anything or hurt perf too much.
+
+4-28
+
+Gonna tackle events on the world side. stub in some hardcoded ones for now.
+
+4-29
+
+I think I have the design figured out for events, working through impl now. For perf, I made it so a block can only have one fx that is triggered by exactly one event targetId. This shouldn't be too much of a hindrance to level design, and allows me to avoid dictionary iteration for every getV call.
+
+Events work in play mode. Right now they're all on the same channel (targetId) so not much I can do but it seems cool so far.
+
+Next up:
+- make event actor take its targetId from worldArchiveUtil.
+- save/load plumbing
+- edit UI :(
+- add some more event fx
