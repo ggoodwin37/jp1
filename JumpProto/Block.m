@@ -146,13 +146,19 @@
     Emu vx = 0, vy = 0;
     if( m_fx.type == WFXTest )
     {
-        // basic test: just give me some rightward velocity if I'm triggered
-        // TODO: next try up velocity, then down velocity after a certain time.
+        // basic test: just give me some velocity if I'm triggered.
         if( m_stateCache.lastTriggerTime != 0 )
         {
-            if( getUpTimeMs() - m_stateCache.lastTriggerTime < 1000 )
+            long deltaT = getUpTimeMs() - m_stateCache.lastTriggerTime;
+            const int moveTime = 500;
+            const int restTime = 1500;
+            if( deltaT < moveTime )
             {
-                vx = MOVING_PLATFORM_RIGHT_MEDIUM_VX;
+                vy = TEST_EVENT_V;
+            }
+            else if( deltaT >= (moveTime + restTime) && deltaT < (moveTime + restTime + moveTime) )
+            {
+                vy = -TEST_EVENT_V;
             }
         }
     }
