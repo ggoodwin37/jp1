@@ -124,11 +124,6 @@ typedef enum BlockRedBluStateEnum BlockRedBluState;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// Block
 @class BlockGroup;
 
-// TODO: add an api that allows me to listen to an event, with a given fx and event dispatcher.
-//       under the hood, this will register with the dispatcher, and create an instance of EvBlockState which
-//       knows how to change itself according to event state.
-
-
 @interface Block : NSObject<ISolidObject> {
 }
 
@@ -151,6 +146,8 @@ typedef enum BlockRedBluStateEnum BlockRedBluState;
 @property (nonatomic, readonly) NSString *key;
 
 +(BlockEdgeDirMask)getOpposingEdgeMaskForDir:(ERDirection)dir;
+
+-(void)listenToEventTargetId:(NSString *)targetId fx:(WorldEventFX *)fx dispatcher:(WorldEventDispatcher *)dispatcher;
 
 @end
 

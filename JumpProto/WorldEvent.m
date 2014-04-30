@@ -41,13 +41,12 @@
 
 @implementation WorldEventFX
 
-@synthesize targetId, type, params;
+@synthesize type, params;
 
--(id)initWithTargetId:(NSString *)targetIdIn fxType:(WorldEventFXType)fxTypeIn params:(NSDictionary *)paramsIn
+-(id)initWithFxType:(WorldEventFXType)fxTypeIn params:(NSDictionary *)paramsIn
 {
     if( self = [super init] )
     {
-        self.targetId = targetIdIn;
         self.type = fxTypeIn;
         self.params = paramsIn;
     }

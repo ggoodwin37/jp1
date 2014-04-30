@@ -126,17 +126,10 @@
 // WorldEventHandler
 -(void)onWorldEvent:(WorldEvent *)event
 {
-    if( ![event.targetId isEqualToString:m_fx.targetId] )
-    {
-        NSLog( @"Didn't expect to get an event that doesn't match my targetId" );
-        return;
-    }
     switch( event.type )
     {
-        case WEPressed:
-            m_stateCache.lastTriggerTime = getUpTimeMs();
-            break;
         case WEDown:
+            m_stateCache.lastTriggerTime = getUpTimeMs();
             m_stateCache.isOn = YES;
             break;
         case WEUp:
@@ -310,6 +303,7 @@
 @synthesize state = m_state, props = m_props, key = m_key, groupId = m_groupId;
 @synthesize owningGroup;
 @synthesize shortCircuitER;
+
 
 -(id)init
 {
@@ -522,6 +516,17 @@
         default: NSAssert( NO, @"getOpposingEdgeMaskForDir: bad dir" ); return 0;
     }
 }
+
+
+-(void)listenToEventTargetId:(NSString *)targetId fx:(WorldEventFX *)fx dispatcher:(WorldEventDispatcher *)dispatcher
+{
+    EvBlockState *evBlockState = [[[EvBlockState alloc] initFromBlockState:m_state fx:fx] autorelease];
+    [m_state release];
+    m_state = [evBlockState retain];
+
+    [dispatcher registerListener:evBlockState forTargetId:targetId];
+}
+
 
 @end
 

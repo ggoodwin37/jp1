@@ -10,7 +10,6 @@
 
 enum WorldEventTypeEnum
 {
-    WEPressed,
     WEDown,
     WEUp,
     WECount,
@@ -45,9 +44,8 @@ typedef enum WorldEventFXTypeEnum WorldEventFXType;
 // describes an effect that can be triggered by an event.
 @interface WorldEventFX : NSObject
 
--(id)initWithTargetId:(NSString *)targetIdIn fxType:(WorldEventFXType)fxTypeIn params:(NSDictionary *)paramsIn;
+-(id)initWithFxType:(WorldEventFXType)fxTypeIn params:(NSDictionary *)paramsIn;
 
-@property (nonatomic, retain) NSString *targetId;  // TODO: do we need this? can we just set up the mapping from targetId to block at load?
 @property (nonatomic, assign) WorldEventFXType type;
 @property (nonatomic, retain) NSDictionary *params;
 

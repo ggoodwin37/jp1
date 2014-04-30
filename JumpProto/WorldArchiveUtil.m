@@ -627,8 +627,6 @@
     //       got from blockProps ctor. this is guaranteed to be unique with other
     //       blocks that may get spawned. this means we won't be able to assume
     //       tokens are consistent between view and edit, may need to change.
-    // TODO: come to think of it, this will probably break event scenarios where
-    //       we need to be able to specify an event target in edit.
     if( [afBlock isMemberOfClass:[AFPresetBlockBase class]] )
     {
         AFPresetBlockBase *afPresetBlock = (AFPresetBlockBase *)afBlock;
@@ -642,6 +640,28 @@
         block.props.bounceFactor = afBlock.props.bounceDampFactor;    
         block.props.initialVelocity = EmuPointFromFlPoint( afBlock.props.initialVelocity );
     }
+}
+
+
++(void)setupEventsForBlock:(Block *)block fromAFBlock:(AFBlock *)afBlock dispatcher:(WorldEventDispatcher *)dispatcher
+{
+    if( ![afBlock isMemberOfClass:[AFPresetBlockBase class]] )
+    {
+        NSLog( @"what the..? skipping event check for non-preset block" );
+        return;
+    }
+    AFPresetBlockBase *afPresetBlock = (AFPresetBlockBase *)afBlock;
+
+    // test event listener
+    if( afPresetBlock.preset == EBlockPreset_tiny_bl_ice )
+    {
+        WorldEventFX *fx = [[WorldEventFX alloc] initWithFxType:WFXTest params:nil];
+        [block listenToEventTargetId:@"test-target-id" fx:fx dispatcher:dispatcher];
+    }
+
+    // TODO: should also handle the trigger case, e.g. assigning a targetId to a trigger element.
+    //       but this isn't called in the actor case since actor owns block. currently all triggers
+    //       are actors (buttonActor), but this might change.
 }
 
 
@@ -737,13 +757,13 @@
             return [[[TinyJellyActor alloc] initAtStartingPoint:pStart onXAxis:NO] autorelease];
             
         case EBlockPreset_tiny_btn1_u:
-            return [[[TinyBtn1Actor alloc] initAtStartingPoint:pStart triggerDirection:ERDirUp] autorelease];
+            return [[[TinyBtn1Actor alloc] initAtStartingPoint:pStart triggerDirection:ERDirUp dispatcher:world.worldEventDispatcher] autorelease];
         case EBlockPreset_tiny_btn1_l:
-            return [[[TinyBtn1Actor alloc] initAtStartingPoint:pStart triggerDirection:ERDirLeft] autorelease];
+            return [[[TinyBtn1Actor alloc] initAtStartingPoint:pStart triggerDirection:ERDirLeft dispatcher:world.worldEventDispatcher] autorelease];
         case EBlockPreset_tiny_btn1_r:
-            return [[[TinyBtn1Actor alloc] initAtStartingPoint:pStart triggerDirection:ERDirRight] autorelease];
+            return [[[TinyBtn1Actor alloc] initAtStartingPoint:pStart triggerDirection:ERDirRight dispatcher:world.worldEventDispatcher] autorelease];
         case EBlockPreset_tiny_btn1_d:
-            return [[[TinyBtn1Actor alloc] initAtStartingPoint:pStart triggerDirection:ERDirDown] autorelease];
+            return [[[TinyBtn1Actor alloc] initAtStartingPoint:pStart triggerDirection:ERDirDown dispatcher:world.worldEventDispatcher] autorelease];
 
         case EBlockPreset_tiny_redblu_btn_u:
             return [[[TinyRedBluBtnActor alloc] initAtStartingPoint:pStart triggerDirection:ERDirUp redBluStateProvider:world] autorelease];
@@ -846,6 +866,7 @@
         if( thisBlock != nil )
         {
             [WorldArchiveUtil setGroupAndPropsForBlock:thisBlock fromAFBlock:thisAFBlock];
+            [WorldArchiveUtil setupEventsForBlock:thisBlock fromAFBlock:thisAFBlock dispatcher:world.worldEventDispatcher];
             
             if( thisBlock.groupId == GROUPID_NONE )
             {
