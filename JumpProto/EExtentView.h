@@ -9,7 +9,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// EExtentView.h
 @interface EExtentView : QuartzView<IPanZoomResultConsumer>
-{
-}
+
+@property (nonatomic, assign) float currentZoomFactor;
 
 @end

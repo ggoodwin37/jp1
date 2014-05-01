@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "IParentChildVC.h"
 #import "EWorldView.h"
+#import "EExtentView.h"
 #import "EDoc.h"
 #import "EBlockPaletteViewController.h"
 #import "EDocPropsViewController.h"
@@ -38,6 +39,7 @@
 }
 
 @property (nonatomic, retain) IBOutlet EWorldView *worldView;
+@property (nonatomic, retain) IBOutlet EExtentView *extentView;
 @property (nonatomic, retain) IBOutlet UIImageView *currentToolView;
 
 @property (nonatomic, retain) IBOutlet UIView   *editToolsBarView;

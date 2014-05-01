@@ -25,7 +25,7 @@
 
 @implementation EditMainViewController
 
-@synthesize worldView, currentToolView;
+@synthesize worldView, currentToolView, extentView;
 @synthesize editToolsDrawBlocksButton, editToolsEraseButton, editToolsBarView;
 @synthesize editToolsGrabButton, editToolsGroupButton;
 @synthesize editToolsBlockPaletteVC;
@@ -54,6 +54,7 @@
 
 -(void)dealloc
 {
+    self.extentView = nil;
     self.worldView.document = nil;
     self.worldView = nil;
     self.currentToolView = nil;
@@ -203,6 +204,8 @@
     
     self.worldView.gridVisible = YES;
     self.worldView.geoModeVisible = NO;
+
+    [self.worldView.zoomSource registerConsumer:self.extentView];
     
     if( m_startingLevel != nil )
     {

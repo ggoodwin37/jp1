@@ -73,6 +73,7 @@ typedef enum EToolModeEnum EToolMode;
 @property (nonatomic, retain) EBlockMRUList *blockMRUList;
 @property (nonatomic, assign) CGPoint freeDrawStartPointWorld;
 @property (nonatomic, assign) CGPoint freeDrawEndPointWorld;
+@property (nonatomic, readonly) id<IPanZoomProcessor> zoomSource;
 
 -(void)setCenterPoint:(CGPoint)centerPoint;
 -(void)selectMRUEntryAtIndex:(int)index;
@@ -83,7 +84,7 @@ typedef enum EToolModeEnum EToolMode;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// EPanZoomProcessor
 @interface EPanZoomProcessor : NSObject<IPanZoomProcessor>
 {
-    id<IPanZoomResultConsumer> m_consumer;
+    NSMutableArray *m_consumers;
 }
 
 @end

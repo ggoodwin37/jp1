@@ -38,6 +38,7 @@
 @synthesize blockMRUList;
 @synthesize freeDrawStartPointWorld;
 @synthesize freeDrawEndPointWorld;
+@synthesize zoomSource = m_panZoomGestureProcessor;
 
 // TODO: general: this class knows about drawing stuff and also about editing commands.
 //       need a better abstraction.
@@ -786,6 +787,7 @@
 {
     if( self = [super init] )
     {
+        m_consumers = [[NSMutableArray alloc] initWithCapacity:4];
     }
     return self;
 }
@@ -793,14 +795,14 @@
 
 -(void)dealloc
 {
-    m_consumer = nil;  // weak
+    [m_consumers release]; m_consumers = nil;
     [super dealloc];
 }
 
 
 -(void)registerConsumer:(id<IPanZoomResultConsumer>)consumer
 {
-    m_consumer = consumer;  // weak
+    [m_consumers addObject:consumer];
 }
 
 
@@ -848,10 +850,15 @@
     {
         zoomFactor = sDistance / cDistance;
     }
-    [m_consumer onZoomByFactor:zoomFactor centeredOnViewPoint:psCenter];
-    
+
     CGPoint panVector = subtractVectors( pcCenter, psCenter );
-    [m_consumer onPanByViewUnits:panVector];
+
+    for( int iConsumer = 0; iConsumer < [m_consumers count]; ++iConsumer )
+    {
+        id<IPanZoomResultConsumer> thisConsumer = [m_consumers objectAtIndex:iConsumer];
+        [thisConsumer onZoomByFactor:zoomFactor centeredOnViewPoint:psCenter];
+        [thisConsumer onPanByViewUnits:panVector];
+    }
 }
 
 

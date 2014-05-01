@@ -12,6 +12,11 @@
 
 - block props don't propagate across groups like I was hoping. In particular it would be cool to have group'd moving platforms.
 
+- in -(NSDictionary *)loadImagesForSpriteDefList:(NSArray *)spriteDefList,
+  there's a comment that non-chalantly mentions a huge perf problem related to reloading sprite image once per sprite. time this.
+  actually, just fix this on principle.
+
+
 
 // old
 
