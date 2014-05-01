@@ -83,6 +83,8 @@
 
 #define PLAYER_WIDTH  (4 * ONE_BLOCK_SIZE_Emu)
 #define PLAYER_HEIGHT (8 * ONE_BLOCK_SIZE_Emu)
+#define PLAYER_WIDTH_FL  (4 * ONE_BLOCK_SIZE_Fl)
+#define PLAYER_HEIGHT_FL (8 * ONE_BLOCK_SIZE_Fl)
 
 #define PLAYER_NOTBORNYET_TIME (0.005f)
 #define PLAYER_BEINGBORN_TIME (0.5f)
@@ -161,3 +163,8 @@
 // b-mode time dilation
 #define B_MODE_TIME_DILATION_FACTOR (0.1f)
 
+// how big is the screen for typical zooms (used to show screen extent in edit mode)
+#define EEXTENT_IPAD_BLOCK_WIDTH      (22 * 4)
+#define EEXTENT_IPAD_BLOCK_HEIGHT     (16 * 4)
+#define EEXTENT_IPHONE_BLOCK_WIDTH    (29 * 4)
+#define EEXTENT_IPHONE_BLOCK_HEIGHT   (16 * 4)

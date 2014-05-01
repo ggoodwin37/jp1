@@ -13,6 +13,7 @@
 #import "constants.h"
 #import "SpriteManager.h"
 #import "EBlockPresetSpriteNames.h"
+#import "EExtentView.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// EWorldView
 @interface EWorldView (private)
@@ -39,6 +40,7 @@
 @synthesize freeDrawStartPointWorld;
 @synthesize freeDrawEndPointWorld;
 @synthesize zoomSource = m_panZoomGestureProcessor;
+@synthesize extentView;
 
 // TODO: general: this class knows about drawing stuff and also about editing commands.
 //       need a better abstraction.
@@ -65,6 +67,8 @@
         
         self.blockMRUList = [[EBlockMRUList alloc] initWithMaxSize:8];
         // TODO: consider pre-populating this list with some stuff.
+        
+        self.extentView = nil;
 	}
 	return self;
 }
@@ -72,6 +76,7 @@
 
 -(void)dealloc
 {
+    self.extentView = nil; // weak
     self.blockMRUList = nil;
     self.groupOverlayDrawer = nil;
     m_blockPresetStateHolder = nil;  // weak
@@ -82,10 +87,6 @@
     
     [super dealloc];
 }
-
-// could save one mult or divide each by prefactoring if needed.
-#define viewToWorld( input_viewcoord, worldorig, worldsize, viewsize ) ( (worldorig) + (((input_viewcoord)/(viewsize)) * (worldsize) ) )
-#define worldToView( input_worldcoord, worldorig, worldsize, viewsize )  ( ((input_worldcoord) - (worldorig)) * (viewsize) / (worldsize) )
 
 
 -(void)drawGridToContext:(CGContextRef)context
@@ -722,6 +723,7 @@
 {
     float wNew = self.worldRect.size.width * factor;
     float hNew = self.worldRect.size.height * factor;
+    self.extentView.worldViewSize = CGSizeMake( wNew, hNew );
 
     // translates to adjust for non-true center point, then zooms, then translates back.
     

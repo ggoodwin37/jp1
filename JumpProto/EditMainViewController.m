@@ -204,9 +204,8 @@
     
     self.worldView.gridVisible = YES;
     self.worldView.geoModeVisible = NO;
+    self.worldView.extentView = self.extentView;  // weak
 
-    [self.worldView.zoomSource registerConsumer:self.extentView];
-    
     if( m_startingLevel != nil )
     {
         [EArchiveUtil loadDoc:m_doc fromDiskForName:m_startingLevel];
@@ -219,6 +218,8 @@
         m_doc.levelDescription = @"No description";
     }
     self.worldView.worldRect = [self getInitialWorldViewRect];
+    self.extentView.worldViewSize = CGSizeMake( self.worldView.worldRect.size.width, self.worldView.worldRect.size.height );
+    self.extentView.viewportSize = self.worldView.frame.size;
     
     self.docPropsVC.view.hidden = YES;
     CGRect rDocProps = CGRectMake( 20.f, 20.f,

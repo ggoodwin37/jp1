@@ -8,8 +8,12 @@
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// EExtentView.h
-@interface EExtentView : QuartzView<IPanZoomResultConsumer>
+@interface EExtentView : QuartzView
+{
+    CGSize m_worldSize;
+}
 
-@property (nonatomic, assign) float currentZoomFactor;
+@property (nonatomic, assign, setter = setWorldViewSize:) CGSize worldViewSize;
+@property (nonatomic, assign) CGSize viewportSize;
 
 @end

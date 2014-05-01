@@ -49,6 +49,9 @@ typedef enum EToolModeEnum EToolMode;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// EWorldView
+
+@class EExtentView;
+
 @interface EWorldView : QuartzView<IPanZoomResultConsumer, ICurrentBlockPresetStateConsumer>
 {
     id<IPanZoomProcessor> m_panZoomGestureProcessor;
@@ -74,6 +77,7 @@ typedef enum EToolModeEnum EToolMode;
 @property (nonatomic, assign) CGPoint freeDrawStartPointWorld;
 @property (nonatomic, assign) CGPoint freeDrawEndPointWorld;
 @property (nonatomic, readonly) id<IPanZoomProcessor> zoomSource;
+@property (nonatomic, assign) EExtentView *extentView;  // weak
 
 -(void)setCenterPoint:(CGPoint)centerPoint;
 -(void)selectMRUEntryAtIndex:(int)index;
@@ -88,3 +92,8 @@ typedef enum EToolModeEnum EToolMode;
 }
 
 @end
+
+
+// could save one mult or divide each by prefactoring if needed.
+#define viewToWorld( input_viewcoord, worldorig, worldsize, viewsize ) ( (worldorig) + (((input_viewcoord)/(viewsize)) * (worldsize) ) )
+#define worldToView( input_worldcoord, worldorig, worldsize, viewsize )  ( ((input_worldcoord) - (worldorig)) * (viewsize) / (worldsize) )
