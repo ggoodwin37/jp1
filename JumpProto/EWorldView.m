@@ -716,6 +716,7 @@
 }
 
 
+// IPanZoomResultConsumer
 -(void)onZoomByFactor:(float)factor centeredOnViewPoint:(CGPoint)centerPointView
 {
     float wNew = self.worldRect.size.width * factor;
