@@ -34,6 +34,7 @@
 		93AD0DC617C45ECE008C41A0 /* tiny-av-plain-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 93AD0DC417C45ECE008C41A0 /* tiny-av-plain-1.png */; };
 		93CAF655185ADC7800A01055 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93CAF654185ADC7800A01055 /* Default-568h@2x.png */; };
 		93E01FCC17C31CCD00708802 /* ColorRectLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E01FCB17C31CCD00708802 /* ColorRectLayerView.m */; };
+		93FD4F1B1912182600C3B453 /* EExtentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FD4F1A1912182600C3B453 /* EExtentView.m */; };
 		F305ECE91623E1FB00E153FB /* blAlgae.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE61623E1FB00E153FB /* blAlgae.png */; };
 		F305ECEA1623E1FB00E153FB /* blavQik.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE71623E1FB00E153FB /* blavQik.png */; };
 		F305ECEB1623E1FB00E153FB /* blHalfsize1.png in Resources */ = {isa = PBXBuildFile; fileRef = F305ECE81623E1FB00E153FB /* blHalfsize1.png */; };
@@ -190,6 +191,8 @@
 		93CAF654185ADC7800A01055 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		93E01FCA17C31CCC00708802 /* ColorRectLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorRectLayerView.h; sourceTree = "<group>"; };
 		93E01FCB17C31CCD00708802 /* ColorRectLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorRectLayerView.m; sourceTree = "<group>"; };
+		93FD4F191912182600C3B453 /* EExtentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EExtentView.h; sourceTree = "<group>"; };
+		93FD4F1A1912182600C3B453 /* EExtentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EExtentView.m; sourceTree = "<group>"; };
 		F305ECE61623E1FB00E153FB /* blAlgae.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blAlgae.png; path = images/blAlgae.png; sourceTree = "<group>"; };
 		F305ECE71623E1FB00E153FB /* blavQik.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blavQik.png; path = images/blavQik.png; sourceTree = "<group>"; };
 		F305ECE81623E1FB00E153FB /* blHalfsize1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blHalfsize1.png; path = images/blHalfsize1.png; sourceTree = "<group>"; };
@@ -728,6 +731,8 @@
 				F3CCE2531440244E008773E8 /* QuartzView.m */,
 				F3CCE25614402482008773E8 /* EWorldView.h */,
 				F3CCE25714402482008773E8 /* EWorldView.m */,
+				93FD4F191912182600C3B453 /* EExtentView.h */,
+				93FD4F1A1912182600C3B453 /* EExtentView.m */,
 				F3E109A6143FD7A6005E3FE5 /* EditMainViewController.h */,
 				F3E109A7143FD7A6005E3FE5 /* EditMainViewController.m */,
 				F30EFB6F144233F6003054DC /* EDoc.h */,
@@ -936,6 +941,7 @@
 				F3C04C5D140F60A8006AFAF7 /* SpriteState.m in Sources */,
 				F3B34FEB14319E13007EE52C /* JumpProtoLaunchViewController.m in Sources */,
 				F3471E4A143D4CF9001AA4C8 /* SpriteStateDrawUtil.m in Sources */,
+				93FD4F1B1912182600C3B453 /* EExtentView.m in Sources */,
 				F3471E54143ED7C7001AA4C8 /* ArchiveFormat.m in Sources */,
 				F3471E5A143FCF31001AA4C8 /* WorldArchiveUtil.m in Sources */,
 				F3E109A9143FD7A6005E3FE5 /* EditMainViewController.m in Sources */,
