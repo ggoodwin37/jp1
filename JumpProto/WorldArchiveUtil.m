@@ -165,9 +165,6 @@
         case EBlockPreset_tiny_bl_turf1:
         case EBlockPreset_tiny_bl_turf2:
         case EBlockPreset_tiny_avPlain:
-        case EBlockPreset_tiny_sprtiny_1:
-        case EBlockPreset_tiny_sprtiny_2:
-        case EBlockPreset_tiny_sprtiny_3:
         case EBlockPreset_tiny_pipe:
         case EBlockPreset_tiny_pipe_bub:
             break;
@@ -279,6 +276,9 @@
 
         // HopBlocks
         case EBlockPreset_tiny_sprtiny_0:
+        case EBlockPreset_tiny_sprtiny_1:
+        case EBlockPreset_tiny_sprtiny_2:
+        case EBlockPreset_tiny_sprtiny_3:
             block.props.isHopBlock = YES;
             break;
 
