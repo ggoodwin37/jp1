@@ -401,8 +401,9 @@
     //  as we approach the top of the world, the deepest layers and shallowest should converge around yMax (y-goes-up)
     //  this will be opposite for topdown mode.
 
-    const float minOffset = 50.f;
-    const float maxOffset = 450.f;
+    const float yPix = [AspectController instance].yPixel;
+    const float minOffset = 0.05f * yPix;
+    const float maxOffset = 0.45f * yPix;
     float depthFactor = self.depth / STRIP_DEPTH_MAX;
     float offset = FLOAT_INTERP(minOffset, maxOffset, depthFactor);
     
@@ -418,16 +419,13 @@
     
     if( m_topDown )
     {
-        y = [AspectController instance].yPixel - h;
+        y = yPix - h;
     }
     
     [self.rectBuf pushRectGeoCoord2dX1:x Y1:y X2:(x + w) Y2:(y + h)];
     [self pushSolidColorA:m_a r:m_r g:m_g b:m_b];
     [self.rectBuf incPtr];
 }
-
-
-//    if( m_topDown )
 
 @end
 
