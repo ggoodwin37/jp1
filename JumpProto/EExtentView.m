@@ -94,28 +94,26 @@
 
     float bSize = worldToView( 4 * ONE_BLOCK_SIZE_Fl, 0.f, m_worldSize.width, self.viewportSize.width );
 
-    // TODO: tune all these values
-
     // 1 is single jump, 2 is double jump
     // a is straight up, b is max up plus forward, c is max forward
     float dx1a = 0.f;
     float dx2a = 0.f;
-    float dy1a = 6.f * bSize;
-    float dy2a = 12.f * bSize;
+    float dy1a = 2.5f * bSize;
+    float dy2a = 6.5f * bSize;
     [self drawPegLineFrom:center to:CGPointMake(cx + dx1a, cy - dy1a) inContext:context];
     [self drawPegLineFrom:center to:CGPointMake(cx + dx2a, cy - dy2a) inContext:context];
 
-    float dx1b = 8.f * bSize;
-    float dx2b = 16.f * bSize;
-    float dy1b = 6.f * bSize;
-    float dy2b = 12.f * bSize;
+    float dx1b = 6.f * bSize;
+    float dx2b = 9.f * bSize;
+    float dy1b = 2.5f * bSize;
+    float dy2b = 6.5f * bSize;
     [self drawPegLineFrom:center to:CGPointMake(cx + dx1b, cy - dy1b) inContext:context];
     [self drawPegLineFrom:center to:CGPointMake(cx + dx2b, cy - dy2b) inContext:context];
     [self drawPegLineFrom:center to:CGPointMake(cx - dx1b, cy - dy1b) inContext:context];
     [self drawPegLineFrom:center to:CGPointMake(cx - dx2b, cy - dy2b) inContext:context];
 
     float dx1c = 8.f * bSize;
-    float dx2c = 16.f * bSize;
+    float dx2c = 14.f * bSize;
     float dy1c = 0.f * bSize;
     float dy2c = 0.f * bSize;
     [self drawPegLineFrom:center to:CGPointMake(cx + dx1c, cy - dy1c) inContext:context];
