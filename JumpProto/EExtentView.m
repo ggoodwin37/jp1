@@ -22,6 +22,7 @@
 {
 	if( self = [super initWithCoder:aDecoder] )
 	{
+        m_active = NO;
 	}
 	return self;
 }
@@ -30,6 +31,19 @@
 -(void)dealloc
 {
     [super dealloc];
+}
+
+
+-(BOOL)getActive
+{
+    return m_active;
+}
+
+
+-(void)setActive:(BOOL)active
+{
+    m_active = active;
+    [self setNeedsDisplay];
 }
 
 
@@ -134,6 +148,10 @@
 
 -(void)drawInContext:(CGContextRef)context
 {
+    if( !m_active )
+    {
+        return;
+    }
     [super drawInContext:context];
     [self drawPlayerBoxInContext:context];
     [self drawJumpRangeInContext:context];

@@ -29,7 +29,7 @@
 @synthesize editToolsDrawBlocksButton, editToolsEraseButton, editToolsBarView;
 @synthesize editToolsGrabButton, editToolsGroupButton;
 @synthesize editToolsBlockPaletteVC;
-@synthesize showHideEditToolsButton, showHideGridButton, showHidePropsButton, showHideGeoModeButton;
+@synthesize showHideEditToolsButton, showHideGridButton, showHidePropsButton, showHideGeoModeButton, showHideExtentsButton;
 @synthesize docPropsVC, groupPickerVC, drawSettingsVC;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -74,6 +74,7 @@
     self.showHideEditToolsButton = nil;
     self.showHideGridButton = nil;
     self.showHideGeoModeButton = nil;
+    self.showHideExtentsButton = nil;
     
     [m_doc release]; m_doc = nil;
     [m_startingLevel release]; m_startingLevel = nil;
@@ -460,6 +461,14 @@
     {
         self.showHideGeoModeButton.title = @"Show Geo";
     }
+    if( self.worldView.extentView.active )
+    {
+        self.showHideExtentsButton.title = @"Hide Ex";
+    }
+    else
+    {
+        self.showHideExtentsButton.title = @"Show Ex";
+    }
 }
 
 
@@ -497,6 +506,14 @@
 -(IBAction)onShowHideGeoModeButtonPressed:(id)sender
 {
     self.worldView.geoModeVisible = !self.worldView.geoModeVisible;
+    [self.worldView setNeedsDisplay];
+    [self setStringsForShowHideButtons];
+}
+
+
+-(IBAction)onShowHideExtentsButtonPressed:(id)sender
+{
+    self.worldView.extentView.active = !self.worldView.extentView.active;
     [self.worldView setNeedsDisplay];
     [self setStringsForShowHideButtons];
 }

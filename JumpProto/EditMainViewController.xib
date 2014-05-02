@@ -15,7 +15,8 @@
                 <outlet property="editToolsGroupButton" destination="97" id="100"/>
                 <outlet property="extentView" destination="3Kc-fR-CRw" id="Fze-u1-xhV"/>
                 <outlet property="showHideEditToolsButton" destination="10" id="79"/>
-                <outlet property="showHideGeoModeButton" destination="109" id="112"/>
+                <outlet property="showHideExtentsButton" destination="kPS-Yy-bXH" id="Jl9-Ux-vx4"/>
+                <outlet property="showHideGeoModeButton" destination="109" id="6Br-Mt-S08"/>
                 <outlet property="showHideGridButton" destination="11" id="80"/>
                 <outlet property="showHidePropsButton" destination="13" id="104"/>
                 <outlet property="view" destination="2" id="3"/>
@@ -37,6 +38,14 @@
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" red="0.19387755100000001" green="0.19387755100000001" blue="0.19387755100000001" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" id="3Kc-fR-CRw" customClass="EExtentView">
+                    <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                    </accessibility>
                 </view>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="7" userLabel="EMasterToolbar">
                     <rect key="frame" x="0.0" y="724" width="1024" height="44"/>
@@ -61,6 +70,11 @@
                         <barButtonItem title="Show Geo" id="109">
                             <connections>
                                 <action selector="onShowHideGeoModeButtonPressed:" destination="-1" id="111"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Show Ex" id="kPS-Yy-bXH">
+                            <connections>
+                                <action selector="onShowHideExtentsButtonPressed:" destination="-1" id="jcW-eA-Hbv"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="19"/>
@@ -133,14 +147,6 @@
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.31456916099999999" green="0.31632653059999999" blue="0.31281179139999998" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
-                <view userInteractionEnabled="NO" contentMode="scaleToFill" id="3Kc-fR-CRw" customClass="EExtentView">
-                    <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <accessibility key="accessibilityConfiguration">
-                        <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
-                    </accessibility>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.65211513619999995" green="0.12918660039999999" blue="0.67346938779999999" alpha="1" colorSpace="calibratedRGB"/>
