@@ -676,11 +676,13 @@ static NSString *kAttr_onSprite = @"onSprite";
     
     // note: using a different image orientation doesn't appear to work here if we are drawing the underlying CGImage (only works when
     //       using the UIImage drawer)
-    return [UIImage imageWithCGImage:cgImageRef scale:1.f orientation:( isFlipped ? UIImageOrientationUpMirrored : UIImageOrientationUp)];
+    const float editSpriteScale = 0.25f;  // smaller value == larger image
+    return [UIImage imageWithCGImage:cgImageRef scale:editSpriteScale orientation:( isFlipped ? UIImageOrientationUpMirrored : UIImageOrientationUp)];
 
 }
 
 
+// note: used by edit mode only
 -(NSDictionary *)loadImagesForSpriteDefList:(NSArray *)spriteDefList
 {
     LogStopWatch *stopWatch;
