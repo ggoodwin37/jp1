@@ -152,6 +152,12 @@
     [[self.editToolsEraseButton layer] setBorderWidth:1.0f];
     [[self.editToolsGrabButton layer] setBorderWidth:1.0f];
     [[self.editToolsGroupButton layer] setBorderWidth:1.0f];
+    const float bgIntensity = 0.25f;
+    CGColorRef buttonBGColor = [[UIColor colorWithRed:bgIntensity green:bgIntensity blue:bgIntensity alpha:1.f] CGColor];
+    [[self.editToolsDrawBlocksButton layer] setBackgroundColor:buttonBGColor];
+    [[self.editToolsEraseButton layer] setBackgroundColor:buttonBGColor];
+    [[self.editToolsGrabButton layer] setBackgroundColor:buttonBGColor];
+    [[self.editToolsGroupButton layer] setBackgroundColor:buttonBGColor];
     
     self.worldView.document = m_doc;
     self.worldView.currentToolMode = ToolModeDrawBlock;
