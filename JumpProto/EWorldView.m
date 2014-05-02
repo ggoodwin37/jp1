@@ -140,12 +140,15 @@
         lineSkipCounterMax = snapFactor;
     }
     
-    const float grayIntensity = 0.4f;
-	CGContextSetRGBStrokeColor( context, grayIntensity, grayIntensity, grayIntensity, 1.0 );
-	CGContextSetLineWidth( context, 1.5 );
+    const float majorGrayIntensity = 0.4f;
+    const float minorGrayIntensity = 0.3f;
+    const float majorLineWidth = 3.f;
+    const float minorLineWidth = 1.5f;
 
     float u, umax, v;
     float wo, ws, vs;  // worldOrigin, worldSize, viewSize
+    int majmin;
+    const int majminMax = 4;
     
     // first draw the vertical grid (iterating x)
     wo = self.worldRect.origin.x;
@@ -155,13 +158,27 @@
     u = ceilf( u / gridSpaceWorldUnits ) * gridSpaceWorldUnits;
     umax = viewToWorld( self.frame.size.width, wo, ws, vs );
     lineSkipCounter = (int)(floorf( u / gridSpaceWorldUnits )) % lineSkipCounterMax;
+    majmin = (int)ceilf(u / (4 * ONE_BLOCK_SIZE_Fl)) % majminMax;
     for( ; u < umax; u += gridSpaceWorldUnits  )
     {
         if( lineSkipCounter == 0 )
         {
+            if( majmin == 0 )
+            {
+                CGContextSetRGBStrokeColor( context, majorGrayIntensity, majorGrayIntensity, majorGrayIntensity, 1.0 );
+                CGContextSetLineWidth( context, majorLineWidth );
+            }
+            else
+            {
+                CGContextSetRGBStrokeColor( context, minorGrayIntensity, minorGrayIntensity, minorGrayIntensity, 1.0 );
+                CGContextSetLineWidth( context, minorLineWidth );
+            }
+            if( ++majmin == majminMax ) majmin = 0;
+
             v = worldToView( u, wo, ws, vs );
             CGContextMoveToPoint( context, v, 0.f );
             CGContextAddLineToPoint( context, v, self.frame.size.height );
+            CGContextStrokePath(context);
         }
         ++lineSkipCounter;
         if( lineSkipCounter >= lineSkipCounterMax )
@@ -169,7 +186,6 @@
             lineSkipCounter = 0;
         }
     }
-    CGContextStrokePath(context);
 
     // then draw the horizontal grid (iterating y)
     wo = self.worldRect.origin.y;
@@ -179,13 +195,27 @@
     u = ceilf( u / gridSpaceWorldUnits ) * gridSpaceWorldUnits;
     umax = viewToWorld( self.frame.size.height, wo, ws, vs );
     lineSkipCounter =  (int)(floorf( u / gridSpaceWorldUnits )) % lineSkipCounterMax;
+    majmin = (int)ceilf(u / (4 * ONE_BLOCK_SIZE_Fl)) % majminMax;
     for( ; u < umax; u += gridSpaceWorldUnits  )
     {
         if( lineSkipCounter == 0 )
         {
+            if( majmin == 0 )
+            {
+                CGContextSetRGBStrokeColor( context, majorGrayIntensity, majorGrayIntensity, majorGrayIntensity, 1.0 );
+                CGContextSetLineWidth( context, majorLineWidth );
+            }
+            else
+            {
+                CGContextSetRGBStrokeColor( context, minorGrayIntensity, minorGrayIntensity, minorGrayIntensity, 1.0 );
+                CGContextSetLineWidth( context, minorLineWidth );
+            }
+            if( ++majmin == majminMax ) majmin = 0;
+
             v = worldToView( u, wo, ws, vs );
             CGContextMoveToPoint( context, 0.f, v );
             CGContextAddLineToPoint( context, self.frame.size.width, v );
+            CGContextStrokePath(context);
         }
         ++lineSkipCounter;
         if( lineSkipCounter >= lineSkipCounterMax )
@@ -193,7 +223,6 @@
             lineSkipCounter = 0;
         }
     }    
-	CGContextStrokePath(context);
 }
 
 
