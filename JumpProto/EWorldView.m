@@ -138,7 +138,7 @@
     u = ceilf( u / gridSpaceWorldUnits ) * gridSpaceWorldUnits;
     umax = viewToWorld( vs, wo, ws, vs );
     lineSkipCounter = (int)(floorf( u / gridSpaceWorldUnits )) % lineSkipCounterMax;
-    majmin = (int)ceilf(u / (4 * ONE_BLOCK_SIZE_Fl)) % majminMax;  // lol
+    majmin = (int)ceilf(u / (snapFactor * ONE_BLOCK_SIZE_Fl)) % majminMax;  // lol
     for( ; u < umax; u += gridSpaceWorldUnits  )
     {
         shouldDraw = NO;
