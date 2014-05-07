@@ -130,7 +130,7 @@
     const int majminMax = 4;
     BOOL shouldDraw;
 
-    // first draw the vertical grid (iterating x)
+    // iterate over grid, vertical for x or horizontal for y.
     wo = xAxis ? self.worldRect.origin.x : self.worldRect.origin.y;
     ws = xAxis ? self.worldRect.size.width : self.worldRect.size.height;
     vs = xAxis ? self.frame.size.width : self.frame.size.height;
