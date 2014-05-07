@@ -108,37 +108,16 @@
     int lineSkipCounterMax;
     int lineSkipCounter;
 
-    const BOOL dynamicSpacing = NO;
-    if( dynamicSpacing )
+    // not dynamic spacing, line skip max is tied to world's snap grid.
+    int snapFactor = 1;
+    switch( self.currentSnap )
     {
-        float oneBlockWidthInViewUnits = worldToView( gridSpaceWorldUnits, 0.f, self.worldRect.size.width, self.frame.size.width );
-        if( oneBlockWidthInViewUnits <= 12.f )
-        {
-            lineSkipCounterMax = 4;
-        }
-        else if( oneBlockWidthInViewUnits <= 36.f )
-        {
-            lineSkipCounterMax = 2;
-        }
-        else
-        {
-            lineSkipCounterMax = 1;
-        }
+        case 0: default: snapFactor = 1; break;
+        case 1: snapFactor = 2; break;
+        case 2: snapFactor = 4; break;
+        case 3: snapFactor = 8; break;  // aka 2^n
     }
-    else
-    {
-        // not dynamic spacing, line skip max is tied to world's snap grid.
-        int snapFactor = 1;
-        switch( self.currentSnap )
-        {
-            case 0: default: snapFactor = 1; break;
-            case 1: snapFactor = 2; break;
-            case 2: snapFactor = 4; break;
-            case 3: snapFactor = 8; break;  // aka 2^n
-                
-        }
-        lineSkipCounterMax = snapFactor;
-    }
+    lineSkipCounterMax = snapFactor;
     
     const float majorGrayIntensity = 0.4f;
     const float minorGrayIntensity = 0.3f;
