@@ -89,7 +89,7 @@
 }
 
 
--(void)drawGridToContext:(CGContextRef)context
+-(void)drawGridToContext:(CGContextRef)context xAxis:(BOOL)xAxis drawMajors:(BOOL)drawMajors
 {
     if( self.worldRect.size.width <= 0.f || self.worldRect.size.height <= 0.f )
     {
@@ -128,36 +128,51 @@
     float wo, ws, vs;  // worldOrigin, worldSize, viewSize
     int majmin;
     const int majminMax = 4;
-    
+    BOOL shouldDraw;
+
     // first draw the vertical grid (iterating x)
-    wo = self.worldRect.origin.x;
-    ws = self.worldRect.size.width;
-    vs = self.frame.size.width;
+    wo = xAxis ? self.worldRect.origin.x : self.worldRect.origin.y;
+    ws = xAxis ? self.worldRect.size.width : self.worldRect.size.height;
+    vs = xAxis ? self.frame.size.width : self.frame.size.height;
     u = viewToWorld( 0.f, wo, ws, vs );
     u = ceilf( u / gridSpaceWorldUnits ) * gridSpaceWorldUnits;
-    umax = viewToWorld( self.frame.size.width, wo, ws, vs );
+    umax = viewToWorld( vs, wo, ws, vs );
     lineSkipCounter = (int)(floorf( u / gridSpaceWorldUnits )) % lineSkipCounterMax;
-    majmin = (int)ceilf(u / (4 * ONE_BLOCK_SIZE_Fl)) % majminMax;
+    majmin = (int)ceilf(u / (4 * ONE_BLOCK_SIZE_Fl)) % majminMax;  // lol
     for( ; u < umax; u += gridSpaceWorldUnits  )
     {
+        shouldDraw = NO;
         if( lineSkipCounter == 0 )
         {
-            if( majmin == 0 )
+            if( majmin == 0 && drawMajors )
             {
                 CGContextSetRGBStrokeColor( context, majorGrayIntensity, majorGrayIntensity, majorGrayIntensity, 1.0 );
                 CGContextSetLineWidth( context, majorLineWidth );
+                shouldDraw = YES;
             }
-            else
+            if( majmin != 0 && !drawMajors )
             {
                 CGContextSetRGBStrokeColor( context, minorGrayIntensity, minorGrayIntensity, minorGrayIntensity, 1.0 );
                 CGContextSetLineWidth( context, minorLineWidth );
+                shouldDraw = YES;
             }
             if( ++majmin == majminMax ) majmin = 0;
 
-            v = worldToView( u, wo, ws, vs );
-            CGContextMoveToPoint( context, v, 0.f );
-            CGContextAddLineToPoint( context, v, self.frame.size.height );
-            CGContextStrokePath(context);
+            if( shouldDraw )
+            {
+                v = worldToView( u, wo, ws, vs );
+                if( xAxis )
+                {
+                    CGContextMoveToPoint( context, v, 0.f );
+                    CGContextAddLineToPoint( context, v, self.frame.size.height );
+                }
+                else
+                {
+                    CGContextMoveToPoint( context, 0.f, v );
+                    CGContextAddLineToPoint( context, self.frame.size.width, v );
+                }
+                CGContextStrokePath(context);
+            }
         }
         ++lineSkipCounter;
         if( lineSkipCounter >= lineSkipCounterMax )
@@ -165,43 +180,6 @@
             lineSkipCounter = 0;
         }
     }
-
-    // then draw the horizontal grid (iterating y)
-    wo = self.worldRect.origin.y;
-    ws = self.worldRect.size.height;
-    vs = self.frame.size.height;
-    u = viewToWorld( 0.f, wo, ws, vs );
-    u = ceilf( u / gridSpaceWorldUnits ) * gridSpaceWorldUnits;
-    umax = viewToWorld( self.frame.size.height, wo, ws, vs );
-    lineSkipCounter =  (int)(floorf( u / gridSpaceWorldUnits )) % lineSkipCounterMax;
-    majmin = (int)ceilf(u / (4 * ONE_BLOCK_SIZE_Fl)) % majminMax;
-    for( ; u < umax; u += gridSpaceWorldUnits  )
-    {
-        if( lineSkipCounter == 0 )
-        {
-            if( majmin == 0 )
-            {
-                CGContextSetRGBStrokeColor( context, majorGrayIntensity, majorGrayIntensity, majorGrayIntensity, 1.0 );
-                CGContextSetLineWidth( context, majorLineWidth );
-            }
-            else
-            {
-                CGContextSetRGBStrokeColor( context, minorGrayIntensity, minorGrayIntensity, minorGrayIntensity, 1.0 );
-                CGContextSetLineWidth( context, minorLineWidth );
-            }
-            if( ++majmin == majminMax ) majmin = 0;
-
-            v = worldToView( u, wo, ws, vs );
-            CGContextMoveToPoint( context, 0.f, v );
-            CGContextAddLineToPoint( context, self.frame.size.width, v );
-            CGContextStrokePath(context);
-        }
-        ++lineSkipCounter;
-        if( lineSkipCounter >= lineSkipCounterMax )
-        {
-            lineSkipCounter = 0;
-        }
-    }    
 }
 
 
@@ -449,7 +427,11 @@
     [self drawGridDocumentToContext:context];
     if( self.gridVisible )
     {
-        [self drawGridToContext:context];
+        // don't want minor y lines to overlap major x lines, so first draw all minors then all majors.
+        [self drawGridToContext:context xAxis:YES drawMajors:NO];
+        [self drawGridToContext:context xAxis:NO drawMajors:NO];
+        [self drawGridToContext:context xAxis:YES drawMajors:YES];
+        [self drawGridToContext:context xAxis:NO drawMajors:YES];
     }
 }
 
