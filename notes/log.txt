@@ -198,3 +198,7 @@ Next up:
 - save/load plumbing
 - edit UI :(
 - add some more event fx
+
+5-6
+
+Logged on for a bit to fix a few minor but annoying edit bugs.
