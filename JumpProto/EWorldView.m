@@ -424,7 +424,6 @@
 {
     [super drawInContext:context];
     
-    [self drawGridDocumentToContext:context];
     if( self.gridVisible )
     {
         // don't want minor y lines to overlap major x lines, so first draw all minors then all majors.
@@ -433,6 +432,7 @@
         [self drawGridToContext:context xAxis:YES drawMajors:YES];
         [self drawGridToContext:context xAxis:NO drawMajors:YES];
     }
+    [self drawGridDocumentToContext:context];
 }
 
 
