@@ -4,11 +4,13 @@
 - uncruftifying:
   - fix view width during level select
   - fix input sensitivity during play (if different issue than previous)
+  - lots of deprecated warnings
   - iphone & ipad
 
 - level autonaming should prepand a 4-digit, zero-padded int determined as follows:
   - find highest existing such prefix on disk,
   - use next highest int.
+- hold up, I think there's a date prefixer in there now which should be fine.
 
 - events
   - pipe through disk

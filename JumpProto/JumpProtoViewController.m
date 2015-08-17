@@ -62,7 +62,7 @@
     [super viewDidLoad];
 
     NSLog( @"MainWindowViewController viewDidLoad. interface orientation is %@.",
-          UIInterfaceOrientationIsLandscape( self.interfaceOrientation ) ? @"landscape" : @"portrait" );
+          UIInterfaceOrientationIsLandscape( [[UIApplication sharedApplication] statusBarOrientation] ) ? @"landscape" : @"portrait" );
     
     // this assumes that any orientation change support is implemented manually (i.e. this view doesn't autorotate)
     // size the play frame to match the Aspect size (which was set from the launch controller).

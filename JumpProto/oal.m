@@ -123,10 +123,13 @@ void interruptionListener(	void *	inClientData,
 	}
 	else if (inInterruptionState == kAudioSessionEndInterruption)
 	{
-		OSStatus result = AudioSessionSetActive(true);
-		if (result) NSLog(@"Error setting audio session active! %d\n", (int)result);
-		
-		alcMakeContextCurrent(THIS->context);
+// TODO: fix deprecated audio shit
+#if 0
+        OSStatus result = AudioSessionSetActive(true);
+        if (result) NSLog(@"Error setting audio session active! %d\n", (int)result);
+#endif
+
+        alcMakeContextCurrent(THIS->context);
 		
 		//		if (THIS.wasInterrupted)
 		//		{
@@ -141,6 +144,8 @@ void RouteChangeListener(	void *                  inClientData,
 						 UInt32                  inDataSize,
 						 const void *            inData)
 {
+// TODO: fix deprecated audio shit
+#if 0
 	CFDictionaryRef dict = (CFDictionaryRef)inData;
 	
 	CFStringRef oldRoute = CFDictionaryGetValue(dict, CFSTR(kAudioSession_AudioRouteChangeKey_OldRoute));
@@ -151,12 +156,14 @@ void RouteChangeListener(	void *                  inClientData,
 	OSStatus result = AudioSessionGetProperty(kAudioSessionProperty_AudioRoute, &size, &newRoute);
 	
 	NSLog(@"result: %d Route changed from %@ to %@", (int)result, oldRoute, newRoute);
+#endif
 }
 
 - (id)initWithResourceNames:(NSArray *)resourceNamesIn
 {	
 	if (self = [super init]) {
-		
+// TODO: fix deprecated audio shit
+#if 0
 		resourceNames = [resourceNamesIn retain];
 		
 		int nameListSize = (int)([resourceNames count] * sizeof( ALuint ));
@@ -200,7 +207,8 @@ void RouteChangeListener(	void *                  inClientData,
 		
 		// Initialize our OpenAL environment
 		[self initOpenAL];
-	}
+#endif
+    }
 	
 	return self;
 }
