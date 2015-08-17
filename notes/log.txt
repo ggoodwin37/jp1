@@ -199,6 +199,12 @@ Next up:
 - edit UI :(
 - add some more event fx
 
-5-6
+5-6(-2014)
 
 Logged on for a bit to fix a few minor but annoying edit bugs.
+
+8-16-2015
+
+Over a year has passed with no work on this project. I think the lack of motivation is due to the lack of fun in the gameplay right now. But it isn't hopeless, I think there's a decent framework here to start building any number of interesting things. But it needs a lot more.
+
+First step is to get it running again. Amazing how 15 months of inactivity creates layers of cobwebs in the gears. At least it's free to run code on the device now.

@@ -1,6 +1,15 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // near term
 
+- uncruftifying:
+  - fix view width during level select
+  - fix input sensitivity during play (if different issue than previous)
+  - iphone & ipad
+
+- level autonaming should prepand a 4-digit, zero-padded int determined as follows:
+  - find highest existing such prefix on disk,
+  - use next highest int.
+
 - events
   - pipe through disk
   - edit mode D---:
