@@ -43,7 +43,7 @@
 
 						// TODO: list sound resource names here.
 						   
-						   nil ];
+						   @"", nil ];
 	
 	NSAssert( [soundNames count] + 1 == SoundIdCount, @"Missing sound names or ids problem?" );   // +1 for SoundIdNone
 

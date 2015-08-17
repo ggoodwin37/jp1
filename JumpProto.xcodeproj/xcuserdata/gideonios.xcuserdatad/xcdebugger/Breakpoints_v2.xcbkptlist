@@ -11,6 +11,8 @@
             continueAfterRunningActions = "No"
             symbolName = "malloc_error_break"
             moduleName = "">
+            <Locations>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
