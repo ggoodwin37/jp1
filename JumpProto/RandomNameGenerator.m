@@ -80,8 +80,8 @@
 {
     NSDate *today = [NSDate date];
     NSCalendar *gregorian = [[NSCalendar alloc]
-                             initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *dateComponents = [gregorian components:(NSSecondCalendarUnit | NSMinuteCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSYearCalendarUnit) fromDate:today];
+                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *dateComponents = [gregorian components:(NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitYear) fromDate:today];
     int day = (int)[dateComponents day];
     int second = (int)[dateComponents second];
     int minute = (int)[dateComponents minute];

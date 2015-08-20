@@ -214,7 +214,7 @@
 {
     self.groupOverlayDrawer.textColor = [UIColor whiteColor];
     self.groupOverlayDrawer.font = [UIFont fontWithName:@"Courier-Bold" size:(28.0)];
-    self.groupOverlayDrawer.textAlignment = UITextAlignmentCenter;
+    self.groupOverlayDrawer.textAlignment = NSTextAlignmentCenter;
 }
 
 
