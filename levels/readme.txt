@@ -1,6 +1,14 @@
 Each batch is just the Documents folder from an app dump, renamed to a unique name.
-To put these on a device:
-first, xcode->organizer->select device->applications->download, save the original image in ~/tmp or something
+
+// xcode 7
+to take a dump:
+  window -> devices -> choose device on left -> select the install app -> gear menu -> download -> save it to ~/tmp or whatever
+
+to replace a dump:
+  same, except upload the image instead
+
 make sure app isn't running on device (even in background)
 make sure device is passcode unlocked just in case
-then, go to the documents folder inside the original image and copy all the levels from a batch into there.
+
+documents folder is here:
+com.goodguyapps.JumpProto 2015-08-19 21:13.31.406.xcappdata/AppData/Documents
