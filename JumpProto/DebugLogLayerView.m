@@ -212,7 +212,8 @@
     
     UIFont *myUIFont = [UIFont fontWithName:m_args.fontName size:m_args.fontSize];
     NSAssert( myUIFont != nil, @"Couldn't load requested font name?" );
-    CGSize textRect = [@"X" sizeWithFont:myUIFont];
+    NSDictionary *attr = [NSDictionary dictionaryWithObject:myUIFont forKey:NSFontAttributeName];
+    CGSize textRect = [@"X" sizeWithAttributes:attr];
     m_oneCharWidth = textRect.width;
     m_oneCharHeight = textRect.height;
     
@@ -305,10 +306,7 @@
 
 -(void)updateRaster
 {
-
     CGContextClearRect( m_cgContext, CGRectMake( 0, 0, m_paddedWidth, m_paddedHeight ) );
-    
-    CGContextSelectFont( m_cgContext, [m_args.fontName UTF8String], m_args.fontSize, kCGEncodingMacRoman);
 	CGContextSetCharacterSpacing( m_cgContext, 1 );
 	CGContextSetTextDrawingMode( m_cgContext, kCGTextFill );
 
@@ -322,9 +320,12 @@
     //  can draw the texture natively later.
 	CGAffineTransform flipTransform = CGAffineTransformMake( 1.0, 0.0, 0.0, -1.0, 0.0, 0.0 );
     CGContextSetTextMatrix( m_cgContext, flipTransform );
-    
+
+    UIGraphicsPushContext(m_cgContext );
+
+    NSDictionary *fontAttr = @{NSFontAttributeName:[UIFont fontWithName:m_args.fontName size:m_args.fontSize]};
+
     // draw strings in order from oldest at the top, on down.
-    NSString *str;
     float x = 0.f;
     float y = m_oneCharHeight - 2.f;
     
@@ -338,12 +339,11 @@
         }
 
         int thisIndex = maxCount - iRow - 1;
-        str = [m_buffer getNthNewestEntry:thisIndex];
-        CGContextShowTextAtPoint( m_cgContext, x, y, [str UTF8String], [str length] );
+        [[m_buffer getNthNewestEntry:thisIndex] drawAtPoint:CGPointMake(x, y) withAttributes:fontAttr];
         y += m_oneCharHeight;
     }
-  
-    
+    UIGraphicsPopContext();
+
     // next, upload the texture to openGL
     
     glBindTexture( GL_TEXTURE_2D, m_texName );

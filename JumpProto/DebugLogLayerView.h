@@ -113,6 +113,8 @@
 
 @end
 
+// TODO: turning this on now breaks other layers, either this is leaving gl in a bad state, or other layers are not
+//       initializing something they should be.
 //#define DEBUG_LOG_LAYER_ACTIVE
 
 // should we additionally NSLog everything when pane is active?
