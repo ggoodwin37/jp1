@@ -7,8 +7,10 @@ to take a dump:
 to replace a dump:
   same, except upload the image instead
 
+if you want to copy a level batch to a device, make sure to first download the image, then replace level files, then replace image.
+
 make sure app isn't running on device (even in background)
 make sure device is passcode unlocked just in case
 
 documents folder is here:
-com.goodguyapps.JumpProto 2015-08-19 21:13.31.406.xcappdata/AppData/Documents
+com.goodguyapps.JumpProto <date>.xcappdata/AppData/Documents
